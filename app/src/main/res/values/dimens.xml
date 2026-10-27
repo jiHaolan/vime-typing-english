@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  竖屏键盘几何，严格对齐原型（边打字边背单词-输入法原型.html）：
+    cand-h   56px  候选栏
+    kb-h     234px 键盘容器（padding 6px 3px 8px，4 行，gap 6px）
+    4×50.5 + 3×6 = 220，加 padding 6+8 = 234
+
+  三块面板等高，切换不跳窗：
+    字母     4 行 × key_height      + 3 × 6 = 220
+    符号数字 5 行 × key_height_grid + 4 × 6 = 220
+-->
+<resources>
+    <dimen name="cand_height">56dp</dimen>
+    <dimen name="tool_height">48dp</dimen>
+
+    <dimen name="key_height">50.5dp</dimen>
+    <dimen name="key_height_grid">39.2dp</dimen>
+
+    <dimen name="keyboard_height">234dp</dimen>
+    <dimen name="keyboard_pad_top">6dp</dimen>
+    <dimen name="keyboard_pad_bottom">8dp</dimen>
+    <dimen name="keyboard_pad_side">3dp</dimen>
+
+    <dimen name="key_radius">8dp</dimen>
+    <dimen name="key_gap_h">5dp</dimen>
+    <dimen name="key_gap_v">6dp</dimen>
+
+    <dimen name="cand_tag_size">11sp</dimen>
+    <dimen name="cand_zh_size">17sp</dimen>
+    <dimen name="page_gutter">24dp</dimen>
+</resources>
+

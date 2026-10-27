@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 自适应图标前景：三条逐渐变短的白色横条＝候选栏英文标签逐次褪除 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.97"
+        android:pathData="M26.57,33.91 H81.43 A3.35,3.35 0 0 1 81.43,40.61 H26.57 A3.35,3.35 0 0 1 26.57,33.91 Z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.74"
+        android:pathData="M26.57,49.03 H67.93 A3.35,3.35 0 0 1 67.93,55.73 H26.57 A3.35,3.35 0 0 1 26.57,49.03 Z" />
+
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.50"
+        android:pathData="M26.57,64.15 H56.59 A3.35,3.35 0 0 1 56.59,70.85 H26.57 A3.35,3.35 0 0 1 26.57,64.15 Z" />
+</vector>
+

@@ -1,0 +1,61 @@
+<resources>
+  <style name="ImeTheme" parent="Theme.AppCompat.NoActionBar">
+    <item name="android:windowBackground">@color/panel_bg</item>
+    <item name="android:colorBackground">@color/panel_bg</item>
+    <item name="android:statusBarColor">@color/panel_bg</item>
+    <item name="android:navigationBarColor">@color/panel_bg</item>
+    <item name="colorAccent">@color/acc_ink</item>
+    <item name="android:colorAccent">@color/acc_ink</item>
+    <item name="android:windowLightStatusBar">false</item>
+    <item name="vimeIcLauncherBg">@color/ic_launcher_bg</item>
+    <item name="vimeInk">@color/ink</item>
+    <item name="vimeInk2">@color/ink_2</item>
+    <item name="vimeInk3">@color/ink_3</item>
+    <item name="vimeLine">@color/line</item>
+    <item name="vimeLine2">@color/line_2</item>
+    <item name="vimeKbBg">@color/kb_bg</item>
+    <item name="vimeKey">@color/key</item>
+    <item name="vimeKeyFn">@color/key_fn</item>
+    <item name="vimeKeyPress">@color/key_press</item>
+    <item name="vimeKeyEdge">@color/key_edge</item>
+    <item name="vimeCandBg">@color/cand_bg</item>
+    <item name="vimePanelBg">@color/panel_bg</item>
+    <item name="vimeAcc">@color/acc</item>
+    <item name="vimeOnAcc">@color/on_acc</item>
+    <item name="vimeAccSoft">@color/acc_soft</item>
+    <item name="vimeAccInk">@color/acc_ink</item>
+    <item name="vimeSurface">@color/surface</item>
+    <item name="vimeSurfaceAlt">@color/surface_alt</item>
+    <item name="vimeSuccess">@color/success</item>
+    <item name="vimeLv0">@color/lv0</item>
+    <item name="vimeLv1">@color/lv1</item>
+    <item name="vimeLv2">@color/lv2</item>
+  </style>
+  <style name="ImeKeyboardTheme" parent="@android:style/Theme.DeviceDefault.NoActionBar">
+    <item name="android:windowBackground">@color/kb_bg</item>
+    <item name="android:colorBackground">@color/kb_bg</item>
+    <item name="vimeIcLauncherBg">@color/ic_launcher_bg</item>
+    <item name="vimeInk">@color/ink</item>
+    <item name="vimeInk2">@color/ink_2</item>
+    <item name="vimeInk3">@color/ink_3</item>
+    <item name="vimeLine">@color/line</item>
+    <item name="vimeLine2">@color/line_2</item>
+    <item name="vimeKbBg">@color/kb_bg</item>
+    <item name="vimeKey">@color/key</item>
+    <item name="vimeKeyFn">@color/key_fn</item>
+    <item name="vimeKeyPress">@color/key_press</item>
+    <item name="vimeKeyEdge">@color/key_edge</item>
+    <item name="vimeCandBg">@color/cand_bg</item>
+    <item name="vimePanelBg">@color/panel_bg</item>
+    <item name="vimeAcc">@color/acc</item>
+    <item name="vimeOnAcc">@color/on_acc</item>
+    <item name="vimeAccSoft">@color/acc_soft</item>
+    <item name="vimeAccInk">@color/acc_ink</item>
+    <item name="vimeSurface">@color/surface</item>
+    <item name="vimeSurfaceAlt">@color/surface_alt</item>
+    <item name="vimeSuccess">@color/success</item>
+    <item name="vimeLv0">@color/lv0</item>
+    <item name="vimeLv1">@color/lv1</item>
+    <item name="vimeLv2">@color/lv2</item>
+  </style>
+</resources>

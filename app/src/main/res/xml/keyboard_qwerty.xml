@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  原型字母键盘（layouts.qwerty，第 1706–1712 行）：
+    ['q'...'p']                              10 键，各 10%
+    ['a'...'l']                              9 键，左右各缩进 4.5%（原型 indent[1] = .045）
+    ['SHIFT','z'...'m','DEL']                权重 1.5 / 1 / 1.5  → 15% 10% 15%
+    ['123','中英','，','SPACE','。','GO']     权重 1.4/1.4/1.2/3.4/1.2/1.4 → 14/14/12/34/12/14
+
+  横向键缝由 VimeKeyboardView 绘制时左右各内缩 2.5dp 实现（horizontalGap 会顶出屏幕）。
+  第 2 行的左右缩进用「无 codes 的空键」占位，绘制与命中都会跳过它们。
+-->
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="10%p"
+    android:keyHeight="@dimen/key_height"
+    android:horizontalGap="0px"
+    android:verticalGap="6dp">
+
+    <!-- 第 1 行：10 键 × 10% -->
+    <Row>
+        <Key android:codes="113" android:keyLabel="q" />
+        <Key android:codes="119" android:keyLabel="w" />
+        <Key android:codes="101" android:keyLabel="e" />
+        <Key android:codes="114" android:keyLabel="r" />
+        <Key android:codes="116" android:keyLabel="t" />
+        <Key android:codes="121" android:keyLabel="y" />
+        <Key android:codes="117" android:keyLabel="u" />
+        <Key android:codes="105" android:keyLabel="i" />
+        <Key android:codes="111" android:keyLabel="o" />
+        <Key android:codes="112" android:keyLabel="p" />
+    </Row>
+
+    <!-- 第 2 行：左右各缩进 4.5%，9 键各 10.11% -->
+    <Row>
+        <Key android:codes="0" android:keyWidth="4.5%p" />
+        <Key android:codes="97" android:keyLabel="a" android:keyWidth="10.11%p" />
+        <Key android:codes="115" android:keyLabel="s" android:keyWidth="10.11%p" />
+        <Key android:codes="100" android:keyLabel="d" android:keyWidth="10.11%p" />
+        <Key android:codes="102" android:keyLabel="f" android:keyWidth="10.11%p" />
+        <Key android:codes="103" android:keyLabel="g" android:keyWidth="10.11%p" />
+        <Key android:codes="104" android:keyLabel="h" android:keyWidth="10.11%p" />
+        <Key android:codes="106" android:keyLabel="j" android:keyWidth="10.11%p" />
+        <Key android:codes="107" android:keyLabel="k" android:keyWidth="10.11%p" />
+        <Key android:codes="108" android:keyLabel="l" android:keyWidth="10.11%p" />
+        <Key android:codes="0" android:keyWidth="4.5%p" />
+    </Row>
+
+    <!-- 第 3 行：⇧15% + 7×10% + ⌫15% -->
+    <Row>
+        <!-- -1 = Keyboard.KEYCODE_SHIFT，三态循环：无 → 单字母 → 全大写 -->
+        <Key android:codes="-1" android:keyLabel="⇧" android:keyWidth="15%p" />
+        <Key android:codes="122" android:keyLabel="z" />
+        <Key android:codes="120" android:keyLabel="x" />
+        <Key android:codes="99" android:keyLabel="c" />
+        <Key android:codes="118" android:keyLabel="v" />
+        <Key android:codes="98" android:keyLabel="b" />
+        <Key android:codes="110" android:keyLabel="n" />
+        <Key android:codes="109" android:keyLabel="m" />
+        <!-- -5 = KEYCODE_DELETE -->
+        <Key android:codes="-5" android:keyLabel="⌫" android:keyWidth="15%p" />
+    </Row>
+
+    <!-- 第 4 行：123 14% + 中英 14% + ，12% + 空格 34% + 。12% + 前往 14% -->
+    <Row>
+        <!-- -2 = KEYCODE_MODE_CHANGE，切数字面板（与原型 123 一致） -->
+        <Key android:codes="-20003" android:keyLabel="符" android:keyWidth="10%p" />
+        <Key android:codes="-2" android:keyLabel="123" android:keyWidth="10%p" />
+        <Key android:codes="44" android:keyLabel="，" android:keyWidth="8%p" />
+        <Key android:codes="32" android:keyLabel="空格" android:keyWidth="40%p" />
+        <Key android:codes="46" android:keyLabel="。" android:keyWidth="8%p" />
+        <Key android:codes="-20001" android:keyLabel="中英" android:keyWidth="10%p" />
+        <!-- -4 = KEYCODE_DONE；文案随 imeOptions 换成 搜索/发送/前往/下一项/换行 -->
+        <Key android:codes="-4" android:keyLabel="前往" android:keyWidth="14%p" />
+    </Row>
+</Keyboard>
+

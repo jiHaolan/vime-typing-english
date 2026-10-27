@@ -1,0 +1,1 @@
+<resources><style name="VoicePermissionTheme" parent="android:style/Theme.Translucent.NoTitleBar"><item name="android:windowIsTranslucent">true</item><item name="android:colorAccent">#4453C7</item></style></resources>

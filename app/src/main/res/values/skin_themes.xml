@@ -1,0 +1,86 @@
+<resources>
+<style name="ImeThemeSkin0" parent="ImeTheme">
+</style>
+<style name="ImeKeyboardThemeSkin0" parent="ImeKeyboardTheme">
+</style>
+<style name="ImeThemeSkin1" parent="ImeTheme">
+<item name="vimePanelBg">#F0F7F3</item>
+<item name="vimeKbBg">#DFEBE4</item>
+<item name="vimeKeyFn">#C9DDD1</item>
+<item name="vimeAcc">#166A52</item>
+<item name="vimeAccSoft">#E0F2E8</item>
+<item name="vimeAccInk">#166A52</item>
+</style>
+<style name="ImeKeyboardThemeSkin1" parent="ImeKeyboardTheme">
+<item name="vimePanelBg">#F0F7F3</item>
+<item name="vimeKbBg">#DFEBE4</item>
+<item name="vimeKeyFn">#C9DDD1</item>
+<item name="vimeAcc">#166A52</item>
+<item name="vimeAccSoft">#E0F2E8</item>
+<item name="vimeAccInk">#166A52</item>
+</style>
+<style name="ImeThemeSkin2" parent="ImeTheme">
+<item name="vimePanelBg">#FFF6EB</item>
+<item name="vimeKbBg">#F0E5D6</item>
+<item name="vimeKeyFn">#E6D2B9</item>
+<item name="vimeAcc">#96521B</item>
+<item name="vimeAccSoft">#FAE7D0</item>
+<item name="vimeAccInk">#844413</item>
+</style>
+<style name="ImeKeyboardThemeSkin2" parent="ImeKeyboardTheme">
+<item name="vimePanelBg">#FFF6EB</item>
+<item name="vimeKbBg">#F0E5D6</item>
+<item name="vimeKeyFn">#E6D2B9</item>
+<item name="vimeAcc">#96521B</item>
+<item name="vimeAccSoft">#FAE7D0</item>
+<item name="vimeAccInk">#844413</item>
+</style>
+<style name="ImeThemeSkin3" parent="ImeTheme">
+<item name="vimePanelBg">#FCF1F6</item>
+<item name="vimeKbBg">#EEE0E8</item>
+<item name="vimeKeyFn">#E3CADA</item>
+<item name="vimeAcc">#A13867</item>
+<item name="vimeAccSoft">#F8E1ED</item>
+<item name="vimeAccInk">#91315C</item>
+</style>
+<style name="ImeKeyboardThemeSkin3" parent="ImeKeyboardTheme">
+<item name="vimePanelBg">#FCF1F6</item>
+<item name="vimeKbBg">#EEE0E8</item>
+<item name="vimeKeyFn">#E3CADA</item>
+<item name="vimeAcc">#A13867</item>
+<item name="vimeAccSoft">#F8E1ED</item>
+<item name="vimeAccInk">#91315C</item>
+</style>
+<style name="ImeThemeSkin4" parent="ImeTheme">
+<item name="vimePanelBg">#F0F3F6</item>
+<item name="vimeKbBg">#DCE2E9</item>
+<item name="vimeKeyFn">#C3CDD9</item>
+<item name="vimeAcc">#3F5267</item>
+<item name="vimeAccSoft">#E0E7EF</item>
+<item name="vimeAccInk">#35485D</item>
+</style>
+<style name="ImeKeyboardThemeSkin4" parent="ImeKeyboardTheme">
+<item name="vimePanelBg">#F0F3F6</item>
+<item name="vimeKbBg">#DCE2E9</item>
+<item name="vimeKeyFn">#C3CDD9</item>
+<item name="vimeAcc">#3F5267</item>
+<item name="vimeAccSoft">#E0E7EF</item>
+<item name="vimeAccInk">#35485D</item>
+</style>
+<style name="ImeThemeSkin5" parent="ImeTheme">
+<item name="vimePanelBg">#F0F7FC</item>
+<item name="vimeKbBg">#DCEAF4</item>
+<item name="vimeKeyFn">#C2D8E8</item>
+<item name="vimeAcc">#21648D</item>
+<item name="vimeAccSoft">#DDEFFC</item>
+<item name="vimeAccInk">#185779</item>
+</style>
+<style name="ImeKeyboardThemeSkin5" parent="ImeKeyboardTheme">
+<item name="vimePanelBg">#F0F7FC</item>
+<item name="vimeKbBg">#DCEAF4</item>
+<item name="vimeKeyFn">#C2D8E8</item>
+<item name="vimeAcc">#21648D</item>
+<item name="vimeAccSoft">#DDEFFC</item>
+<item name="vimeAccInk">#185779</item>
+</style>
+</resources>

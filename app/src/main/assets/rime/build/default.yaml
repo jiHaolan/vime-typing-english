@@ -1,0 +1,11 @@
+__build_info:
+  rime_version: 1.16.1
+  timestamps:
+    default: 1792849488
+    default.custom: 0
+config_version: 0.14.0
+menu:
+  page_size: 10
+schema_list:
+  - schema: vime_pinyin
+  - schema: vime_nine

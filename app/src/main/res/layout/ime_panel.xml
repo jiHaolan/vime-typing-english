@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  「工具箱」/「键盘选择」通用面板（参考百度输入法的同名面板）。
+  结构：标题栏（返回 + 标题） + 4×2 网格 + 底部栏（地球 / 收起）。
+  格子内容由 VimeImeService 动态填，可用的正常色，未实现的置灰并标「待」。
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/vimePanelBg"
+    android:clickable="true"
+    android:focusable="true"
+    android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 标题栏 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="4dp">
+
+            <TextView
+                android:id="@+id/panelBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="‹"
+                android:textColor="?attr/vimeInk"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/panelTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="工具箱"
+                android:textColor="?attr/vimeInk"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- 4 列 × 2 行 -->
+        <GridLayout
+            android:id="@+id/panelGrid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:columnCount="4"
+            android:rowCount="2"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp" />
+
+        <FrameLayout
+            android:id="@+id/panelContent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+        <!-- 底部栏 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
+
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/panelClose"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:text="⌄"
+                android:textColor="?attr/vimeInk2"
+                android:textSize="22sp" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
+

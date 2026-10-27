@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  符号面板（T15 新增）。键位表按总指挥 12:53 的裁决逐键落地，5 行 × 8 键 / 12.5%。
+
+  几何：5 行 × 41dp + 4 × 3dp 键缝 = 217dp，与字母键盘等高 ——
+  三块面板换着用时输入法窗口高度不跳，手指不会打空。
+
+  输出走 codes 单值，所见即所得：中文态也不做半角/全角转换。
+-->
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="12.5%p"
+    android:keyHeight="@dimen/key_height_grid"
+    android:horizontalGap="0px"
+    android:verticalGap="6dp">
+
+    <!-- 第 1 行：中文标点 -->
+    <Row>
+        <Key android:codes="65292" android:keyLabel="，" />
+        <Key android:codes="12290" android:keyLabel="。" />
+        <Key android:codes="12289" android:keyLabel="、" />
+        <Key android:codes="65307" android:keyLabel="；" />
+        <Key android:codes="65306" android:keyLabel="：" />
+        <Key android:codes="65311" android:keyLabel="？" />
+        <Key android:codes="65281" android:keyLabel="！" />
+        <Key android:codes="12316" android:keyLabel="～" />
+    </Row>
+
+    <!-- 第 2 行：成对符号 -->
+    <Row>
+        <Key android:codes="65288" android:keyLabel="（" />
+        <Key android:codes="65289" android:keyLabel="）" />
+        <Key android:codes="12298" android:keyLabel="《" />
+        <Key android:codes="12299" android:keyLabel="》" />
+        <Key android:codes="12300" android:keyLabel="「" />
+        <Key android:codes="12301" android:keyLabel="」" />
+        <Key android:codes="8220" android:keyLabel="“" />
+        <Key android:codes="8221" android:keyLabel="”" />
+    </Row>
+
+    <!-- 第 3 行：常用符号 -->
+    <Row>
+        <Key android:codes="64" android:keyLabel="@" />
+        <Key android:codes="35" android:keyLabel="#" />
+        <Key android:codes="65509" android:keyLabel="￥" />
+        <Key android:codes="37" android:keyLabel="%" />
+        <Key android:codes="38" android:keyLabel="&amp;" />
+        <Key android:codes="42" android:keyLabel="*" />
+        <Key android:codes="43" android:keyLabel="+" />
+        <Key android:codes="61" android:keyLabel="=" />
+    </Row>
+
+    <!-- 第 4 行：斜杠 / 下划线 / 连字符 / 省略号 一类 -->
+    <Row>
+        <Key android:codes="47" android:keyLabel="/" />
+        <!-- 反斜杠在资源里要写成 \\，否则 aapt 把单个 \ 当转义符吃掉闭合引号 -->
+        <Key android:codes="92" android:keyLabel="\\" />
+        <Key android:codes="95" android:keyLabel="_" />
+        <Key android:codes="45" android:keyLabel="-" />
+        <Key android:codes="183" android:keyLabel="·" />
+        <Key android:codes="8230" android:keyLabel="…" />
+        <Key android:codes="8212" android:keyLabel="—" />
+        <Key android:codes="39" android:keyLabel="'" />
+    </Row>
+
+    <!-- 第 5 行：123 15% ／ 空格 45% ／ ⌫ 15% ／ ABC 25% = 100% -->
+    <Row>
+        <!-- -2 = KEYCODE_MODE_CHANGE：符号面板 → 数字面板 -->
+        <Key android:codes="-2" android:keyLabel="123" android:keyWidth="15%p" />
+        <Key android:codes="32" android:keyLabel="空格" android:keyWidth="45%p" />
+        <Key android:codes="-5" android:keyLabel="⌫" android:keyWidth="15%p"
+            android:isRepeatable="true" />
+        <!-- -20002 = 自定义：直接回字母键盘（不走循环，避免和 123 抢 -2） -->
+        <Key android:codes="-20002" android:keyLabel="ABC" android:keyWidth="25%p" />
+    </Row>
+</Keyboard>
+

@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  P0 修复核心：候选栏与键盘必须在同一个 inputView 里。
+  原实现把候选栏放进 onCreateCandidatesView()（独立窗口），既不自动显示，
+  位置还会漂到屏幕顶部，看起来就像「键盘只有一半、打字没反应」。
+
+  单词卡也改成同一窗口内的浮层，不再用 PopupWindow —— IME 窗口没有普通
+  Activity 的 window token，PopupWindow 在部分机型上会出现不显示或立即被关闭。
+
+  T15 重排：候选栏 58dp → 48dp（把 10dp 还给键盘），从左到右
+  模式指示 → 候选区 → ‹ › 翻页 → 分隔线 → 分级 chip → 收起键盘。
+-->
+<com.vime.ime.ImeRootLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/keyboardBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="?attr/vimeKbBg">
+
+        <!-- ░░ 候选栏 ░░ 56dp（原型 cand-h），底色 cand-bg ░░ -->
+        <LinearLayout
+            android:id="@+id/candidateBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/cand_height"
+            android:background="?attr/vimeCandBg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- 模式指示：40dp，点击等同中英切换（和键盘上的中英键同一个动作） -->
+            <TextView
+                android:id="@+id/modePill"
+                android:visibility="gone"
+                android:layout_width="40dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/mode_pill_bg"
+                android:gravity="center"
+                android:text="中"
+                android:textColor="?attr/vimeInk2"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:id="@+id/candidateContent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <HorizontalScrollView
+                    android:id="@+id/scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/candidateRow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="6dp" />
+                </HorizontalScrollView>
+
+                <TextView
+                    android:id="@+id/hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="12.5sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="8dp"
+                    android:textColor="?attr/vimeInk2"
+                    android:text="词典加载中…" />
+            </FrameLayout>
+            <TextView android:id="@+id/expandCandidates" android:layout_width="48dp" android:layout_height="match_parent" android:gravity="center" android:text="展开" android:textSize="12sp" android:textColor="?attr/vimeInk2" android:contentDescription="展开更多候选" android:background="@drawable/pill_bg" android:visibility="gone" />
+
+            <LinearLayout android:id="@+id/voiceStrip" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone" android:gravity="center_vertical" android:paddingStart="12dp" android:orientation="horizontal">
+                <com.vime.ime.VoicePulseView android:id="@+id/voicePulse" android:layout_width="48dp" android:layout_height="32dp" android:importantForAccessibility="no" />
+                <TextView android:id="@+id/voiceStatus" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="正在语音输入" android:textSize="13sp" android:maxLines="2" android:ellipsize="end" android:textColor="?attr/vimeInk" android:accessibilityLiveRegion="polite" />
+                <TextView android:id="@+id/voiceStop" style="@style/LevelChip" android:layout_width="64dp" android:layout_weight="0" android:text="取消" />
+            </LinearLayout>
+            <!-- 翻页：候选超过 5 个才出现，各 32dp。翻页只换候选，不动已输入的拼音 -->
+            <TextView
+                android:id="@+id/prevPage"
+                android:visibility="gone"
+                android:layout_width="28dp"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="‹"
+                android:textColor="?attr/vimeInk2"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/nextPage"
+                android:visibility="gone"
+                android:layout_width="28dp"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="›"
+                android:textColor="?attr/vimeInk2"
+                android:textSize="19sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:visibility="gone"
+                android:layout_height="22dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:background="?attr/vimeLine" />
+
+            <TextView
+                android:id="@+id/levelChip"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginStart="4dp"
+                android:background="@drawable/pill_bg"
+                android:gravity="center"
+                android:minWidth="42dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="全部"
+                android:textColor="?attr/vimeInk2"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <!-- 收起键盘 40dp -->
+            <TextView
+                android:id="@+id/hideKb"
+                android:visibility="gone"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="⌄"
+                android:textColor="?attr/vimeInk2"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="?attr/vimeLine" />
+
+        <!-- ░░ 工具条 ░░ 40dp（原型 tool-h，buildToolbar）
+             原型 7 项：键盘 / 回顾 / 复习 / 音效 / 主题 / 帮助 / 设置
+             Android 端目前只放真实可用的 3 项，其余等对应功能做完再加 ——
+             宁可少两个图标，也不放点了没反应的假按钮。 -->
+        <LinearLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tool_height"
+            android:background="?attr/vimeKbBg"
+            android:orientation="horizontal"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp">
+
+            <LinearLayout android:id="@+id/tbSettings" style="@style/ToolbarTile" android:contentDescription="工具箱，包含剪贴板与离线词典">
+                <ImageView style="@style/ToolbarIcon" android:src="@drawable/ic_toolbox" />
+                <TextView style="@style/ToolbarLabel" android:text="工具" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/tbEmoji" style="@style/ToolbarTile" android:contentDescription="表情和颜文字">
+                <ImageView style="@style/ToolbarIcon" android:src="@drawable/ic_emoji" />
+                <TextView style="@style/ToolbarLabel" android:text="表情" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/tbIme" style="@style/ToolbarTile" android:contentDescription="本键盘的全键与九键布局">
+                <ImageView style="@style/ToolbarIcon" android:src="@drawable/ic_keyboard" />
+                <TextView style="@style/ToolbarLabel" android:text="布局" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/tbStudy" style="@style/ToolbarTile" android:contentDescription="生词本和复习">
+                <ImageView style="@style/ToolbarIcon" android:src="@drawable/ic_wordbook" />
+                <TextView style="@style/ToolbarLabel" android:text="生词" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/tbCollapse" style="@style/ToolbarTile" android:contentDescription="收起键盘">
+                <ImageView style="@style/ToolbarIcon" android:src="@drawable/ic_chevron" />
+                <TextView style="@style/ToolbarLabel" android:text="收起" />
+            </LinearLayout>
+            <TextView android:id="@+id/tbClipboard" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <TextView android:id="@+id/tbHelp" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- ░░ 键盘 ░░ 竖屏 234dp / 横屏 181dp（原型 kb-h，见 dimens）
+             三块面板等高，切换时窗口不跳
+             VimeKeyboardView 自绘键面（继承 View，不继承 KeyboardView） -->
+        <View android:id="@+id/toolbarGuard" android:layout_width="match_parent" android:layout_height="12dp" android:clickable="true" android:importantForAccessibility="no" />
+        <com.vime.ime.VimeKeyboardView
+            android:id="@+id/keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/keyboard_height"
+            android:background="?attr/vimeKbBg"
+            android:paddingTop="@dimen/keyboard_pad_top"
+            android:paddingBottom="@dimen/keyboard_pad_bottom" />
+        <View android:id="@+id/bottomInset" android:layout_width="match_parent" android:layout_height="0dp" android:importantForAccessibility="no" />
+    </LinearLayout>
+
+    <!-- ░░ 单词卡浮层 ░░ 长按候选弹出 -->
+    <FrameLayout
+        android:id="@+id/cardOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+        <LinearLayout
+            android:id="@+id/cardPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/card_bg"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <TextView
+                android:id="@+id/cardWord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="?attr/vimeInk" />
+
+            <TextView
+                android:id="@+id/cardPy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="?attr/vimeInk3" />
+
+            <TextView
+                android:id="@+id/cardEn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="?attr/vimeLv0" />
+
+            <TextView
+                android:id="@+id/cardDef"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textSize="12sp"
+                android:lineSpacingMultiplier="1.2"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textColor="?attr/vimeInk2" />
+
+            <!-- 掌握度进度：把「褪除」这件事显性化，用户知道自己离记住还差多少 -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" android:orientation="horizontal">
+                <TextView android:id="@+id/cardSpeak" android:layout_width="0dp" android:layout_weight="1"
+                    android:layout_height="wrap_content" android:minHeight="48dp" android:gravity="center"
+                    android:padding="8dp" android:text="播放英文发音" android:textSize="14sp"
+                    android:textColor="?attr/vimeInk" android:background="@drawable/pill_bg" />
+                <TextView android:id="@+id/cardSpeechSettings" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:minHeight="48dp" android:gravity="center"
+                    android:padding="8dp" android:layout_marginStart="8dp" android:text="发音设置"
+                    android:textSize="12sp" android:textColor="?attr/vimeInk2" android:background="@drawable/pill_bg" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="掌握度"
+                    android:textSize="11sp"
+                    android:letterSpacing="0.04"
+                    android:textColor="?attr/vimeInk3" />
+
+                <TextView
+                    android:id="@+id/cardFam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/vimeInk2"
+                    android:text="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:background="?attr/vimeSurfaceAlt">
+
+                <View
+                    android:id="@+id/cardMeterFill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="?attr/vimeAcc" />
+
+                <View
+                    android:id="@+id/cardMeterRest"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="100" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/cardSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/pill_primary_bg"
+                android:gravity="center"
+                android:text="＋ 加入生词本"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <!-- 主动回忆：两权重的核心，记得 +6，忘了 −13 且打回 Box1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/cardForget"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/pill_bg"
+                    android:gravity="center"
+                    android:text="忘了"
+                    android:textSize="13.5sp"
+                    android:textColor="?attr/vimeInk2" />
+
+                <TextView
+                    android:id="@+id/cardRemember"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_weight="1.4"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/pill_primary_bg"
+                    android:gravity="center"
+                    android:text="记得"
+                    android:textSize="13.5sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/cardMute"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/pill_bg"
+                    android:gravity="center"
+                    android:text="本周隐藏"
+                    android:textSize="11.5sp"
+                    android:textColor="?attr/vimeInk2" />
+
+                <TextView
+                    android:id="@+id/cardKnow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/pill_bg"
+                    android:gravity="center"
+                    android:text="直接掌握"
+                    android:textSize="11.5sp"
+                    android:textColor="?attr/vimeInk2" />
+
+                <TextView
+                    android:id="@+id/cardClose"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/pill_bg"
+                    android:gravity="center"
+                    android:text="关闭"
+                    android:textSize="11.5sp"
+                    android:textColor="?attr/vimeInk2" />
+            </LinearLayout>
+        </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+    <!-- 工具箱 / 键盘选择 面板：覆盖整个输入法区域，在最上层 -->
+    <include
+        android:id="@+id/panelSheet"
+        layout="@layout/ime_panel" />
+
+</com.vime.ime.ImeRootLayout>

@@ -1,0 +1,19 @@
+# Local state and build output
+.gradle/
+.jtmp/
+.idea/
+**/build/
+!app/src/main/assets/rime/build/
+!app/src/main/assets/rime/build/**
+native-build/
+local.properties
+*.iml
+*.apk
+*.aab
+*.jks
+*.keystore
+.env
+.env.*
+.DS_Store
+__pycache__/
+*.py[cod]

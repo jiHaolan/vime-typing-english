@@ -1,0 +1,38 @@
+{
+  "format": "vime-rime-1",
+  "version": "0.14.0",
+  "native_prebuilt": {
+    "url": "https://github.com/fcitx5-android/prebuilt",
+    "commit": "3f987c60ae1485a7b2a2cf7db301726af4700f29"
+  },
+  "librime_source": {
+    "url": "https://github.com/rime/librime",
+    "commit": "de4700e9f6b75b109910613df907965e3cbe0567"
+  },
+  "luna_source": {
+    "url": "https://github.com/rime/rime-luna-pinyin",
+    "commit": "46acf03142c12b5aeed7002675046bf7255eed35"
+  },
+  "essay_source": {
+    "url": "https://github.com/rime/rime-essay",
+    "commit": "054920de4f54c9e5994276a96a4fc2a35cb51aa3"
+  },
+  "transformation": "OpenCC-python t2s conversion; merge equal words and sum vocabulary counts; add spellable existing Vime entries",
+  "dictionary_entries": 100578,
+  "vocabulary_entries": 437796,
+  "files": {
+    "default.yaml": "24a218ac977c9fe81dddbb82ebb51f6f324a238dc8b05768219472fe73fa1a16",
+    "essay.txt": "d26da8cbd14fab9d257b630888f275c5b36cdb0ab046bed17742cdb4760b0762",
+    "vime_nine.schema.yaml": "3923b5cae0d9854d413c60354ca7a557740c81e5d07aea82f70cd16250432897",
+    "vime_pinyin.dict.yaml": "1e87346a995990d2a86dd96b5893111a0d24db24deafffa5fd0e04ab7e7d7e84",
+    "vime_pinyin.schema.yaml": "bd527ace1cfab74ece456e202ca6e04605d744cfe94390235e99fde93c57c9dd",
+    "build/default.yaml": "d133d28bf0107d60023f1e61d05c7943cd7fe3a0e88e0cf541578a8be0049780",
+    "build/vime_nine.prism.bin": "b075a0f072b72fa6c9438ce6f8a221ec2a2825b20056bf0bbd0e06369d79bef1",
+    "build/vime_nine.schema.yaml": "a4bce9fa01e52b6ae22ab04ea9cd2d57aaa139f98c4d174eaf8ce77eaec436c9",
+    "build/vime_pinyin.prism.bin": "66be0af370f75d59bc03138782af96dd659fa778441b43a8a613ab923e09a44c",
+    "build/vime_pinyin.reverse.bin": "ec1a1ca6e83589f7debea3133dd313dad38b0d5ee0e62a5467f738d1cb4a325b",
+    "build/vime_pinyin.schema.yaml": "85082c3e1b4ac68b8f8e8abfb88eff3a649502cac4cced9e3a63bc03ca052be3",
+    "build/vime_pinyin.table.bin": "15ba0ca536f0d9866a750bd87d098889e1bd904f55268afc1d964aef31f350dc"
+  },
+  "compiled_with": "librime 1.16.1; generated on isolated Android emulator, no user dictionary included"
+}

@@ -1,0 +1,26 @@
+<resources>
+<attr name="vimeIcLauncherBg" format="color" />
+<attr name="vimeInk" format="color" />
+<attr name="vimeInk2" format="color" />
+<attr name="vimeInk3" format="color" />
+<attr name="vimeLine" format="color" />
+<attr name="vimeLine2" format="color" />
+<attr name="vimeKbBg" format="color" />
+<attr name="vimeKey" format="color" />
+<attr name="vimeKeyFn" format="color" />
+<attr name="vimeKeyPress" format="color" />
+<attr name="vimeKeyEdge" format="color" />
+<attr name="vimeCandBg" format="color" />
+<attr name="vimePanelBg" format="color" />
+<attr name="vimeAcc" format="color" />
+<attr name="vimeOnAcc" format="color" />
+<attr name="vimeAccSoft" format="color" />
+<attr name="vimeAccInk" format="color" />
+<attr name="vimeSurface" format="color" />
+<attr name="vimeSurfaceAlt" format="color" />
+<attr name="vimeSuccess" format="color" />
+<attr name="vimeLv0" format="color" />
+<attr name="vimeLv1" format="color" />
+<attr name="vimeLv2" format="color" />
+</resources>
+

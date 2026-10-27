@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  数字面板（T15 新增）。按裁决：3 列数字各 30% + 第 4 列 10% 功能位，
+  第 4 行 `+ 0 . -`，底行 ABC 返回字母键盘。5 行 × 41dp + 4 × 3dp = 217dp。
+
+  第 4 列三行分别是 ⌫ / 空格 / 符（可再进符号面板）：
+  10% 宽（约 36dp）塞不下两个字，所以只放单字或单符号。
+-->
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="30%p"
+    android:keyHeight="@dimen/key_height_grid"
+    android:horizontalGap="0px"
+    android:verticalGap="6dp">
+
+    <Row>
+        <Key android:codes="49" android:keyLabel="1" />
+        <Key android:codes="50" android:keyLabel="2" />
+        <Key android:codes="51" android:keyLabel="3" />
+        <Key android:codes="-5" android:keyLabel="⌫" android:keyWidth="10%p"
+            android:isRepeatable="true" />
+    </Row>
+
+    <Row>
+        <Key android:codes="52" android:keyLabel="4" />
+        <Key android:codes="53" android:keyLabel="5" />
+        <Key android:codes="54" android:keyLabel="6" />
+        <Key android:codes="32" android:keyLabel="空" android:keyWidth="10%p" />
+    </Row>
+
+    <Row>
+        <Key android:codes="55" android:keyLabel="7" />
+        <Key android:codes="56" android:keyLabel="8" />
+        <Key android:codes="57" android:keyLabel="9" />
+        <Key android:codes="-20003" android:keyLabel="符" android:keyWidth="10%p" />
+    </Row>
+
+    <!-- 第 4 行：+ 0 . - 各 25% -->
+    <Row>
+        <Key android:codes="43" android:keyLabel="+" android:keyWidth="25%p" />
+        <Key android:codes="48" android:keyLabel="0" android:keyWidth="25%p" />
+        <!-- 数字面板里的 . 恒为半角小数点，service 按面板而非语言态判断 -->
+        <Key android:codes="46" android:keyLabel="." android:keyWidth="25%p" />
+        <Key android:codes="45" android:keyLabel="-" android:keyWidth="25%p" />
+    </Row>
+
+    <Row>
+        <Key android:codes="-20002" android:keyLabel="ABC" android:keyWidth="100%p" />
+    </Row>
+</Keyboard>
+

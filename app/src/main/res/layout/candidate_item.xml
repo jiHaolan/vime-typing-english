@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  单个候选。尺寸逐项对齐原型 .cand：
+    padding:5px 11px; height:53px; min-width:44px
+    .tag{ font-size:10px; line-height:12px; max-width:180px }
+    .zh { font-size:17px; line-height:30px }
+
+  上排小字标签按掌握度分四档上色（青绿/琥珀/灰蓝/透明），下排大字词。
+  中文态 —— 上 = 英文小字，下 = 中文大字
+  英文态 —— 上 = 中文释义小字，下 = 英文单词大字
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minHeight="56dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:minWidth="56dp"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <TextView
+        android:id="@+id/enTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/cand_tag_size"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:maxWidth="88dp"
+        android:includeFontPadding="false"
+        android:letterSpacing="0.02"
+        android:textColor="?attr/vimeInk2" />
+
+    <TextView
+        android:id="@+id/zhWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/cand_zh_size"
+        android:maxLines="1"
+        android:includeFontPadding="false"
+        android:textColor="?attr/vimeInk" />
+</LinearLayout>
+

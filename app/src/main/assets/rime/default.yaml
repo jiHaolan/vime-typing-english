@@ -1,0 +1,6 @@
+config_version: "0.14.0"
+schema_list:
+  - schema: vime_pinyin
+  - schema: vime_nine
+menu:
+  page_size: 10

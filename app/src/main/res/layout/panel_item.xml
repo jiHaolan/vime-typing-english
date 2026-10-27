@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 面板里的单个功能格子：上面图标、下面文字。4 列均分，2 行均分 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_columnWeight="1"
+    android:layout_rowWeight="1"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/itemGlyph"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:importantForAccessibility="no"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/itemIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="27sp"
+        android:includeFontPadding="false"
+        android:textColor="?attr/vimeInk" />
+
+    <TextView
+        android:id="@+id/itemLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textSize="12sp"
+        android:textColor="?attr/vimeInk2" />
+</LinearLayout>
+

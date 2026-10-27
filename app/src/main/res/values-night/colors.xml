@@ -1,0 +1,25 @@
+<resources>
+    <color name="ic_launcher_bg">#4F46C8</color>
+    <color name="ink">#F0F2FA</color>
+    <color name="ink_2">#BDC5D8</color>
+    <color name="ink_3">#ADB8D0</color>
+    <color name="line">#354057</color>
+    <color name="line_2">#586681</color>
+    <color name="kb_bg">#191F2D</color>
+    <color name="key">#30394D</color>
+    <color name="key_fn">#242D40</color>
+    <color name="key_press">#4B527E</color>
+    <color name="key_edge">#101621</color>
+    <color name="cand_bg">#1C2434</color>
+    <color name="panel_bg">#131B29</color>
+    <color name="acc">#5751CB</color>
+    <color name="on_acc">#FFFFFF</color>
+    <color name="acc_soft">#2B2A4D</color>
+    <color name="acc_ink">#C1BEFF</color>
+    <color name="surface">#1E2738</color>
+    <color name="surface_alt">#273247</color>
+    <color name="success">#82D6AF</color>
+    <color name="lv0">#82D6AF</color>
+    <color name="lv1">#F3C37B</color>
+    <color name="lv2">#ADB8D0</color>
+</resources>

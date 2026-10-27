@@ -1,0 +1,93 @@
+<resources xmlns:ns0="http://schemas.android.com/tools">
+  <style name="ImeTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowBackground">@color/panel_bg</item>
+    <item name="android:colorBackground">@color/panel_bg</item>
+    <item name="android:statusBarColor">@color/panel_bg</item>
+    <item name="android:navigationBarColor">@color/panel_bg</item>
+    <item name="colorAccent">@color/acc_ink</item>
+    <item name="android:colorAccent">@color/acc_ink</item>
+    <item name="android:windowLightStatusBar" ns0:targetApi="m">true</item>
+    <item name="vimeIcLauncherBg">@color/ic_launcher_bg</item>
+    <item name="vimeInk">@color/ink</item>
+    <item name="vimeInk2">@color/ink_2</item>
+    <item name="vimeInk3">@color/ink_3</item>
+    <item name="vimeLine">@color/line</item>
+    <item name="vimeLine2">@color/line_2</item>
+    <item name="vimeKbBg">@color/kb_bg</item>
+    <item name="vimeKey">@color/key</item>
+    <item name="vimeKeyFn">@color/key_fn</item>
+    <item name="vimeKeyPress">@color/key_press</item>
+    <item name="vimeKeyEdge">@color/key_edge</item>
+    <item name="vimeCandBg">@color/cand_bg</item>
+    <item name="vimePanelBg">@color/panel_bg</item>
+    <item name="vimeAcc">@color/acc</item>
+    <item name="vimeOnAcc">@color/on_acc</item>
+    <item name="vimeAccSoft">@color/acc_soft</item>
+    <item name="vimeAccInk">@color/acc_ink</item>
+    <item name="vimeSurface">@color/surface</item>
+    <item name="vimeSurfaceAlt">@color/surface_alt</item>
+    <item name="vimeSuccess">@color/success</item>
+    <item name="vimeLv0">@color/lv0</item>
+    <item name="vimeLv1">@color/lv1</item>
+    <item name="vimeLv2">@color/lv2</item>
+  </style>
+  <style name="ImeKeyboardTheme" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar">
+    <item name="android:windowBackground">@color/kb_bg</item>
+    <item name="android:colorBackground">@color/kb_bg</item>
+    <item name="vimeIcLauncherBg">@color/ic_launcher_bg</item>
+    <item name="vimeInk">@color/ink</item>
+    <item name="vimeInk2">@color/ink_2</item>
+    <item name="vimeInk3">@color/ink_3</item>
+    <item name="vimeLine">@color/line</item>
+    <item name="vimeLine2">@color/line_2</item>
+    <item name="vimeKbBg">@color/kb_bg</item>
+    <item name="vimeKey">@color/key</item>
+    <item name="vimeKeyFn">@color/key_fn</item>
+    <item name="vimeKeyPress">@color/key_press</item>
+    <item name="vimeKeyEdge">@color/key_edge</item>
+    <item name="vimeCandBg">@color/cand_bg</item>
+    <item name="vimePanelBg">@color/panel_bg</item>
+    <item name="vimeAcc">@color/acc</item>
+    <item name="vimeOnAcc">@color/on_acc</item>
+    <item name="vimeAccSoft">@color/acc_soft</item>
+    <item name="vimeAccInk">@color/acc_ink</item>
+    <item name="vimeSurface">@color/surface</item>
+    <item name="vimeSurfaceAlt">@color/surface_alt</item>
+    <item name="vimeSuccess">@color/success</item>
+    <item name="vimeLv0">@color/lv0</item>
+    <item name="vimeLv1">@color/lv1</item>
+    <item name="vimeLv2">@color/lv2</item>
+  </style>
+  <style name="ToolbarTile">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:orientation">vertical</item>
+    <item name="android:gravity">center</item>
+    <item name="android:focusable">true</item>
+    <item name="android:clickable">true</item>
+    <item name="android:background">?android:attr/selectableItemBackground</item>
+  </style>
+  <style name="ToolbarIcon">
+    <item name="android:layout_width">20dp</item>
+    <item name="android:layout_height">20dp</item>
+    <item name="android:importantForAccessibility">no</item>
+  </style>
+  <style name="ToolbarLabel">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">2dp</item>
+    <item name="android:includeFontPadding">false</item>
+    <item name="android:textSize">10sp</item>
+    <item name="android:textColor">@color/ink_2</item>
+    <item name="android:importantForAccessibility">no</item>
+  </style>
+  <style name="ToolbarButton">
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_weight">1</item>
+    <item name="android:padding">12dp</item>
+    <item name="android:scaleType">fitCenter</item>
+    <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+  </style>
+</resources>

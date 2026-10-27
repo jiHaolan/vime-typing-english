@@ -1,0 +1,51 @@
+__build_info:
+  rime_version: 1.16.1
+  timestamps:
+    default: 1792849488
+    default.custom: 0
+    vime_nine.custom: 0
+    vime_nine.schema: 1792849488
+engine:
+  filters:
+    - uniquifier
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+menu:
+  page_size: 10
+schema:
+  name: "智能九键"
+  schema_id: vime_nine
+  version: 0.14.0
+speller:
+  algebra:
+    - "xlit/abcdefghijklmnopqrstuvwxyz/22233344455566677778889999/"
+  alphabet: 23456789
+  delimiter: " '"
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: ["中文", English]
+translator:
+  contextual_suggestions: true
+  dictionary: vime_pinyin
+  enable_completion: true
+  enable_sentence: true
+  enable_user_dict: true
+  max_sentence_length: 0
+  prism: vime_nine

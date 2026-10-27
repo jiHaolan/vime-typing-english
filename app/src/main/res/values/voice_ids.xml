@@ -1,0 +1,4 @@
+<resources>
+    <item name="voiceApiKey" type="id" /><item name="voiceEndpoint" type="id" />
+    <item name="voiceModel" type="id" /><item name="voiceSave" type="id" /><item name="voiceClear" type="id" />
+<item name="voiceBackend" type="id" /><item name="voiceProvider" type="id" /><item name="voiceLanguage" type="id" /><item name="voiceServiceStatus" type="id" /></resources>

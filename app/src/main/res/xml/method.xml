@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<input-method xmlns:android="http://schemas.android.com/apk/res/android"
+    android:supportsSwitchingToNextInputMethod="true">
+
+    <!--
+      isAsciiCapable=true：本输入法有英文态，能直接输 ASCII。
+      Android 会在密码框/网址栏等需要 ASCII 的场景优先保留它，
+      否则系统可能强制切回系统输入法，用户会以为「输入法自己没了」。
+    -->
+    <subtype
+        android:label="@string/subtype_label"
+        android:imeSubtypeLocale="zh_CN"
+        android:imeSubtypeMode="keyboard"
+        android:isAsciiCapable="true" />
+</input-method>
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  横屏几何。横屏可用高度只有 ~360–411dp，234dp 会吃掉大半屏，
+  这里压到 181dp，仍保持三块面板等高：
+    内容高 = 181 - 14(padding) = 167
+    字母 4 行：4×37.25 + 3×6 = 167
+    符号 5 行：5×28.6  + 4×6 = 167
+-->
+<resources>
+    <dimen name="cand_height">48dp</dimen>
+    <dimen name="tool_height">40dp</dimen>
+
+    <dimen name="key_height">37.25dp</dimen>
+    <dimen name="key_height_grid">28.6dp</dimen>
+
+    <dimen name="keyboard_height">181dp</dimen>
+    <dimen name="keyboard_pad_top">6dp</dimen>
+    <dimen name="keyboard_pad_bottom">8dp</dimen>
+    <dimen name="keyboard_pad_side">3dp</dimen>
+
+    <dimen name="key_radius">4dp</dimen>
+    <dimen name="key_gap_h">5dp</dimen>
+    <dimen name="key_gap_v">6dp</dimen>
+
+    <dimen name="cand_tag_size">10sp</dimen>
+    <dimen name="cand_zh_size">16sp</dimen>
+</resources>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  按键底的兜底样式（T15 起键面由 VimeKeyboardView 自绘，此文件只在预览/降级时生效）。
+
+  值仍按卡里的视觉规范：字母键 #FFFFFF、按下 #D8DDE5、圆角 7dp、键缝用 stroke 造出，
+  不改键位尺寸，避免 10%p 宽度溢出。
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#D8DDE5" />
+            <stroke android:width="3dp" android:color="#E6E9EF" />
+            <corners android:radius="6dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <stroke android:width="3dp" android:color="#E6E9EF" />
+            <corners android:radius="7dp" />
+        </shape>
+    </item>
+</selector>
+
