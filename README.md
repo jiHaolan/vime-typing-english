@@ -2,17 +2,17 @@
 
 Android 中文输入法 + 英语提示 + 生词复习。先把打字做好，再利用日常输入认识和记住英文。
 
-**当前版本：v0.16.0 预览版。** 欢迎安装试用，通过 [Issues](https://github.com/fasdwertioklopmnbnbw3456-del/vime-typing-english/issues) 反馈。仍在迭代，尚未上架手机应用商店。
+**当前版本：v0.16.0 预览版。** 欢迎安装试用，通过 [Issues](https://github.com/jiHaolan/vime-typing-english/issues) 反馈。仍在迭代，尚未上架手机应用商店。
 
 ## 下载安装
 
 | 安装包 | 适用设备 |
 | --- | --- |
-| [arm64-v8a · 大多数安卓手机](https://github.com/fasdwertioklopmnbnbw3456-del/vime-typing-english/releases/download/v0.16.0/vime-v0.16.0-arm64-v8a.apk) | 约 24.7 MB，推荐先选这个 |
-| [armeabi-v7a · 32 位安卓手机](https://github.com/fasdwertioklopmnbnbw3456-del/vime-typing-english/releases/download/v0.16.0/vime-v0.16.0-armeabi-v7a.apk) | 较老的 32 位设备 |
-| [x86_64 · 模拟器](https://github.com/fasdwertioklopmnbnbw3456-del/vime-typing-english/releases/download/v0.16.0/vime-v0.16.0-x86_64.apk) | Android x86_64 模拟器 |
+| [arm64-v8a · 大多数安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.16.0/vime-v0.16.0-arm64-v8a.apk) | 约 24.7 MB，推荐先选这个 |
+| [armeabi-v7a · 32 位安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.16.0/vime-v0.16.0-armeabi-v7a.apk) | 较老的 32 位设备 |
+| [x86_64 · 模拟器](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.16.0/vime-v0.16.0-x86_64.apk) | Android x86_64 模拟器 |
 
-[完整发布页](https://github.com/fasdwertioklopmnbnbw3456-del/vime-typing-english/releases/tag/v0.16.0) · [可选 CC-CEDICT 词包](https://github.com/fasdwertioklopmnbnbw3456-del/vime-typing-english/releases/download/v0.16.0/CC-CEDICT-2026-10-19.vimelex) · [更新记录](CHANGELOG.md)
+[完整发布页](https://github.com/jiHaolan/vime-typing-english/releases/tag/v0.16.0) · [可选 CC-CEDICT 词包](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.16.0/CC-CEDICT-2026-10-19.vimelex) · [更新记录](CHANGELOG.md)
 
 Android 7.0 及以上。安装后在系统设置中启用并选择本输入法。首次切换请在普通记事本中测试；现有项目签名的旧版可覆盖升级。
 
@@ -34,7 +34,7 @@ Android 7.0 及以上。安装后在系统设置中启用并选择本输入法�
 
 ## 反馈问题
 
-请在 [新建 Issue](https://github.com/fasdwertioklopmnbnbw3456-del/vime-typing-english/issues/new/choose) 中说明手机型号、Android 版本、应用版本、键盘布局、复现步骤和预期结果。截图请先遮住聊天、账号和其他私人信息，不要提交密码、API 密钥或个人词库。
+请在 [新建 Issue](https://github.com/jiHaolan/vime-typing-english/issues/new/choose) 中说明手机型号、Android 版本、应用版本、键盘布局、复现步骤和预期结果。截图请先遮住聊天、账号和其他私人信息，不要提交密码、API 密钥或个人词库。
 
 ## 验证范围
 
