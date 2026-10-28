@@ -30,7 +30,7 @@
         android:ellipsize="end"
         android:maxWidth="88dp"
         android:includeFontPadding="false"
-        android:letterSpacing="0.02"
+        android:letterSpacing="0"
         android:textColor="?attr/vimeInk2" />
 
     <TextView

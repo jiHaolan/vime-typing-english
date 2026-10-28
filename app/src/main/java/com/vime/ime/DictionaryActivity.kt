@@ -62,7 +62,7 @@ class DictionaryActivity : AppCompatActivity() {
         Ui.window(this)
         body.addView(Ui.back(this, "‹ 返回") { finish() })
         Ui.space(body, 24)
-        Ui.heading(this, body, "好释义，随时离线查", "补充中文候选和英文释义，不用登录，也无需联网查询。")
+        Ui.heading(this, body, "离线词典", "补充中文候选和英文释义，不用登录，也无需联网查询。")
         Ui.section(this, body, "我的词库")
         status = label("载入中…", 14f)
         status.setBackgroundResource(R.drawable.card_bg)

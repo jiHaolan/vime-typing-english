@@ -236,7 +236,7 @@
                 android:id="@+id/cardWord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="?attr/vimeInk" />
 
@@ -252,7 +252,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:textSize="15sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="?attr/vimeLv0" />
 
@@ -336,7 +336,7 @@
                 android:background="@drawable/pill_primary_bg"
                 android:gravity="center"
                 android:text="＋ 加入生词本"
-                android:textColor="#FFFFFF"
+                    android:textColor="?attr/vimeOnAcc"
                 android:textSize="14sp" />
 
             <!-- 主动回忆：两权重的核心，记得 +6，忘了 −13 且打回 Box1 -->
@@ -365,12 +365,12 @@
                     android:minHeight="48dp"
                     android:layout_weight="1.4"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/pill_primary_bg"
+                    android:background="@drawable/pill_bg"
                     android:gravity="center"
                     android:text="记得"
                     android:textSize="13.5sp"
                     android:textStyle="bold"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="?attr/vimeInk" />
             </LinearLayout>
 
             <LinearLayout

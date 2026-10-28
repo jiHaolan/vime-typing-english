@@ -10,6 +10,7 @@
 <item name="vimeKey">#2B4238</item>
 <item name="vimeKeyFn">#22372D</item>
 <item name="vimeAcc">#246C55</item>
+<item name="vimeOnAcc">#FFFFFF</item>
 <item name="vimeAccSoft">#24483A</item>
 <item name="vimeAccInk">#9DDFC1</item>
 </style>
@@ -20,6 +21,7 @@
 <item name="vimeKey">#2B4238</item>
 <item name="vimeKeyFn">#22372D</item>
 <item name="vimeAcc">#246C55</item>
+<item name="vimeOnAcc">#FFFFFF</item>
 <item name="vimeAccSoft">#24483A</item>
 <item name="vimeAccInk">#9DDFC1</item>
 </style>
@@ -30,6 +32,7 @@
 <item name="vimeKey">#463B2E</item>
 <item name="vimeKeyFn">#382E22</item>
 <item name="vimeAcc">#96521B</item>
+<item name="vimeOnAcc">#FFFFFF</item>
 <item name="vimeAccSoft">#50371E</item>
 <item name="vimeAccInk">#F7CC9E</item>
 </style>
@@ -40,6 +43,7 @@
 <item name="vimeKey">#463B2E</item>
 <item name="vimeKeyFn">#382E22</item>
 <item name="vimeAcc">#96521B</item>
+<item name="vimeOnAcc">#FFFFFF</item>
 <item name="vimeAccSoft">#50371E</item>
 <item name="vimeAccInk">#F7CC9E</item>
 </style>
@@ -50,6 +54,7 @@
 <item name="vimeKey">#493144</item>
 <item name="vimeKeyFn">#3D2838</item>
 <item name="vimeAcc">#A13867</item>
+<item name="vimeOnAcc">#FFFFFF</item>
 <item name="vimeAccSoft">#512B45</item>
 <item name="vimeAccInk">#F1B4D0</item>
 </style>
@@ -60,6 +65,7 @@
 <item name="vimeKey">#493144</item>
 <item name="vimeKeyFn">#3D2838</item>
 <item name="vimeAcc">#A13867</item>
+<item name="vimeOnAcc">#FFFFFF</item>
 <item name="vimeAccSoft">#512B45</item>
 <item name="vimeAccInk">#F1B4D0</item>
 </style>
@@ -70,6 +76,7 @@
 <item name="vimeKey">#354151</item>
 <item name="vimeKeyFn">#2A3543</item>
 <item name="vimeAcc">#3F5267</item>
+<item name="vimeOnAcc">#FFFFFF</item>
 <item name="vimeAccSoft">#303E50</item>
 <item name="vimeAccInk">#C3D2E4</item>
 </style>
@@ -80,6 +87,7 @@
 <item name="vimeKey">#354151</item>
 <item name="vimeKeyFn">#2A3543</item>
 <item name="vimeAcc">#3F5267</item>
+<item name="vimeOnAcc">#FFFFFF</item>
 <item name="vimeAccSoft">#303E50</item>
 <item name="vimeAccInk">#C3D2E4</item>
 </style>
@@ -90,6 +98,7 @@
 <item name="vimeKey">#294557</item>
 <item name="vimeKeyFn">#203847</item>
 <item name="vimeAcc">#21648D</item>
+<item name="vimeOnAcc">#FFFFFF</item>
 <item name="vimeAccSoft">#21465D</item>
 <item name="vimeAccInk">#ABD6F1</item>
 </style>
@@ -100,6 +109,7 @@
 <item name="vimeKey">#294557</item>
 <item name="vimeKeyFn">#203847</item>
 <item name="vimeAcc">#21648D</item>
+<item name="vimeOnAcc">#FFFFFF</item>
 <item name="vimeAccSoft">#21465D</item>
 <item name="vimeAccInk">#ABD6F1</item>
 </style>

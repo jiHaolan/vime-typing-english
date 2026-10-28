@@ -40,9 +40,17 @@ class LearningActivity : AppCompatActivity() {
     override fun onStop() { pronouncer.stop(); super.onStop() }
     override fun onDestroy() { pronouncer.close(); super.onDestroy() }
 
-    private fun pronunciation(parent: LinearLayout, english: String) {
+    private fun pronunciation(parent: LinearLayout, english: String, compact: Boolean = false) {
         lateinit var play: TextView
         play = button("播放英文发音") { pronouncer.speak(english) { play.text = it } }
+        if (compact) {
+            play.text = "发音"
+            play.contentDescription = "播放英文发音，$english"
+            play.layoutParams = LinearLayout.LayoutParams(dp(88), -2)
+            play.setBackgroundResource(R.drawable.candidate_bg)
+            play.maxLines = 2
+            play.ellipsize = android.text.TextUtils.TruncateAt.END
+        }
         parent.addView(play)
     }
 
@@ -57,10 +65,10 @@ class LearningActivity : AppCompatActivity() {
         current = savedInstanceState?.getString("current")
         revealed = savedInstanceState?.getBoolean("revealed") ?: false
         completed = savedInstanceState?.getInt("completed") ?: 0
-        practice = savedInstanceState?.getBoolean("practice") ?: false
+        practice = savedInstanceState?.getBoolean("practice") ?: intent.getBooleanExtra("start_review", false)
         draft = savedInstanceState?.getString("draft").orEmpty()
         bookPage = savedInstanceState?.getInt("bookPage") ?: 0
-        analytics = savedInstanceState?.getBoolean("analytics") ?: false
+        analytics = savedInstanceState?.getBoolean("analytics") ?: intent.getBooleanExtra("show_analytics", false)
         chartWord = savedInstanceState?.getInt("chartWord") ?: 0
         render()
     }
@@ -99,39 +107,47 @@ class LearningActivity : AppCompatActivity() {
             else -> "‹ 返回首页"
         }
         body.addView(Ui.back(this, backLabel) { returnFromStudy() })
-        Ui.space(body, 24)
-        Ui.heading(this, body, if (analytics) "看见每一次进步" else if (practice) "想一想，再看答案" else "留住那些新认识的词", if (analytics) "实际学习记录与复习安排，都在这里。" else if (practice) "先回忆中文对应的英文，再给自己一个诚实的反馈。" else "在打字时收藏，在这里慢慢记住。")
+        Ui.space(body, 12)
+        Ui.heading(this, body, if (analytics) "学习数据" else if (practice) "今日复习" else "我的生词本", if (analytics) "实际复习记录与接下来的安排。" else if (practice) "先回忆英文，再查看答案。" else "打字时收藏的词，都留在这里。")
         val entries = book.all()
         val now = System.currentTimeMillis()
         val due = entries.filter { it.progress.dueAt <= now }.sortedBy { it.progress.dueAt }
+        if (analytics) { renderAnalytics(entries, now); return }
         val summary = Ui.card(body)
-        summary.addView(Ui.label(this, if (practice) "本次已完成 $completed 个" else "${entries.size} 个收藏    ${due.size} 个待复习", 20f, true))
+        summary.addView(Ui.label(this, if (practice) "本次已完成 $completed 个" else "${entries.size} 个收藏    ${due.size} 个待复习", 20f))
         Ui.space(summary, 8)
         summary.addView(Ui.label(this, "只收录你主动收藏的词，学习记录保存在本机。", 13f, secondary = true))
-        if (analytics) { renderAnalytics(entries, now); return }
         if (!practice) {
-            body.addView(button("学习数据与遗忘曲线") { analytics = true; render() })
-            body.addView(button("发音设置 · 手机文字转语音") { WordPronouncer.openSettings(this) })
+            if (due.isNotEmpty()) body.addView(button("开始今日复习（${due.size}）", true) {
+                practice = true; current = null; revealed = false; draft = ""; render()
+            })
+            val utilities = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+            listOf("学习数据" to { analytics = true; render() }, "发音设置" to { WordPronouncer.openSettings(this) }).forEach { (title, action) ->
+                utilities.addView(button(title, action = action).apply {
+                    layoutParams = LinearLayout.LayoutParams(0, -2, 1f)
+                    setBackgroundResource(R.drawable.candidate_bg)
+                })
+            }
+            body.addView(utilities)
             if (entries.isEmpty()) {
                 val empty = Ui.card(body)
-                empty.addView(Ui.label(this, "你的第一个生词，会是什么？", 22f, true))
+                empty.addView(Ui.label(this, "还没有收藏的词", 20f, true))
                 Ui.space(empty, 12)
-                empty.addView(Ui.label(this, "1  在中文键盘中输入一个词\n2  长按候选，点“加入生词本”\n3  回到这里，遮住英文试着回忆", 15f, secondary = true))
+                empty.addView(Ui.label(this, "在键盘中输入中文，长按候选词，选择“加入生词本”。下次来这里，试着回忆它的英文。", 15f, secondary = true))
                 empty.addView(button("返回，继续打字", true) { returnFromStudy() })
             } else {
-                if (due.isNotEmpty()) body.addView(button("开始今日复习（${due.size}）", true) {
-                    practice = true; current = null; revealed = false; draft = ""; render()
-                })
                 val pageCount = (entries.size + 29) / 30
                 bookPage = bookPage.coerceIn(0, pageCount - 1)
                 Ui.space(body, 20)
-                Ui.section(this, body, "我的收藏 · 第 ${bookPage + 1} / $pageCount 页")
+                Ui.section(this, body, "我的收藏 · ${entries.size} 个词" + if (pageCount > 1) " · 第 ${bookPage + 1} / $pageCount 页" else "")
                 entries.sortedByDescending { it.savedAt }.drop(bookPage * 30).take(30).forEach { e ->
                     val word = Ui.card(body)
-                    word.addView(Ui.label(this, e.word, 23f, true))
+                    val titleRow = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = android.view.Gravity.CENTER_VERTICAL }
+                    titleRow.addView(Ui.label(this, e.word, 22f, true), LinearLayout.LayoutParams(0, -2, 1f))
+                    pronunciation(titleRow, e.english, compact = true)
+                    word.addView(titleRow)
                     Ui.space(word, 6)
                     word.addView(Ui.label(this, e.english, 17f, secondary = true))
-                    pronunciation(word, e.english)
                     Ui.space(word, 12)
                     word.addView(Ui.label(this, "${e.level.ifBlank { "未分级" }} · 已复习 ${e.progress.attempts} 次 · " +
                         if (e.progress.dueAt <= now) "待复习" else "下次 ${android.text.format.DateFormat.format("MM-dd HH:mm", e.progress.dueAt)}", 12f, secondary = true))
@@ -201,9 +217,9 @@ class LearningActivity : AppCompatActivity() {
         activity.addView(Ui.label(this, "近7天实际复习", 20f, true))
         activity.addView(Ui.label(this, "${recent.sumOf { it.count }} 次复习 · ${recent.sumOf { it.remembered }} 次记得", 14f, secondary = true))
         val exact = recent.joinToString("；") { "${android.text.format.DateFormat.format("M/d", it.at)}：${it.count}次" }
-        activity.addView(LearningChartView(this, recent).apply { contentDescription = "近7天复习柱状图，$exact" }, LinearLayout.LayoutParams(-1, dp(210)))
+        activity.addView(LearningChartView(this, recent).apply { contentDescription = "近7天复习柱状图，$exact" }, LinearLayout.LayoutParams(-1, dp(180)))
         activity.addView(Ui.label(this, exact, 12f, secondary = true))
-        activity.addView(Ui.label(this, "每日记录从0.12版开始，最多保留最近10000次；旧版本累计次数保留，不补造历史日期。", 12f, secondary = true))
+        activity.addView(Ui.label(this, "自0.12版开始记录；旧版累计次数不补造日期。", 12f, secondary = true))
         val forecast = LearningStats.forecast(entries.map { it.progress.dueAt }, now)
         val upcoming = Ui.card(body)
         upcoming.addView(Ui.label(this, "未来7天复习安排", 20f, true))

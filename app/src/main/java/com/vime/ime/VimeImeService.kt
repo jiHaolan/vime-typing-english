@@ -1309,10 +1309,16 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
         val alreadySaved = book.contains(c.word)
         b.cardSave.text = if (alreadySaved) "已加入生词本" else "＋ 加入生词本"
         b.cardSave.isEnabled = !english && gloss.isNotBlank() && !alreadySaved
+        fun updateSaveAppearance() {
+            b.cardSave.setBackgroundResource(if (b.cardSave.isEnabled) R.drawable.pill_primary_bg else R.drawable.pill_bg)
+            b.cardSave.setTextColor((keyboardContext ?: this).uiColor(if (b.cardSave.isEnabled) R.color.on_acc else R.color.ink_2))
+        }
+        updateSaveAppearance()
         b.cardSave.setOnClickListener {
             if (book.save(c.word, gloss, c.lvl)) {
                 b.cardSave.text = "已加入生词本"
                 b.cardSave.isEnabled = false
+                updateSaveAppearance()
             }
         }
         bindMeter(b, MemoryEngine.familiarity(c.word, c.lvl))

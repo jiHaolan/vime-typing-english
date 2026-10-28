@@ -33,7 +33,7 @@ class InputSettingsActivity : AppCompatActivity() {
     private fun render() {
         column.removeAllViews()
         Ui.back(this,"返回") { finish() }.also(column::addView)
-        label("输入与个性化",28f)
+        label("输入与个性化",24f)
         status = label(RimeEngine.label()).apply { id=R.id.inputEngineStatus }
         label("整句与九键由智能拼音处理；词典初次部署在后台完成。普通输入均离线。选择候选会学习用词习惯，密码和禁止学习的输入框不记录。")
         button("刷新引擎状态") { status.text=RimeEngine.label() }

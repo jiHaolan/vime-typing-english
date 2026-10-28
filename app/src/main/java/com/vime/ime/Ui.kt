@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.content.res.Configuration
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 
@@ -18,7 +17,6 @@ object Ui {
     fun dp(view: View, n: Int) = (view.resources.displayMetrics.density * n).toInt()
     fun window(activity: Activity) {
         activity.window.decorView.post { com.vime.ime.data.CustomTheme.apply(activity.window.decorView) }
-        val night = activity.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
         activity.window.statusBarColor = activity.uiColor(R.color.panel_bg)
         activity.window.navigationBarColor = activity.uiColor(R.color.panel_bg)
         val light = androidx.core.graphics.ColorUtils.calculateLuminance(activity.uiColor(R.color.panel_bg)) > .5
@@ -37,10 +35,10 @@ object Ui {
         column.addView(View(column.context), LinearLayout.LayoutParams(1, dp(column, height)))
     }
     fun heading(activity: Activity, column: LinearLayout, value: String, subtitle: String) {
-        val title = label(activity, value, 28f, true)
+        val title = label(activity, value, 24f, true)
         ViewCompat.setAccessibilityHeading(title, true)
         column.addView(title); space(column, 8)
-        column.addView(label(activity, subtitle, 14f, secondary = true)); space(column, 24)
+        column.addView(label(activity, subtitle, 14f, secondary = true)); space(column, 20)
     }
     fun card(column: LinearLayout): LinearLayout = LinearLayout(column.context).apply {
         orientation = LinearLayout.VERTICAL
@@ -50,7 +48,7 @@ object Ui {
     }
     fun button(activity: Activity, value: String, primary: Boolean = false, action: () -> Unit) = Button(activity).apply {
         text = value; textSize = 15f; isAllCaps = false; gravity = Gravity.CENTER
-        typeface = Typeface.DEFAULT_BOLD
+        typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
         minimumWidth = 0; minWidth = 0; minHeight = dp(this, 52)
         setPadding(dp(this, 16), dp(this, 12), dp(this, 16), dp(this, 12))
         setTextColor(activity.uiColor(if (primary) R.color.on_acc else R.color.ink))

@@ -67,7 +67,13 @@ class MainActivity : AppCompatActivity() {
         b.btnDictionary.setOnClickListener { startActivity(Intent(this, DictionaryActivity::class.java)) }
         b.btnVoiceConfig.setOnClickListener { startActivity(Intent(this, VoiceSettingsActivity::class.java)) }
         b.btnInputSettings.setOnClickListener { startActivity(Intent(this, InputSettingsActivity::class.java)) }
-        b.btnStudy.setOnClickListener { startActivity(Intent(this, LearningActivity::class.java)) }
+        b.btnStudy.setOnClickListener {
+            val due = WordBook(this).all().any { it.progress.dueAt <= System.currentTimeMillis() }
+            startActivity(Intent(this, LearningActivity::class.java).putExtra("start_review", due))
+        }
+        b.btnWordbook.setOnClickListener { startActivity(Intent(this, LearningActivity::class.java)) }
+        b.btnAnalytics.setOnClickListener { startActivity(Intent(this, LearningActivity::class.java).putExtra("show_analytics", true)) }
+        Ui.input(b.typingPreview)
         b.btnTheme.setOnClickListener {
             AlertDialog.Builder(this).setTitle("皮肤配色")
                 .setSingleChoiceItems(ThemePref.skinNames.toTypedArray(), ThemePref.skin(this)) { dialog, which ->
@@ -132,13 +138,13 @@ class MainActivity : AppCompatActivity() {
         val entries = WordBook(this).all()
         val due = entries.count { it.progress.dueAt <= System.currentTimeMillis() }
         b.tvLearningCount.text = when {
-            entries.isEmpty() -> "从第一个生词开始"
-            due == 0 -> "今天的复习，已完成"
-            else -> "$due 个词，等你温习"
+            entries.isEmpty() -> "从第一个词开始"
+            due == 0 -> "今日复习已完成"
+            else -> "$due 个词待复习"
         }
-        b.tvLearningHint.text = if (entries.isEmpty()) "在键盘长按候选词，收进你的生词本。" else
-            "已收藏 ${entries.size} 个词 · 每次回忆，让印象更深一点。"
-        b.btnStudy.text = if (due > 0) "去复习 · $due 个待温习" else "打开生词本"
+        b.tvLearningHint.text = if (entries.isEmpty()) "长按键盘候选词，即可收藏。" else
+            "已收藏 ${entries.size} 个词 · 学习记录保存在本机"
+        b.btnStudy.text = if (due > 0) "开始今日复习" else "打开生词本"
     }
 
     override fun onDestroy() {

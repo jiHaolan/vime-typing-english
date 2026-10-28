@@ -25,8 +25,8 @@
     <dimen name="key_gap_h">5dp</dimen>
     <dimen name="key_gap_v">6dp</dimen>
 
-    <dimen name="cand_tag_size">11sp</dimen>
+    <dimen name="cand_tag_size">12sp</dimen>
     <dimen name="cand_zh_size">17sp</dimen>
-    <dimen name="page_gutter">24dp</dimen>
+    <dimen name="page_gutter">20dp</dimen>
 </resources>
 

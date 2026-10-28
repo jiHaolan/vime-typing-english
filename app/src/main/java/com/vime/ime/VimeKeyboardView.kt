@@ -188,13 +188,6 @@ class VimeKeyboardView @JvmOverloads constructor(
 
             // Press feedback changes the surface, keeping visual and touch geometry stable.
 
-            // ① 键底投影：box-shadow 0 1px 0 rgba(0,0,0,.10)
-            if (!pressed) {
-                fill.color = cEdge
-                rect.set(l, t, r, b)
-                canvas.drawRoundRect(rect, radius, radius, fill)
-            }
-
             // ② 键面
             fill.color = when {
                 pressed -> cKeyPress
@@ -202,13 +195,13 @@ class VimeKeyboardView @JvmOverloads constructor(
                 fn -> cFn
                 else -> cKey
             }
-            val faceBottom = if (pressed) b else b - edgeHeight
+            val faceBottom = b
             rect.set(l, t, r, faceBottom)
             canvas.drawRoundRect(rect, radius, radius, fill)
 
             KeyHints.secondary(code)?.takeIf { !pressed }?.let { hint ->
-                text.textSize = dp(8f); text.color = cInk3; text.textAlign = Paint.Align.RIGHT
-                canvas.drawText(hint, r - dp(4f), t + dp(10f), text)
+                text.textSize = dp(11f); text.color = cInk3; text.textAlign = Paint.Align.RIGHT
+                canvas.drawText(hint, r - dp(4f), t + dp(12f), text)
                 text.textAlign = Paint.Align.CENTER
             }
 

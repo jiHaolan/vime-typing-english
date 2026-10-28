@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.vime.ime.R
 
 object ThemePref {
-    val skinNames = listOf("靛蓝", "竹青", "暖杏", "樱粉", "石墨", "海蓝", "自定义")
+    val skinNames = listOf("青墨", "竹青", "暖杏", "樱粉", "石墨", "海蓝", "自定义")
     private val appStyles = intArrayOf(R.style.ImeThemeSkin0, R.style.ImeThemeSkin1, R.style.ImeThemeSkin2, R.style.ImeThemeSkin3, R.style.ImeThemeSkin4, R.style.ImeThemeSkin5)
     private val keyboardStyles = intArrayOf(R.style.ImeKeyboardThemeSkin0, R.style.ImeKeyboardThemeSkin1, R.style.ImeKeyboardThemeSkin2, R.style.ImeKeyboardThemeSkin3, R.style.ImeKeyboardThemeSkin4, R.style.ImeKeyboardThemeSkin5)
     fun skin(context: Context) = context.getSharedPreferences("vime_appearance", Context.MODE_PRIVATE).getInt("skin", 0).coerceIn(0, 6)
