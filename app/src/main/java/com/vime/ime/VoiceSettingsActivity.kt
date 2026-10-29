@@ -1,6 +1,8 @@
 package com.vime.ime
 
 import android.content.Intent
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -22,6 +24,14 @@ class VoiceSettingsActivity : AppCompatActivity() {
         fun button(text: String,action: ()->Unit)=Ui.button(this,text,action=action).also(column::addView)
         Ui.back(this,"返回") { finish() }.also(column::addView)
         label("语音输入",28f)
+        VoiceDiagnostics.summary(this)?.let {
+            label(it,14f).id=R.id.voiceLastAttempt
+            button("复制语音故障信息") {
+                val details=VoiceDiagnostics.details(this) ?: return@button
+                (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText("语音服务诊断",details))
+                Toast.makeText(this,"已复制，可粘贴反馈",Toast.LENGTH_SHORT).show()
+            }.id=R.id.voiceCopyDiagnostics
+        }
         label("长按空格2秒，看到「正在聆听」后说话，松手结束。滑出空格、点取消或切换输入框会放弃。手机语音服务可能自行提前结束收音。")
         fun choices(values:List<String>)=object:ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,values) {
             private fun style(view:View)=view.apply { if(this is TextView){setTextColor(uiColor(R.color.ink));setBackgroundColor(uiColor(R.color.panel_bg));minHeight=dp(48)} }
@@ -37,14 +47,16 @@ class VoiceSettingsActivity : AppCompatActivity() {
         val saved=VoiceSettings.provider(this)
         val providers=mutableListOf("" to "跟随手机默认服务")
         if(saved.isNotEmpty() && services.none { it.component.flattenToString()==saved })providers.add(saved to "先前选择的服务已不可用")
-        providers.addAll(services.map { it.component.flattenToString() to it.label })
+        val labelCounts=services.groupingBy { it.label }.eachCount()
+        providers.addAll(services.map { it.component.flattenToString() to
+            if((labelCounts[it.label] ?: 0)>1) "${it.label} · ${it.component.shortClassName}" else it.label })
         localLabel("识别服务")
         val provider=Spinner(this).apply { id=R.id.voiceProvider;backgroundTintList=android.content.res.ColorStateList.valueOf(uiColor(R.color.ink));adapter=choices(providers.map { it.second });setSelection(providers.indexOfFirst { it.first==saved }.coerceAtLeast(0));local.addView(this) }
         localLabel("识别语言")
         val languages=listOf("keyboard" to "跟随键盘中英切换","zh-CN" to "中文","en-US" to "English")
         val language=Spinner(this).apply { id=R.id.voiceLanguage;backgroundTintList=android.content.res.ColorStateList.valueOf(uiColor(R.color.ink));adapter=choices(languages.map { it.second });setSelection(languages.indexOfFirst { it.first==VoiceSettings.languageChoice(this@VoiceSettingsActivity) }.coerceAtLeast(0));local.addView(this) }
         val serviceStatus=localLabel("").apply { id=R.id.voiceServiceStatus }
-        fun updateStatus() { serviceStatus.text=SystemVoiceServices.selected(this)?.let { "可用：${it.label}\n检测到 ${services.size} 个识别服务；返回输入框即可按住空格使用。" } ?: "没有可用的识别服务。请检查手机语音设置，或启用已安装的语音服务。仅有语音助手不一定能供其他应用调用。" }
+        fun updateStatus() { serviceStatus.text=SystemVoiceServices.selected(this)?.let { "已检测到：${it.label}\n${it.component.flattenToShortString()}\n尚不能据此确认可识别；返回输入框测试，具体语言支持由该服务提供。" } ?: "没有可用的识别服务。请检查手机语音设置，或启用已安装的语音服务。仅有语音助手不一定能供其他应用调用。" }
         provider.onItemSelectedListener=object:AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p:AdapterView<*>?,v:View?,n:Int,id:Long){VoiceSettings.setProvider(this@VoiceSettingsActivity,providers[n].first);updateStatus()}
             override fun onNothingSelected(p:AdapterView<*>?){}

@@ -13,15 +13,18 @@ import android.speech.SpeechRecognizer
 import com.vime.ime.engine.HeldSpeechResult
 import com.vime.ime.engine.VoiceSessionGate
 import com.vime.ime.voice.SystemVoiceServices
+import com.vime.ime.voice.VoiceDiagnostics
 
 /** Only the chosen OS service captures audio; this controller stores no recording. All calls run on main. */
 internal class SystemVoiceController(private val context: Context,
     private val state: (String?,Boolean,Float)->Unit, private val hint: (String)->Unit) {
-    private class Session(val token: Long,val recognizer: SpeechRecognizer,val commit: (String)->Unit) {
+    private class Session(val token: Long,val recognizer: SpeechRecognizer,val commit: (String)->Unit,
+        val service: String,val serviceLabel: String,val language: String) {
         val result=HeldSpeechResult()
         var ready=false
         var ended=false
         var released=false
+        var terminal=false
     }
     private val main=Handler(Looper.getMainLooper())
     private val gate=VoiceSessionGate()
@@ -31,12 +34,14 @@ internal class SystemVoiceController(private val context: Context,
     fun cancel() {
         gate.cancel();main.removeCallbacksAndMessages(null)
         val old=session;session=null;old?.result?.cancel()
+        if(old!=null && !old.terminal)record(old,"已取消，未提交文字")
         old?.recognizer?.let { runCatching { it.cancel() };runCatching { it.destroy() } }
         state(null,false,0f)
     }
     fun close()=cancel()
-    private fun fail(s: Session,message: String) { if(alive(s)){cancel();hint(message)} }
-    private fun finish(s: Session,text: String) { if(alive(s)){cancel();s.commit(text)} }
+    private fun record(s: Session,message: String,error: Int? = null) = VoiceDiagnostics.record(context,s.service,s.serviceLabel,s.language,message,error)
+    private fun fail(s: Session,message: String,error: Int? = null) { if(alive(s)){record(s,message,error);s.terminal=true;cancel();hint(message)} }
+    private fun finish(s: Session,text: String) { if(alive(s)){record(s,"已返回识别结果");s.terminal=true;cancel();s.commit(text)} }
     fun release() {
         val s=session ?: return
         if(s.released)return
@@ -61,12 +66,13 @@ internal class SystemVoiceController(private val context: Context,
         val sr=runCatching { SpeechRecognizer.createSpeechRecognizer(context,provider.component) }.getOrElse {
             hint("无法连接所选语音服务，请在语音设置中检查");return
         }
-        val s=Session(gate.start(),sr,commit);session=s
+        val s=Session(gate.start(),sr,commit,provider.component.flattenToString(),provider.label,language);session=s
+        record(s,"正在连接，尚未开始收音")
         state("正在连接手机语音… 松手取消",false,0f)
         sr.setRecognitionListener(object:RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) {
                 if(!alive(s))return
-                s.ready=true;state("正在聆听 · 松手结束",true,0f)
+                s.ready=true;record(s,"服务已响应，等待识别结果");state("正在聆听 · 松手结束",true,0f)
             }
             override fun onBeginningOfSpeech() {}
             override fun onRmsChanged(rmsdB: Float) { if(alive(s)&&s.ready&&!s.released&&!s.ended)state("正在聆听 · 松手结束",true,rmsdB.coerceIn(0f,10f)) }
@@ -75,7 +81,14 @@ internal class SystemVoiceController(private val context: Context,
                 if(!alive(s))return
                 s.ended=true;state(if(s.released)"正在识别…" else "服务已结束收音 · 松手识别",false,0f)
             }
-            override fun onError(error: Int) { fail(s,SystemVoiceServices.error(error)) }
+            override fun onError(error: Int) {
+                if(alive(s)) {
+                    val phase=if(!s.ready)"收音前" else if(s.released)"松手后" else "收音中"
+                    record(s,"$phase：${SystemVoiceServices.error(error)}",error)
+                    s.terminal=true
+                    cancel();hint(SystemVoiceServices.error(error))
+                }
+            }
             override fun onResults(results: Bundle?) {
                 if(!alive(s))return
                 s.ended=true

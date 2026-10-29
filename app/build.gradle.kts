@@ -11,8 +11,8 @@ android {
         applicationId = "com.vime.ime"
         minSdk = 24
         targetSdk = 34
-        versionCode = 23
-        versionName = "0.17.1"
+        versionCode = 24
+        versionName = "0.17.2"
     }
 
     buildTypes {

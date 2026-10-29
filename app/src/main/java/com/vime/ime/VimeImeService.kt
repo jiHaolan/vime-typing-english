@@ -131,7 +131,7 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
             b.voiceStatus.text = text
             b.voicePulse.listening = listening; b.voicePulse.rms = rms
         }
-    }, { text -> showHint(text) }) }
+    }, { text -> showVoiceHint(text) }) }
 
     /** 常用语：点一下直接上屏 */
     private val PHRASES = listOf(
@@ -882,6 +882,20 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
         b.scroll.visibility = View.GONE
         b.hint.visibility = View.VISIBLE
         b.hint.text = msg
+        b.hint.setOnClickListener(null)
+        b.hint.isClickable = false
+        b.hint.contentDescription = null
+    }
+
+    private fun showVoiceHint(msg: String) {
+        showHint("点此查看语音设置 · $msg")
+        binding?.hint?.apply {
+            contentDescription="$msg，点按打开语音设置"
+            setOnClickListener {
+                voice.cancel()
+                startActivity(Intent(this@VimeImeService,VoiceSettingsActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            }
+        }
     }
 
     /** 帮助：在候选栏提示位说明用法，2.8 秒后自动恢复候选 */

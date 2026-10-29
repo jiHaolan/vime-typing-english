@@ -229,7 +229,8 @@ class VimeKeyboardView @JvmOverloads constructor(
         val showClear = repeated && previewCode == Keyboard.KEYCODE_DELETE
         val preview = when {
             showClear -> "松手清空"
-            repeated && previewCode == 32 && previewEnabled -> "松手识别"
+            // The voice strip owns live status. A timer bubble would outlive a failed service.
+            repeated && previewCode == 32 -> null
             !previewEnabled -> null
             heldText != null -> "松手输入 ${heldText}"
             previewCode != null && previewCode in 97..122 -> previewCode.toChar().uppercaseChar().toString()
