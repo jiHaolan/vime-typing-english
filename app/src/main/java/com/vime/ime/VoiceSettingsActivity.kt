@@ -62,6 +62,9 @@ class VoiceSettingsActivity : AppCompatActivity() {
         advancedLabel("仅在主动选择此模式时上传录音至所填接口。需要自己的服务账号和密钥；费用与数据处理规则以服务方为准。")
         val config=VoiceSettings.read(this)
         val status=advancedLabel(if(config.key.isEmpty())"尚未配置联网服务" else "已保存联网服务密钥")
+        advanced.addView(Ui.button(this,"改用手机语音 · 无需密钥",action={
+            VoiceSettings.setMode(this,VoiceSettings.SYSTEM);backend.setSelection(0)
+        }).apply { id=R.id.voiceUseSystem })
         advancedLabel("API密钥 · 本机加密保存")
         val key=EditText(this).apply { id=R.id.voiceApiKey;hint=if(config.key.isEmpty())"填写API Key" else "留空保留原密钥";inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD;imeOptions=EditorInfo.IME_FLAG_NO_PERSONALIZED_LEARNING;setSingleLine();advanced.addView(this) }
         fun field(caption:String,value:String,id:Int):EditText { advancedLabel(caption);return EditText(this).apply { this.id=id;setText(value);inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI;setSingleLine();advanced.addView(this) } }
@@ -69,9 +72,9 @@ class VoiceSettingsActivity : AppCompatActivity() {
         val model=field("模型名称",config.model,R.id.voiceModel)
         advanced.addView(Ui.button(this,"保存联网服务",action={
             runCatching { VoiceSettings.save(this,VoiceConfig(endpoint.text.toString().trim(),model.text.toString().trim(),key.text.toString().trim().ifEmpty { VoiceSettings.read(this).key })) }
-                .onSuccess { key.text.clear();status.text="设置已保存" }.onFailure { status.text=it.message ?: "保存失败" }
+                .onSuccess { VoiceSettings.setMode(this,VoiceSettings.CLOUD);key.text.clear();status.text="设置已保存" }.onFailure { status.text=it.message ?: "保存失败" }
         }).apply { id=R.id.voiceSave })
-        advanced.addView(Ui.button(this,"清除已保存的密钥",action={VoiceSettings.clear(this);key.text.clear();status.text="密钥已清除"}).apply { id=R.id.voiceClear })
+        advanced.addView(Ui.button(this,"清除已保存的密钥",action={VoiceSettings.clear(this);key.text.clear();status.text="密钥已清除";backend.setSelection(0)}).apply { id=R.id.voiceClear })
         advanced.addView(Ui.button(this,"获取服务API密钥",action={runCatching { startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("https://cloud.siliconflow.cn/account/ak"))) }}))
         fun showMode(index:Int){VoiceSettings.setMode(this,if(index==0)VoiceSettings.SYSTEM else VoiceSettings.CLOUD);local.visibility=if(index==0)View.VISIBLE else View.GONE;advanced.visibility=if(index==1)View.VISIBLE else View.GONE}
         backend.onItemSelectedListener=object:AdapterView.OnItemSelectedListener {

@@ -15,7 +15,15 @@ data class VoiceConfig(val endpoint: String, val model: String, val key: String)
 object VoiceSettings {
     const val SYSTEM = "system"
     const val CLOUD = "cloud"
-    fun mode(c: Context) = prefs(c).getString("mode",SYSTEM).takeIf { it==CLOUD } ?: SYSTEM
+    fun mode(c: Context): String {
+        val p = prefs(c)
+        if (p.getString("mode", SYSTEM) != CLOUD) return SYSTEM
+        if (read(c).key.isNotBlank()) return CLOUD
+        // An older selection, cleared key or restored unreadable key must not strand
+        // the space gesture in an unconfigured backend. Keep configured cloud opt-in.
+        p.edit().putString("mode", SYSTEM).apply()
+        return SYSTEM
+    }
     fun setMode(c: Context, value: String) { require(value in listOf(SYSTEM,CLOUD));prefs(c).edit().putString("mode",value).apply() }
     fun provider(c: Context) = prefs(c).getString("system_provider", "").orEmpty()
     fun setProvider(c: Context,value: String) { prefs(c).edit().putString("system_provider",value).apply() }
@@ -51,5 +59,5 @@ object VoiceSettings {
             .putString("iv", Base64.encodeToString(cipher.iv, Base64.NO_WRAP))
             .putString("encrypted_key", Base64.encodeToString(encrypted, Base64.NO_WRAP)).commit()) { "语音设置保存失败" }
     }
-    fun clear(c: Context) { prefs(c).edit().remove("iv").remove("encrypted_key").apply() }
+    fun clear(c: Context) { prefs(c).edit().remove("iv").remove("encrypted_key").putString("mode", SYSTEM).apply() }
 }
