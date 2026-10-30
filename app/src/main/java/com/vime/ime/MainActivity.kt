@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var b: ActivityMainBinding
     private var appliedTheme = ""
+    private var dueCount = 0
+    private var learningRequest = 0L
 
     /** 演示区用的真实词条：中文 / 英文释义 / 等级，三级各一条，切档时肉眼可见差异 */
     private val demos = listOf(
@@ -68,8 +70,7 @@ class MainActivity : AppCompatActivity() {
         b.btnVoiceConfig.setOnClickListener { startActivity(Intent(this, VoiceSettingsActivity::class.java)) }
         b.btnInputSettings.setOnClickListener { startActivity(Intent(this, InputSettingsActivity::class.java)) }
         b.btnStudy.setOnClickListener {
-            val due = WordBook(this).all().any { it.progress.dueAt <= System.currentTimeMillis() }
-            startActivity(Intent(this, LearningActivity::class.java).putExtra("start_review", due))
+            startActivity(Intent(this, LearningActivity::class.java).putExtra("start_review", dueCount > 0))
         }
         b.btnWordbook.setOnClickListener { startActivity(Intent(this, LearningActivity::class.java)) }
         b.btnAnalytics.setOnClickListener { startActivity(Intent(this, LearningActivity::class.java).putExtra("show_analytics", true)) }
@@ -135,17 +136,29 @@ class MainActivity : AppCompatActivity() {
         refreshStepState()
         refreshLevelUi()
         refreshAppearance()
-        val entries = WordBook(this).all()
-        val due = entries.count { it.progress.dueAt <= System.currentTimeMillis() }
-        b.tvLearningCount.text = when {
-            entries.isEmpty() -> "从第一个词开始"
-            due == 0 -> "今日复习已完成"
-            else -> "$due 个词待复习"
+        val request = ++learningRequest
+        b.tvLearningCount.text = "正在读取生词本…"
+        b.btnStudy.isEnabled = false
+        WordBook(this).load { result ->
+            if (isDestroyed || isFinishing || request != learningRequest) return@load
+            b.btnStudy.isEnabled = true
+            result.onSuccess { data ->
+                val entries = data.entries
+                dueCount = entries.count { it.progress.dueAt <= System.currentTimeMillis() }
+                b.tvLearningCount.text = when {
+                    entries.isEmpty() -> "从第一个词开始"
+                    dueCount == 0 -> "今日复习已完成"
+                    else -> "$dueCount 个词待复习"
+                }
+                b.tvLearningHint.text = if(entries.isEmpty()) "长按键盘候选词，即可收藏。" else "已收藏 ${entries.size} 个词 · 学习记录保存在本机"
+                b.btnStudy.text = if(dueCount > 0) "开始今日复习" else "打开生词本"
+            }.onFailure {
+                dueCount = 0; b.tvLearningCount.text = "生词本暂时无法读取"
+                b.tvLearningHint.text = "原有数据保留，请打开生词本重试。"; b.btnStudy.text = "打开生词本"
+            }
         }
-        b.tvLearningHint.text = if (entries.isEmpty()) "长按键盘候选词，即可收藏。" else
-            "已收藏 ${entries.size} 个词 · 学习记录保存在本机"
-        b.btnStudy.text = if (due > 0) "开始今日复习" else "打开生词本"
     }
+    override fun onStop() { learningRequest++; super.onStop() }
 
     override fun onDestroy() {
         LevelPref.removeListener(onLevelChanged)

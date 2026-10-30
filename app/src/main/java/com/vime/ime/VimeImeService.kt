@@ -102,6 +102,7 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
     private var symbolsLocked = true
 
     private var binding: ImeInputBinding? = null
+    private var cardSaveSerial = 0L
 
     /** Chinese composition only. English letters are committed immediately. */
     private val buffer = StringBuilder()
@@ -1319,20 +1320,29 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
         b.cardSpeak.setOnClickListener { pronouncer.speak(en) { b.cardSpeak.text = it } }
         b.cardSpeechSettings.setOnClickListener { pronouncer.stop(); WordPronouncer.openSettings(this) }
         val book = WordBook(this)
+        val saveRequest = ++cardSaveSerial
         val gloss = en.ifBlank { c.en }
-        val alreadySaved = book.contains(c.word)
-        b.cardSave.text = if (alreadySaved) "已加入生词本" else "＋ 加入生词本"
-        b.cardSave.isEnabled = !english && gloss.isNotBlank() && !alreadySaved
+        val canSave = !english && gloss.isNotBlank()
+        b.cardSave.text = "正在读取收藏…"
+        b.cardSave.isEnabled = false
         fun updateSaveAppearance() {
             b.cardSave.setBackgroundResource(if (b.cardSave.isEnabled) R.drawable.pill_primary_bg else R.drawable.pill_bg)
             b.cardSave.setTextColor((keyboardContext ?: this).uiColor(if (b.cardSave.isEnabled) R.color.on_acc else R.color.ink_2))
         }
         updateSaveAppearance()
+        book.contains(c.word) { result ->
+            if(binding !== b || saveRequest != cardSaveSerial) return@contains
+            val saved = result.getOrNull() == true
+            b.cardSave.text = when { saved -> "已加入生词本"; result.isFailure -> "读取失败 · 点击重试收藏"; else -> "＋ 加入生词本" }
+            b.cardSave.isEnabled = canSave && !saved
+            updateSaveAppearance()
+        }
         b.cardSave.setOnClickListener {
-            if (book.save(c.word, gloss, c.lvl)) {
-                b.cardSave.text = "已加入生词本"
-                b.cardSave.isEnabled = false
-                updateSaveAppearance()
+            b.cardSave.isEnabled = false; b.cardSave.text = "正在保存…"; updateSaveAppearance()
+            book.save(c.word, gloss, c.lvl) { result ->
+                if(binding !== b || saveRequest != cardSaveSerial) return@save
+                b.cardSave.text = if(result.isSuccess) "已加入生词本" else "保存失败 · 点击重试"
+                b.cardSave.isEnabled = result.isFailure && canSave; updateSaveAppearance()
             }
         }
         bindMeter(b, MemoryEngine.familiarity(c.word, c.lvl))
@@ -1383,6 +1393,7 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
     }
 
     private fun hideCard() {
+        cardSaveSerial++
         pronouncer.stop()
         val b = binding ?: return
         if (b.cardOverlay.visibility != View.VISIBLE) return

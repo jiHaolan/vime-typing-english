@@ -37,6 +37,7 @@
         <activity android:name=".LearningActivity" android:exported="false"
             android:taskAffinity="com.vime.ime.learning" android:excludeFromRecents="true"
             android:theme="@style/ImeTheme" />
+        <activity android:name=".LearningDataActivity" android:exported="false" android:theme="@style/ImeTheme" />
 
         <activity android:name=".VoiceInputActivity" android:exported="false"
             android:taskAffinity="com.vime.ime.voice" android:excludeFromRecents="true"

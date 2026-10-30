@@ -1,0 +1,5 @@
+<resources>
+    <item name="learningDataSummary" type="id" /><item name="learningDataStatus" type="id" />
+    <item name="learningExport" type="id" /><item name="learningImport" type="id" /><item name="learningClear" type="id" />
+    <item name="learningMerge" type="id" /><item name="learningReplace" type="id" /><item name="learningDiscard" type="id" />
+</resources>

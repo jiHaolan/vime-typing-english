@@ -36,3 +36,13 @@ tools/prepare_rime_assets.py 可从独立克隆的 Luna Pinyin、Rime Essay 和 
 ## 签名
 
 发布页预览 APK 沿用项目现有测试签名。仓库不包含任何签名私钥。其他机器自行生成的 debug APK 通常签名不同，不能直接覆盖现有安装；正式产品需另行管理发布签名。不要把 keystore、API 密钥或用户词库提交到仓库。
+
+## 学习存储原生检查（0.18.0）
+
+在独立测试模拟器安装主调试APK与`assembleDebugAndroidTest`生成的测试APK，再执行：
+
+```powershell
+adb -s emulator-5576 shell am instrument -w com.vime.ime.test/com.vime.ime.data.LearningStorageInstrumentation
+```
+
+15项检查使用独立临时数据库，验证真实SQLite事务与迁移，不使用内存假数据库代替磁盘持久化。临时数据库和旧偏好测试数据会在结束时清理。`seedUi`为专用模拟器UI准备选项，会替换模拟器中的学习记录；日常存储测试不传此选项，也不要在个人真机使用它。

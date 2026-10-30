@@ -1,6 +1,7 @@
 package com.vime.ime
 
 import android.graphics.Typeface
+import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.text.InputType
@@ -13,6 +14,8 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.vime.ime.data.WordBook
+import com.vime.ime.data.LearningArchive
+import androidx.appcompat.app.AlertDialog
 import com.vime.ime.data.ThemePref
 import com.vime.ime.engine.NavigationRules
 import androidx.activity.OnBackPressedCallback
@@ -35,10 +38,13 @@ class LearningActivity : AppCompatActivity() {
     private var spelling: EditText? = null
     private var analytics = false
     private var chartWord = 0
+    private var renderSerial = 0L
     private val pronouncer by lazy { WordPronouncer(this) }
 
     override fun onStop() { pronouncer.stop(); super.onStop() }
-    override fun onDestroy() { pronouncer.close(); super.onDestroy() }
+    override fun onPause() { draft=spelling?.text?.toString() ?: draft; super.onPause() }
+    override fun onDestroy() { renderSerial++; pronouncer.close(); super.onDestroy() }
+    override fun onResume() { super.onResume(); if(::book.isInitialized) render() }
 
     private fun pronunciation(parent: LinearLayout, english: String, compact: Boolean = false) {
         lateinit var play: TextView
@@ -70,7 +76,6 @@ class LearningActivity : AppCompatActivity() {
         bookPage = savedInstanceState?.getInt("bookPage") ?: 0
         analytics = savedInstanceState?.getBoolean("analytics") ?: intent.getBooleanExtra("show_analytics", false)
         chartWord = savedInstanceState?.getInt("chartWord") ?: 0
-        render()
     }
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString("current", current); outState.putBoolean("revealed", revealed)
@@ -109,10 +114,24 @@ class LearningActivity : AppCompatActivity() {
         body.addView(Ui.back(this, backLabel) { returnFromStudy() })
         Ui.space(body, 12)
         Ui.heading(this, body, if (analytics) "学习数据" else if (practice) "今日复习" else "我的生词本", if (analytics) "实际复习记录与接下来的安排。" else if (practice) "先回忆英文，再查看答案。" else "打字时收藏的词，都留在这里。")
-        val entries = book.all()
+        val ticket = ++renderSerial
+        val loading = text("正在读取学习记录…")
+        body.addView(loading)
+        book.load { result ->
+            if(isDestroyed || isFinishing || ticket != renderSerial) return@load
+            body.removeView(loading)
+            result.onSuccess { renderData(it); com.vime.ime.data.CustomTheme.apply(body) }.onFailure {
+                body.addView(text("学习记录暂时无法读取",20f,true))
+                body.addView(text("原有数据仍保留。请重试，不要卸载应用或清除数据。"))
+                body.addView(button("重新读取",true) { render() })
+            }
+        }
+    }
+    private fun renderData(data: LearningArchive.Snapshot) {
+        val entries = data.entries
         val now = System.currentTimeMillis()
         val due = entries.filter { it.progress.dueAt <= now }.sortedBy { it.progress.dueAt }
-        if (analytics) { renderAnalytics(entries, now); return }
+        if (analytics) { renderAnalytics(entries, data.history, now); return }
         val summary = Ui.card(body)
         summary.addView(Ui.label(this, if (practice) "本次已完成 $completed 个" else "${entries.size} 个收藏    ${due.size} 个待复习", 20f))
         Ui.space(summary, 8)
@@ -122,7 +141,8 @@ class LearningActivity : AppCompatActivity() {
                 practice = true; current = null; revealed = false; draft = ""; render()
             })
             val utilities = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
-            listOf("学习数据" to { analytics = true; render() }, "发音设置" to { WordPronouncer.openSettings(this) }).forEach { (title, action) ->
+            listOf("学习数据" to { analytics = true; render() }, "发音设置" to { WordPronouncer.openSettings(this) },
+                "数据管理" to { startActivity(Intent(this,LearningDataActivity::class.java)) }).forEach { (title, action) ->
                 utilities.addView(button(title, action = action).apply {
                     layoutParams = LinearLayout.LayoutParams(0, -2, 1f)
                     setBackgroundResource(R.drawable.candidate_bg)
@@ -151,6 +171,18 @@ class LearningActivity : AppCompatActivity() {
                     Ui.space(word, 12)
                     word.addView(Ui.label(this, "${e.level.ifBlank { "未分级" }} · 已复习 ${e.progress.attempts} 次 · " +
                         if (e.progress.dueAt <= now) "待复习" else "下次 ${android.text.format.DateFormat.format("MM-dd HH:mm", e.progress.dueAt)}", 12f, secondary = true))
+                    word.addView(button("移除收藏") {
+                        AlertDialog.Builder(this).setTitle("移除“${e.word}”？")
+                            .setMessage("将移除这个收藏词和对应复习记录。可通过学习备份恢复。")
+                            .setNegativeButton("保留",null).setPositiveButton("移除") { _,_ ->
+                                book.remove(e.word) { result ->
+                                    if(!isDestroyed && !isFinishing) {
+                                        if(result.isFailure) android.widget.Toast.makeText(this,"未能移除，请重试",android.widget.Toast.LENGTH_LONG).show()
+                                        render()
+                                    }
+                                }
+                            }.show()
+                    }.apply { contentDescription="移除收藏，${e.word}"; setBackgroundResource(R.drawable.candidate_bg) })
                 }
                 if (bookPage > 0) body.addView(button("上一页") { bookPage--; render() })
                 if (bookPage + 1 < pageCount) body.addView(button("下一页") { bookPage++; render() })
@@ -165,6 +197,7 @@ class LearningActivity : AppCompatActivity() {
             body.addView(button("回到生词本", true) { practice = false; render() })
             return
         }
+        if(current != null && current != entry.word) { revealed=false; draft="" }
         current = entry.word
         val recall = Ui.card(body)
         recall.addView(Ui.label(this, "看中文，回忆英文", 13f, secondary = true))
@@ -191,28 +224,40 @@ class LearningActivity : AppCompatActivity() {
             pronunciation(body, entry.english)
             if (draft.isNotBlank()) body.addView(text(
                 if (normalize(draft) == normalize(entry.english)) "拼写与本词条一致" else "与本词条释义不同，请自行核对；同义表达可能仍然正确。", 13f))
+            var answering = false
+            val answerButtons = ArrayList<TextView>()
             fun answer(remembered: Boolean) {
-                // Update once; rendering immediately removes this item from the due queue.
-                book.answer(entry.word, remembered)
-                MemoryEngine.onRecall(entry.word, entry.level, remembered)
-                MemoryEngine.flush()
-                completed++; current = null; revealed = false; draft = ""; render()
+                if(answering) return
+                answering = true; answerButtons.forEach { it.isEnabled = false }
+                val ticket = renderSerial
+                book.answer(entry, remembered) answerDone@ { result ->
+                    if(result.getOrNull()==true) { MemoryEngine.onRecall(entry.word,entry.level,remembered); MemoryEngine.flush() }
+                    if(isDestroyed || isFinishing || ticket != renderSerial) return@answerDone
+                    result.onSuccess { recorded ->
+                        if(recorded) completed++
+                        else android.widget.Toast.makeText(this,"词条已有新进度，已重新读取",android.widget.Toast.LENGTH_SHORT).show()
+                        current=null; revealed=false; draft=""; render()
+                    }.onFailure {
+                        answering=false; answerButtons.forEach { it.isEnabled=true }
+                        android.widget.Toast.makeText(this,"复习结果未保存，请重试",android.widget.Toast.LENGTH_LONG).show()
+                    }
+                }
             }
-            body.addView(button("忘了 · 10分钟后再练") { answer(false) })
-            body.addView(button("记得 · 安排下次复习", true) { answer(true) })
+            body.addView(button("忘了 · 10分钟后再练") { answer(false) }.also(answerButtons::add))
+            body.addView(button("记得 · 安排下次复习", true) { answer(true) }.also(answerButtons::add))
         }
         body.addView(button("返回生词本（不计成绩）") {
             practice = false; current = null; revealed = false; draft = ""; render()
         })
     }
     private fun normalize(value: String) = value.trim().lowercase(java.util.Locale.ROOT).replace(Regex("\\s+"), " ")
-    private fun renderAnalytics(entries: List<WordBook.Entry>, now: Long) {
+    private fun renderAnalytics(entries: List<WordBook.Entry>, history: List<LearningStats.Event>, now: Long) {
         val attempts = entries.sumOf { it.progress.attempts.toLong() }
         val correct = entries.sumOf { it.progress.correct.toLong() }
         val totals = Ui.card(body)
         totals.addView(Ui.label(this, "累计复习 $attempts 次 · 记得 $correct 次", 19f, true))
         totals.addView(Ui.label(this, if (attempts == 0L) "完成一次复习后，这里会出现你的记录。" else "自评记得率 ${correct * 100 / attempts}% · 属于自评记录，非考试成绩", 13f, secondary = true))
-        val recent = LearningStats.recent(book.history(), now)
+        val recent = LearningStats.recent(history, now)
         val activity = Ui.card(body)
         activity.addView(Ui.label(this, "近7天实际复习", 20f, true))
         activity.addView(Ui.label(this, "${recent.sumOf { it.count }} 次复习 · ${recent.sumOf { it.remembered }} 次记得", 14f, secondary = true))
