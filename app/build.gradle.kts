@@ -11,6 +11,9 @@ val releaseKeyPassword = providers.environmentVariable("VIME_RELEASE_KEY_PASSWOR
 val releaseSigningReady = listOf(releaseStore,releaseAlias,releaseStorePassword,releaseKeyPassword).all { !it.isNullOrBlank() }
 val windowChecks = providers.gradleProperty("vimeWindowChecks").orNull
 require(windowChecks == null || windowChecks in listOf("true", "false")) { "vimeWindowChecks must be true or false" }
+val nativeChecks = providers.gradleProperty("vimeNativeChecks").orNull
+require(nativeChecks == null || nativeChecks in listOf("true", "false")) { "vimeNativeChecks must be true or false" }
+require(windowChecks != "true" || nativeChecks != "true") { "Select one instrumentation suite at a time" }
 
 android {
     namespace = "com.vime.ime"
@@ -23,8 +26,11 @@ android {
         targetSdk = 36
         versionCode = 28
         versionName = "0.19.0"
-        testInstrumentationRunner = if (windowChecks == "true") "com.vime.ime.WindowInteractionInstrumentation"
-            else "com.vime.ime.data.LearningStorageInstrumentation"
+        testInstrumentationRunner = when {
+            windowChecks == "true" -> "com.vime.ime.WindowInteractionInstrumentation"
+            nativeChecks == "true" -> "com.vime.ime.NativeRuntimeInstrumentation"
+            else -> "com.vime.ime.data.LearningStorageInstrumentation"
+        }
     }
 
     signingConfigs {

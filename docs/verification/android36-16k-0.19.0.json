@@ -1,0 +1,513 @@
+{
+  "version": "0.19.0",
+  "version_code": 28,
+  "recorded_at": "2026-10-31T02:45:47.570919+08:00",
+  "environment": {
+    "sdk": 36,
+    "image": "system-images;android-36;google_apis_ps16k;x86_64",
+    "image_revision": 7,
+    "avd": "VimeAndroid16Page16K019",
+    "page_size_bytes": 16384,
+    "fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys"
+  },
+  "app_sha256": "8486f9bc026e692550dc7fda018ea42126a078cd12a215c51f856663ce355697",
+  "native": {
+    "device": "emulator-5580",
+    "required_page_size_bytes": 16384,
+    "passed": true,
+    "sdk": 36,
+    "fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+    "page_size_bytes": 16384,
+    "abi": "x86_64",
+    "app_sha256": "8486f9bc026e692550dc7fda018ea42126a078cd12a215c51f856663ce355697",
+    "test_sha256": "0bad80c80c66d2c63a6e8a5d236f5fca652cd54e2eaf1851611385890aa2f5af",
+    "compat_properties_before": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "compat_properties_during": {
+      "bionic.linker.16kb.app_compat.enabled": "false",
+      "pm.16kb.app_compat.disabled": "true"
+    },
+    "result": {
+      "sdk": 36,
+      "abi": "x86_64",
+      "expected": 7,
+      "passed": 7,
+      "failed": 0,
+      "not_run": 0,
+      "cases": [
+        {
+          "name": "emulator-has-explicitly-required-page-size",
+          "pass": true,
+          "elapsed_ms": 9,
+          "error": null
+        },
+        {
+          "name": "native-library-and-shipped-dictionaries-initialize",
+          "pass": true,
+          "elapsed_ms": 2212,
+          "error": null
+        },
+        {
+          "name": "full-phrase-candidate-consumes-all-pinyin",
+          "pass": true,
+          "elapsed_ms": 26,
+          "error": null
+        },
+        {
+          "name": "nine-key-and-pinyin-schema-switch-both-return-full-words",
+          "pass": true,
+          "elapsed_ms": 103,
+          "error": null
+        },
+        {
+          "name": "native-candidate-pagination-is-complete",
+          "pass": true,
+          "elapsed_ms": 1,
+          "error": null
+        },
+        {
+          "name": "repeated-native-schema-switching-keeps-candidates-valid",
+          "pass": true,
+          "elapsed_ms": 3254,
+          "error": null
+        },
+        {
+          "name": "native-learning-call-retains-full-candidate-consumption",
+          "pass": true,
+          "elapsed_ms": 31,
+          "error": null
+        }
+      ],
+      "observations": {
+        "process_page_size_bytes": 16384,
+        "expected_page_size_bytes": 16384,
+        "rime_state": "READY",
+        "rime_version": "1.16.1",
+        "rime_startup_ms": 1907,
+        "rime_failure": "",
+        "mapped_dictionary_regions": [
+          "77cd61800000-77cd630a0000 r--s 00000000 fe:36 353343                     /data/data/com.vime.ime/files/rime/shared/build/vime_pinyin.table.bin",
+          "77d078ae4000-77d078ae8000 r--s 00000000 fe:36 353367                     /data/data/com.vime.ime/files/rime/user/vime_pinyin.userdb/000005.ldb",
+          "77d078b38000-77d078b40000 r--s 00000000 fe:36 353340                     /data/data/com.vime.ime/files/rime/shared/build/vime_pinyin.prism.bin"
+        ],
+        "native_user_database_files": [
+          "rime/user/vime_pinyin.userdb/LOG",
+          "rime/user/vime_pinyin.userdb/LOCK",
+          "rime/user/vime_pinyin.userdb/LOG.old",
+          "rime/user/vime_pinyin.userdb/CURRENT",
+          "rime/user/vime_pinyin.userdb/000005.ldb",
+          "rime/user/vime_pinyin.userdb/000170.log",
+          "rime/user/vime_pinyin.userdb/MANIFEST-000169",
+          "rime/user/user.yaml"
+        ]
+      },
+      "scope": "Actual native Rime calls; not a physical ARM64, ASR or long-term performance test"
+    },
+    "instrumentation_code": -1,
+    "compat_properties_after": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "compat_properties_restored": true
+  },
+  "storage": {
+    "cases": [
+      {
+        "name": "legacy-migration-keeps-full-progress-and-history",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "migrated-database-survives-reopen-without-reimport",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "invalid-import-keeps-current-data",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "sqlite-import-failure-rolls-back-deletion-and-inserts",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "merge-adds-missing-words-and-keeps-local-progress",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "repeated-merge-is-idempotent-including-history",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "duplicate-answer-commits-exactly-one-progress-and-event",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "removing-word-cascades-only-its-review-history",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "clear-removes-all-words-events-and-obsolete-legacy-copy",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "replace-restores-exact-validated-snapshot",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "malformed-legacy-data-is-preserved-and-not-shown-as-empty",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "database-access-on-main-thread-is-rejected",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "corrupt-database-file-is-never-silently-deleted",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "concurrent-clients-do-not-overwrite-collections",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "history-cap-keeps-latest-actual-events",
+        "pass": true,
+        "error": null
+      }
+    ],
+    "passed": 15,
+    "failed": 0
+  },
+  "storage_test_sha256": "8570fb2bba9acd7b0b224a5c29b9125e737491f290c2dd8f2903ba9ed52d5af2",
+  "storage_environment": {
+    "sdk": 36,
+    "page_size_bytes": 16384,
+    "fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+    "compat_before": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "passed": true,
+    "compat_during": {
+      "bionic.linker.16kb.app_compat.enabled": "false",
+      "pm.16kb.app_compat.disabled": "true"
+    },
+    "passed_cases": 15,
+    "compat_after_test": {
+      "bionic.linker.16kb.app_compat.enabled": "false",
+      "pm.16kb.app_compat.disabled": "true"
+    },
+    "compat_after_restore": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "properties_restored": true
+  },
+  "window": {
+    "device": "emulator-5580",
+    "passed": true,
+    "settings_restored": true,
+    "sdk": 36,
+    "app_sha256": "8486f9bc026e692550dc7fda018ea42126a078cd12a215c51f856663ce355697",
+    "test_sha256": "2570715e5723aeeeebeae8fc34cb853bde5aaaaa6ea31086ab2c6f27417690a1",
+    "settings_before": {
+      "default_input_method": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME",
+      "show_ime_with_hard_keyboard": "0",
+      "vime_enabled": false
+    },
+    "instrumentation_code": -1,
+    "result": {
+      "sdk": 36,
+      "expected": 7,
+      "passed": 7,
+      "failed": 0,
+      "not_run": 0,
+      "cases": [
+        {
+          "name": "home-launches-and-has-foreground-focus",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "vime-keyboard-opens-after-tapping-editor",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "whole-focused-editor-stays-above-keyboard",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "three-line-editor-remains-fully-visible",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "back-hides-keyboard-and-keeps-home-open",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "wordbook-opens-from-home-action",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "back-returns-from-wordbook-to-home",
+          "pass": true,
+          "error": null
+        }
+      ],
+      "geometry": [
+        {
+          "editor": "[53,1268][1027,1415]",
+          "visible": "[53,1268][1027,1415]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 0,
+          "top_bar": 136,
+          "editor_focused": false,
+          "window_focused": true,
+          "ime_visible": false,
+          "layout_pending": false,
+          "lines": 1,
+          "label": "before-editor-touch"
+        },
+        {
+          "editor": "[53,1268][1027,1415]",
+          "visible": "[53,1268][1027,1415]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 941,
+          "top_bar": 136,
+          "editor_focused": true,
+          "window_focused": true,
+          "ime_visible": true,
+          "layout_pending": false,
+          "lines": 1,
+          "label": "after-editor-touch"
+        },
+        {
+          "editor": "[53,1268][1027,1415]",
+          "visible": "[53,1268][1027,1415]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 941,
+          "top_bar": 136,
+          "editor_focused": true,
+          "window_focused": true,
+          "ime_visible": true,
+          "layout_pending": false,
+          "lines": 1,
+          "label": "keyboard-open"
+        },
+        {
+          "editor": "[53,1268][1027,1415]",
+          "visible": "[53,1268][1027,1415]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 941,
+          "top_bar": 136,
+          "editor_focused": true,
+          "window_focused": true,
+          "ime_visible": true,
+          "layout_pending": false,
+          "lines": 1,
+          "label": "whole-editor"
+        },
+        {
+          "editor": "[53,1232][1027,1459]",
+          "visible": "[53,1232][1027,1459]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 941,
+          "top_bar": 136,
+          "editor_focused": true,
+          "window_focused": true,
+          "ime_visible": true,
+          "layout_pending": false,
+          "lines": 3,
+          "label": "three-lines"
+        },
+        {
+          "editor": "[53,1232][1027,1459]",
+          "visible": "[53,1232][1027,1459]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 0,
+          "top_bar": 136,
+          "editor_focused": true,
+          "window_focused": true,
+          "ime_visible": false,
+          "layout_pending": false,
+          "lines": 3,
+          "label": "after-keyboard-back"
+        }
+      ],
+      "diagnostics": {
+        "ime_selection": "Input method com.vime.ime/.VimeImeService selected for user #0"
+      },
+      "touches": [
+        {
+          "view_id": 2131230978,
+          "bounds": "[53,1268][1027,1415]"
+        },
+        {
+          "view_id": 2131230796,
+          "bounds": "[106,892][540,1018]"
+        }
+      ],
+      "scope": "real touch, window metrics and Back key; predictive edge gesture is separate"
+    },
+    "settings_after": {
+      "default_input_method": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME",
+      "show_ime_with_hard_keyboard": "0",
+      "vime_enabled": false
+    }
+  },
+  "window_environment": {
+    "sdk": 36,
+    "page_size_bytes": 16384,
+    "fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+    "compat_before": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "passed": true,
+    "compat_during": {
+      "bionic.linker.16kb.app_compat.enabled": "false",
+      "pm.16kb.app_compat.disabled": "true"
+    },
+    "passed_cases": 7,
+    "compat_after_test": {
+      "bionic.linker.16kb.app_compat.enabled": "false",
+      "pm.16kb.app_compat.disabled": "true"
+    },
+    "compat_after_restore": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "properties_restored": true
+  },
+  "baseline_4k": {
+    "device": "emulator-5578",
+    "required_page_size_bytes": 4096,
+    "passed": true,
+    "sdk": 36,
+    "fingerprint": "google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+    "page_size_bytes": 4096,
+    "abi": "x86_64",
+    "app_sha256": "8486f9bc026e692550dc7fda018ea42126a078cd12a215c51f856663ce355697",
+    "test_sha256": "0bad80c80c66d2c63a6e8a5d236f5fca652cd54e2eaf1851611385890aa2f5af",
+    "result": {
+      "sdk": 36,
+      "abi": "x86_64",
+      "expected": 7,
+      "passed": 7,
+      "failed": 0,
+      "not_run": 0,
+      "cases": [
+        {
+          "name": "emulator-has-explicitly-required-page-size",
+          "pass": true,
+          "elapsed_ms": 4,
+          "error": null
+        },
+        {
+          "name": "native-library-and-shipped-dictionaries-initialize",
+          "pass": true,
+          "elapsed_ms": 241,
+          "error": null
+        },
+        {
+          "name": "full-phrase-candidate-consumes-all-pinyin",
+          "pass": true,
+          "elapsed_ms": 9,
+          "error": null
+        },
+        {
+          "name": "nine-key-and-pinyin-schema-switch-both-return-full-words",
+          "pass": true,
+          "elapsed_ms": 39,
+          "error": null
+        },
+        {
+          "name": "native-candidate-pagination-is-complete",
+          "pass": true,
+          "elapsed_ms": 1,
+          "error": null
+        },
+        {
+          "name": "repeated-native-schema-switching-keeps-candidates-valid",
+          "pass": true,
+          "elapsed_ms": 2969,
+          "error": null
+        },
+        {
+          "name": "native-learning-call-retains-full-candidate-consumption",
+          "pass": true,
+          "elapsed_ms": 72,
+          "error": null
+        }
+      ],
+      "observations": {
+        "process_page_size_bytes": 4096,
+        "expected_page_size_bytes": 4096,
+        "rime_state": "READY",
+        "rime_version": "1.16.1",
+        "rime_startup_ms": 150,
+        "rime_failure": "",
+        "mapped_dictionary_regions": [
+          "785fafc00000-785fb149f000 r--s 00000000 fe:37 352824                     /data/data/com.vime.ime/files/rime/shared/build/vime_pinyin.table.bin",
+          "7863003d5000-7863003db000 r--s 00000000 fe:37 352821                     /data/data/com.vime.ime/files/rime/shared/build/vime_pinyin.prism.bin",
+          "786300639000-78630063a000 r--s 00000000 fe:37 352830                     /data/data/com.vime.ime/files/rime/user/vime_pinyin.userdb/000005.ldb"
+        ],
+        "native_user_database_files": [
+          "rime/user/vime_pinyin.userdb/LOG",
+          "rime/user/vime_pinyin.userdb/LOCK",
+          "rime/user/vime_pinyin.userdb/LOG.old",
+          "rime/user/vime_pinyin.userdb/CURRENT",
+          "rime/user/vime_pinyin.userdb/000005.ldb",
+          "rime/user/vime_pinyin.userdb/000246.log",
+          "rime/user/vime_pinyin.userdb/MANIFEST-000245",
+          "rime/user/user.yaml"
+        ]
+      },
+      "scope": "Actual native Rime calls; not a physical ARM64, ASR or long-term performance test"
+    },
+    "instrumentation_code": -1
+  },
+  "visual_phrase": {
+    "raw": "zhendejiade",
+    "method": "11 actual soft-key touches followed by candidate touch",
+    "full_candidate_visible": true,
+    "candidate_touch": [
+      133,
+      1532
+    ],
+    "committed_text": "真的假的",
+    "no_leftover_pinyin": true,
+    "trial_field_restored": true,
+    "screenshots": [
+      "keyboard-16k.png",
+      "phrase-16k.png",
+      "phrase-committed-16k.png"
+    ]
+  },
+  "passed_16k_cases": 29,
+  "limits": [
+    "x86_64 emulator, not a physical ARM64 16KB phone",
+    "No ASR, long-term performance or billing verification",
+    "Rime startup durations are cold/warm observations, not a controlled performance comparison"
+  ]
+}

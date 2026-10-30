@@ -93,3 +93,19 @@ APK名称以构建产物为准。使用已经完成系统初始化的专用API30
 7项检查通过真实触摸、窗口Insets与Back键验证：首页前台焦点、点击弹出Vime键盘、完整输入框避让、三行输入框避让、返回收起键盘并保留首页、首页打开生词本、生词本返回首页。记录输入框屏幕坐标、实际可见矩形、窗口边界和IME高度；未执行的检查计入not_run，全部7项通过才成功。只临时修改试打框文字，结束后恢复，不替换学习数据。
 
 收据保存实际主包与测试包SHA-256、Instrumentation返回结果及设置回读。单独保存instrumentation.log、window-results.json和receipt.json。调用Back键不能代替屏幕边缘手势验证；此次另在API36手势导航下通过实际边缘滑动验证了收起键盘和生词本返回首页，未据此验收动画帧率或取消手势。上述窗口检查也不能替代16KB页系统、横屏、分屏或不同厂商真机检查。
+
+## 原生引擎与内存页检查
+
+使用`-PvimeNativeChecks=true`构建原生运行测试入口；不能与`vimeWindowChecks=true`同时启用。工具要求Python3.11+、专用模拟器、明确指定的内存页大小，以及新的结果目录：
+
+```powershell
+.\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest -PvimeNativeChecks=true
+python tools/run_native_checks.py --sdk "$env:ANDROID_HOME" --device emulator-5580 --page-size 16384 `
+  --app-apk app/build/outputs/apk/debug/app-x86_64-debug.apk `
+  --test-apk app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk `
+  --output 'E:\Vime-checks\native-16k-019-run1'
+```
+
+普通4KB基线使用`--page-size 4096`。主机先读取目标的`getconf PAGE_SIZE`；物理手机、错误页大小或错误测试入口都会在安装前拒绝。原生进程再次读取`Os.sysconf(_SC_PAGESIZE)`，避免把普通4KB运行记录当作16KB结果。16KB检查在安装前关闭并回读核对`bionic.linker.16kb.app_compat.enabled`与`pm.16kb.app_compat.disabled`两个兼容回退开关，结束后恢复并回读原值；依据[Android官方16KB检查说明](https://developer.android.com/guide/practices/page-sizes#16-kb-backcompat-mode)。无需adb root。
+
+7项检查包含实际页大小、JNI加载及内存映射词典、完整拼音候选、九键/全拼切换、候选翻页、反复切换及原生学习调用。使用随APK分发的Rime库和词典，不伪造候选；学习调用会使用专用模拟器的Rime用户词典，不替换收藏与复习数据库。原生结果包含映射区域、引擎版本、逐项耗时与缺失项；不是长时性能、学习持久化、ASR或实体ARM64手机验收。收据保存系统指纹、页大小、ABI、APK哈希和实际Instrumentation返回结果，全部7项通过且返回码-1才成功。
