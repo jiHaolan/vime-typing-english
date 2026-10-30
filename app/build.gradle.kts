@@ -30,8 +30,8 @@ android {
         applicationId = "com.vime.ime"
         minSdk = 24
         targetSdk = 36
-        versionCode = 31
-        versionName = "0.22.0"
+        versionCode = 32
+        versionName = "0.22.1"
         testInstrumentationRunner = when {
             windowChecks == "true" -> "com.vime.ime.WindowInteractionInstrumentation"
             nativeChecks == "true" -> "com.vime.ime.NativeRuntimeInstrumentation"

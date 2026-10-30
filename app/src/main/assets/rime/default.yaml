@@ -1,4 +1,4 @@
-config_version: "0.14.0"
+config_version: "0.23.0"
 schema_list:
   - schema: vime_pinyin
   - schema: vime_nine

@@ -50,6 +50,24 @@ public final class CompileInstrumentation extends Instrumentation {
         }
         probes.put(raw, rows);
         check(found, "Missing complete candidate " + raw + " => " + expected);
+        check(rows.getString(0).split("\t", -1)[0].equals(expected), "Unexpected first candidate for " + raw);
+    }
+    private static void wrongFirst(RimeNative nativeApi, JSONObject probes, String raw, String forbidden) throws Exception {
+        String[] rows = nativeApi.candidates(raw, 0, 32);
+        probes.put(raw, new JSONArray(rows));
+        check(rows.length > 0 && !rows[0].split("\t", -1)[0].equals(forbidden), "Rare reading incorrectly wins " + raw + " => " + forbidden);
+    }
+    private static void abbreviation(RimeNative nativeApi, JSONObject probes, String raw, String expected) throws Exception {
+        String[] rows = nativeApi.candidates(raw, 0, 256);
+        probes.put(raw, new JSONArray(rows));
+        boolean found = false;
+        for (String row : rows) {
+            String[] parts = row.split("\t", -1);
+            if (parts.length == 3 && parts[0].equals(expected) && parts[1].equals(Integer.toString(raw.length()))) found = true;
+        }
+        // An abbreviation is ambiguous; full-code ranking assertions belong in
+        // phrase(). Here preserve the complete abbreviated-word capability.
+        check(found, "Missing complete abbreviated candidate " + raw + " => " + expected);
     }
 
     @Override public void onStart() {
@@ -102,6 +120,17 @@ public final class CompileInstrumentation extends Instrumentation {
                 {"douyou", "都有"}, {"tade", "他的"}, {"woxiang", "我想"}, {"qule", "去了"},
                 {"yinian", "一年"}, {"najiu", "那就"}, {"bangwo", "帮我"}};
             for (String[] pair : conversation) phrase(nativeApi, probes, pair[0], pair[1]);
+            JSONObject abbreviated = new JSONObject();
+            report.put("abbreviation_probes", abbreviated);
+            abbreviation(nativeApi, abbreviated, "nh", "你好");
+            JSONObject negatives = new JSONObject();
+            report.put("wrong_reading_first_candidate_checks", negatives);
+            wrongFirst(nativeApi, negatives, "e", "我");
+            String firstE = nativeApi.candidates("e", 0, 1)[0].split("\t", -1)[0];
+            check(Set.of("额", "饿", "恶", "俄", "鹅", "呃", "厄", "蛾", "娥").contains(firstE), "Abbreviated en/er displaces exact e");
+            wrongFirst(nativeApi, negatives, "jiwo", "给我");
+            wrongFirst(nativeApi, negatives, "nidi", "你的");
+            wrongFirst(nativeApi, negatives, "changdai", "长大");
             nativeApi.shutdown(); nativeApi = null;
             File build = new File(user, "build");
             String[] generated = build.list();

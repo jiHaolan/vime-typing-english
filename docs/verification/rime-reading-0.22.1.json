@@ -1,0 +1,321 @@
+{
+  "format": "vime-rime-reading-hotfix-verification-1",
+  "date": "2026-10-31T06:46:12.784492+08:00",
+  "version": "0.22.1",
+  "version_code": 32,
+  "profile": "debug-preview",
+  "goal_achieved": false,
+  "product_native_rime_rebuilt": true,
+  "new_english_and_fallback_integrated": false,
+  "dataset_id": "db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294",
+  "source_lock_sha256": "c72f5e8030e540bb7ad1d142f28d76d3462050c47677c5f5a91d9b11f24ceed8",
+  "artifacts": {
+    "arm64-v8a": {
+      "file": "E:\\Vime-build-work\\releases\\v0.22.1-preview\\Vime-0.22.1-arm64-v8a.apk",
+      "bytes": 21072656,
+      "sha256": "cf41d623627afe6829a922763c79901b2e51f47aa3f6084b9393d74311ed4756"
+    },
+    "armeabi-v7a": {
+      "file": "E:\\Vime-build-work\\releases\\v0.22.1-preview\\Vime-0.22.1-armeabi-v7a.apk",
+      "bytes": 19283856,
+      "sha256": "c055e38f0b83a0bb99d24172825f907295a0e37eb5930f9e2ed9c056fbb52f8c"
+    },
+    "x86_64": {
+      "file": "E:\\Vime-build-work\\releases\\v0.22.1-preview\\Vime-0.22.1-x86_64.apk",
+      "bytes": 21040506,
+      "sha256": "57e2b6dfdc9f6c6f3446b87708b05d05900f691078ed408a24051cb8803114ea"
+    }
+  },
+  "packaged_data": {
+    "arm64-v8a": {
+      "public_rime_asset_files": 13,
+      "all_public_hashes_match": true,
+      "pinned_native_libraries_match": true,
+      "legacy_fallback_and_english_bytes_unchanged": true
+    },
+    "armeabi-v7a": {
+      "public_rime_asset_files": 13,
+      "all_public_hashes_match": true,
+      "pinned_native_libraries_match": true,
+      "legacy_fallback_and_english_bytes_unchanged": true
+    },
+    "x86_64": {
+      "public_rime_asset_files": 13,
+      "all_public_hashes_match": true,
+      "pinned_native_libraries_match": true,
+      "legacy_fallback_and_english_bytes_unchanged": true
+    }
+  },
+  "jvm": {
+    "tests": 116,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 167
+  },
+  "python_dictionary_tests_passed": 15,
+  "python_notice_tests_passed": 8,
+  "source_static_checks_passed": 44,
+  "isolated_compilers": {
+    "runs": 2,
+    "full_input_first_candidates_per_run": [
+      34,
+      34
+    ],
+    "abbreviation_complete_candidate_per_run": [
+      1,
+      1
+    ],
+    "wrong_reading_first_checks_per_run": [
+      4,
+      4
+    ],
+    "exact_e_first_per_run": [
+      "额\t1\t0",
+      "额\t1\t0"
+    ],
+    "public_outputs_byte_identical": true
+  },
+  "native_runtime": {
+    "sdk": 36,
+    "abi": "x86_64",
+    "expected": 8,
+    "passed": 8,
+    "failed": 0,
+    "not_run": 0,
+    "cases": [
+      {
+        "name": "emulator-has-explicitly-required-page-size",
+        "pass": true,
+        "elapsed_ms": 1,
+        "error": null
+      },
+      {
+        "name": "native-library-and-shipped-dictionaries-initialize",
+        "pass": true,
+        "elapsed_ms": 929,
+        "error": null
+      },
+      {
+        "name": "rare-reading-does-not-win-common-word-first-candidate",
+        "pass": true,
+        "elapsed_ms": 5,
+        "error": null
+      },
+      {
+        "name": "full-phrase-candidate-consumes-all-pinyin",
+        "pass": true,
+        "elapsed_ms": 3,
+        "error": null
+      },
+      {
+        "name": "nine-key-and-pinyin-schema-switch-both-return-full-words",
+        "pass": true,
+        "elapsed_ms": 53,
+        "error": null
+      },
+      {
+        "name": "native-candidate-pagination-is-complete",
+        "pass": true,
+        "elapsed_ms": 3,
+        "error": null
+      },
+      {
+        "name": "repeated-native-schema-switching-keeps-candidates-valid",
+        "pass": true,
+        "elapsed_ms": 1551,
+        "error": null
+      },
+      {
+        "name": "native-learning-call-retains-full-candidate-consumption",
+        "pass": true,
+        "elapsed_ms": 37,
+        "error": null
+      }
+    ],
+    "observations": {
+      "process_page_size_bytes": 16384,
+      "expected_page_size_bytes": 16384,
+      "rime_state": "READY",
+      "rime_version": "1.16.1",
+      "rime_startup_ms": 843,
+      "rime_failure": "",
+      "dataset_id": "db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294",
+      "shared_path": "/data/data/com.vime.ime/files/rime/datasets/db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294/shared",
+      "mapped_dictionary_regions": [
+        "77cd65400000-77cd66220000 r--s 00000000 fe:36 377233                     /data/data/com.vime.ime/files/rime/datasets/db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294/shared/build/vime_pinyin.table.bin",
+        "77d078ac0000-77d078ac4000 r--s 00000000 fe:36 353031                     /data/data/com.vime.ime/files/rime/user/vime_pinyin.userdb/000716.ldb",
+        "77d078ae4000-77d078ae8000 r--s 00000000 fe:36 353901                     /data/data/com.vime.ime/files/rime/user/vime_pinyin.userdb/000546.ldb",
+        "77d078b38000-77d078b40000 r--s 00000000 fe:36 377230                     /data/data/com.vime.ime/files/rime/datasets/db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294/shared/build/vime_pinyin.prism.bin"
+      ],
+      "native_user_database_files": [
+        "rime/user/vime_pinyin.userdb/LOG",
+        "rime/user/vime_pinyin.userdb/LOCK",
+        "rime/user/vime_pinyin.userdb/LOG.old",
+        "rime/user/vime_pinyin.userdb/000716.ldb",
+        "rime/user/vime_pinyin.userdb/CURRENT",
+        "rime/user/vime_pinyin.userdb/000899.log",
+        "rime/user/vime_pinyin.userdb/MANIFEST-000898",
+        "rime/user/vime_pinyin.userdb/000546.ldb",
+        "rime/user/user.yaml",
+        "rime/user/private-upgrade-sentinel.txt"
+      ]
+    },
+    "scope": "Actual native Rime calls; not a physical ARM64, ASR or long-term performance test"
+  },
+  "native_compat_restored": true,
+  "upgrade": {
+    "version": "0.22.1",
+    "dataset_id": "db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294",
+    "sqlite_before": {
+      "vime_learning.db": {
+        "android_metadata": {
+          "rows": 1,
+          "records_sha256": "63bbdf70270819ece78b0f40edb29ebe8399b96ab13d18db6568d7328ae7c924"
+        },
+        "review_events": {
+          "rows": 1,
+          "records_sha256": "6d7eaa7e86650605252fc3dc7025f6e995e4a5fc5df25e5380b36c6896c50163"
+        },
+        "words": {
+          "rows": 2,
+          "records_sha256": "31b70022a241ae29ed9d242c54f734d4dfd028bc8371e942d92f2a11d85eb2a0"
+        }
+      }
+    },
+    "sqlite_after": {
+      "vime_learning.db": {
+        "android_metadata": {
+          "rows": 1,
+          "records_sha256": "63bbdf70270819ece78b0f40edb29ebe8399b96ab13d18db6568d7328ae7c924"
+        },
+        "review_events": {
+          "rows": 1,
+          "records_sha256": "6d7eaa7e86650605252fc3dc7025f6e995e4a5fc5df25e5380b36c6896c50163"
+        },
+        "words": {
+          "rows": 2,
+          "records_sha256": "31b70022a241ae29ed9d242c54f734d4dfd028bc8371e942d92f2a11d85eb2a0"
+        }
+      }
+    },
+    "baseline_saved_words": 2,
+    "baseline_review_events": 1,
+    "sqlite_logical_records_equal": true,
+    "changed_preferences": {},
+    "private_user_fixture_preserved": true,
+    "obsolete_generated_cache_removed": true,
+    "old_public_shared_removed": true,
+    "baseline_native_sst_files": 2,
+    "baseline_native_sst_bytes_retained": true,
+    "private_snapshot_sha256": "630cf0fe6ffdb0980af32335e59e1eb988bb284f3d1f184ea2a038244308e4de",
+    "limits": "Native manifest/log counters may change when the engine opens and tests learn a word; this compares existing immutable SST bytes, not every internal native counter.",
+    "passed": true
+  },
+  "public_table_repair": {
+    "passed": true,
+    "corrupted_public_file": "files/rime/datasets/db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294/shared/build/vime_pinyin.table.bin",
+    "corrupt_bytes": 6,
+    "restored_sha256": "77b408615b29bd662033b9357b97d171362abf1233f4f3f22e8ce3dff403781e",
+    "observations": 1,
+    "elapsed_seconds_including_activity_launch": 1.266,
+    "user_database_corrupted": false,
+    "same_apk_as_native_checks": true
+  },
+  "private_data_after_repair_passed": true,
+  "input_data_suite": {
+    "expected": 14,
+    "passed": 14,
+    "failed": 0,
+    "not_run": 0
+  },
+  "post_privacy_suite_wordbook": {
+    "saved_words": 2,
+    "review_events": 1
+  },
+  "ui": {
+    "before_e_first_candidate": "我",
+    "final_e_first_candidate": "额",
+    "ui_verified": true,
+    "ime_settings_restored": true,
+    "settings_after": {
+      "default_input_method": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME",
+      "enabled_input_methods": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME;1594443099:com.google.android.tts/com.google.android.apps.speech.tts.googletts.settings.asr.voiceime.VoiceInputMethodService",
+      "show_ime_with_hard_keyboard": "0"
+    },
+    "invalid_intermediate_ui_attempts_excluded": [
+      "weights/upgrade-from-0.22.0/after-e.png"
+    ],
+    "weight_only_intermediate_not_final": [
+      "weights/upgrade-from-0.22.0/after-e-valid.png"
+    ],
+    "physical_phone_changed": false
+  },
+  "source_kit": {
+    "format": "vime-dictionary-source-kit-1",
+    "dataset_id": "db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294",
+    "files": 83,
+    "bytes": 49082215,
+    "sha256": "7a8ce434ed135e2137df19d5648811e72217e16bf82bbecf9dc20223f8aa7853",
+    "archive": "Vime-dictionary-sources-0.23.0.zip",
+    "native_review_complete": false
+  },
+  "source_kit_roundtrip": {
+    "passed": true,
+    "archive_sha256": "7a8ce434ed135e2137df19d5648811e72217e16bf82bbecf9dc20223f8aa7853",
+    "manifest_files_checked": 82,
+    "rebuilt_files": 12,
+    "all_rebuilt_bytes_equal": true,
+    "python_no_site_packages": true,
+    "bundled_converter_only": true,
+    "network_required": false,
+    "git_history_required": false,
+    "native_compiler_rebuilt_by_this_roundtrip": false
+  },
+  "production_apk_check_expected_failures": [
+    "not_debuggable",
+    "https_only_network_config",
+    "not_preview_certificate"
+  ],
+  "production_ready": false,
+  "commercial_source_blockers": [
+    {
+      "id": "legacy-input-data",
+      "detail": "基础备用词库的旧拼音/词频及联想表仍未建立精确源快照和再分发权限。Rime 数据已从固定 Luna/Essay 快照独立重建；仍需替换这些基础输入或取得可验证许可。"
+    },
+    {
+      "id": "legacy-english-lineage",
+      "detail": "内置释义/词卡包含CC-CEDICT3、MakeMeAHanzi及手工覆盖，尚未完成按记录的来源映射或清洁重建及对应源材料交付。"
+    },
+    {
+      "id": "native-transitive-review",
+      "detail": "已列出直接链接的原生依赖与固定配方；仍需核对其内嵌第三方代码和NOTICE，不能只据主项目许可证认定全部齐全。"
+    }
+  ],
+  "evidence_root": "E:\\Vime-build-work\\dictionary-export\\weights-abbrev",
+  "limits": [
+    "Physical X100 was not upgraded/tested in this turn.",
+    "The14-case privacy suite intentionally reset the emulator native choice history after the upgrade/repair SST checks; saved words/review snapshot restored.",
+    "Full fallback/English source migration, native embedded licence review, independent speech, production signing/billing and multi-device long-term quality remain."
+  ],
+  "source_kit_eol_alignment": {
+    "prepare_levels_checkout": "LF pinned by .gitattributes",
+    "previous_crlf_archive_retained": true,
+    "current_archive_path": "E:\\Vime-build-work\\dictionary-export\\weights-abbrev\\source-kit-index-aligned\\Vime-dictionary-sources-0.23.0.zip"
+  },
+  "export_table_equivalence": {
+    "passed": true,
+    "final_dataset_id": "db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294",
+    "observed_export_dataset_id": "d3541e9de68d071e03cfcd710f53fba6b07c0ca9470c53afe968d1b5bf57bb93",
+    "table_bytes_sha256": "77b408615b29bd662033b9357b97d171362abf1233f4f3f22e8ce3dff403781e",
+    "same_public_table_input": true,
+    "export_repeated_for_new_schema_only": false,
+    "abbreviation_schema_changes_prisms_not_the_exported_table": true,
+    "exported_public_rows": 569466,
+    "export_tsv_sha256": "c1daf8de7b200e53abbae021b24414a70f801a7e66339d9ec6d98acf0c84d62c",
+    "original_export_receipt": "E:\\Vime-build-work\\dictionary-export\\weights\\export-a\\receipt.json"
+  }
+}

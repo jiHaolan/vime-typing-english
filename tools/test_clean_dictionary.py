@@ -15,6 +15,22 @@ def source(*rows):
 
 
 class CleanDictionaryTests(unittest.TestCase):
+    def test_luna_reading_percentages_do_not_become_equal_common_frequencies(self):
+        source = "...\n我\te\t0%\n我\two\t100%\n的\tde\t99.97%\n的\tdi\t0.03%\n给\tgei\t99.99%\n给\tji\t0.01%\n".encode()
+        rows = data.luna_entries(source, {"我": 100000, "的": 1000000, "给": 200000})
+        self.assertEqual(rows["我", "e"], 0)
+        self.assertEqual(rows["我", "wo"], 100000)
+        self.assertEqual(rows["的", "de"], 999700)
+        self.assertEqual(rows["的", "di"], 300)
+        self.assertEqual(rows["给", "gei"], 199980)
+        self.assertEqual(rows["给", "ji"], 20)
+
+    def test_luna_duplicate_variants_do_not_inflate_code_weight(self):
+        rows = data.luna_entries("...\n樂\tle\t95%\n乐\tle\t95%\n樂\tyue\t5%\n".encode(), {"乐": 1000})
+        self.assertEqual(rows, {("乐", "le"): 950, ("乐", "yue"): 50})
+        self.assertEqual(data.reading_weight("12.5", 1000), data.Decimal("12.5"))
+        with self.assertRaises(ValueError): data.reading_weight("NaN", 1000)
+
     def forms(self, *rows):
         records, skipped = data.load_cedict(source(*rows), len(rows))
         self.assertEqual(skipped, {})

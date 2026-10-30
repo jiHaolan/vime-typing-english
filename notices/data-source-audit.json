@@ -91,7 +91,7 @@
   "remaining_release_blockers": [
     {
       "id": "legacy-input-data",
-      "detail": "旧拼音/词频及联想表未建立精确源快照和再分发权限；Rime明文也合并了其中可拼读条目。需要替换这些输入或取得可验证的许可。"
+      "detail": "基础备用词库的旧拼音/词频及联想表仍未建立精确源快照和再分发权限。Rime 数据已从固定 Luna/Essay 快照独立重建；仍需替换这些基础输入或取得可验证许可。"
     },
     {
       "id": "legacy-english-lineage",
@@ -111,5 +111,14 @@
       "Local CC-CEDICT source snapshot, see legacy source audit"
     ],
     "review_complete": false
+  },
+  "rime_replacement": {
+    "product_version": "0.22.1",
+    "source_lock_sha256": "c72f5e8030e540bb7ad1d142f28d76d3462050c47677c5f5a91d9b11f24ceed8",
+    "dataset_id": "db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294",
+    "legacy_vime_input_read": false,
+    "luna_reading_percentages_preserved": true,
+    "fallback_legacy_data_replaced": false,
+    "luna_abbreviation_semantics_preserved": true
   }
 }

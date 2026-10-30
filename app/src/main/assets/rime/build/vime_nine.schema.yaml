@@ -1,10 +1,10 @@
 __build_info:
   rime_version: 1.16.1
   timestamps:
-    default: 1792849488
+    default: 946684800
     default.custom: 0
     vime_nine.custom: 0
-    vime_nine.schema: 1792849488
+    vime_nine.schema: 946684800
 engine:
   filters:
     - uniquifier
@@ -31,7 +31,7 @@ menu:
 schema:
   name: "智能九键"
   schema_id: vime_nine
-  version: 0.14.0
+  version: 0.23.0
 speller:
   algebra:
     - "xlit/abcdefghijklmnopqrstuvwxyz/22233344455566677778889999/"

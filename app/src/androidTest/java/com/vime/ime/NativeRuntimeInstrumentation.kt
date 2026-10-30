@@ -23,7 +23,7 @@ class NativeRuntimeInstrumentation : Instrumentation() {
     private val cases = JSONArray()
     private val observations = JSONObject()
     private var expectedPageSize = 0L
-    private val expected = 7
+    private val expected = 8
 
     override fun onCreate(arguments: Bundle?) {
         super.onCreate(arguments)
@@ -62,16 +62,26 @@ class NativeRuntimeInstrumentation : Instrumentation() {
                 RimeEngine.initialize(targetContext)
                 observations.put("rime_state", RimeEngine.state.name).put("rime_version", RimeEngine.version)
                     .put("rime_startup_ms", RimeEngine.startupMs).put("rime_failure", RimeEngine.failure)
+                    .put("dataset_id", RimeEngine.datasetId).put("shared_path", RimeEngine.sharedPath)
                 check(RimeEngine.state == RimeEngine.State.READY && RimeEngine.version.isNotBlank())
                 val mapped = File("/proc/self/maps").readLines().filter { "/files/rime/" in it }
                 observations.put("mapped_dictionary_regions", JSONArray(mapped))
                 check(mapped.any { "table.bin" in it } && mapped.any { "prism.bin" in it }) {
                     "Expected actual mapped table and prism dictionaries"
                 }
+                check(mapped.any { "${RimeEngine.sharedPath}/build/vime_pinyin.table.bin" in it }) { "Old public dictionary remains active" }
             }
             if (initialized) {
+                test("rare-reading-does-not-win-common-word-first-candidate") {
+                    for ((raw, forbidden) in listOf("e" to "我", "jiwo" to "给我", "nidi" to "你的", "changdai" to "长大")) {
+                        val first=RimeEngine.query(raw).firstOrNull() ?: error("Missing native candidates for $raw")
+                        check(first.word!=forbidden) { "Wrong common first candidate: $raw => $forbidden" }
+                    }
+                    check(RimeEngine.query("e").first().word in setOf("额","饿","恶","俄","鹅","呃","厄","蛾","娥"))
+                }
                 test("full-phrase-candidate-consumes-all-pinyin") { phrase("zhendejiade", "真的假的") }
                 test("nine-key-and-pinyin-schema-switch-both-return-full-words") {
+                    phrase("nh", "你好")
                     phrase("nihao".map(CandidateIndex::digit).joinToString(""), "你好")
                     phrase("nihao", "你好")
                 }

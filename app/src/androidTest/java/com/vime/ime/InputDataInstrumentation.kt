@@ -76,7 +76,7 @@ class InputDataInstrumentation : Instrumentation() {
                     check(nativeHasLearnedWord()) { "Native selection did not create the expected learned record" }
                     check(PersonalLexicon.count("nihao","你好")>0)
                     val marker=File(targetContext.filesDir,"rime/user/privacy-reset-sentinel.txt").apply { writeText("delete me") }
-                    val table=File(targetContext.filesDir,"rime/shared/build/vime_pinyin.table.bin")
+                    val table=File(RimeEngine.sharedPath,"build/vime_pinyin.table.bin")
                     val before=hash(table)
                     check(InputEngine.resetPersonalization(targetContext))
                     check(!marker.exists() && !nativeHasLearnedWord() && PersonalLexicon.count("nihao","你好")==0)

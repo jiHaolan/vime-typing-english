@@ -1,7 +1,7 @@
 schema:
   schema_id: vime_pinyin
   name: 智能拼音
-  version: "0.14.0"
+  version: "0.23.0"
 switches:
   - name: ascii_mode
     reset: 0
@@ -15,8 +15,8 @@ speller:
   alphabet: zyxwvutsrqponmlkjihgfedcba
   delimiter: " '"
   algebra:
-    - derive/^([a-z]).+$/$1/
-    - derive/^([zcs]h).+$/$1/
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
 translator:
   dictionary: vime_pinyin
   enable_user_dict: true

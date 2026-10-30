@@ -130,7 +130,7 @@
       "license": "LGPL-3.0",
       "source": "https://github.com/rime/rime-luna-pinyin\nhttps://github.com/rime/rime-essay",
       "version": "Luna 46acf03142c1 · Essay 054920de4f54",
-      "summary": "本地拼音与词频数据经过简体转换和合并。现有转换还合并了旧词库中的可拼读条目，这部分来源仍在复核。",
+      "summary": "从固定 Luna/Essay 快照独立重建 Rime 数据，保留原始读音权重比例，并记录转换程序及编译输出哈希；基础备用词库的旧来源仍待替换。",
       "documents": [
         "licenses/luna-pinyin-LGPL-3.0.txt",
         "licenses/rime-essay-LGPL-3.0.txt",
@@ -1368,7 +1368,7 @@
   "release_blockers": [
     {
       "id": "legacy-input-data",
-      "detail": "旧拼音/词频及联想表未建立精确源快照和再分发权限；Rime明文也合并了其中可拼读条目。需要替换这些输入或取得可验证的许可。"
+      "detail": "基础备用词库的旧拼音/词频及联想表仍未建立精确源快照和再分发权限。Rime 数据已从固定 Luna/Essay 快照独立重建；仍需替换这些基础输入或取得可验证许可。"
     },
     {
       "id": "legacy-english-lineage",

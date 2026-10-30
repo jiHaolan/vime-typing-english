@@ -6,6 +6,7 @@ pinned Luna/Essay inputs. Conversion is offline and refuses an existing output.
 """
 import argparse
 from collections import defaultdict
+from decimal import Decimal
 import gzip
 import hashlib
 import importlib.metadata
@@ -148,7 +149,15 @@ def converter_package(spec):
     return package
 
 
-def rime_sources(luna, frequencies):
+def reading_weight(raw, frequency):
+    if not raw:
+        return Decimal(frequency)
+    if not re.fullmatch(r"[0-9]+(?:\.[0-9]+)?%?", raw):
+        raise ValueError("Unsupported Luna reading weight")
+    return Decimal(raw[:-1]) * Decimal(frequency) / 100 if raw.endswith("%") else Decimal(raw)
+
+
+def luna_entries(luna, frequencies):
     rows = {}
     body = luna.decode("utf-8").partition("...\n")[2]
     from opencc import OpenCC
@@ -159,7 +168,15 @@ def rime_sources(luna, frequencies):
             continue
         word, code = converter.convert(parts[0]), parts[1]
         if 1 <= len(word) <= 64 and re.fullmatch(r"[a-z]+(?: [a-z]+)*", code):
-            rows[word, code] = frequencies.get(word, 100)
+            weight = reading_weight(parts[2] if len(parts) > 2 else "", frequencies.get(word, 100))
+            # t2s can collapse duplicate variants. Preserve the strongest stated
+            # reading instead of inflating it by counting the same code twice.
+            rows[word, code] = max(weight, rows.get((word, code), Decimal(0)))
+    return rows
+
+
+def rime_sources(luna, frequencies):
+    rows = luna_entries(luna, frequencies)
     if len(rows) < 60000:
         raise ValueError("Incomplete Luna dictionary")
     header = f'''# Derived only from pinned Luna Pinyin and Rime Essay. See NOTICE-rime.txt.
@@ -170,7 +187,7 @@ sort: by_weight
 use_preset_vocabulary: true
 ...
 '''
-    dictionary = header + "".join(f"{word}\t{code}\t{weight}\n" for (word, code), weight in sorted(rows.items()))
+    dictionary = header + "".join(f"{word}\t{code}\t{format(weight, 'f')}\n" for (word, code), weight in sorted(rows.items()))
     schema = f'''schema:
   schema_id: vime_pinyin
   name: 智能拼音
@@ -188,8 +205,8 @@ speller:
   alphabet: zyxwvutsrqponmlkjihgfedcba
   delimiter: " '"
   algebra:
-    - derive/^([a-z]).+$/$1/
-    - derive/^([zcs]h).+$/$1/
+    - abbrev/^([a-z]).+$/$1/
+    - abbrev/^([zcs]h).+$/$1/
 translator:
   dictionary: vime_pinyin
   enable_user_dict: true
@@ -202,7 +219,7 @@ menu:
 '''
     nine = schema.replace("schema_id: vime_pinyin", "schema_id: vime_nine").replace("name: 智能拼音", "name: 智能九键")
     nine = nine.replace("alphabet: zyxwvutsrqponmlkjihgfedcba", "alphabet: 23456789")
-    nine = nine.replace("    - derive/^([a-z]).+$/$1/\n    - derive/^([zcs]h).+$/$1/", "    - xlit/abcdefghijklmnopqrstuvwxyz/22233344455566677778889999/")
+    nine = nine.replace("    - abbrev/^([a-z]).+$/$1/\n    - abbrev/^([zcs]h).+$/$1/", "    - xlit/abcdefghijklmnopqrstuvwxyz/22233344455566677778889999/")
     nine = nine.replace("  dictionary: vime_pinyin", "  dictionary: vime_pinyin\n  prism: vime_nine")
     return {"vime_pinyin.dict.yaml": dictionary, "vime_pinyin.schema.yaml": schema, "vime_nine.schema.yaml": nine,
             "default.yaml": f'config_version: "{VERSION}"\nschema_list:\n  - schema: vime_pinyin\n  - schema: vime_nine\nmenu:\n  page_size: 10\n'}, len(rows)
@@ -219,6 +236,9 @@ def build(args):
     if sha(raw) != spec["cedict"]["sha256"] or sha(args.ecdict.read_bytes()) != spec["ecdict"]["csv_sha256"]:
         raise ValueError("Source checksum mismatch")
     luna = source_blob(args.luna, spec["luna"], "luna_pinyin.dict.yaml")
+    pinyin_module = source_blob(args.luna, spec["luna"], "pinyin.yaml").decode("utf-8")
+    if not all(rule in pinyin_module for rule in ("abbrev/^([a-z]).+$/$1/", "abbrev/^([zcs]h).+$/$1/")):
+        raise ValueError("Review abbreviation semantics for the new Luna module")
     essay = source_blob(args.essay, spec["essay"], "essay.txt")
     converter = opencc.OpenCC("t2s")
     frequencies = {}
@@ -255,6 +275,8 @@ def build(args):
     source_id = sha(encoded(rime_hashes))
     manifest = {"format": "vime-rime-2", "version": VERSION, "source_id": source_id, "dataset_id": source_id,
                 "dictionary_entries": count, "vocabulary_entries": len(frequencies), "compiled": False,
+                "reading_weight_policy": "Preserve Luna percentage/numeric reading weights with Decimal; unstated uses Essay count or100; t2s duplicate word/code keeps maximum. Do not promote0%/rare readings to common frequency.",
+                "abbreviation_policy": "Use Luna pinyin.yaml abbrev rules for initials/zh-ch-sh; never promote abbreviations to ordinary full-code derivations.",
                 "source_lock_sha256": sha(args.lock.read_bytes()), "files": rime_hashes,
                 "luna_source": spec["luna"], "essay_source": spec["essay"], "compiler_source_mtime_ms": EPOCH_MS}
     write(output / "rime/manifest.json", encoded(manifest))

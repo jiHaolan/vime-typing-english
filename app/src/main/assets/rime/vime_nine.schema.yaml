@@ -1,7 +1,7 @@
 schema:
   schema_id: vime_nine
   name: 智能九键
-  version: "0.14.0"
+  version: "0.23.0"
 switches:
   - name: ascii_mode
     reset: 0

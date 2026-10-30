@@ -8,7 +8,8 @@
       "files": {
         "luna_pinyin.dict.yaml": "270b0c6879436d7b0b606aa684507ea7e173c62b6d5df3966804637872d520fd",
         "LICENSE": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
-        "AUTHORS": "dbf21183999dcd06d4b0f0fe08f7396fcb47cc6f734fd97c3dd851777f1b28f8"
+        "AUTHORS": "dbf21183999dcd06d4b0f0fe08f7396fcb47cc6f734fd97c3dd851777f1b28f8",
+        "pinyin.yaml": "22915339d6505d8911edd929b055145235eb4f66ee6d4dbdedb832e31be40c35"
       }
     },
     "essay": {
