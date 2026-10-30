@@ -1,0 +1,38 @@
+{
+  "format": "vime-level-source-1",
+  "source": "https://github.com/skywind3000/ECDICT",
+  "commit": "ab22ad36302cafc6349a050e2b60894855208055",
+  "csv_sha256": "d1ecbdf9ee2b920afb6f430ca6b6bb9f559588cf0dff86e04bd255f9390843cc",
+  "license": "MIT",
+  "license_file": "licenses/ecdict-MIT.txt",
+  "fields_used": [
+    "word",
+    "tag"
+  ],
+  "transformation": "ASCII lowercase words; CET4 learning tier includes zk/gk/cet4 basics, then cet6, then toefl; lowest tier wins; untagged words remain unclassified",
+  "tag_policy": {
+    "CET4": [
+      "zk",
+      "gk",
+      "cet4"
+    ],
+    "CET6": [
+      "cet6"
+    ],
+    "TOEFL": [
+      "toefl"
+    ]
+  },
+  "counts": {
+    "CET4": 5351,
+    "CET6": 1755,
+    "TOEFL": 3408
+  },
+  "levels_sha256": "3dd2d1b08f04e79bdfc935d38aeaf96ebe07930c009c18c2b3002773a12722e8",
+  "dictionary_sha256": "6d7577a4d16f1c06dd267c4fb91e33f339577f5fbadfd64243d3021ae9958c15",
+  "preserved_sections_sha256": {
+    "pw": "7ef56bdb35d57ffd2178328a33f400e959e49931496782b99f621693736194a4",
+    "en": "6fef4581c989c973e1c4731a3d9172e973c8d61608954adee79a3a15309668fb",
+    "card": "fab64b7205d420bcceae94eaa6bee997a701cc82e8e31da0fdde3c9a091e0d8e"
+  }
+}

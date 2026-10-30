@@ -1,0 +1,115 @@
+{
+  "format": "vime-data-audit-1",
+  "review_date": "2026-10-31",
+  "legacy_export_matches_current_sections": {
+    "pw": true,
+    "en": true,
+    "card": true
+  },
+  "legacy_files": [
+    {
+      "file": "export-dict-android.js",
+      "sha256": "ca427e796655e2a64409279fbbf1f38241d59f444158fcc561d91f1f381c6a9d",
+      "bytes": 1974
+    },
+    {
+      "file": "merge-v3.js",
+      "sha256": "edb31c29c435232981457648f84c1ca4eef386c9b502b4676879e98aa0b4c730",
+      "bytes": 3854
+    },
+    {
+      "file": "merge-v4.js",
+      "sha256": "29c507d07608bee7bd593cd2e8af4120a474284c1b101fe3774963b21423fb1d",
+      "bytes": 4464
+    },
+    {
+      "file": "gen-card.js",
+      "sha256": "d27e1beb21e2920afbdddf0bc1e42082e6924c4e93f7e78bc099850918f2a006",
+      "bytes": 2056
+    },
+    {
+      "file": "gen-levels.js",
+      "sha256": "da732522f681e8befec0a2cad3da3e2d2849e7d5a3b1b7d3d8a217ae709312ee",
+      "bytes": 2899
+    },
+    {
+      "file": "gen-assoc.js",
+      "sha256": "e4398213d9301b653495575067999e4377007a12bc83375d84238a618ba3f521",
+      "bytes": 4541
+    },
+    {
+      "file": "gen-py.py",
+      "sha256": "78adbf3b9f31b82166f9985c376b60d9968c2a6d4afb5a0f28d3ef7d7b9ec093",
+      "bytes": 1464
+    },
+    {
+      "file": "cedict-lib.js",
+      "sha256": "814c7748bc10a4bbdc7cc0ed0c316c3045c5d5fc76273b87c46c3aef605baeed",
+      "bytes": 3928
+    },
+    {
+      "file": "cedict.u8",
+      "sha256": "8205f57caebcb72181dc7415fa83828ff446918325037433d08472e2a2d008ae",
+      "bytes": 5692580
+    },
+    {
+      "file": "mmah-dict.txt",
+      "sha256": "3e0b6b66a9e375ecddd80dc52e2ad93c231a5b357086dd348fd8384fcde03a83",
+      "bytes": 1323008
+    },
+    {
+      "file": "phrase-dict.txt",
+      "sha256": "74761bb78664fdc738839180ad14d8d668483005ec3e8ebad702f04bb4c4fd16",
+      "bytes": 798720
+    }
+  ],
+  "replaced_field": "dict.android.json:lvl",
+  "replacement_sources": [
+    {
+      "url": "https://raw.githubusercontent.com/skywind3000/ECDICT/ab22ad36302cafc6349a050e2b60894855208055/ecdict.csv",
+      "filename": "ecdict-ecdict.csv",
+      "bytes": 66009548,
+      "sha256": "d1ecbdf9ee2b920afb6f430ca6b6bb9f559588cf0dff86e04bd255f9390843cc"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/skywind3000/ECDICT/ab22ad36302cafc6349a050e2b60894855208055/LICENSE",
+      "filename": "ecdict-LICENSE",
+      "bytes": 1063,
+      "sha256": "f8552dd246f61a4e064569eae6194a01c6b3d63b03bf27c6ca863593c549ed0f"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/skywind3000/ECDICT/ab22ad36302cafc6349a050e2b60894855208055/README.md",
+      "filename": "ecdict-README.md",
+      "bytes": 18414,
+      "sha256": "0c3f95fc7e15f7eccf65feedb58ba3ebace1fe7b7cbdd1af60c9ace4cef9094b"
+    }
+  ],
+  "known_legacy_licenses": {
+    "cc-cedict": "CC-BY-SA-3.0; input header date2018-10-31",
+    "makemeahanzi-dictionary": "LGPL-3.0-or-later; upstream COPYING"
+  },
+  "remaining_release_blockers": [
+    {
+      "id": "legacy-input-data",
+      "detail": "旧拼音/词频及联想表未建立精确源快照和再分发权限；Rime明文也合并了其中可拼读条目。需要替换这些输入或取得可验证的许可。"
+    },
+    {
+      "id": "legacy-english-lineage",
+      "detail": "内置释义/词卡包含CC-CEDICT3、MakeMeAHanzi及手工覆盖，尚未完成按记录的来源映射或清洁重建及对应源材料交付。"
+    },
+    {
+      "id": "native-transitive-review",
+      "detail": "已列出直接链接的原生依赖与固定配方；仍需核对其内嵌第三方代码和NOTICE，不能只据主项目许可证认定全部齐全。"
+    }
+  ],
+  "commercial_rights_complete": false,
+  "supplemental_code": {
+    "file": "LexiconSupplement.kt",
+    "sha256": "338da4c1ac46a8fb4a0763e2087cfb80352625224556433ba7e8993bfd3d96fd",
+    "references": [
+      "https://en.wiktionary.org/wiki/金幣",
+      "Local CC-CEDICT source snapshot, see legacy source audit"
+    ],
+    "review_complete": false
+  }
+}

@@ -98,10 +98,7 @@ class InputSettingsActivity : AppCompatActivity() {
         Ui.section(this,column,"横屏与竖屏")
         label("键盘高度、宽度、左右位置和底部留白按横竖屏分别保存。在要调整的方向打开键盘→布局→键盘调节。首次使用横屏会沿用原有值。")
         Ui.section(this,column,"开源与词典")
-        button("查看Rime及词典来源") {
-            val notice=assets.open("NOTICE-rime.txt").bufferedReader().use { it.readText() }
-            AlertDialog.Builder(this).setTitle("开源说明").setMessage(notice).setPositiveButton("知道了",null).show()
-        }
+        button("开源与数据来源") { startActivity(Intent(this,NoticesActivity::class.java)) }.id=R.id.inputNotices
     }
     private fun editedColors() = themeFields.map { it.text.toString().trim() }.let { CustomColors(it[0],it[1],it[2],it[3],it[4],it[5]) }.also(ThemeCodec::validate)
     private fun editPhrase(index: Int?) {

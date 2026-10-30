@@ -1,3 +1,5 @@
+import java.security.MessageDigest
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -15,7 +17,9 @@ val nativeChecks = providers.gradleProperty("vimeNativeChecks").orNull
 require(nativeChecks == null || nativeChecks in listOf("true", "false")) { "vimeNativeChecks must be true or false" }
 val inputDataChecks = providers.gradleProperty("vimeInputDataChecks").orNull
 require(inputDataChecks == null || inputDataChecks in listOf("true", "false")) { "vimeInputDataChecks must be true or false" }
-require(listOf(windowChecks, nativeChecks, inputDataChecks).count { it == "true" } <= 1) { "Select one instrumentation suite at a time" }
+val noticeChecks = providers.gradleProperty("vimeNoticeChecks").orNull
+require(noticeChecks == null || noticeChecks in listOf("true", "false")) { "vimeNoticeChecks must be true or false" }
+require(listOf(windowChecks, nativeChecks, inputDataChecks, noticeChecks).count { it == "true" } <= 1) { "Select one instrumentation suite at a time" }
 
 android {
     namespace = "com.vime.ime"
@@ -26,12 +30,13 @@ android {
         applicationId = "com.vime.ime"
         minSdk = 24
         targetSdk = 36
-        versionCode = 30
-        versionName = "0.21.0"
+        versionCode = 31
+        versionName = "0.22.0"
         testInstrumentationRunner = when {
             windowChecks == "true" -> "com.vime.ime.WindowInteractionInstrumentation"
             nativeChecks == "true" -> "com.vime.ime.NativeRuntimeInstrumentation"
             inputDataChecks == "true" -> "com.vime.ime.InputDataInstrumentation"
+            noticeChecks == "true" -> "com.vime.ime.NoticesInstrumentation"
             else -> "com.vime.ime.data.LearningStorageInstrumentation"
         }
     }
@@ -89,5 +94,30 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+}
+
+// Resolved production runtime only: build plugins and test libraries are excluded.
+tasks.register("writeRuntimeInventory") {
+    val report = layout.buildDirectory.file("reports/runtime-components.json")
+    outputs.file(report)
+    outputs.upToDateWhen { false }
+    doLast {
+        val runtime = configurations.getByName("releaseRuntimeClasspath")
+        val modules = runtime.incoming.resolutionResult.allComponents.mapNotNull {
+            (it.id as? org.gradle.api.artifacts.component.ModuleComponentIdentifier)?.let { id ->
+                "${id.group}:${id.module}:${id.version}"
+            }
+        }.sorted()
+        val artifacts = runtime.resolvedConfiguration.resolvedArtifacts.map { artifact ->
+            mapOf("coordinate" to artifact.moduleVersion.id.toString(),
+                  "file" to artifact.file.absolutePath,
+                  "sha256" to MessageDigest.getInstance("SHA-256")
+                      .digest(artifact.file.readBytes()).joinToString("") { "%02x".format(it) })
+        }.sortedBy { it.getValue("coordinate") }
+        val target = report.get().asFile
+        target.parentFile.mkdirs()
+        target.writeText(groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(
+            mapOf("format" to "vime-runtime-inventory-1", "modules" to modules, "artifacts" to artifacts))))
+    }
 }
 

@@ -1,0 +1,17 @@
+Supplemental dictionary corrections in Vime
+
+LexiconSupplement.kt contains two small corrections with explicit references:
+- 金币 / jinbi / gold coin. Reference: Wiktionary contributors, 金幣,
+  https://en.wiktionary.org/wiki/金幣
+  The original Vime correction did not pin a page revision. Wikimedia text is
+  generally supplied under CC-BY-SA-4.0; the accompanying license is retained.
+  This audit does not assert that all provenance requirements for the legacy
+  correction have been completed.
+- 木薯 / mushu / cassava. Reference in the original code: local CC-CEDICT,
+  木薯 木薯 [mu4 shu3] /cassava, a tropical tuber plant/
+  The original local dictionary snapshot and its CC-BY-SA-3.0 notice are
+  described in legacy-data-NOTICE.txt.
+
+Vime selected headwords, pinyin and short English labels for display. The
+remaining per-entry source review also covers these supplemental corrections.
+These references do not relicense the application or unrelated dictionary data.

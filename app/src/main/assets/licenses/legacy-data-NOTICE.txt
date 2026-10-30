@@ -1,0 +1,29 @@
+Legacy built-in dictionary source audit (2026-10-31)
+
+The pre-existing dict.android.json was exported by export-dict-android.js.
+merge-v3.js / merge-v4.js and gen-card.js show these inputs:
+- CC-CEDICT, community maintained Chinese-English dictionary, published by MDBG.
+  Local input header: 2018-10-31T07:32:05Z, 116539 entries,
+  Creative Commons Attribution-ShareAlike 3.0 Unported.
+  Original referenced work: CEDICT, Copyright (C) 1997, 1998 Paul Andrew Denisowski.
+  https://www.mdbg.net/chinese/dictionary?page=cc-cedict
+  https://creativecommons.org/licenses/by-sa/3.0/
+  Changes: simplified headwords, selected and shortened senses, cross-reference
+  resolution, hand-edited overrides, and compact Android JSON field conversion.
+  The derived CC-CEDICT portions retain CC-BY-SA-3.0 attribution and terms.
+- MakeMeAHanzi dictionary.txt: character-level definition fallback.
+  https://github.com/skishore/makemeahanzi
+  dictionary.txt is LGPL-3.0-or-later; see makemeahanzi-COPYING.txt.
+  Changes: select a core English gloss, then merge with manual/CEDICT overrides.
+- pypinyin character readings, ChsPinyinUDL phrase/frequency data, and manual
+  phrase/definition overrides. Exact original phrase snapshot and redistribution
+  permission have not yet been established. Association data was also derived
+  from this legacy phrase table. These portions require replacement or verified
+  provenance before a commercial release.
+
+This audit records known inputs; it does not assign a new blanket license to
+this mixed legacy asset or assert permission for unresolved source material.
+The old mahavivo/english-wordlists exam labels were replaced in 0.22.0 by
+pinned ECDICT word/tag metadata; none of that old level map is carried forward.
+The separately importable 2026 CC-CEDICT pack uses its own CC-BY-SA-4.0 notice.
+It must not be confused with this older built-in CC-CEDICT source.

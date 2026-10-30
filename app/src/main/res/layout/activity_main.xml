@@ -40,6 +40,7 @@
             <TextView android:id="@+id/lvToefl" style="@style/LevelChip" android:layout_marginStart="8dp" android:text="TOEFL" />
             <TextView android:id="@+id/lvAll" style="@style/LevelChip" android:layout_marginStart="8dp" android:text="全部" />
         </LinearLayout>
+        <TextView style="@style/BodyText" android:layout_marginTop="8dp" android:textSize="12sp" android:text="CET4 档含基础词，分级仅供学习参考。" />
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:orientation="vertical" android:background="@drawable/card_bg" android:padding="4dp">
             <TextView android:id="@+id/btnTheme" style="@style/SettingRow" android:text="皮肤配色" />
             <TextView android:id="@+id/btnHaptics" style="@style/SettingRow" android:text="按键触感" />

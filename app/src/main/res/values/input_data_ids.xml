@@ -11,4 +11,8 @@
     <item name="inputPrivacyNotice" type="id" />
     <item name="inputDataCrash" type="id" />
     <item name="privacyFeedback" type="id" />
+    <item name="privacyNotices" type="id" />
+    <item name="inputNotices" type="id" />
+    <item name="noticeDocument" type="id" />
+    <item name="dictionaryNotices" type="id" />
 </resources>

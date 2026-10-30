@@ -1,0 +1,672 @@
+{
+  "version": "0.22.0",
+  "version_code": 31,
+  "recorded_at": "2026-10-31T04:29:30.602290+08:00",
+  "backend": {
+    "passed": true,
+    "page_size_bytes": 16384,
+    "app_sha256": "2ccb8d4238a00774e01fd8eb55a434e686309197020f3d613fadcb82c2beba0e",
+    "test_sha256": "3951c7d03847bc8186b9edc9abc349bd66d4fee9c723415cdc9a17abd8e3335a",
+    "result": {
+      "expected": 5,
+      "passed": 5,
+      "failed": 0,
+      "not_run": 0,
+      "cases": [
+        {
+          "name": "packaged-catalog-and-all-document-references-parse",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "all-packaged-license-bytes-match-including-complete-gpl",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "real-dictionary-loader-retains-chinese-and-english-data",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "real-dictionary-applies-basics-cet6-and-toefl-tags",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "built-in-level-metadata-has-explicit-policy-and-declared-counts",
+          "pass": true,
+          "error": null
+        }
+      ],
+      "observations": {
+        "components": 13,
+        "documents": 21,
+        "dictionary_load_ms": 2242,
+        "level_counts": {
+          "CET4": 5351,
+          "CET6": 1755,
+          "TOEFL": 3408
+        }
+      }
+    }
+  },
+  "native": {
+    "device": "emulator-5580",
+    "required_page_size_bytes": 16384,
+    "passed": true,
+    "sdk": 36,
+    "fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+    "page_size_bytes": 16384,
+    "abi": "x86_64",
+    "app_sha256": "2ccb8d4238a00774e01fd8eb55a434e686309197020f3d613fadcb82c2beba0e",
+    "test_sha256": "49a0f214544f9e2e8e262a192519f22574c5032005d284321f6bc3b0ffe52c3d",
+    "compat_properties_before": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "compat_properties_during": {
+      "bionic.linker.16kb.app_compat.enabled": "false",
+      "pm.16kb.app_compat.disabled": "true"
+    },
+    "result": {
+      "sdk": 36,
+      "abi": "x86_64",
+      "expected": 7,
+      "passed": 7,
+      "failed": 0,
+      "not_run": 0,
+      "cases": [
+        {
+          "name": "emulator-has-explicitly-required-page-size",
+          "pass": true,
+          "elapsed_ms": 2,
+          "error": null
+        },
+        {
+          "name": "native-library-and-shipped-dictionaries-initialize",
+          "pass": true,
+          "elapsed_ms": 265,
+          "error": null
+        },
+        {
+          "name": "full-phrase-candidate-consumes-all-pinyin",
+          "pass": true,
+          "elapsed_ms": 6,
+          "error": null
+        },
+        {
+          "name": "nine-key-and-pinyin-schema-switch-both-return-full-words",
+          "pass": true,
+          "elapsed_ms": 48,
+          "error": null
+        },
+        {
+          "name": "native-candidate-pagination-is-complete",
+          "pass": true,
+          "elapsed_ms": 1,
+          "error": null
+        },
+        {
+          "name": "repeated-native-schema-switching-keeps-candidates-valid",
+          "pass": true,
+          "elapsed_ms": 1550,
+          "error": null
+        },
+        {
+          "name": "native-learning-call-retains-full-candidate-consumption",
+          "pass": true,
+          "elapsed_ms": 17,
+          "error": null
+        }
+      ],
+      "observations": {
+        "process_page_size_bytes": 16384,
+        "expected_page_size_bytes": 16384,
+        "rime_state": "READY",
+        "rime_version": "1.16.1",
+        "rime_startup_ms": 174,
+        "rime_failure": "",
+        "mapped_dictionary_regions": [
+          "77cd62200000-77cd63aa0000 r--s 00000000 fe:36 353343                     /data/data/com.vime.ime/files/rime/shared/build/vime_pinyin.table.bin",
+          "77d078a6c000-77d078a70000 r--s 00000000 fe:36 353260                     /data/data/com.vime.ime/files/rime/user/vime_pinyin.userdb/000188.ldb",
+          "77d078ac0000-77d078ac4000 r--s 00000000 fe:36 353511                     /data/data/com.vime.ime/files/rime/user/vime_pinyin.userdb/000357.ldb",
+          "77d078ae4000-77d078ae8000 r--s 00000000 fe:36 353215                     /data/data/com.vime.ime/files/rime/user/vime_pinyin.userdb/000005.ldb",
+          "77d078b38000-77d078b40000 r--s 00000000 fe:36 353340                     /data/data/com.vime.ime/files/rime/shared/build/vime_pinyin.prism.bin"
+        ],
+        "native_user_database_files": [
+          "rime/user/vime_pinyin.userdb/LOG",
+          "rime/user/vime_pinyin.userdb/LOCK",
+          "rime/user/vime_pinyin.userdb/LOG.old",
+          "rime/user/vime_pinyin.userdb/000188.ldb",
+          "rime/user/vime_pinyin.userdb/CURRENT",
+          "rime/user/vime_pinyin.userdb/000357.ldb",
+          "rime/user/vime_pinyin.userdb/000005.ldb",
+          "rime/user/vime_pinyin.userdb/000540.log",
+          "rime/user/vime_pinyin.userdb/MANIFEST-000539",
+          "rime/user/user.yaml"
+        ]
+      },
+      "scope": "Actual native Rime calls; not a physical ARM64, ASR or long-term performance test"
+    },
+    "instrumentation_code": -1,
+    "compat_properties_after": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "compat_properties_restored": true
+  },
+  "ui": {
+    "passed": 13,
+    "failed": 0,
+    "app_sha256": "2ccb8d4238a00774e01fd8eb55a434e686309197020f3d613fadcb82c2beba0e",
+    "documents": 21,
+    "cases": [
+      {
+        "name": "dictionary-opens-notices-with-wifi-and-mobile-data-disabled",
+        "pass": true
+      },
+      {
+        "name": "runtime-notice-renders-actual-first-middle-and-last-coordinates",
+        "pass": true,
+        "text_characters": 13369
+      },
+      {
+        "name": "selected-document-survives-landscape-configuration-recreation",
+        "pass": true
+      },
+      {
+        "name": "system-back-returns-to-notice-index",
+        "pass": true
+      },
+      {
+        "name": "apache-license-renders-full-text",
+        "pass": true
+      },
+      {
+        "name": "rime-original-bsd-license-renders",
+        "pass": true
+      },
+      {
+        "name": "gpl-companion-renders-complete-text",
+        "pass": true,
+        "text_characters": 35149
+      },
+      {
+        "name": "return-to-index-restores-source-list-position",
+        "pass": true
+      },
+      {
+        "name": "supplementary-source-attribution-is-reachable",
+        "pass": true
+      },
+      {
+        "name": "supplementary-cc4-license-is-reachable",
+        "pass": true
+      },
+      {
+        "name": "ecdict-attribution-renders-original-copyright-and-license",
+        "pass": true
+      },
+      {
+        "name": "privacy-notice-opens-packaged-license-index",
+        "pass": true
+      },
+      {
+        "name": "input-settings-opens-packaged-license-index",
+        "pass": true
+      }
+    ]
+  },
+  "source_integrity": {
+    "passed": true,
+    "commercial_distribution_ready": false,
+    "checks": [
+      {
+        "name": "catalog-format",
+        "pass": true
+      },
+      {
+        "name": "required-license-documents",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/Apache-2.0.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/CC-BY-SA-3.0.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/CC-BY-SA-4.0.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/GNU-GPL-3.0.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/boost-LICENSE.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/ecdict-MIT.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/glog-LICENSE.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/legacy-data-NOTICE.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/leveldb-LICENSE.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/libcxx-LICENSE.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/librime-BSD-3-Clause.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/lua-LICENSE.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/luna-pinyin-LGPL-3.0.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/makemeahanzi-COPYING.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/marisa-LICENSE.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/opencc-LICENSE.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/rime-NOTICE.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/rime-essay-LGPL-3.0.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/runtime-NOTICE.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/supplement-NOTICE.txt",
+        "pass": true
+      },
+      {
+        "name": "document-bytes:licenses/yaml-cpp-LICENSE.txt",
+        "pass": true
+      },
+      {
+        "name": "gpl-companion-is-complete",
+        "pass": true
+      },
+      {
+        "name": "unique-component-ids",
+        "pass": true
+      },
+      {
+        "name": "all-documents-reachable",
+        "pass": true
+      },
+      {
+        "name": "component-metadata-present",
+        "pass": true
+      },
+      {
+        "name": "runtime-pom-coverage",
+        "pass": true
+      },
+      {
+        "name": "actual-runtime-module-coverage",
+        "pass": true
+      },
+      {
+        "name": "actual-runtime-artifact-hashes",
+        "pass": true
+      },
+      {
+        "name": "exam-tag-source-and-fields",
+        "pass": true
+      },
+      {
+        "name": "exam-tag-and-dictionary-hashes",
+        "pass": true
+      },
+      {
+        "name": "unrelated-dictionary-sections-preserved",
+        "pass": true
+      },
+      {
+        "name": "three-explicit-exam-tiers",
+        "pass": true
+      },
+      {
+        "name": "source-review-status-is-explicit",
+        "pass": true
+      }
+    ],
+    "components": 13,
+    "documents": 21,
+    "runtime_modules": 47,
+    "release_blockers": [
+      {
+        "id": "legacy-input-data",
+        "detail": "旧拼音/词频及联想表未建立精确源快照和再分发权限；Rime明文也合并了其中可拼读条目。需要替换这些输入或取得可验证的许可。"
+      },
+      {
+        "id": "legacy-english-lineage",
+        "detail": "内置释义/词卡包含CC-CEDICT3、MakeMeAHanzi及手工覆盖，尚未完成按记录的来源映射或清洁重建及对应源材料交付。"
+      },
+      {
+        "id": "native-transitive-review",
+        "detail": "已列出直接链接的原生依赖与固定配方；仍需核对其内嵌第三方代码和NOTICE，不能只据主项目许可证认定全部齐全。"
+      }
+    ],
+    "failed_checks": []
+  },
+  "python_tests_passed": 8,
+  "jvm": {
+    "tests": 116,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "lint_debug": {
+    "Warning": 167
+  },
+  "static_passed": 44,
+  "level_source": {
+    "format": "vime-level-source-1",
+    "source": "https://github.com/skywind3000/ECDICT",
+    "commit": "ab22ad36302cafc6349a050e2b60894855208055",
+    "csv_sha256": "d1ecbdf9ee2b920afb6f430ca6b6bb9f559588cf0dff86e04bd255f9390843cc",
+    "license": "MIT",
+    "license_file": "licenses/ecdict-MIT.txt",
+    "fields_used": [
+      "word",
+      "tag"
+    ],
+    "transformation": "ASCII lowercase words; CET4 learning tier includes zk/gk/cet4 basics, then cet6, then toefl; lowest tier wins; untagged words remain unclassified",
+    "tag_policy": {
+      "CET4": [
+        "zk",
+        "gk",
+        "cet4"
+      ],
+      "CET6": [
+        "cet6"
+      ],
+      "TOEFL": [
+        "toefl"
+      ]
+    },
+    "counts": {
+      "CET4": 5351,
+      "CET6": 1755,
+      "TOEFL": 3408
+    },
+    "levels_sha256": "3dd2d1b08f04e79bdfc935d38aeaf96ebe07930c009c18c2b3002773a12722e8",
+    "dictionary_sha256": "6d7577a4d16f1c06dd267c4fb91e33f339577f5fbadfd64243d3021ae9958c15",
+    "preserved_sections_sha256": {
+      "pw": "7ef56bdb35d57ffd2178328a33f400e959e49931496782b99f621693736194a4",
+      "en": "6fef4581c989c973e1c4731a3d9172e973c8d61608954adee79a3a15309668fb",
+      "card": "fab64b7205d420bcceae94eaa6bee997a701cc82e8e31da0fdde3c9a091e0d8e"
+    }
+  },
+  "artifact_checks": [
+    {
+      "abi": "arm64-v8a",
+      "file": "Vime-preview-0.22.0-arm64-v8a.apk",
+      "bytes": 25546351,
+      "sha256": "f19ffcbb990916c9a992f5fd9b7874b3a2a7c8b6a34e806bd52a26030446a865",
+      "certificate_sha256": "c41ce7fe52931687d7ef365d4dd6e4f7f4cd82ad1041f9616479ff30155adc29",
+      "native": [
+        {
+          "name": "lib/arm64-v8a/libc++_shared.so",
+          "zip_offset": 3080192,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 624800,
+              "address": 641184,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 1210520,
+              "address": 1243288,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 1250352,
+              "address": 1299504,
+              "alignment": 16384,
+              "page_16k": true
+            }
+          ]
+        },
+        {
+          "name": "lib/arm64-v8a/libvime_rime.so",
+          "zip_offset": 4341760,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 4413520,
+              "address": 4429904,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 4523112,
+              "address": 4555880,
+              "alignment": 16384,
+              "page_16k": true
+            }
+          ]
+        }
+      ],
+      "notices_passed": true,
+      "commercial_distribution_ready": false
+    },
+    {
+      "abi": "armeabi-v7a",
+      "file": "Vime-preview-0.22.0-armeabi-v7a.apk",
+      "bytes": 23757551,
+      "sha256": "10d598787b5241389e73331676b9681eac48d7f94cd11adaca5738e460e289e4",
+      "certificate_sha256": "c41ce7fe52931687d7ef365d4dd6e4f7f4cd82ad1041f9616479ff30155adc29",
+      "native": [
+        {
+          "name": "lib/armeabi-v7a/libc++_shared.so",
+          "zip_offset": 3080192,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 4096,
+              "page_16k": false
+            },
+            {
+              "offset": 429440,
+              "address": 433536,
+              "alignment": 4096,
+              "page_16k": false
+            },
+            {
+              "offset": 828016,
+              "address": 836208,
+              "alignment": 4096,
+              "page_16k": false
+            },
+            {
+              "offset": 848192,
+              "address": 860480,
+              "alignment": 4096,
+              "page_16k": false
+            }
+          ]
+        },
+        {
+          "name": "lib/armeabi-v7a/libvime_rime.so",
+          "zip_offset": 3932160,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 3090592,
+              "address": 3106976,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 3145852,
+              "address": 3178620,
+              "alignment": 16384,
+              "page_16k": true
+            }
+          ]
+        }
+      ],
+      "notices_passed": true,
+      "commercial_distribution_ready": false
+    },
+    {
+      "abi": "x86_64",
+      "file": "Vime-preview-0.22.0-x86_64.apk",
+      "bytes": 25514201,
+      "sha256": "2ccb8d4238a00774e01fd8eb55a434e686309197020f3d613fadcb82c2beba0e",
+      "certificate_sha256": "c41ce7fe52931687d7ef365d4dd6e4f7f4cd82ad1041f9616479ff30155adc29",
+      "native": [
+        {
+          "name": "lib/x86_64/libc++_shared.so",
+          "zip_offset": 3080192,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 604448,
+              "address": 620832,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 1187008,
+              "address": 1219776,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 1226704,
+              "address": 1275856,
+              "alignment": 16384,
+              "page_16k": true
+            }
+          ]
+        },
+        {
+          "name": "lib/x86_64/libvime_rime.so",
+          "zip_offset": 4325376,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 4397776,
+              "address": 4414160,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 4507296,
+              "address": 4540064,
+              "alignment": 16384,
+              "page_16k": true
+            }
+          ]
+        }
+      ],
+      "notices_passed": true,
+      "commercial_distribution_ready": false
+    }
+  ],
+  "settings_restored": {
+    "font_scale": "1.0",
+    "ui_night_mode": "1",
+    "user_rotation": "0",
+    "accelerometer_rotation": "1",
+    "wifi_on": "1",
+    "mobile_data": "1",
+    "compat": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    }
+  },
+  "display_checks": {
+    "light_reviewed": true,
+    "dark_1_5x_index_reviewed": true,
+    "dark_1_5x_document_reviewed": true,
+    "screenshots": [
+      "notices-light.png",
+      "notices-dark-large.png",
+      "document-dark-large.png"
+    ]
+  },
+  "commercial_source_gate": {
+    "expected_refusal_observed": true,
+    "exit_code": 1,
+    "signing_attempted": false,
+    "production_output_created": false,
+    "remaining_source_items": 3
+  },
+  "commercial_distribution_ready": false,
+  "published": false,
+  "production_signed": false,
+  "goal_complete": false,
+  "limits": [
+    "Dedicated Android16/API36 16KB x86_64 emulator, no physical phone upgrade/ARM64 runtime claim.",
+    "Single dictionary load observation2242ms is not a performance acceptance benchmark.",
+    "Only seven documents were individually opened in UI; all21 packaged documents were read and hashed by actual on-device checks.",
+    "One existing optional lexicon dataset JVM test remains skipped.",
+    "Earlier19-document and9396-label intermediate APK checks are retained separately and are not used as final package evidence.",
+    "Three source audit items remain open; independent speech, billing, production signing and broader physical-device validation remain unfinished."
+  ]
+}

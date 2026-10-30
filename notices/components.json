@@ -1,0 +1,171 @@
+{
+  "format": "vime-curated-notices-1",
+  "components": [
+    {
+      "id": "rime",
+      "title": "Rime 输入引擎",
+      "category": "输入引擎与原生依赖",
+      "license": "BSD-3-Clause",
+      "source": "https://github.com/rime/librime",
+      "version": "de4700e9f6b75b109910613df907965e3cbe0567",
+      "summary": "原生引擎通过本项目的 JNI 适配层调用。原生二进制及重建来源另有完整哈希记录。",
+      "documents": [
+        "licenses/librime-BSD-3-Clause.txt",
+        "licenses/rime-NOTICE.txt"
+      ]
+    },
+    {
+      "id": "boost",
+      "title": "Boost",
+      "category": "输入引擎与原生依赖",
+      "license": "BSL-1.0",
+      "source": "https://github.com/boostorg/boost",
+      "version": "1.90.0",
+      "summary": "随原生输入引擎分发。版本依据固定的构建配方；原许可文本保留。",
+      "documents": [
+        "licenses/boost-LICENSE.txt"
+      ]
+    },
+    {
+      "id": "glog",
+      "title": "glog",
+      "category": "输入引擎与原生依赖",
+      "license": "BSD-3-Clause",
+      "source": "https://github.com/google/glog",
+      "version": "7b134a5c82c0c0b5698bb6bf7a835b230c5638e4",
+      "summary": "随原生输入引擎分发。版本依据固定的构建配方；原许可文本保留。",
+      "documents": [
+        "licenses/glog-LICENSE.txt"
+      ]
+    },
+    {
+      "id": "leveldb",
+      "title": "LevelDB",
+      "category": "输入引擎与原生依赖",
+      "license": "BSD-3-Clause",
+      "source": "https://github.com/google/leveldb",
+      "version": "99b3c03b3284f5886f9ef9a4ef703d57373e61be",
+      "summary": "随原生输入引擎分发。版本依据固定的构建配方；原许可文本保留。",
+      "documents": [
+        "licenses/leveldb-LICENSE.txt"
+      ]
+    },
+    {
+      "id": "lua",
+      "title": "Lua",
+      "category": "输入引擎与原生依赖",
+      "license": "MIT",
+      "source": "https://github.com/lua/lua",
+      "version": "504ef66d500fa1fb4f1684b6617b01342eee704a",
+      "summary": "随原生输入引擎分发。版本依据固定的构建配方；原许可文本保留。",
+      "documents": [
+        "licenses/lua-LICENSE.txt"
+      ]
+    },
+    {
+      "id": "marisa",
+      "title": "marisa-trie",
+      "category": "输入引擎与原生依赖",
+      "license": "BSD-2-Clause（所选许可）",
+      "source": "https://github.com/s-yata/marisa-trie",
+      "version": "3e87d53b78e15f2f43783d5e376561a8c9722051",
+      "summary": "随原生输入引擎分发。版本依据固定的构建配方；原许可文本保留。",
+      "documents": [
+        "licenses/marisa-LICENSE.txt"
+      ]
+    },
+    {
+      "id": "opencc",
+      "title": "OpenCC",
+      "category": "输入引擎与原生依赖",
+      "license": "Apache-2.0",
+      "source": "https://github.com/BYVoid/OpenCC",
+      "version": "907bfcbbd3aae86ff04bc8eaca67c8af03108ddf",
+      "summary": "随原生输入引擎分发。版本依据固定的构建配方；原许可文本保留。",
+      "documents": [
+        "licenses/opencc-LICENSE.txt"
+      ]
+    },
+    {
+      "id": "yaml-cpp",
+      "title": "yaml-cpp",
+      "category": "输入引擎与原生依赖",
+      "license": "MIT",
+      "source": "https://github.com/jbeder/yaml-cpp",
+      "version": "56e3bb550c91fd7005566f19c079cb7a503223cf",
+      "summary": "随原生输入引擎分发。版本依据固定的构建配方；原许可文本保留。",
+      "documents": [
+        "licenses/yaml-cpp-LICENSE.txt"
+      ]
+    },
+    {
+      "id": "libcxx",
+      "title": "Android C++ 运行库",
+      "category": "输入引擎与原生依赖",
+      "license": "Apache-2.0 WITH LLVM-exception",
+      "source": "https://github.com/llvm/llvm-project",
+      "version": "Android NDK 28.0.13004108",
+      "summary": "随 APK 附带的 C++ 共享运行库。",
+      "documents": [
+        "licenses/libcxx-LICENSE.txt"
+      ]
+    },
+    {
+      "id": "rime-data",
+      "title": "Luna Pinyin 与 Rime Essay",
+      "category": "词典与学习数据",
+      "license": "LGPL-3.0",
+      "source": "https://github.com/rime/rime-luna-pinyin\nhttps://github.com/rime/rime-essay",
+      "version": "Luna 46acf03142c1 · Essay 054920de4f54",
+      "summary": "本地拼音与词频数据经过简体转换和合并。现有转换还合并了旧词库中的可拼读条目，这部分来源仍在复核。",
+      "documents": [
+        "licenses/luna-pinyin-LGPL-3.0.txt",
+        "licenses/rime-essay-LGPL-3.0.txt",
+        "licenses/GNU-GPL-3.0.txt"
+      ]
+    },
+    {
+      "id": "legacy-dictionary",
+      "title": "内置释义与补充词条来源",
+      "category": "词典与学习数据",
+      "license": "CC-BY-SA-3.0 / CC-BY-SA-4.0 / LGPL-3.0-or-later；部分待核对",
+      "source": "https://www.mdbg.net/chinese/dictionary?page=cc-cedict\nhttps://github.com/skishore/makemeahanzi\nhttps://en.wiktionary.org/wiki/金幣",
+      "version": "旧版合并数据 · 审核进行中",
+      "summary": "已追溯旧版 CC-CEDICT 释义、MakeMeAHanzi 字义和手工补充。旧拼音词频及联想数据仍需核实或替换，当前不能据此认定商用许可已全部完成。",
+      "documents": [
+        "licenses/legacy-data-NOTICE.txt",
+        "licenses/CC-BY-SA-3.0.txt",
+        "licenses/makemeahanzi-COPYING.txt",
+        "licenses/GNU-GPL-3.0.txt",
+        "licenses/supplement-NOTICE.txt",
+        "licenses/CC-BY-SA-4.0.txt"
+      ]
+    },
+    {
+      "id": "ecdict-tags",
+      "title": "ECDICT 考试分级标签",
+      "category": "词典与学习数据",
+      "license": "MIT",
+      "source": "https://github.com/skywind3000/ECDICT",
+      "version": "ab22ad36302cafc6349a050e2b60894855208055",
+      "summary": "只提取英文单词和学习标签。CET4学习档包含数据中明确标为初高中基础及四级的词；另有CET6与TOEFL档。不是官方最新考试大纲证明，不导入该库释义、音标或词频。",
+      "documents": [
+        "licenses/ecdict-MIT.txt"
+      ]
+    }
+  ],
+  "release_blockers": [
+    {
+      "id": "legacy-input-data",
+      "detail": "旧拼音/词频及联想表未建立精确源快照和再分发权限；Rime明文也合并了其中可拼读条目。需要替换这些输入或取得可验证的许可。"
+    },
+    {
+      "id": "legacy-english-lineage",
+      "detail": "内置释义/词卡包含CC-CEDICT3、MakeMeAHanzi及手工覆盖，尚未完成按记录的来源映射或清洁重建及对应源材料交付。"
+    },
+    {
+      "id": "native-transitive-review",
+      "detail": "已列出直接链接的原生依赖与固定配方；仍需核对其内嵌第三方代码和NOTICE，不能只据主项目许可证认定全部齐全。"
+    }
+  ]
+}

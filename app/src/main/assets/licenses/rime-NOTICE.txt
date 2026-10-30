@@ -1,0 +1,4 @@
+Vime includes the BSD-licensed Rime engine and derived simplified-Chinese Luna Pinyin/Rime Essay data.
+Data licensed LGPL-3.0; transformations and exact commits are in rime/manifest.json. Original license texts are in licenses/.
+Native dependencies: Boost (BSL-1.0), glog (BSD-3-Clause), LevelDB (BSD-3-Clause), Lua (MIT), marisa-trie (BSD), OpenCC (Apache-2.0), yaml-cpp (MIT), and the Android C++ runtime (Apache-2.0 with LLVM exceptions).
+Native static provider: https://github.com/fcitx5-android/prebuilt. Source and relinking build entry are shipped with the Vime source archive.

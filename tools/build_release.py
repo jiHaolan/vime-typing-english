@@ -14,6 +14,7 @@ import tempfile
 import xml.etree.ElementTree as ET
 
 from verify_release import PREVIEW_CERT, verify
+from verify_notices import verify as verify_notices
 
 ROOT = Path(__file__).resolve().parents[1]
 SIGNING_ENV = ('VIME_RELEASE_STORE_FILE', 'VIME_RELEASE_KEY_ALIAS',
@@ -65,6 +66,11 @@ def main():
 
     output = args.output.resolve()
     try:
+        receipt['notices'] = verify_notices(ROOT / 'app/src/main/assets', commercial=not args.validation)
+        if not receipt['notices']['passed']:
+            blockers = receipt['notices'].get('release_blockers', [])
+            raise ValueError('Third-party source/notice audit incomplete: ' + ', '.join(row['id'] for row in blockers)
+                             + '; see notices/components.json and tools/verify_notices.py')
         missing = [name for name in SIGNING_ENV if not os.environ.get(name, '').strip()]
         if missing:
             raise ValueError('Missing signing environment variables: ' + ', '.join(missing))
@@ -132,6 +138,11 @@ def main():
         receipt['gradle'] = '8.11.1'
         commands = [
             [args.gradle, '--no-daemon', '--console=plain', '-Dorg.gradle.jvmargs=',
+             *(['--offline'] if args.offline else []), ':app:writeRuntimeInventory'],
+            [sys.executable, ROOT / 'tools/verify_notices.py', ROOT / 'app/src/main/assets',
+             '--inventory', ROOT / 'app/build/reports/runtime-components.json',
+             *([] if args.validation else ['--release']), '--report', output / 'notices-source.json'],
+            [args.gradle, '--no-daemon', '--console=plain', '-Dorg.gradle.jvmargs=',
              *(['--offline'] if args.offline else []), ':app:assembleRelease', ':app:testDebugUnitTest', ':app:lintRelease'],
             [sys.executable, ROOT / 'Verify-Reference.py', output / 'static-reference.json']]
         with (output / 'build.log').open('w', encoding='utf-8') as log:
@@ -181,6 +192,11 @@ def main():
             source = (apk_dir / element['outputFile']).resolve()
             if source.parent != apk_dir.resolve():
                 raise ValueError('APK metadata points outside build output')
+            notices = verify_notices(source, json.loads((ROOT / 'app/build/reports/runtime-components.json').read_text('utf-8')),
+                                     commercial=not args.validation)
+            (output / f'notices-{abi}.json').write_text(json.dumps(notices, ensure_ascii=False, indent=2), 'utf-8')
+            if not notices['passed']:
+                raise ValueError('Packaged third-party notices do not match verified source/runtime dependencies')
             report = verify(source, args.sdk, '36.0.0', cert, args.version_name, args.version_code)
             (output / f'verify-{abi}.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), 'utf-8')
             if not report['passed'] or report['abis'] != [abi]:

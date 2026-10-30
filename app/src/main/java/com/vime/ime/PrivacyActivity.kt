@@ -29,6 +29,7 @@ class PrivacyActivity : AppCompatActivity() {
             card.addView(Ui.label(this,section.getString("title"),18f,true)); Ui.space(card,8)
             card.addView(Ui.label(this,section.getString("text"),15f,secondary=true))
         }
+        body.addView(Ui.button(this,"开源与数据来源",action={startActivity(Intent(this,NoticesActivity::class.java))}).apply { id=R.id.privacyNotices })
         body.addView(Ui.button(this,"前往 GitHub 项目反馈",action={
             runCatching { startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("https://github.com/jiHaolan/vime-typing-english"))) }
                 .onFailure { Toast.makeText(this,"当前手机没有可用浏览器",Toast.LENGTH_SHORT).show() }

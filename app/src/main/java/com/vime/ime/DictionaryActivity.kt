@@ -75,6 +75,7 @@ class DictionaryActivity : AppCompatActivity() {
                 .setMessage(pack?.let { "${it.notice}\n\n${it.licenseText}" } ?: "尚未安装扩展包。内置词库继续可用。")
                 .setPositiveButton("关闭", null).show()
         }
+        action("内置组件与词库来源") { startActivity(Intent(this,NoticesActivity::class.java)) }.id=R.id.dictionaryNotices
         action("移除扩展包 · 保留内置词库") {
             AlertDialog.Builder(this).setTitle("移除扩展词典？").setMessage("不会删除生词本或内置词库。可重新导入恢复。")
                 .setNegativeButton("取消", null).setPositiveButton("移除") { _, _ ->
