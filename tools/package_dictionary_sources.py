@@ -130,9 +130,47 @@ def package(args):
         add("generated/compiled-rime/" + name, (args.compiled / name).read_bytes(), expected)
     add("generated/compiled-rime/manifest.json", (args.compiled / "manifest.json").read_bytes(), receipt["compiled_manifest_sha256"])
     add("evidence/compiler-receipt.json", args.receipt.read_bytes())
+    mapped_id = None
+    if any((args.input_lexicon, args.public_export, args.exporter_tool)):
+        if not all((args.input_lexicon, args.public_export, args.exporter_tool)):
+            raise ValueError("Mapped data, public export and exporter sources are supplied together")
+        mapped = json.loads((args.input_lexicon / "manifest.json").read_bytes())
+        export = json.loads((args.public_export / "receipt.json").read_bytes())
+        build = json.loads((args.exporter_tool / "receipt.json").read_bytes())
+        if mapped["rime_dataset_id"] != receipt["dataset_id"] or mapped["source_lock_sha256"] != sha(lock_bytes):
+            raise ValueError("Mapped vocabulary differs from the accepted public source")
+        if mapped["table_sha256"] != export["table_sha256"] or mapped["vocabulary_sha256"] != export["vocabulary_sha256"]:
+            raise ValueError("Mapped vocabulary does not match the public export")
+        if not export["passed"] or not build["passed"] or build["tool_source_modified"]:
+            raise ValueError("An authenticated unmodified public exporter is required")
+        for name, expected in mapped["files"].items():
+            if name not in ("input.lex", "associations.json"):
+                raise ValueError("Unexpected mapped data file")
+            add("generated/input/" + name, (args.input_lexicon / name).read_bytes(), expected)
+        add("generated/input/manifest.json", (args.input_lexicon / "manifest.json").read_bytes())
+        add("public-export/run-a.tsv", (args.public_export / "run-a.tsv").read_bytes(), mapped["vocabulary_sha256"])
+        add("public-export/receipt.json", (args.public_export / "receipt.json").read_bytes())
+        add("public-export/exporter-build-receipt.json", (args.exporter_tool / "receipt.json").read_bytes())
+        add("public-export/rime_table_decompiler.cc", (args.exporter_tool / "rime/tools/rime_table_decompiler.cc").read_bytes(), build["upstream_tool_sha256"])
+        for name in ("build_input_lexicon.py", "verify_input_lexicon.py", "build_dictionary_exporter.py", "export_rime_vocabulary.py"):
+            add("tools/" + name, (repo / "tools" / name).read_bytes())
+        add("sources/input-data-NOTICE.txt", (repo / "app/src/main/assets/licenses/input-data-NOTICE.txt").read_bytes())
+        mapped_id = mapped["dataset_id"]
+        files["README.md"] += b'''\nComplete mapped fallback vocabulary (no native runtime required to rebuild):
+python -S tools/build_input_lexicon.py --compiled generated/compiled-rime --export public-export --prepared generated/plaintext --lock notices/dictionary-sources.lock.json --output rebuilt-input
+python -S tools/verify_input_lexicon.py --lexicon rebuilt-input --vocabulary public-export/run-a.tsv --report input-rows-verified.json
+Compare input.lex, associations.json and manifest.json with generated/input.
+Every public source row and all three sorted indexes must match; do not replace
+the complete vocabulary with a smaller selection to satisfy APK/memory checks.
+The recorded export has its original older source lock; its exact table bytes
+are identical to the current dataset. Schema-only abbreviation changes do not
+change that public table. Both source identities remain explicitly recorded.
+'''
     index = {"format": "vime-dictionary-source-kit-1", "data_source_lock_sha256": sha(lock_bytes),
              "dataset_id": receipt["dataset_id"], "native_review_complete": False,
              "files": {name: {"bytes": len(content), "sha256": sha(content)} for name, content in sorted(files.items())}}
+    if mapped_id:
+        index["mapped_input_dataset_id"] = mapped_id
     files["MANIFEST.json"] = encoded(index)
     output.mkdir(parents=True)
     archive_path = output / "Vime-dictionary-sources-0.23.0.zip"
@@ -150,6 +188,8 @@ def package(args):
     result = {"format": index["format"], "dataset_id": receipt["dataset_id"], "files": len(files),
               "bytes": archive_path.stat().st_size, "sha256": sha(archive_path.read_bytes()),
               "archive": archive_path.name, "native_review_complete": False}
+    if mapped_id:
+        result["mapped_input_dataset_id"] = mapped_id
     (output / "receipt.json").write_text(json.dumps(result, indent=2), "utf-8")
     print(json.dumps(result))
 
@@ -158,4 +198,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("lock", "luna", "essay", "cedict", "cedict-license", "ecdict", "ecdict-license", "ecdict-readme", "prepared", "compiled", "receipt", "output"):
         parser.add_argument("--" + name, required=True, type=Path)
+    for name in ("input-lexicon", "public-export", "exporter-tool"):
+        parser.add_argument("--" + name, type=Path)
     package(parser.parse_args())

@@ -57,7 +57,9 @@ def main():
     if source_hash != a.sha256:
         raise ValueError("ECDICT source checksum mismatch")
     data = json.loads(a.dictionary.read_text("utf-8"))
-    preserved = {key: digest(encode(data[key])) for key in ("pw", "en", "card")}
+    if "pw" in data:
+        raise ValueError("Remove legacy input via the clean mapped vocabulary pipeline first")
+    preserved = {key: digest(encode(data[key])) for key in ("en", "card")}
     data["lvl"] = levels(a.csv)
     output = encode(data)
     check = json.loads(output)
@@ -70,7 +72,8 @@ def main():
                "tag_policy": {"CET4": ["zk", "gk", "cet4"], "CET6": ["cet6"], "TOEFL": ["toefl"]},
                "counts": dict(sorted(collections.Counter(data["lvl"].values()).items())),
                "levels_sha256": digest(encode(data["lvl"])), "dictionary_sha256": digest(output),
-               "preserved_sections_sha256": preserved}
+               "preserved_sections_sha256": preserved, "removed_input_sections": ["pw"],
+               "input_replacement_manifest": "input/manifest.json"}
     a.dictionary.write_bytes(output)
     a.receipt.write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n", "utf-8")
     print(json.dumps({"count": len(data["lvl"]), "counts": receipt["counts"], "preserved": list(preserved)}))

@@ -224,7 +224,7 @@ class MainActivity : AppCompatActivity() {
     private fun showStat() {
         b.tvStat.text = when {
             DictRepository.ready ->
-                "词典已就绪 · ${DictRepository.pinyinCount} 个拼音音节 · " +
+                "词典已就绪 · ${DictRepository.wordCount} 条输入词条 · " +
                     "${DictRepository.enCount} 条英文释义 · ${DictRepository.lvlCount} 条已分级"
             DictRepository.state == DictRepository.State.FAILED ->
                 "词典载入失败：${DictRepository.loadError ?: "未知错误"}\n（可重启应用重试；若持续失败请反馈）"

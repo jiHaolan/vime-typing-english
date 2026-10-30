@@ -1,0 +1,378 @@
+{
+  "format": "vime-mapped-input-verification-1",
+  "date": "2026-10-31T07:22:54.814466+08:00",
+  "version": "0.22.2",
+  "version_code": 33,
+  "profile": "debug-preview",
+  "goal_achieved": false,
+  "production_ready": false,
+  "artifacts": {
+    "arm64-v8a": {
+      "file": "E:\\Vime-build-work\\releases\\v0.22.2-preview\\Vime-0.22.2-arm64-v8a.apk",
+      "bytes": 31946714,
+      "sha256": "8d13d8d823d80f8f1087ed5cba56c72d12f527bea6ec3d5b7ca9cea433ff1f31"
+    },
+    "armeabi-v7a": {
+      "file": "E:\\Vime-build-work\\releases\\v0.22.2-preview\\Vime-0.22.2-armeabi-v7a.apk",
+      "bytes": 30157914,
+      "sha256": "e4e9bd9725acc3542dcc84bc7b70811f604f4832f125b04d6392079041a52721"
+    },
+    "x86_64": {
+      "file": "E:\\Vime-build-work\\releases\\v0.22.2-preview\\Vime-0.22.2-x86_64.apk",
+      "bytes": 31914564,
+      "sha256": "a92d429f971a4b06dfe048d43f1cfa2cb2515eb680bbe968bcf803c69be5a979"
+    }
+  },
+  "input_dataset_id": "e4344a2e44ca33af3ed3373ce7d38341a9887969ddd5e25c18867617acc4223f",
+  "source_lock_sha256": "c72f5e8030e540bb7ad1d142f28d76d3462050c47677c5f5a91d9b11f24ceed8",
+  "counts": {
+    "association_prefixes": 5937,
+    "codes": 393950,
+    "entries": 569466,
+    "prefix_keys": 4457,
+    "prefix_offsets": 378551,
+    "subunit_weight_rows": 75073,
+    "words": 457884
+  },
+  "two_independent_builds": {
+    "passed": true,
+    "runs": 2,
+    "all_three_bytes_equal": true,
+    "files": {
+      "input.lex": "2673d77043362c03c14d70a60611bb3980beba2a67253d310703140427f9eaa5",
+      "associations.json": "6bb5cef9a76f212e6b62e8502f83be6142993834fce35bffc4b3d6557bc4c0f4",
+      "manifest.json": "832d75e756c07288fdd6bbea68b80b04ebd1ca81a6433507a9909b8ebd8dc1ce"
+    }
+  },
+  "source_vocabulary_full_check": {
+    "all_source_rows_retained": true,
+    "dataset_id": "e4344a2e44ca33af3ed3373ce7d38341a9887969ddd5e25c18867617acc4223f",
+    "entries_authenticated": 569466,
+    "index_offsets_authenticated": 1708398,
+    "mapped_sha256": "2673d77043362c03c14d70a60611bb3980beba2a67253d310703140427f9eaa5",
+    "passed": true,
+    "prefix_keys_authenticated": 4457,
+    "prefix_offsets_authenticated": 378551
+  },
+  "legacy_input_removed_from_apks": true,
+  "legacy_english_cards_levels_unchanged": true,
+  "source_kit": {
+    "format": "vime-dictionary-source-kit-1",
+    "dataset_id": "db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294",
+    "files": 95,
+    "bytes": 64532398,
+    "sha256": "8914656cfbe34696f6befd1e85267b00a8c4cb06ed6d6021a184731d4752d365",
+    "archive": "Vime-dictionary-sources-0.23.0.zip",
+    "native_review_complete": false,
+    "mapped_input_dataset_id": "e4344a2e44ca33af3ed3373ce7d38341a9887969ddd5e25c18867617acc4223f"
+  },
+  "source_kit_roundtrip": {
+    "passed": true,
+    "archive_sha256": "8914656cfbe34696f6befd1e85267b00a8c4cb06ed6d6021a184731d4752d365",
+    "manifest_files_checked": 94,
+    "rebuilt_files": 12,
+    "all_rebuilt_bytes_equal": true,
+    "python_no_site_packages": true,
+    "bundled_converter_only": true,
+    "network_required": false,
+    "git_history_required": false,
+    "native_compiler_rebuilt_by_this_roundtrip": false,
+    "mapped_input_dataset_id": "e4344a2e44ca33af3ed3373ce7d38341a9887969ddd5e25c18867617acc4223f",
+    "mapped_input_rebuilt_files": 3,
+    "all_mapped_input_bytes_equal": true,
+    "mapped_input_source_coverage": {
+      "all_source_rows_retained": true,
+      "dataset_id": "e4344a2e44ca33af3ed3373ce7d38341a9887969ddd5e25c18867617acc4223f",
+      "entries_authenticated": 569466,
+      "index_offsets_authenticated": 1708398,
+      "mapped_sha256": "2673d77043362c03c14d70a60611bb3980beba2a67253d310703140427f9eaa5",
+      "passed": true,
+      "prefix_keys_authenticated": 4457,
+      "prefix_offsets_authenticated": 378551
+    }
+  },
+  "jvm": {
+    "tests": 122,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "lint": {
+    "errors": 0,
+    "warnings": 167
+  },
+  "python_source_kit_tests_passed": 15,
+  "python_notices_tests_passed": 11,
+  "source_static_checks_passed": 44,
+  "actual_ecdict_regeneration": {
+    "passed": true,
+    "actual_locked_csv_used": true,
+    "dictionary_bytes_equal": true,
+    "receipt_semantics_equal": true,
+    "legacy_pinyin_not_reintroduced": true
+  },
+  "android_dictionary": {
+    "expected": 7,
+    "passed": 7,
+    "failed": 0,
+    "not_run": 0,
+    "cases": [
+      {
+        "name": "packaged-catalog-and-all-document-references-parse",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "all-packaged-license-bytes-match-including-complete-gpl",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "real-dictionary-loader-retains-chinese-and-english-data",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "real-dictionary-applies-basics-cet6-and-toefl-tags",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "built-in-level-metadata-has-explicit-policy-and-declared-counts",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "complete-mapped-fallback-full-nine-initials-and-reading-priority",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "mapped-vocabulary-query-latency-on-real-android-runtime",
+        "pass": true,
+        "error": null
+      }
+    ],
+    "observations": {
+      "components": 13,
+      "documents": 22,
+      "dictionary_load_ms": 887,
+      "dictionary_retained_java_heap_delta_bytes": 4848640,
+      "level_counts": {
+        "CET4": 5351,
+        "CET6": 1755,
+        "TOEFL": 3408
+      },
+      "native_unavailable_fallback_bridge": "simulated state; restored after lookup",
+      "mapped_lookup": {
+        "requests": 1200,
+        "limit": 100,
+        "p50_ms": 0.073101,
+        "p95_ms": 0.732012,
+        "p99_ms": 1.426352,
+        "max_ms": 7.664078,
+        "sdk": 36,
+        "abi": "x86_64",
+        "physical_phone": false
+      },
+      "incomplete_query_bounds": [
+        {
+          "characters": 12,
+          "elapsed_ms": 0.583942
+        },
+        {
+          "characters": 27,
+          "elapsed_ms": 2.163625
+        },
+        {
+          "characters": 48,
+          "elapsed_ms": 0.510551
+        },
+        {
+          "characters": 26,
+          "elapsed_ms": 0.527737
+        },
+        {
+          "characters": 128,
+          "elapsed_ms": 0.692269
+        }
+      ]
+    }
+  },
+  "populated_upgrade": {
+    "passed": true,
+    "device": "emulator-5580",
+    "userspace_page_size": 16384,
+    "physical_phone_changed": false,
+    "uninstalled": false,
+    "seeded_data": false,
+    "app_apk_sha256": "a92d429f971a4b06dfe048d43f1cfa2cb2515eb680bbe968bcf803c69be5a979",
+    "test_apk_sha256": "bb2999fbd55c17e97a4349e31c75ae7527d72218d1480b613d1e059bdf95be85",
+    "version": "0.22.2",
+    "dictionary_checks_passed": 7,
+    "populated_learning_rows_preserved": true,
+    "preferences_preserved": true,
+    "original_sst_files_preserved": 0,
+    "input_method_settings_unchanged": true,
+    "wordbook_count": 2,
+    "review_events": 1
+  },
+  "native_runtime": {
+    "device": "emulator-5580",
+    "required_page_size_bytes": 16384,
+    "passed": true,
+    "sdk": 36,
+    "fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+    "page_size_bytes": 16384,
+    "abi": "x86_64",
+    "app_sha256": "a92d429f971a4b06dfe048d43f1cfa2cb2515eb680bbe968bcf803c69be5a979",
+    "test_sha256": "7932bbb624b7d64b26e12dc90e0fd4d3ca6c41259cc296ea01a23e4d4de5696c",
+    "compat_properties_before": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "compat_properties_during": {
+      "bionic.linker.16kb.app_compat.enabled": "false",
+      "pm.16kb.app_compat.disabled": "true"
+    },
+    "result": {
+      "sdk": 36,
+      "abi": "x86_64",
+      "expected": 8,
+      "passed": 8,
+      "failed": 0,
+      "not_run": 0,
+      "cases": [
+        {
+          "name": "emulator-has-explicitly-required-page-size",
+          "pass": true,
+          "elapsed_ms": 3,
+          "error": null
+        },
+        {
+          "name": "native-library-and-shipped-dictionaries-initialize",
+          "pass": true,
+          "elapsed_ms": 220,
+          "error": null
+        },
+        {
+          "name": "rare-reading-does-not-win-common-word-first-candidate",
+          "pass": true,
+          "elapsed_ms": 4,
+          "error": null
+        },
+        {
+          "name": "full-phrase-candidate-consumes-all-pinyin",
+          "pass": true,
+          "elapsed_ms": 3,
+          "error": null
+        },
+        {
+          "name": "nine-key-and-pinyin-schema-switch-both-return-full-words",
+          "pass": true,
+          "elapsed_ms": 38,
+          "error": null
+        },
+        {
+          "name": "native-candidate-pagination-is-complete",
+          "pass": true,
+          "elapsed_ms": 1,
+          "error": null
+        },
+        {
+          "name": "repeated-native-schema-switching-keeps-candidates-valid",
+          "pass": true,
+          "elapsed_ms": 1219,
+          "error": null
+        },
+        {
+          "name": "native-learning-call-retains-full-candidate-consumption",
+          "pass": true,
+          "elapsed_ms": 19,
+          "error": null
+        }
+      ],
+      "observations": {
+        "process_page_size_bytes": 16384,
+        "expected_page_size_bytes": 16384,
+        "rime_state": "READY",
+        "rime_version": "1.16.1",
+        "rime_startup_ms": 144,
+        "rime_failure": "",
+        "dataset_id": "db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294",
+        "shared_path": "/data/data/com.vime.ime/files/rime/datasets/db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294/shared",
+        "mapped_dictionary_regions": [
+          "77cd61a00000-77cd62820000 r--s 00000000 fe:36 377128                     /data/data/com.vime.ime/files/rime/datasets/db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294/shared/build/vime_pinyin.table.bin",
+          "77d0789f8000-77d078a00000 r--s 00000000 fe:36 377230                     /data/data/com.vime.ime/files/rime/datasets/db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294/shared/build/vime_pinyin.prism.bin",
+          "77d078a68000-77d078a6c000 r--s 00000000 fe:36 353035                     /data/data/com.vime.ime/files/rime/user/vime_pinyin.userdb/000005.ldb"
+        ],
+        "native_user_database_files": [
+          "rime/user/vime_pinyin.userdb/LOG",
+          "rime/user/vime_pinyin.userdb/LOCK",
+          "rime/user/vime_pinyin.userdb/LOG.old",
+          "rime/user/vime_pinyin.userdb/CURRENT",
+          "rime/user/vime_pinyin.userdb/000005.ldb",
+          "rime/user/vime_pinyin.userdb/000186.log",
+          "rime/user/vime_pinyin.userdb/MANIFEST-000185",
+          "rime/user/user.yaml"
+        ]
+      },
+      "scope": "Actual native Rime calls; not a physical ARM64, ASR or long-term performance test"
+    },
+    "instrumentation_code": -1,
+    "compat_properties_after": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "compat_properties_restored": true
+  },
+  "public_file_repair": {
+    "passed": true,
+    "version": "0.22.2",
+    "public_file_only_corrupted": true,
+    "corrupt_size": 6,
+    "restored_sha256": "2673d77043362c03c14d70a60611bb3980beba2a67253d310703140427f9eaa5",
+    "launch_to_observed_repair_seconds": 2.046,
+    "all_sqlite_rows_and_preferences_unchanged": true,
+    "observed_existing_sst_files_unchanged": 0,
+    "user_database_corrupted": false,
+    "physical_phone_changed": false,
+    "start_path": "normal MainActivity launch, not instrumentation dictionary loader"
+  },
+  "production_apk_expected_failures": [
+    "not_debuggable",
+    "https_only_network_config",
+    "not_preview_certificate"
+  ],
+  "commercial_source_blockers": [
+    {
+      "id": "legacy-english-lineage",
+      "detail": "内置释义/词卡包含CC-CEDICT3、MakeMeAHanzi及手工覆盖，尚未完成按记录的来源映射或清洁重建及对应源材料交付。"
+    },
+    {
+      "id": "native-transitive-review",
+      "detail": "已列出直接链接的原生依赖与固定配方；仍需核对其内嵌第三方代码和NOTICE，不能只据主项目许可证认定全部齐全。"
+    }
+  ],
+  "resolved_current_input_source_blocker": "legacy-input-data",
+  "evidence_root": "E:\\Vime-build-work\\input-lexicon-v1",
+  "physical_phone_changed": false,
+  "limits": [
+    "Actual runtime/latency evidence is Android16/API36 x86_64 emulator16KB, not ARM64/vivo performance.",
+    "Upgrade baseline had2 saved words and1 review but no SST files; do not claim another nonempty-SST proof.",
+    "Native-unavailable bridge is tested with simulated state restored immediately, not an actual libc/JNI fault.",
+    "Full English/readings/cards, large optional-pack memory, native embedded licences, independent speech, production signing/billing and multi-device long-term quality remain."
+  ],
+  "git_index_artifact_integrity": {
+    "passed": true,
+    "staged_files": 35,
+    "sourcekit_authenticated_files": 94,
+    "sourcekit_tools_and_lock_match_git_index": 15,
+    "all_current_apk_asset_bytes_match_git_index": true,
+    "all21_previous_license_bytes_preserved": true,
+    "legacy_input_assets_absent": true,
+    "no_private_snapshot_staged": true,
+    "archive_sha256": "8914656cfbe34696f6befd1e85267b00a8c4cb06ed6d6021a184731d4752d365",
+    "privacy_notice_semantics_unchanged": true
+  }
+}

@@ -17,18 +17,14 @@ class LexiconDatasetTest {
         assertEquals(121814, pack.entries.size)
         val asset = listOf(File("src/main/assets/dict.android.json"), File("app/src/main/assets/dict.android.json")).first { it.exists() }
         val root = JSONObject(asset.readText())
-        val pw = root.getJSONObject("pw")
+        val inputFile = listOf(File("src/main/assets/input/input.lex"), File("app/src/main/assets/input/input.lex")).first { it.exists() }
+        val inputIndex = MappedInputIndex.open(inputFile)
         val words = HashMap<String, MutableList<String>>()
         val freq = HashMap<String, Int>()
         val en = HashMap<String, String>()
         val rawEn = root.getJSONObject("en")
         rawEn.keys().forEach { en[it] = rawEn.getString(it) }
-        pw.keys().forEach { key ->
-            val rows = pw.getJSONArray(key)
-            words[key] = (0 until rows.length()).map { rows.getJSONArray(it).getString(0) }.toMutableList()
-            freq[key] = rows.getJSONArray(0).optInt(1, 0)
-        }
-        val baseCount = words.values.sumOf { it.size }
+        val baseCount = inputIndex.count
         val baseGloss = en.size
         for (entry in LexiconSupplement.entries) {
             val list = words.getOrPut(entry.pinyin) { ArrayList() }
@@ -47,10 +43,10 @@ class LexiconDatasetTest {
             "shurufa" to "输入法", "liuchang" to "流畅", "lixian" to "离线", "liulian" to "榴莲", "pengzhang" to "膨胀")
         val coverage = JSONObject()
         for ((py, word) in examples) {
-            val candidates = index.query(py, limit = 100)
+            val candidates = (inputIndex.query(py, limit=100).map { Cand(it.word,en[it.word].orEmpty(),"",it.consumed) } + index.query(py, limit=100)).distinctBy { it.word }
             assertTrue("Missing input word: $word", candidates.any { it.word == word })
             assertFalse("Missing gloss: $word", en[word].isNullOrBlank())
-            assertTrue("Missing T9 word: $word", index.query(py.map(CandidateIndex::digit).joinToString(""), true, 100).any { it.word == word })
+            assertTrue("Missing T9 word: $word", inputIndex.query(py.map(CandidateIndex::digit).joinToString(""), true, 100).any { it.word == word })
             coverage.put(word, JSONObject().put("pinyin", py).put("position", candidates.indexOfFirst { it.word == word } + 1).put("gloss", en[word]))
         }
         val requests = words.keys.sorted().filter { it.length >= 3 }.take(2000).flatMap { listOf(it.take(1), it.take(2), it.take(3), it) }

@@ -117,11 +117,12 @@
       "license": "LGPL-3.0",
       "source": "https://github.com/rime/rime-luna-pinyin\nhttps://github.com/rime/rime-essay",
       "version": "Luna 46acf03142c1 · Essay 054920de4f54",
-      "summary": "从固定 Luna/Essay 快照独立重建 Rime 数据，保留原始读音权重比例，并记录转换程序及编译输出哈希；基础备用词库的旧来源仍待替换。",
+      "summary": "从固定 Luna/Essay 快照独立重建 Rime 与完整基础候选词库，保留读音权重层级；全拼、九键和简拼索引使用只读映射，联想数据同源，英文释义单独处理。",
       "documents": [
         "licenses/luna-pinyin-LGPL-3.0.txt",
         "licenses/rime-essay-LGPL-3.0.txt",
-        "licenses/GNU-GPL-3.0.txt"
+        "licenses/GNU-GPL-3.0.txt",
+        "licenses/input-data-NOTICE.txt"
       ]
     },
     {
@@ -131,7 +132,7 @@
       "license": "CC-BY-SA-3.0 / CC-BY-SA-4.0 / LGPL-3.0-or-later；部分待核对",
       "source": "https://www.mdbg.net/chinese/dictionary?page=cc-cedict\nhttps://github.com/skishore/makemeahanzi\nhttps://en.wiktionary.org/wiki/金幣",
       "version": "旧版合并数据 · 审核进行中",
-      "summary": "已追溯旧版 CC-CEDICT 释义、MakeMeAHanzi 字义和手工补充。旧拼音词频及联想数据仍需核实或替换，当前不能据此认定商用许可已全部完成。",
+      "summary": "旧版 CC-CEDICT 释义、MakeMeAHanzi 字义和手工补充仍待按记录重建。旧拼音和旧联想已从当前 APK 移除；这不代表英文及全部商用来源审核完成。",
       "documents": [
         "licenses/legacy-data-NOTICE.txt",
         "licenses/CC-BY-SA-3.0.txt",
@@ -155,10 +156,6 @@
     }
   ],
   "release_blockers": [
-    {
-      "id": "legacy-input-data",
-      "detail": "基础备用词库的旧拼音/词频及联想表仍未建立精确源快照和再分发权限。Rime 数据已从固定 Luna/Essay 快照独立重建；仍需替换这些基础输入或取得可验证许可。"
-    },
     {
       "id": "legacy-english-lineage",
       "detail": "内置释义/词卡包含CC-CEDICT3、MakeMeAHanzi及手工覆盖，尚未完成按记录的来源映射或清洁重建及对应源材料交付。"

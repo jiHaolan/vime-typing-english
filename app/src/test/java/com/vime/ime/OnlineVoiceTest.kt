@@ -13,10 +13,8 @@ import java.nio.ByteOrder
 
 class OnlineVoiceTest {
     @Test fun fullPhraseExistsInShippedDictionaryAndConsumesAllPinyin() {
-        val asset = listOf(File("src/main/assets/dict.android.json"), File("app/src/main/assets/dict.android.json")).first { it.exists() }
-        val pw = JSONObject(asset.readText()).getJSONObject("pw")
-        val words = pw.keys().asSequence().associateWith { k -> val a = pw.getJSONArray(k); (0 until a.length()).map { a.getJSONArray(it).getString(0) } }
-        val index = CandidateIndex(words, emptyMap(), emptyMap(), emptyMap())
+        val asset = listOf(File("src/main/assets/input/input.lex"), File("app/src/main/assets/input/input.lex")).first { it.exists() }
+        val index = MappedInputIndex.open(asset)
         for (nine in listOf(false, true)) {
             val input = if (nine) "zhendejiade".map(CandidateIndex::digit).joinToString("") else "zhendejiade"
             val c = index.query(input, nine).first { it.word == "真的假的" }

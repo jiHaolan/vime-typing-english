@@ -5,7 +5,7 @@ import org.json.JSONObject
 
 /** Publish a complete immutable dictionary at once. Typing never reads half an import. */
 object DictRepository {
-    private data class Snapshot(val index: CandidateIndex, val en: Map<String, String>,
+    private data class Snapshot(val input: InputLexiconStore.BuiltIn, val index: CandidateIndex, val en: Map<String, String>,
         val levels: Map<String, String>, val enLevels: Map<String, String>, val cards: Map<String, Card>,
         val reverse: Map<String, String>, val englishKeys: List<String>, val associations: AssociationIndex,
         val pinyinCount: Int, val wordCount: Int, val pack: LexiconPack?, val definitions: Map<String, Card>)
@@ -46,18 +46,13 @@ object DictRepository {
         }
     }
     private fun build(context: Context, pack: LexiconPack?): Snapshot {
+        val input = InputLexiconStore.load(context)
         val root = JSONObject(context.assets.open("dict.android.json").bufferedReader().use { it.readText() })
         val words = HashMap<String, MutableList<String>>()
         val frequencies = HashMap<String, Int>()
         val en = HashMap<String, String>()
         val enLevels = HashMap<String, String>()
         val cards = HashMap<String, Card>()
-        val pw = root.getJSONObject("pw")
-        pw.keys().forEach { py ->
-            val rows = pw.getJSONArray(py)
-            words[py] = (0 until rows.length()).map { rows.getJSONArray(it).getString(0) }.toMutableList()
-            frequencies[py] = if (rows.length() > 0) rows.getJSONArray(0).optInt(1, 0) else 0
-        }
         val rawEn = root.getJSONObject("en")
         rawEn.keys().forEach { en[it] = rawEn.getString(it) }
         val rawLevels = root.getJSONObject("lvl")
@@ -74,7 +69,12 @@ object DictRepository {
             cards.putIfAbsent(word, Card(reading, gloss, ""))
             frequencies.putIfAbsent(py, if (priority) 1000 else 1)
         }
-        LexiconSupplement.entries.forEach { add(it.pinyin, it.word, it.english, it.reading, true) }
+        // Keep the existing small English corrections pending the separate full
+        // English source migration; they never supply built-in input rows.
+        LexiconSupplement.entries.forEach {
+            en.putIfAbsent(it.word, it.english)
+            cards.putIfAbsent(it.word, Card(it.reading, it.english, ""))
+        }
         val definitions = HashMap<String, Card>()
         pack?.entries?.forEach {
             add(it.pinyin, it.word, it.gloss, it.reading)
@@ -101,15 +101,20 @@ object DictRepository {
             }
             if (best > 0) levels[word] = listOf("", LevelPref.CET4, LevelPref.CET6, LevelPref.TOEFL)[best]
         }
-        val assoc = JSONObject(context.assets.open("associations.json").bufferedReader().use { it.readText() })
-        val pairs = HashMap<String, List<String>>()
-        assoc.keys().forEach { key -> val arr = assoc.getJSONArray(key); pairs[key] = (0 until arr.length()).map { arr.getString(it) } }
         val immutableWords = words.mapValues { it.value.toList() }
-        return Snapshot(CandidateIndex(immutableWords, frequencies, en, levels), en, levels, enLevels, cards,
-            reverse, reverse.keys.sorted(), AssociationIndex(pairs), words.size, words.values.sumOf { it.size }, pack, definitions)
+        return Snapshot(input, CandidateIndex(immutableWords, frequencies, en, levels), en, levels, enLevels, cards,
+            reverse, reverse.keys.sorted(), input.associations, input.codes + words.size,
+            input.entryCount + words.values.sumOf { it.size }, pack, definitions)
     }
-    fun candidates(input: String, limit: Int = 12) = snapshot?.index?.query(input, limit = limit).orEmpty()
-    fun t9Candidates(input: String, limit: Int = 12) = snapshot?.index?.query(input, nine = true, limit = limit).orEmpty()
+    private fun query(input: String, nine: Boolean, limit: Int): List<Cand> {
+        val s = snapshot ?: return emptyList()
+        if (limit <= 0) return emptyList()
+        val base = s.input.index.query(input, nine, limit).map { Cand(it.word, s.en[it.word].orEmpty(), s.levels[it.word].orEmpty(), it.consumed) }
+        val extra = s.index.query(input, nine, limit)
+        return (base + extra).distinctBy { it.word }.take(limit.coerceAtMost(100))
+    }
+    fun candidates(input: String, limit: Int = 12) = query(input, false, limit)
+    fun t9Candidates(input: String, limit: Int = 12) = query(input, true, limit)
     fun enCandidates(prefix: String, limit: Int = 12): List<Cand> {
         val s = snapshot ?: return emptyList()
         if (prefix.isEmpty() || limit <= 0) return emptyList()

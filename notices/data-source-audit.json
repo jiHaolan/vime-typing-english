@@ -2,7 +2,7 @@
   "format": "vime-data-audit-1",
   "review_date": "2026-10-31",
   "legacy_export_matches_current_sections": {
-    "pw": true,
+    "pw": false,
     "en": true,
     "card": true
   },
@@ -90,10 +90,6 @@
   },
   "remaining_release_blockers": [
     {
-      "id": "legacy-input-data",
-      "detail": "基础备用词库的旧拼音/词频及联想表仍未建立精确源快照和再分发权限。Rime 数据已从固定 Luna/Essay 快照独立重建；仍需替换这些基础输入或取得可验证许可。"
-    },
-    {
       "id": "legacy-english-lineage",
       "detail": "内置释义/词卡包含CC-CEDICT3、MakeMeAHanzi及手工覆盖，尚未完成按记录的来源映射或清洁重建及对应源材料交付。"
     },
@@ -118,7 +114,36 @@
     "dataset_id": "db20a7231896e0c1e5b3dab7186ebff93bcbde82a1011a50180b55066e5fa294",
     "legacy_vime_input_read": false,
     "luna_reading_percentages_preserved": true,
-    "fallback_legacy_data_replaced": false,
+    "fallback_legacy_data_replaced": true,
     "luna_abbreviation_semantics_preserved": true
-  }
+  },
+  "mapped_input_replacement": {
+    "product_version": "0.22.2",
+    "dataset_id": "e4344a2e44ca33af3ed3373ce7d38341a9887969ddd5e25c18867617acc4223f",
+    "source_lock_sha256": "c72f5e8030e540bb7ad1d142f28d76d3462050c47677c5f5a91d9b11f24ceed8",
+    "counts": {
+      "association_prefixes": 5937,
+      "codes": 393950,
+      "entries": 569466,
+      "prefix_keys": 4457,
+      "prefix_offsets": 378551,
+      "subunit_weight_rows": 75073,
+      "words": 457884
+    },
+    "legacy_pinyin_section_present": false,
+    "legacy_associations_asset_present": false,
+    "source_kit_roundtrip_verified": true,
+    "source_kit_sha256": "8914656cfbe34696f6befd1e85267b00a8c4cb06ed6d6021a184731d4752d365",
+    "complete_public_rows_verified": 569466
+  },
+  "resolved_release_items": [
+    {
+      "id": "legacy-input-data",
+      "current_apk_old_input_removed": true,
+      "mapped_dataset_id": "e4344a2e44ca33af3ed3373ce7d38341a9887969ddd5e25c18867617acc4223f",
+      "source_kit_sha256": "8914656cfbe34696f6befd1e85267b00a8c4cb06ed6d6021a184731d4752d365",
+      "mapped_source_rows_authenticated": 569466,
+      "scope": "Current generated APK data; old English lineage and native embedded sources remain unresolved."
+    }
+  ]
 }

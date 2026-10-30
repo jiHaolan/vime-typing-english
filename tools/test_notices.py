@@ -57,6 +57,26 @@ class NoticesChecks(unittest.TestCase):
         result = inspect(lambda name: json.dumps(dictionary).encode() if name == "dict.android.json" else self.read(name))
         self.assertIn("exam-tag-and-dictionary-hashes", result["failed_checks"])
 
+    def test_corrupt_mapped_input_is_rejected(self):
+        data = bytearray(self.read("input/input.lex"))
+        data[-1] ^= 1
+        result = inspect(lambda name: bytes(data) if name == "input/input.lex" else self.read(name))
+        self.assertIn("input-asset-bytes:input.lex", result["failed_checks"])
+
+    def test_input_attribution_cannot_be_removed_from_the_catalog(self):
+        path = "licenses/input-data-NOTICE.txt"
+        self.catalog["files"].pop(path)
+        for component in self.catalog["components"]:
+            component["documents"] = [name for name in component["documents"] if name != path]
+        result = inspect(lambda name: json.dumps(self.catalog).encode() if name == "notices.json" else self.read(name))
+        self.assertIn("required-license-documents", result["failed_checks"])
+
+    def test_smaller_input_manifest_does_not_pass_as_the_complete_vocabulary(self):
+        data = json.loads(self.read("input/manifest.json"))
+        data["counts"]["entries"] = 100
+        result = inspect(lambda name: json.dumps(data).encode() if name == "input/manifest.json" else self.read(name))
+        self.assertIn("complete-clean-input-source-counts", result["failed_checks"])
+
     def test_unsafe_document_path_stops_verification(self):
         self.catalog["files"]["licenses/../../private.txt"] = "0" * 64
         result = inspect(lambda name: json.dumps(self.catalog).encode() if name == "notices.json" else self.read(name))

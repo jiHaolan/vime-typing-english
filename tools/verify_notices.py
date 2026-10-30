@@ -15,6 +15,7 @@ REQUIRED = {"licenses/GNU-GPL-3.0.txt", "licenses/Apache-2.0.txt", "licenses/ecd
             "licenses/rime-essay-LGPL-3.0.txt", "licenses/makemeahanzi-COPYING.txt",
             "licenses/CC-BY-SA-3.0.txt", "licenses/legacy-data-NOTICE.txt", "licenses/runtime-NOTICE.txt"}
 REQUIRED |= {"licenses/CC-BY-SA-4.0.txt", "licenses/supplement-NOTICE.txt"}
+REQUIRED.add("licenses/input-data-NOTICE.txt")
 
 
 def sha(data):
@@ -72,7 +73,26 @@ def inspect(read, inventory=None, commercial=False):
               and sha(dictionary_bytes) == source["dictionary_sha256"])
         check("unrelated-dictionary-sections-preserved", all(sha(encoded(dictionary[k])) == expected
               for k, expected in source["preserved_sections_sha256"].items())
-              and set(source["preserved_sections_sha256"]) == {"pw", "en", "card"})
+              and set(source["preserved_sections_sha256"]) == {"en", "card"})
+        check("legacy-pinyin-section-removed", "pw" not in dictionary and source["removed_input_sections"] == ["pw"])
+        lexicon = json.loads(read("input/manifest.json"))
+        check("complete-clean-input-source-counts", lexicon["format"] == "vime-input-lexicon-1"
+              and lexicon["counts"]["entries"] == 569466 and lexicon["counts"]["words"] == 457884
+              and lexicon["counts"]["codes"] == 393950 and not lexicon["legacy_vime_input_read"]
+              and not lexicon["english_sources_merged"] and lexicon["license"] == "LGPL-3.0")
+        public = lexicon["files"]
+        check("input-asset-set-and-identity", set(public) == {"input.lex", "associations.json"}
+              and sha(json.dumps(public,sort_keys=True,separators=(",", ":")).encode()) == lexicon["dataset_id"])
+        for name, expected in public.items():
+            if name not in ("input.lex", "associations.json"):
+                raise ValueError("Unsafe input asset path")
+            check("input-asset-bytes:" + name, sha(read("input/" + name)) == expected)
+        try:
+            read("associations.json")
+            old_associations_absent = False
+        except (FileNotFoundError, KeyError):
+            old_associations_absent = True
+        check("legacy-associations-asset-removed", old_associations_absent)
         check("three-explicit-exam-tiers", set(dictionary["lvl"].values()) == {"CET4", "CET6", "TOEFL"}
               and all(sum(v == key for v in dictionary["lvl"].values()) == count for key, count in source["counts"].items()))
         blockers = data["release_blockers"]

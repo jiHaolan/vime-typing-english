@@ -29,10 +29,13 @@
     "TOEFL": 3408
   },
   "levels_sha256": "3dd2d1b08f04e79bdfc935d38aeaf96ebe07930c009c18c2b3002773a12722e8",
-  "dictionary_sha256": "6d7577a4d16f1c06dd267c4fb91e33f339577f5fbadfd64243d3021ae9958c15",
+  "dictionary_sha256": "6ba6c98c9f3f223828590eb23826508a18607456d8ff53b2b31d0191eb9de98a",
   "preserved_sections_sha256": {
-    "pw": "7ef56bdb35d57ffd2178328a33f400e959e49931496782b99f621693736194a4",
     "en": "6fef4581c989c973e1c4731a3d9172e973c8d61608954adee79a3a15309668fb",
     "card": "fab64b7205d420bcceae94eaa6bee997a701cc82e8e31da0fdde3c9a091e0d8e"
-  }
+  },
+  "removed_input_sections": [
+    "pw"
+  ],
+  "input_replacement_manifest": "input/manifest.json"
 }

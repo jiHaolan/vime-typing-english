@@ -1,0 +1,36 @@
+Vime public input vocabulary and associations
+
+Derived solely from fixed Luna Pinyin and Rime Essay sources (LGPL-3.0).
+Luna: https://github.com/rime/rime-luna-pinyin/tree/46acf03142c12b5aeed7002675046bf7255eed35
+Essay: https://github.com/rime/rime-essay/tree/054920de4f54c9e5994276a96a4fc2a35cb51aa3
+
+Converted to simplified Chinese, preserving reading-weight tiers; compiled by
+pinned librime, exported with its unmodified public table decompiler, then
+encoded into VIMELEX1 by tools/build_input_lexicon.py. All public word/code rows
+are retained. No private user dictionary, legacy Vime input or English gloss is
+merged into this data. Modifications: Vime contributors, 2026.
+
+Matching sources, generator and public export are supplied in the accompanying
+Vime source archive. input/manifest.json identifies exact inputs and output.
+LGPL-3.0 and its complete GPL-3.0 companion are included in this app.
+
+Luna Pinyin authors (original file):
+
+Gong Chen <chen.sst@gmail.com>, Kunki Chiu <cokunhui@gmail.com> : (LGPL)
+refined data from Chewing / 新酷音 (LGPL),
+opencc / 開放中文轉換 (Apache License version 2),
+Android Pinyin IME (Apache License version 2),
+moedict.tw／萌典 (CC0 1.0)
+  luna_pinyin*.yaml
+
+Rime Essay authors (original file):
+
+Gong Chen <chen.sst@gmail.com>, Kunki Chiu <cokunhui@gmail.com>, ksqsf <justksqsf@gmail.com> : (LGPL)
+refined data from Chewing / 新酷音 (LGPL),
+opencc / 開放中文轉換 (Apache License version 2),
+Android Pinyin IME (Apache License version 2) and
+moedict.tw／萌典 (CC0 1.0)
+  essay.txt
+
+With inspirations from the following resources for Simplified Chinese:
+rime-ice and rime-frost

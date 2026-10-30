@@ -62,6 +62,23 @@ def verify(args):
               "rebuilt_files": len(rebuilt), "all_rebuilt_bytes_equal": True, "python_no_site_packages": True,
               "bundled_converter_only": True, "network_required": False, "git_history_required": False,
               "native_compiler_rebuilt_by_this_roundtrip": False}
+    if index.get("mapped_input_dataset_id"):
+        commands = [
+            ([sys.executable, "-S", "tools/build_input_lexicon.py", "--compiled", "generated/compiled-rime",
+              "--export", "public-export", "--prepared", "generated/plaintext", "--lock", "notices/dictionary-sources.lock.json",
+              "--output", "rebuilt-input"], "mapped-input-build.log"),
+            ([sys.executable, "-S", "tools/verify_input_lexicon.py", "--lexicon", "rebuilt-input",
+              "--vocabulary", "public-export/run-a.tsv", "--report", "input-rows-verified.json"], "mapped-input-verify.log")]
+        for command, log in commands:
+            process = subprocess.run(command, cwd=output, env=environment, capture_output=True)
+            (output / log).write_bytes(process.stdout + process.stderr)
+            if process.returncode: raise RuntimeError("Mapped input roundtrip failed; inspect " + str(output / log))
+        for name in ("input.lex", "associations.json", "manifest.json"):
+            if digest(output / "generated/input" / name) != digest(output / "rebuilt-input" / name):
+                raise RuntimeError("Mapped input differs from delivered data")
+        result.update(mapped_input_dataset_id=index["mapped_input_dataset_id"], mapped_input_rebuilt_files=3,
+                      all_mapped_input_bytes_equal=True,
+                      mapped_input_source_coverage=json.loads((output / "input-rows-verified.json").read_bytes()))
     (output / "roundtrip-result.json").write_text(json.dumps(result, indent=2), "utf-8")
     print(json.dumps(result))
 
