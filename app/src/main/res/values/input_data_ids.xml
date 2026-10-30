@@ -6,4 +6,9 @@
     <item name="inputDataClipboard" type="id" />
     <item name="inputDataRecents" type="id" />
     <item name="inputDataVoice" type="id" />
+    <item name="inputLearnChoices" type="id" />
+    <item name="inputLearnExposure" type="id" />
+    <item name="inputPrivacyNotice" type="id" />
+    <item name="inputDataCrash" type="id" />
+    <item name="privacyFeedback" type="id" />
 </resources>

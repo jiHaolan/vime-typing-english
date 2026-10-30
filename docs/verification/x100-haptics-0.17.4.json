@@ -1,0 +1,219 @@
+{
+  "version": "0.17.4",
+  "device": "vivo X100 V2309A",
+  "device_serial": "10AE610QUG007P9",
+  "observed_date": "2026-10-31",
+  "passed": 16,
+  "failed": 0,
+  "source_sha256": "066843da8dc05c4b00505f9ff9b11eaad197626df06451b65093c950f41eb8db",
+  "cases": [
+    {
+      "case": "letter-a",
+      "point": [
+        100,
+        2000
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:24:55.493 |   effect |             finished | duration:    43ms | start: 00:24:55.495 | end: 00:24:55.536 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=CLICK(STRONG, no fallback)} | original: Step=26ms(amplitude=0.86)"
+      ]
+    },
+    {
+      "case": "candidate-word",
+      "point": [
+        100,
+        1410
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:25:17.325 |   effect |             finished | duration:    45ms | start: 00:25:17.329 | end: 00:25:17.369 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=CLICK(STRONG, no fallback)} | original: Step=26ms(amplitude=0.86)"
+      ]
+    },
+    {
+      "case": "keyboard-gap",
+      "point": [
+        540,
+        1680
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:25:17.980 |   effect |             finished | duration:    47ms | start: 00:25:17.986 | end: 00:25:18.027 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=CLICK(STRONG, no fallback)} | original: Step=26ms(amplitude=0.86)"
+      ]
+    },
+    {
+      "case": "emoji-toolbar",
+      "point": [
+        325,
+        1555
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:25:18.614 |   effect |             finished | duration:    42ms | start: 00:25:18.616 | end: 00:25:18.656 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=CLICK(STRONG, no fallback)} | original: Step=26ms(amplitude=0.86)"
+      ]
+    },
+    {
+      "case": "emoji-pick",
+      "point": [
+        120,
+        1700
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:25:36.608 |   effect |             finished | duration:    38ms | start: 00:25:36.609 | end: 00:25:36.645 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=CLICK(STRONG, no fallback)} | original: Step=26ms(amplitude=0.86)"
+      ]
+    },
+    {
+      "case": "emoji-back",
+      "point": [
+        85,
+        1410
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:25:37.237 |   effect |             finished | duration:    37ms | start: 00:25:37.237 | end: 00:25:37.274 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=CLICK(STRONG, no fallback)} | original: Step=26ms(amplitude=0.86)"
+      ]
+    },
+    {
+      "case": "symbol-toggle",
+      "point": [
+        55,
+        2300
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:25:37.919 |   effect |             finished | duration:    39ms | start: 00:25:37.920 | end: 00:25:37.958 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=CLICK(STRONG, no fallback)} | original: Step=26ms(amplitude=0.86)"
+      ]
+    },
+    {
+      "case": "symbol-pick",
+      "point": [
+        120,
+        1820
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:26:04.273 |   effect |             finished | duration:    39ms | start: 00:26:04.275 | end: 00:26:04.312 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=CLICK(STRONG, no fallback)} | original: Step=26ms(amplitude=0.86)"
+      ]
+    },
+    {
+      "case": "symbol-back",
+      "point": [
+        85,
+        1410
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:26:12.196 |   effect |             finished | duration:    38ms | start: 00:26:12.197 | end: 00:26:12.234 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=CLICK(STRONG, no fallback)} | original: Step=26ms(amplitude=0.86)"
+      ]
+    },
+    {
+      "case": "disabled-letter",
+      "point": [
+        100,
+        2000
+      ],
+      "expected_vibrations": 0,
+      "actual_vibrations": 0,
+      "pass": true,
+      "records": []
+    },
+    {
+      "case": "disabled-candidate",
+      "point": [
+        100,
+        1410
+      ],
+      "expected_vibrations": 0,
+      "actual_vibrations": 0,
+      "pass": true,
+      "records": []
+    },
+    {
+      "case": "disabled-gap",
+      "point": [
+        540,
+        1680
+      ],
+      "expected_vibrations": 0,
+      "actual_vibrations": 0,
+      "pass": true,
+      "records": []
+    },
+    {
+      "case": "disabled-toolbar",
+      "point": [
+        325,
+        1555
+      ],
+      "expected_vibrations": 0,
+      "actual_vibrations": 0,
+      "pass": true,
+      "records": []
+    },
+    {
+      "case": "light-letter",
+      "point": [
+        100,
+        2000
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:28:03.707 |   effect |             finished | duration:    40ms | start: 00:28:03.709 | end: 00:28:03.748 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=TICK(STRONG, no fallback)} | original: Step=8ms(amplitude=0.22)"
+      ]
+    },
+    {
+      "case": "medium-letter",
+      "point": [
+        100,
+        2000
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:28:36.521 |   effect |             finished | duration:    39ms | start: 00:28:36.525 | end: 00:28:36.561 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=TICK(STRONG, no fallback)} | original: Step=16ms(amplitude=0.49)"
+      ]
+    },
+    {
+      "case": "restored-strong-letter",
+      "point": [
+        100,
+        2000
+      ],
+      "expected_vibrations": 1,
+      "actual_vibrations": 1,
+      "pass": true,
+      "records": [
+        "10-31 00:29:32.591 |   effect |             finished | duration:    41ms | start: 00:29:32.593 | end: 00:29:32.632 | scale:     NONE (adaptive=1.00) | flags:    0 | usage: TOUCH | com.vime.ime (uid=10305, deviceId=0) | reason: null | played: Stereo{vibrator(id=0): Prebaked=CLICK(STRONG, no fallback)} | original: Step=26ms(amplitude=0.86)"
+      ]
+    }
+  ],
+  "current_phone_version_verified": "0.17.4",
+  "current_phone_locked": true,
+  "new_live_keyboard_touch_test_this_turn": false,
+  "limits": [
+    "System vibration records confirm requests and motor completion, not subjective feel.",
+    "Long presses may intentionally add a separate confirmation pulse.",
+    "The previous run with a missed restore tap is retained in the original 20261030 evidence; this 16-case recheck is the subsequent complete run."
+  ]
+}

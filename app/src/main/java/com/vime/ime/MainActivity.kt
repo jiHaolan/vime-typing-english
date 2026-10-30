@@ -20,7 +20,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.vime.ime.databinding.ActivityMainBinding
 import com.vime.ime.engine.MemoryEngine
-import java.io.File
 
 /**
  * 启动入口。输入法本体 VimeImeService 没有界面，用户必须经这里两件事：
@@ -113,17 +112,16 @@ class MainActivity : AppCompatActivity() {
      * 真机上「装上打不开」这类问题，不用连 adb / 抓 logcat 也能看到原因。
      */
     private fun showLastCrash() {
-        val f = File(filesDir, VimeApp.CRASH_FILE)
-        if (!f.exists()) return
-        val txt = runCatching { f.readText() }.getOrNull().orEmpty()
-        f.delete()
-        if (txt.isBlank()) return
+        val txt = CrashDiagnostics.consume(this) ?: return
         runCatching {
             AlertDialog.Builder(this)
-                .setTitle("上次启动崩了")
-                .setMessage(txt.take(2200))
-                .setPositiveButton("知道了", null)
-                .setNeutralButton("复制") { _, _ ->
+                .setTitle("上次运行遇到问题")
+                .setMessage("本机故障报告只包含异常类型和代码位置，不包含输入正文、录音或密钥。可自行复制后反馈。")
+                .setPositiveButton("关闭", null)
+                .setNegativeButton("查看详情") { _,_ ->
+                    AlertDialog.Builder(this).setTitle("本机故障信息").setMessage(txt).setPositiveButton("关闭",null).show()
+                }
+                .setNeutralButton("复制故障信息") { _, _ ->
                     val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     cm.setPrimaryClip(ClipData.newPlainText("crash", txt))
                 }

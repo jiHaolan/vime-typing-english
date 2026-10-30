@@ -8,6 +8,8 @@ import android.os.SystemClock
 import android.system.Os
 import android.system.OsConstants
 import com.vime.ime.data.CandidateIndex
+import com.vime.ime.data.InputLearningPrefs
+import com.vime.ime.engine.InputEngine
 import com.vime.ime.engine.RimeEngine
 import org.json.JSONArray
 import org.json.JSONObject
@@ -46,6 +48,7 @@ class NativeRuntimeInstrumentation : Instrumentation() {
     }
 
     override fun onStart() {
+        var previousChoices:Boolean?=null
         try {
             val environment = test("emulator-has-explicitly-required-page-size") {
                 check(Build.PRODUCT.contains("sdk")) { "Dedicated emulator required" }
@@ -54,6 +57,7 @@ class NativeRuntimeInstrumentation : Instrumentation() {
                 observations.put("process_page_size_bytes", actual).put("expected_page_size_bytes", expectedPageSize)
                 check(actual == expectedPageSize) { "Required $expectedPageSize bytes, actual $actual bytes" }
             }
+            if(environment) { previousChoices=InputLearningPrefs.choicesEnabled; InputEngine.setChoiceLearning(targetContext,true) }
             val initialized = environment && test("native-library-and-shipped-dictionaries-initialize") {
                 RimeEngine.initialize(targetContext)
                 observations.put("rime_state", RimeEngine.state.name).put("rime_version", RimeEngine.version)
@@ -95,6 +99,7 @@ class NativeRuntimeInstrumentation : Instrumentation() {
         } catch (error: Throwable) {
             cases.put(JSONObject().put("name", "unexpected-runner-error").put("pass", false).put("error", error.toString()))
         } finally {
+            previousChoices?.let { InputEngine.setChoiceLearning(targetContext,it) }
             val passed = (0 until cases.length()).count { cases.getJSONObject(it).getBoolean("pass") }
             val report = JSONObject().put("sdk", Build.VERSION.SDK_INT).put("abi", Build.SUPPORTED_ABIS.first())
                 .put("expected", expected).put("passed", passed).put("failed", cases.length() - passed)

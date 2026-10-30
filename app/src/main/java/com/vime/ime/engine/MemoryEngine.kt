@@ -2,6 +2,7 @@ package com.vime.ime.engine
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.vime.ime.data.InputLearningPrefs
 import android.os.Handler
 import android.os.Looper
 import org.json.JSONObject
@@ -115,6 +116,7 @@ object MemoryEngine {
 
     /** 曝光（上屏）。累计最多 +10 点，且不再推进 —— 打字不产生「已掌握」 */
     fun onCommitted(word: String, lvl: String) {
+        if (!InputLearningPrefs.exposureEnabled) return
         val s = obtain(word, lvl)
         if (s.mastered) return
         if (s.exp < EXP_CAP) {

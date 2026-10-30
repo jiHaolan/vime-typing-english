@@ -48,7 +48,7 @@ object PersonalLexicon {
         (if (nine) it.trigger.map(CandidateIndex::digit).joinToString("") == raw else it.trigger == raw)
     }.sortedByDescending { it.priority }.map { Cand(it.text, DictRepository.getEn(it.text), DictRepository.getLvl(it.text), raw.length) }
     @Synchronized fun record(raw: String, c: Cand, allowed: Boolean) {
-        if (!allowed || raw.isEmpty() || c.word.length > 64) return
+        if (!allowed || !InputLearningPrefs.choicesEnabled || raw.isEmpty() || c.word.length > 64) return
         val key = raw.take(128) + "\t" + c.word
         counts[key] = ((counts[key] ?: 0) + 1).coerceAtMost(100000)
         while (counts.size > 2000) counts.remove(counts.keys.first())

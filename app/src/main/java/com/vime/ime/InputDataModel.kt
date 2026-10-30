@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import android.os.Handler
 import android.os.Looper
 import com.vime.ime.data.PersonalLexicon
+import com.vime.ime.data.InputLearningPrefs
 import com.vime.ime.engine.ClipboardSession
 import com.vime.ime.engine.InputEngine
 import com.vime.ime.engine.MemoryEngine
@@ -14,7 +15,9 @@ import java.util.concurrent.Executors
 
 /** App-owned data only. No system clipboard reads, broad file erasure or exported IPC. */
 class InputDataModel(app: Application) : AndroidViewModel(app) {
-    data class State(val busy: Boolean = false, val message: String = "")
+    data class State(val busy: Boolean = false, val message: String = "",
+                     val choices: Boolean = InputLearningPrefs.choicesEnabled,
+                     val exposure: Boolean = InputLearningPrefs.exposureEnabled)
     val state = MutableLiveData(State())
     private val main = Handler(Looper.getMainLooper())
     private val io = Executors.newSingleThreadExecutor()
@@ -39,6 +42,25 @@ class InputDataModel(app: Application) : AndroidViewModel(app) {
     }
     fun clearVoiceStatus() = run("正在清除语音故障记录…") { VoiceDiagnostics.clear(appContext); "语音故障记录已清除" }
     fun clearClipboard() = run("正在清空临时历史…") { ClipboardSession.shared.clear(); "本应用的临时剪贴板历史已清空" }
+    fun clearCrashReport() = run("正在清除本机故障报告…") { CrashDiagnostics.clear(appContext); "本机故障报告已清除" }
+    fun refreshPreferences() { if(state.value?.busy != true) state.value=State(message=state.value?.message.orEmpty()) }
+    fun setChoices(enabled: Boolean) = saveLearning(enabled, null)
+    fun setExposure(enabled: Boolean) = saveLearning(null, enabled)
+    private fun saveLearning(choices: Boolean?, exposure: Boolean?) {
+        if(state.value?.busy==true) return
+        state.value=State(true,"正在保存学习设置…",choices ?: InputLearningPrefs.choicesEnabled,exposure ?: InputLearningPrefs.exposureEnabled)
+        io.execute {
+            val result=runCatching {
+                choices?.let { InputEngine.setChoiceLearning(appContext,it) }
+                exposure?.let { InputLearningPrefs.saveExposure(appContext,it) }
+                if(choices!=null) { if(choices) "已开启选词学习" else "已关闭选词学习" }
+                else { if(exposure==true) "已开启打字曝光记录" else "已关闭打字曝光记录" }
+            }
+            main.post {
+                if(!cleared) state.value=State(message=result.getOrElse { "学习设置未能保存，请重试" })
+            }
+        }
+    }
     fun resetAnnotations() {
         if (state.value?.busy == true) return
         state.value = State(true, "正在重置英文提示状态…")

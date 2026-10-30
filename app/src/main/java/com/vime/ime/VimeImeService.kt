@@ -46,7 +46,6 @@ import com.vime.ime.engine.ClipboardSession
 import com.vime.ime.engine.InputRules
 import com.vime.ime.data.WordBook
 import com.vime.ime.data.ThemePref
-import java.io.File
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import com.vime.ime.engine.QueryGate
@@ -186,16 +185,13 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
         } catch (t: Throwable) {
             // 视图构建失败时，系统只会「不显示键盘」，用户看到的就是「点了没反应」。
             // 宁可把错误摊在键盘位置上，也不要静默失败。
-            Log.e(TAG, "onCreateInputView failed", t)
+            Log.e(TAG, "onCreateInputView failed: ${t.javaClass.simpleName}")
             runCatching {
-                File(filesDir, VimeApp.CRASH_FILE).writeText(
-                    "onCreateInputView 构建失败\n" +
-                        "${t.javaClass.name}: ${t.message}\n\n" +
-                        Log.getStackTraceString(t)
-                )
+                CrashDiagnostics.write(this,com.vime.ime.engine.SafeCrashReport.failure(
+                    com.vime.ime.engine.SafeCrashReport.Stage.KEYBOARD_VIEW,t,true))
             }
             TextView(this).apply {
-                text = "键盘加载失败\n${t.javaClass.simpleName}: ${t.message}"
+                text = "键盘暂时无法加载\n请打开应用查看本机故障信息"
                 setTextColor(0xFFD1453B.toInt())
                 textSize = 13f
                 setPadding(28, 40, 28, 40)
@@ -424,10 +420,7 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
         if (kb.keys.size < expected) {
             Log.w(TAG, "keyboard parse abnormal: panel=$p keys=${kb.keys.size}/$expected")
             runCatching {
-                File(filesDir, VimeApp.CRASH_FILE).writeText(
-                    "键盘解析不全（会被系统吞掉，表现为少几行）\n" +
-                        "panel=$p\nkeys=${kb.keys.size}（预期 $expected）\nheight=${kb.height}"
-                )
+                CrashDiagnostics.write(this,com.vime.ime.engine.SafeCrashReport.layout(p.name,kb.keys.size,expected,kb.height))
             }
         }
         syncKeyboard()

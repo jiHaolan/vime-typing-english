@@ -44,12 +44,16 @@ class InputDataInstrumentation : Instrumentation() {
         var phrases:List<PhraseRule>?=null
         var fixture:LearningArchive.Snapshot?=null
         var restored=false
-        val expected=9
+        var oldChoices:Boolean?=null
+        var oldExposure:Boolean?=null
+        val expected=14
         try {
             val ready=test("dedicated-emulator-and-real-engine-ready") {
                 check(Build.PRODUCT.contains("sdk")) { "Dedicated emulator required" }
                 RimeEngine.initialize(targetContext); check(RimeEngine.state==RimeEngine.State.READY)
                 PersonalLexicon.init(targetContext); main { MemoryEngine.init(targetContext) }
+                oldChoices=InputLearningPrefs.choicesEnabled;oldExposure=InputLearningPrefs.exposureEnabled
+                InputEngine.setChoiceLearning(targetContext,true);InputLearningPrefs.saveExposure(targetContext,true)
                 phrases=PersonalLexicon.list()
                 database=LearningDatabase(targetContext)
                 original=database!!.snapshot()
@@ -137,11 +141,71 @@ class InputDataInstrumentation : Instrumentation() {
                     check(targetContext.getSharedPreferences("vime_ime",0).all==settings && database!!.snapshot()==fixture)
                     main { store.clear() }
                 }
+                test("choice-opt-out-stops-both-native-and-manual-learning-with-candidates-intact") {
+                    check(InputEngine.resetPersonalization(targetContext))
+                    InputEngine.setChoiceLearning(targetContext,false)
+                    val count=PersonalLexicon.count("nihao","你好")
+                    InputEngine.selected("nihao",candidate,true)
+                    RimeEngine.learn("nihao",candidate)
+                    PersonalLexicon.record("nihao",candidate,true)
+                    RimeEngine.query("64426")
+                    check(PersonalLexicon.count("nihao","你好")==count)
+                    check(File(targetContext.filesDir,"rime/user").walkTopDown().filter { it.isFile && it.extension in listOf("log","ldb") }
+                        .none { String(it.readBytes(),Charsets.UTF_8).contains("你好") })
+                    check(RimeEngine.query("nihao").any { it.word=="你好" && it.consumed==5 })
+                    PersonalLexicon.save(listOf(PhraseRule("retainedphrase","explicit phrase")))
+                    check(InputEngine.query("retainedphrase",false).any { it.word=="explicit phrase" })
+                    check(!targetContext.getSharedPreferences("input_learning",0).getBoolean("choices_enabled",true))
+                    check(File(targetContext.applicationInfo.dataDir,"shared_prefs/input_learning.xml").readText().contains("name=\"choices_enabled\" value=\"false\""))
+                    check(InputRules.learningAllowed(android.text.InputType.TYPE_CLASS_TEXT,0))
+                }
+                test("exposure-opt-out-preserves-explicit-review-and-learning-book") {
+                    InputLearningPrefs.saveExposure(targetContext,false)
+                    val before=main { MemoryEngine.familiarity("exposure-optout-fixture","CET4") }
+                    main { repeat(20) { MemoryEngine.onCommitted("exposure-optout-fixture","CET4") } }
+                    check(main { MemoryEngine.familiarity("exposure-optout-fixture","CET4")==before })
+                    main { MemoryEngine.onRecall("exposure-optout-fixture","CET4",true) }
+                    check(main { MemoryEngine.familiarity("exposure-optout-fixture","CET4")>before })
+                    check(database!!.snapshot()==fixture)
+                    val entry=fixture!!.entries.first { it.word=="隐私验收词" }
+                    val now=System.currentTimeMillis()
+                    check(database!!.answer(entry,true,now))
+                    val reviewed=database!!.snapshot()
+                    check(reviewed.entries.first { it.word==entry.word }.progress.attempts==entry.progress.attempts+1)
+                    check(reviewed.history.last()==LearningStats.Event(entry.word,now,true))
+                    database!!.restore(fixture!!,LearningArchive.Restore.REPLACE)
+                    check(database!!.snapshot()==fixture)
+                    check(!targetContext.getSharedPreferences("input_learning",0).getBoolean("exposure_enabled",true))
+                }
+                test("re-enabling-choice-learning-records-new-selection") {
+                    InputEngine.setChoiceLearning(targetContext,true)
+                    InputEngine.selected("nihao",candidate,true)
+                    check(PersonalLexicon.count("nihao","你好")>0)
+                }
+                test("crash-diagnostics-remove-legacy-and-redact-payloads-on-disk") {
+                    val legacy=File(targetContext.filesDir,"last_crash.txt").apply { writeText("private legacy input canary") }
+                    check(CrashDiagnostics.purgeLegacy(targetContext) && !legacy.exists())
+                    val error=IllegalArgumentException("typed private-canary key=secret-key")
+                    error.stackTrace=arrayOf(StackTraceElement("com.vime.ime.InputEngine","selected","secret-file.kt",31))
+                    CrashDiagnostics.write(targetContext,SafeCrashReport.failure(SafeCrashReport.Stage.APP,error,false))
+                    val disk=File(targetContext.filesDir,CrashDiagnostics.FILE).readText()
+                    check(disk.startsWith(SafeCrashReport.MAGIC) && "private-canary" !in disk && "secret-key" !in disk && "secret-file.kt" !in disk)
+                    check(CrashDiagnostics.consume(targetContext)==disk && !File(targetContext.filesDir,CrashDiagnostics.FILE).exists())
+                }
+                test("crash-report-clear-keeps-policy-and-learning-data") {
+                    val settings=targetContext.getSharedPreferences("input_learning",0).all.toMap()
+                    CrashDiagnostics.write(targetContext,SafeCrashReport.layout("QWERTY",10,37,600))
+                    CrashDiagnostics.clear(targetContext)
+                    check(CrashDiagnostics.consume(targetContext)==null)
+                    check(targetContext.getSharedPreferences("input_learning",0).all==settings && database!!.snapshot()==fixture)
+                }
             }
         } finally {
             runCatching {
                 if(original!=null) { database!!.restore(original!!,LearningArchive.Restore.REPLACE); check(database!!.snapshot()==original) }
                 phrases?.let(PersonalLexicon::save)
+                oldChoices?.let { InputEngine.setChoiceLearning(targetContext,it) }
+                oldExposure?.let { InputLearningPrefs.saveExposure(targetContext,it) }
                 restored=original!=null
             }.onFailure { error -> cases.put(JSONObject().put("name","fixture-restore").put("pass",false).put("error",error.toString())) }
             database?.close()

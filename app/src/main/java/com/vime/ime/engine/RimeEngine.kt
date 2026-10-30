@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Looper
 import com.vime.ime.data.Cand
 import com.vime.ime.data.DictRepository
+import com.vime.ime.data.InputLearningPrefs
 import org.json.JSONObject
 import java.io.File
 import java.security.MessageDigest
@@ -61,8 +62,10 @@ object RimeEngine {
         } }
     }
     fun learn(raw: String, c: Cand) {
-        if (state != State.READY || !c.fromRime) return
-        synchronized(this) { RimeNative.learn(raw, c.word, c.consumed) }
+        if (state != State.READY || !c.fromRime || !InputLearningPrefs.choicesEnabled) return
+        synchronized(this) {
+            if (state == State.READY && InputLearningPrefs.choicesEnabled) RimeNative.learn(raw, c.word, c.consumed)
+        }
     }
     /** Releases all native handles before erasing this app's learned Rime data. */
     @Synchronized fun resetPersonalization(context: Context): Boolean {

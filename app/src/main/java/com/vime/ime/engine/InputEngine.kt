@@ -39,11 +39,20 @@ object InputEngine {
     fun selected(raw: String, c: Cand, allowed: Boolean) {
         val epoch = learningEpoch.get()
         // A background reset must never make committing text wait for database teardown.
-        if (!allowed || resetting.get() || !learningLock.tryLock()) return
+        if (!allowed || !InputLearningPrefs.choicesEnabled || resetting.get() || !learningLock.tryLock()) return
         try {
-            if (resetting.get() || epoch != learningEpoch.get()) return
+            if (!InputLearningPrefs.choicesEnabled || resetting.get() || epoch != learningEpoch.get()) return
             PersonalLexicon.record(raw, c, true)
             RimeEngine.learn(raw, c)
+        } finally { learningLock.unlock() }
+    }
+    fun setChoiceLearning(context: Context, enabled: Boolean) {
+        check(Looper.myLooper() != Looper.getMainLooper())
+        learningLock.lock()
+        try {
+            // Wait for any accepted native update; late callers recheck the flag.
+            synchronized(RimeEngine) { InputLearningPrefs.saveChoices(context, enabled) }
+            learningEpoch.incrementAndGet()
         } finally { learningLock.unlock() }
     }
     fun resetPersonalization(context: Context): Boolean {
