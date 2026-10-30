@@ -1,0 +1,5 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application android:allowBackup="false" android:testOnly="true" android:label="Vime isolated dictionary compiler" />
+    <instrumentation android:name="com.vime.compiler.CompileInstrumentation"
+        android:targetPackage="com.vime.dictionary.compiler" android:functionalTest="true" />
+</manifest>

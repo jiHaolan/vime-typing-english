@@ -1,0 +1,87 @@
+{
+  "format": "vime-dictionary-source-lock-1",
+  "sources": {
+    "luna": {
+      "url": "https://github.com/rime/rime-luna-pinyin",
+      "commit": "46acf03142c12b5aeed7002675046bf7255eed35",
+      "license": "LGPL-3.0",
+      "files": {
+        "luna_pinyin.dict.yaml": "270b0c6879436d7b0b606aa684507ea7e173c62b6d5df3966804637872d520fd",
+        "LICENSE": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
+        "AUTHORS": "dbf21183999dcd06d4b0f0fe08f7396fcb47cc6f734fd97c3dd851777f1b28f8"
+      }
+    },
+    "essay": {
+      "url": "https://github.com/rime/rime-essay",
+      "commit": "054920de4f54c9e5994276a96a4fc2a35cb51aa3",
+      "license": "LGPL-3.0",
+      "files": {
+        "essay.txt": "3e8512ebaa6657e35961b1f5762060717c647e3bf471d5e3b86e783b4e934ffb",
+        "LICENSE": "da7eabb7bafdf7d3ae5e9f223aa5bdc1eece45ac569dc21b3b037520b4464768",
+        "AUTHORS": "4ab2f81451ff4819f2b0e346583b49cee37aec72a01f8ecd96be1711c4204b75"
+      }
+    },
+    "cedict": {
+      "url": "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz",
+      "version": "2026-10-19T20:24:47Z",
+      "license": "CC-BY-SA-4.0",
+      "sha256": "3681b52f0f733e0caada3fa2fbe2236bfa1234333397f35f10f285ac292abec9",
+      "source_records": 125303,
+      "license_sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5"
+    },
+    "ecdict": {
+      "url": "https://github.com/skywind3000/ECDICT",
+      "commit": "ab22ad36302cafc6349a050e2b60894855208055",
+      "license": "MIT",
+      "csv_sha256": "d1ecbdf9ee2b920afb6f430ca6b6bb9f559588cf0dff86e04bd255f9390843cc",
+      "files": {
+        "LICENSE": "f8552dd246f61a4e064569eae6194a01c6b3d63b03bf27c6ca863593c549ed0f",
+        "README.md": "0c3f95fc7e15f7eccf65feedb58ba3ebace1fe7b7cbdd1af60c9ace4cef9094b"
+      }
+    },
+    "conversion": {
+      "package": "opencc-python-reimplemented",
+      "version": "0.1.7",
+      "config": "t2s",
+      "data_sha256": {
+        "config/hk2s.json": "11d1001e56bf26f73a9bd4e88e63e064bbab421054701f22d948bb4d72e0a6cb",
+        "config/s2hk.json": "423ae690c62e0829044ce76cd5736667ff196562b06b1beedd60d1446bfd0ec9",
+        "config/s2t.json": "246f559aaf3756b280157f4eb2ab1dd22f31ebac2a9e0aafa2b4a99c1cb676ce",
+        "config/s2tw.json": "5eaf3d5138ad09ca34aae6b424c9928aaf870fcadd8495e4f8bd4172f57c3017",
+        "config/s2twp.json": "e2eeb094abf6ef8f1b75971110ab9b37471d19eb4d79b7cbe2dc7ce8eb46def1",
+        "config/t2hk.json": "2362f65edb9eb6627762e959ebb22e7c91a7260435e3135ecb7a21844ee913f8",
+        "config/t2s.json": "3848b420a86a7c5f79a796321029db6f9aaa534bc3a7a67b90fc66744d3030d0",
+        "config/t2tw.json": "0cb4078cd55c50892c8beeae79be73bbd4dc7c256b13c12f0aa6fe79f3436624",
+        "config/tw2s.json": "efefc6b3031f370558cb9f3a75c7940927d6849aa92512cd2896dffa4e1b9ce2",
+        "config/tw2sp.json": "ab8645dc184af734199701f09f515e68b5ef4f7f4fea20db79354c6fe6db33f2",
+        "dictionary/HKVariants.txt": "c3c93c35885902ba2b12a3235a7761b00fb2b027f36aa8314db2f6b6ad51d374",
+        "dictionary/HKVariantsPhrases.txt": "d790e9bcafd2610efc3c44db7d859d6882d2864ac43792fd13fd2825cb341192",
+        "dictionary/HKVariantsRev.txt": "2b4fdb5865703f1cf75d6e524e0b0d33733e9bb6f92df697cf1ad8fe27989619",
+        "dictionary/HKVariantsRevPhrases.txt": "c2da309afa7fdd9061f204664039d33b000a4dca0ecae4e7480dcbf9e20f658e",
+        "dictionary/JPVariants.txt": "7e998db5d6f437a605c901c9413ccd7505f8b2e1cd3f9e2dd84572d0af1d3fc0",
+        "dictionary/STCharacters.txt": "9207708da9f2e2a248f39c457b2fccad26ec42e7efaf47a860e6900464f4cac5",
+        "dictionary/STPhrases.txt": "a4de4d2471f73cdb7e5b1b22920139aa4e4bbb1ebeea8f1fc341f988aa75c586",
+        "dictionary/TSCharacters.txt": "6b5a0a799bea2bb22c001f635eaa3fc2904310f0c08addbff275477a80ecf09a",
+        "dictionary/TSPhrases.txt": "b2ef895dd4953b4bb77fc8ef8d26a2a9ca6d43a760ed9a1d767672cfafa6324f",
+        "dictionary/TWPhrases.txt": "2ac64976553b8dd1f8d308b699540716099c04238d175ff336f53ababed26f07",
+        "dictionary/TWPhrasesRev.txt": "85059c3722d6098a44db23d78ef583fb10e34002c5ea717ab738d3b170d48d14",
+        "dictionary/TWVariants.txt": "30e6f8395edbfdd74e293fd8b9c62105d787c849fbb208d2a7832eac696734d7",
+        "dictionary/TWVariantsRev.txt": "1ea2b90f85eea6a2c9440716beee3268c740408caa334aa890bb4a35833f1b72",
+        "dictionary/TWVariantsRevPhrases.txt": "bef60ceb4e57b6b062351406cb5d4644875574231d64787e03711317b7e773f3",
+        "NOTICE.txt": "afcbc6ee2d4fa9c2e9d5944b53ca05d3cc06bab6d082817c689bdfa33c38fcb0"
+      },
+      "url": "https://github.com/yichen0831/opencc-python",
+      "license": "Apache-2.0",
+      "code_sha256": {
+        "__init__.py": "9ee2882ab0156a817c928fa4800b38def0b7cbf5ff33b2c4c42294c3c0648f23",
+        "__main__.py": "dafcba671d01b7ba86222d9f9e2a96bb26f13a0fb5a3a2c53750b1cc560d5b6c",
+        "opencc.py": "dfba0adb8ca2d07e9fc90aab9de38cc3830ed338fa51c6a1e408c71a916e65f9"
+      },
+      "dist_info": "opencc_python_reimplemented-0.1.7.dist-info",
+      "metadata_sha256": {
+        "METADATA": "0da812fd9236be4f841553350a64dcf76f84dd580de99320b6e3030c1b9c7a4b",
+        "LICENSE.txt": "18f3fedf9eac72e6054260489c764c1e54f63cf2b16055523f561ffeec7bc908"
+      }
+    }
+  }
+}

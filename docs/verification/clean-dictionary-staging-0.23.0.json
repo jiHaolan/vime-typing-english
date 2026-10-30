@@ -1,0 +1,96 @@
+{
+  "format": "vime-clean-data-staging-verification-1",
+  "date": "2026-10-31T05:24:37.814233+08:00",
+  "stage_only": true,
+  "product_version": "0.22.0",
+  "product_assets_replaced": false,
+  "commercial_goal_achieved": false,
+  "commercial_source_blockers_unchanged": 3,
+  "data_source_lock_sha256": "bd5ca7ce7cf1311ab685a80527a353c43582c7f0aa4db983bc4c4d3f14138540",
+  "counts": {
+    "phonetic_pairs": 121814,
+    "headwords": 121093,
+    "senses": 121814,
+    "english_labels": 120726,
+    "weight_rows": 110721,
+    "association_prefixes": 5937,
+    "level_rows": 10514,
+    "unsupported": {
+      "unsupported-phonetics-or-headword-length": 447
+    }
+  },
+  "coverage": {
+    "legacy_fallback_words": 41189,
+    "new_fallback_words": 121093,
+    "legacy_fallback_words_retained": 22392,
+    "legacy_fallback_pairs": 41430,
+    "new_fallback_pairs": 121814,
+    "legacy_fallback_pairs_retained": 22329,
+    "legacy_english_headwords": 14041,
+    "new_nonempty_english_headwords": 120194,
+    "legacy_english_headwords_retained": 13772,
+    "legacy_card_headwords": 5928,
+    "new_card_headwords": 121093,
+    "legacy_card_headwords_retained": 5923
+  },
+  "plaintext_rebuild": {
+    "files": 12,
+    "byte_identical": true
+  },
+  "native": {
+    "dataset_id": "d15199f066ca229dd5a450162c574859d939558bad22c2107b7564aa38f1c1c0",
+    "passed": true,
+    "runs": 2,
+    "inputs_per_run": [
+      34,
+      34
+    ],
+    "expected_first_candidates_per_run": [
+      34,
+      34
+    ],
+    "public_outputs": 7,
+    "outputs_byte_identical": true,
+    "compat_restored": true,
+    "real_process_page_size": 16384,
+    "product_apk_installed": false,
+    "private_product_user_data_imported": false
+  },
+  "python_tests_passed": 13,
+  "source_kit": {
+    "format": "vime-dictionary-source-kit-1",
+    "dataset_id": "d15199f066ca229dd5a450162c574859d939558bad22c2107b7564aa38f1c1c0",
+    "files": 82,
+    "bytes": 52011000,
+    "sha256": "7c3f359522e981dc3ab7c5cf18284a03d59b204cb3f2cc07e9e41530a03eb92d",
+    "archive": "Vime-dictionary-sources-0.23.0.zip",
+    "native_review_complete": false
+  },
+  "source_kit_roundtrip": {
+    "passed": true,
+    "archive_sha256": "7c3f359522e981dc3ab7c5cf18284a03d59b204cb3f2cc07e9e41530a03eb92d",
+    "manifest_files_checked": 81,
+    "rebuilt_files": 12,
+    "all_rebuilt_bytes_equal": true,
+    "python_no_site_packages": true,
+    "bundled_converter_only": true,
+    "network_required": false,
+    "git_history_required": false,
+    "native_compiler_rebuilt_by_this_roundtrip": false
+  },
+  "active_worktree": "E:\\Vime-build-work\\android-ime-clean-dictionary",
+  "work_directory": "E:\\Vime-build-work\\clean-data-v0.23.0",
+  "evidence_directory": "C:\\Users\\Administrator\\.codex\\.chatgpt-projects\\g-p-6ad8b0a2a18c8191bf8b09e145a9a153\\outputs\\clean-data-v0.23.0",
+  "roundtrip_directory": "E:\\Vime-build-work\\clean-data-v0.23.0\\source-kit-final-verified",
+  "limits": [
+    "Fallback-only conversational coverage remains incomplete; expand from the clean compiled Rime vocabulary before switching product assets.",
+    "No new product APK, safe-upgrade, memory/latency or physical phone validation in this source-tooling stage.",
+    "Native embedded dependencies and the overall commercial distribution review remain pending.",
+    "C-disk cleanup was rejected by automatic review (blocked by policy); original files were preserved and source/work were copied and hashed on E."
+  ],
+  "next_actions": [
+    "Use exact pinned librime table decompiler to export clean compiled vocabulary/readings; add separately licensed fallback phrase data rather than reusing legacy entries.",
+    "Integrate streaming data loader and reading-aware English/card lookup, then data-ID deployment that preserves user dictionaries and clears only generated cache.",
+    "Run actual product upgrade, input, performance and APK size/ABI checks before closing any existing source blocker."
+  ]
+}

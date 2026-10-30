@@ -1,2 +1,12 @@
 # License/notice bytes are copied and hashed verbatim, including original EOLs.
 app/src/main/assets/licenses/*.txt -text -whitespace
+
+# Source-lock hashes and source-kit tools must survive Windows checkouts.
+notices/dictionary-sources.lock.json text eol=lf
+tools/analyze_clean_dictionary.py text eol=lf
+tools/compile_clean_dictionary.py text eol=lf
+tools/package_dictionary_sources.py text eol=lf
+tools/prepare_clean_dictionary.py text eol=lf
+tools/test_clean_dictionary.py text eol=lf
+tools/verify_dictionary_source_kit.py text eol=lf
+tools/dictionary-compiler/** text eol=lf
