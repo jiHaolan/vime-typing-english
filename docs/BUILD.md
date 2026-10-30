@@ -75,3 +75,21 @@ adb -s emulator-5576 shell am instrument -w com.vime.ime.test/com.vime.ime.data.
 ```
 
 15项检查使用独立临时数据库，验证真实SQLite事务与迁移，不使用内存假数据库代替磁盘持久化。临时数据库和旧偏好测试数据会在结束时清理。`seedUi`为专用模拟器UI准备选项，会替换模拟器中的学习记录；日常存储测试不传此选项，也不要在个人真机使用它。
+
+## 键盘与窗口检查（0.19.0）
+
+窗口检查使用单独的测试入口；默认测试入口仍为上面的学习存储检查。先构建主调试包及窗口测试APK：
+
+```powershell
+.\gradlew.bat :app:assembleDebug :app:assembleDebugAndroidTest -PvimeWindowChecks=true
+python tools/run_window_checks.py --sdk "$env:ANDROID_HOME" --device emulator-5578 `
+  --app-apk app/build/outputs/apk/debug/app-x86_64-debug.apk `
+  --test-apk app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk `
+  --output 'E:\Vime-checks\window-019-run1'
+```
+
+APK名称以构建产物为准。使用已经完成系统初始化的专用API30+模拟器，且主包targetSdk至少36；0.19.0已在API36、1080×2400、标准4KB页系统上执行。工具在安装或更改设置前拒绝物理手机，输出目录必须是新目录。主机先设置硬件键盘下仍显示软键盘并启用Vime；原生测试在首页窗口就绪后才选中Vime，避免Instrumentation重启同包输入法进程后遗留失效绑定。结束时恢复并回读核对默认输入法、Vime启用状态及硬件键盘显示设置。测试期间不要同时运行android-cli layout或其他UiAutomation检查进程。
+
+7项检查通过真实触摸、窗口Insets与Back键验证：首页前台焦点、点击弹出Vime键盘、完整输入框避让、三行输入框避让、返回收起键盘并保留首页、首页打开生词本、生词本返回首页。记录输入框屏幕坐标、实际可见矩形、窗口边界和IME高度；未执行的检查计入not_run，全部7项通过才成功。只临时修改试打框文字，结束后恢复，不替换学习数据。
+
+收据保存实际主包与测试包SHA-256、Instrumentation返回结果及设置回读。单独保存instrumentation.log、window-results.json和receipt.json。调用Back键不能代替屏幕边缘手势验证；此次另在API36手势导航下通过实际边缘滑动验证了收起键盘和生词本返回首页，未据此验收动画帧率或取消手势。上述窗口检查也不能替代16KB页系统、横屏、分屏或不同厂商真机检查。

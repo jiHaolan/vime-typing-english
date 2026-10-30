@@ -9,6 +9,8 @@ val releaseAlias = providers.environmentVariable("VIME_RELEASE_KEY_ALIAS").orNul
 val releaseStorePassword = providers.environmentVariable("VIME_RELEASE_STORE_PASSWORD").orNull
 val releaseKeyPassword = providers.environmentVariable("VIME_RELEASE_KEY_PASSWORD").orNull
 val releaseSigningReady = listOf(releaseStore,releaseAlias,releaseStorePassword,releaseKeyPassword).all { !it.isNullOrBlank() }
+val windowChecks = providers.gradleProperty("vimeWindowChecks").orNull
+require(windowChecks == null || windowChecks in listOf("true", "false")) { "vimeWindowChecks must be true or false" }
 
 android {
     namespace = "com.vime.ime"
@@ -21,7 +23,8 @@ android {
         targetSdk = 36
         versionCode = 28
         versionName = "0.19.0"
-        testInstrumentationRunner = "com.vime.ime.data.LearningStorageInstrumentation"
+        testInstrumentationRunner = if (windowChecks == "true") "com.vime.ime.WindowInteractionInstrumentation"
+            else "com.vime.ime.data.LearningStorageInstrumentation"
     }
 
     signingConfigs {

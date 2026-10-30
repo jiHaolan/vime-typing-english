@@ -1,0 +1,168 @@
+{
+  "device": "emulator-5578",
+  "passed": true,
+  "settings_restored": true,
+  "sdk": 36,
+  "app_sha256": "8486f9bc026e692550dc7fda018ea42126a078cd12a215c51f856663ce355697",
+  "test_sha256": "7aff97edc3e1b60dd7e40f6aaa56a3b603fb538568efdaa3c6a933f548abe38f",
+  "settings_before": {
+    "default_input_method": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME",
+    "show_ime_with_hard_keyboard": "0",
+    "vime_enabled": true
+  },
+  "result": {
+    "sdk": 36,
+    "expected": 7,
+    "passed": 7,
+    "failed": 0,
+    "not_run": 0,
+    "cases": [
+      {
+        "name": "home-launches-and-has-foreground-focus",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "vime-keyboard-opens-after-tapping-editor",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "whole-focused-editor-stays-above-keyboard",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "three-line-editor-remains-fully-visible",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "back-hides-keyboard-and-keeps-home-open",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "wordbook-opens-from-home-action",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "back-returns-from-wordbook-to-home",
+        "pass": true,
+        "error": null
+      }
+    ],
+    "geometry": [
+      {
+        "editor": "[53,1268][1027,1415]",
+        "visible": "[53,1268][1027,1415]",
+        "window": "[0,0][1080,2400]",
+        "ime_bottom": 0,
+        "top_bar": 136,
+        "editor_focused": false,
+        "window_focused": true,
+        "ime_visible": false,
+        "layout_pending": false,
+        "lines": 1,
+        "label": "before-editor-touch"
+      },
+      {
+        "editor": "[53,1268][1027,1415]",
+        "visible": "[53,1268][1027,1415]",
+        "window": "[0,0][1080,2400]",
+        "ime_bottom": 941,
+        "top_bar": 136,
+        "editor_focused": true,
+        "window_focused": true,
+        "ime_visible": true,
+        "layout_pending": false,
+        "lines": 1,
+        "label": "after-editor-touch"
+      },
+      {
+        "editor": "[53,1268][1027,1415]",
+        "visible": "[53,1268][1027,1415]",
+        "window": "[0,0][1080,2400]",
+        "ime_bottom": 941,
+        "top_bar": 136,
+        "editor_focused": true,
+        "window_focused": true,
+        "ime_visible": true,
+        "layout_pending": false,
+        "lines": 1,
+        "label": "keyboard-open"
+      },
+      {
+        "editor": "[53,1268][1027,1415]",
+        "visible": "[53,1268][1027,1415]",
+        "window": "[0,0][1080,2400]",
+        "ime_bottom": 941,
+        "top_bar": 136,
+        "editor_focused": true,
+        "window_focused": true,
+        "ime_visible": true,
+        "layout_pending": false,
+        "lines": 1,
+        "label": "whole-editor"
+      },
+      {
+        "editor": "[53,1232][1027,1459]",
+        "visible": "[53,1232][1027,1459]",
+        "window": "[0,0][1080,2400]",
+        "ime_bottom": 941,
+        "top_bar": 136,
+        "editor_focused": true,
+        "window_focused": true,
+        "ime_visible": true,
+        "layout_pending": false,
+        "lines": 3,
+        "label": "three-lines"
+      },
+      {
+        "editor": "[53,1232][1027,1459]",
+        "visible": "[53,1232][1027,1459]",
+        "window": "[0,0][1080,2400]",
+        "ime_bottom": 0,
+        "top_bar": 136,
+        "editor_focused": true,
+        "window_focused": true,
+        "ime_visible": false,
+        "layout_pending": false,
+        "lines": 3,
+        "label": "after-keyboard-back"
+      }
+    ],
+    "diagnostics": {
+      "ime_selection": "Input method com.vime.ime/.VimeImeService selected for user #0"
+    },
+    "touches": [
+      {
+        "view_id": 2131230978,
+        "bounds": "[53,1268][1027,1415]"
+      },
+      {
+        "view_id": 2131230796,
+        "bounds": "[106,892][540,1018]"
+      }
+    ],
+    "scope": "real touch, window metrics and Back key; predictive edge gesture is separate"
+  },
+  "settings_after": {
+    "default_input_method": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME",
+    "show_ime_with_hard_keyboard": "0",
+    "vime_enabled": true
+  },
+  "recorded_at": "2026-10-31T02:30:26.937101+08:00",
+  "version": "0.19.0",
+  "version_code": 28,
+  "page_size_bytes": 4096,
+  "display_pixels": [
+    1080,
+    2400
+  ],
+  "scope_limits": [
+    "No predictive animation frame-rate or cancellation measurement",
+    "No landscape, split-screen, 16KB runtime or physical-phone upgrade claim"
+  ]
+}
