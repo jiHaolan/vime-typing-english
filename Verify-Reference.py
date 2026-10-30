@@ -68,9 +68,11 @@ def contrast(a, b):
     return (hi + .05) / (lo + .05)
 
 ratios = {}
+action = ET.parse(RES / "values/ui_styles.xml").getroot().find("style[@name='Action']")
+check("主操作文字采用主题前景色令牌", action.find("item[@name='android:textColor']").text == "?attr/vimeOnAcc")
 for directory in ["values", "values-night"]:
     colours = {v.get("name"): v.text for v in ET.parse(RES / directory / "colors.xml").getroot().findall("color")}
-    ratios[directory] = {"key_text": contrast(colours["ink"], colours["key"]), "key_hint": contrast(colours["ink_3"], colours["key"]), "action_text": contrast("#FFFFFF", colours["acc"])}
+    ratios[directory] = {"key_text": contrast(colours["ink"], colours["key"]), "key_hint": contrast(colours["ink_3"], colours["key"]), "action_text": contrast(colours["on_acc"], colours["acc"])}
     check(directory + "常态主字/副字/动作字颜色对比>=4.5", all(v >= 4.5 for v in ratios[directory].values()))
     attr = {v.get("name"): colours[v.text.removeprefix("@color/")] for v in ET.parse(RES/directory/"themes.xml").getroot().find("style").findall("item") if v.get("name", "").startswith("vime") and v.text.startswith("@color/")}
     for style in ET.parse(RES/directory/"skin_themes.xml").getroot().findall("style"):

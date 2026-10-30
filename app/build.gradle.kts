@@ -3,22 +3,39 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+// Private signing material is supplied by the operator/CI, never by checked-in files.
+val releaseStore = providers.environmentVariable("VIME_RELEASE_STORE_FILE").orNull
+val releaseAlias = providers.environmentVariable("VIME_RELEASE_KEY_ALIAS").orNull
+val releaseStorePassword = providers.environmentVariable("VIME_RELEASE_STORE_PASSWORD").orNull
+val releaseKeyPassword = providers.environmentVariable("VIME_RELEASE_KEY_PASSWORD").orNull
+val releaseSigningReady = listOf(releaseStore,releaseAlias,releaseStorePassword,releaseKeyPassword).all { !it.isNullOrBlank() }
+
 android {
     namespace = "com.vime.ime"
-    compileSdk = 34
+    compileSdk = 36
+    buildToolsVersion = "36.0.0"
 
     defaultConfig {
         applicationId = "com.vime.ime"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 27
-        versionName = "0.18.0"
+        targetSdk = 36
+        versionCode = 28
+        versionName = "0.19.0"
         testInstrumentationRunner = "com.vime.ime.data.LearningStorageInstrumentation"
     }
 
+    signingConfigs {
+        if (releaseSigningReady) create("operatorRelease") {
+            storeFile = file(releaseStore!!)
+            keyAlias = releaseAlias
+            storePassword = releaseStorePassword
+            keyPassword = releaseKeyPassword
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
+            if (releaseSigningReady) signingConfig = signingConfigs.getByName("operatorRelease")
         }
     }
 
@@ -35,14 +52,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-
     buildFeatures {
         // 候选栏/单词卡布局通过 ViewBinding 绑定（CandidateBarBinding 等）
         viewBinding = true
         buildConfig = true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
 

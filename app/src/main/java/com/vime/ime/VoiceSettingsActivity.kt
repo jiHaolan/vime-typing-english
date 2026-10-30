@@ -16,10 +16,10 @@ import com.vime.ime.voice.*
 
 class VoiceSettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        ThemePref.apply(this);super.onCreate(savedInstanceState);Ui.window(this)
+        ThemePref.apply(this);super.onCreate(savedInstanceState)
         val scroll=ScrollView(this).apply { setBackgroundColor(uiColor(R.color.panel_bg)) }
         val column=LinearLayout(this).apply { orientation=LinearLayout.VERTICAL;setPadding(dp(24),dp(24),dp(24),dp(32)) }
-        scroll.addView(column);setContentView(scroll)
+        scroll.addView(column);setContentView(scroll);Ui.window(this)
         fun label(text: String,size: Float=15f)=Ui.label(this,text,size).also { column.addView(it);Ui.space(column,10) }
         fun button(text: String,action: ()->Unit)=Ui.button(this,text,action=action).also(column::addView)
         Ui.back(this,"返回") { finish() }.also(column::addView)

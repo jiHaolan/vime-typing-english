@@ -1,5 +1,6 @@
 # Local state and build output
 .gradle/
+.kotlin/
 .jtmp/
 .idea/
 **/build/
@@ -12,6 +13,9 @@ local.properties
 *.aab
 *.jks
 *.keystore
+*.p12
+*.pfx
+*.pk8
 .env
 .env.*
 .DS_Store

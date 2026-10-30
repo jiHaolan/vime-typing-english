@@ -1,7 +1,7 @@
 param(
     [string]$JavaHome = 'E:\Program Files\Android\Android Studio\jbr',
     [string]$AndroidSdk = 'E:\Android\Sdk',
-    [string]$Gradle = 'E:\Android\gradle\gradle-8.9\bin\gradle.bat'
+    [string]$Gradle = (Join-Path $PSScriptRoot 'gradlew.bat')
 )
 $ErrorActionPreference = 'Stop'
 $oldJava = $env:JAVA_HOME

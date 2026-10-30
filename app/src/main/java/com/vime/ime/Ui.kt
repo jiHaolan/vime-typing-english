@@ -2,6 +2,8 @@ package com.vime.ime
 
 import android.app.Activity
 import android.graphics.Typeface
+import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.view.Gravity
@@ -11,15 +13,48 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.doOnLayout
+import kotlin.math.max
 
 /** Shared native surfaces and controls. No animation or layout changes in the input path. */
 object Ui {
+    private data class WindowPadding(val left:Int,val top:Int,val right:Int,val bottom:Int)
     fun dp(view: View, n: Int) = (view.resources.displayMetrics.density * n).toInt()
     fun window(activity: Activity) {
         activity.window.decorView.post { com.vime.ime.data.CustomTheme.apply(activity.window.decorView) }
-        activity.window.statusBarColor = activity.uiColor(R.color.panel_bg)
-        activity.window.navigationBarColor = activity.uiColor(R.color.panel_bg)
-        val light = androidx.core.graphics.ColorUtils.calculateLuminance(activity.uiColor(R.color.panel_bg)) > .5
+        val edge = Build.VERSION.SDK_INT >= 30
+        val background=activity.uiColor(R.color.panel_bg)
+        // Insets expose the window background beneath transparent system bars.
+        // A custom light palette can be active while the base theme is dark.
+        activity.window.setBackgroundDrawable(ColorDrawable(background))
+        WindowCompat.setDecorFitsSystemWindows(activity.window,!edge)
+        activity.window.statusBarColor = if(edge) android.graphics.Color.TRANSPARENT else background
+        activity.window.navigationBarColor = if(edge) android.graphics.Color.TRANSPARENT else background
+        if(edge) {
+            val content=activity.findViewById<View>(android.R.id.content)
+            if(content != null && content.getTag(R.id.windowSafePadding)==null) {
+                val base=WindowPadding(content.paddingLeft,content.paddingTop,content.paddingRight,content.paddingBottom)
+                content.setTag(R.id.windowSafePadding,base)
+                ViewCompat.setOnApplyWindowInsetsListener(content) { view,insets ->
+                    val bars=insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+                    val ime=insets.getInsets(WindowInsetsCompat.Type.ime())
+                    // IME includes the navigation area. Taking max avoids double bottom padding.
+                    val bottom=base.bottom+max(bars.bottom,ime.bottom)
+                    val changed=view.paddingLeft!=base.left+bars.left || view.paddingTop!=base.top+bars.top || view.paddingRight!=base.right+bars.right || view.paddingBottom!=bottom
+                    view.setPadding(base.left+bars.left,base.top+bars.top,base.right+bars.right,bottom)
+                    if(changed && ime.bottom>bars.bottom) view.doOnLayout {
+                        // Keep the entire focused editor visible, including its
+                        // final line and padding, after the viewport shrinks.
+                        val focus=activity.currentFocus
+                        if(focus is android.widget.EditText) focus.requestRectangleOnScreen(Rect(0,0,focus.width,focus.height),true)
+                    }
+                    insets
+                }
+            }
+            if(content != null) ViewCompat.requestApplyInsets(content)
+        }
+        val light = androidx.core.graphics.ColorUtils.calculateLuminance(background) > .5
         WindowCompat.getInsetsController(activity.window, activity.window.decorView).apply {
             isAppearanceLightStatusBars = light
             isAppearanceLightNavigationBars = light
