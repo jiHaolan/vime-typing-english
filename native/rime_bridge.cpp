@@ -22,6 +22,18 @@ static RimeApi* api = nullptr;
 static RimeSessionId session = 0;
 static std::string shared_dir, user_dir;
 static bool nine_mode = false;
+extern "C" JNIEXPORT void JNICALL
+Java_com_vime_ime_engine_RimeNative_shutdown(JNIEnv*, jobject) {
+    // Kotlin serializes this with all queries/learning. Finalize releases mapped
+    // user databases before the app removes its own personalization directory.
+    if (api) {
+        if (session) api->destroy_session(session);
+        session = 0;
+        api->finalize();
+        api = nullptr;
+    }
+    nine_mode = false;
+}
 static std::string utf(JNIEnv* e, jstring s) {
     if (!s) return {};
     const jchar* p = e->GetStringChars(s, nullptr);

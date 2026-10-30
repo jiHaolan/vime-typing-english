@@ -45,6 +45,7 @@
             <TextView android:id="@+id/btnHaptics" style="@style/SettingRow" android:text="按键触感" />
             <TextView android:id="@+id/btnVoiceConfig" style="@style/SettingRow" android:text="语音输入    长按空格 2 秒  ›" />
             <TextView android:id="@+id/btnInputSettings" style="@style/SettingRow" android:text="输入设置    尺寸、短语与配色  ›" />
+            <TextView android:id="@+id/btnInputData" style="@style/SettingRow" android:text="输入数据    管理本机记录  ›" />
         </LinearLayout>
         <TextView style="@style/SectionTitle" android:layout_marginTop="24dp" android:text="离线词典" />
         <TextView android:id="@+id/btnDictionary" style="@style/SettingRow" android:layout_marginTop="8dp" android:text="词包与查词    管理本机词库  ›" />

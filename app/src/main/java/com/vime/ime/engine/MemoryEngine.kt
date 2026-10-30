@@ -195,6 +195,24 @@ object MemoryEngine {
         io.execute { write(snapshot) }
     }
 
+    /** Clear on the main thread, then queue the durable deletion after older snapshots. */
+    fun resetAnnotations(context: Context, done: (Result<Unit>) -> Unit) {
+        val app = context.applicationContext
+        io.execute {
+            val loaded = runCatching { init(app) }
+            main.post {
+                loaded.exceptionOrNull()?.let { done(Result.failure(it)); return@post }
+                main.removeCallbacks(saveTask)
+                dirty = false
+                states.clear()
+                io.execute {
+                    val result = runCatching { check(prefs.edit().remove("states").commit()) { "提示状态清理未完成" } }
+                    main.post { done(result) }
+                }
+            }
+        }
+    }
+
     private fun write(snapshot: Map<String, WordState>) {
         try {
             val root = JSONObject()

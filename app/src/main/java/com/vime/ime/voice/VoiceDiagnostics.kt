@@ -7,6 +7,7 @@ import com.vime.ime.BuildConfig
 /** Last attempt metadata only. Never store audio, recognized words or editor contents. */
 object VoiceDiagnostics {
     private fun prefs(c: Context) = c.getSharedPreferences("voice_diagnostics", Context.MODE_PRIVATE)
+    fun clear(c: Context) { check(prefs(c).edit().clear().commit()) { "语音故障记录清理未完成" } }
     fun record(c: Context, service: String, label: String, language: String, outcome: String, error: Int? = null) {
         prefs(c).edit().putString("service", service).putString("label", label).putString("language", language)
             .putString("outcome", outcome).apply {

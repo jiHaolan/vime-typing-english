@@ -1,0 +1,451 @@
+{
+  "version": "0.20.0",
+  "version_code": 29,
+  "recorded_at": "2026-10-31T03:19:33.146086+08:00",
+  "backend": {
+    "page_size_bytes": 16384,
+    "compat_before": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "passed": true,
+    "compat_during": {
+      "bionic.linker.16kb.app_compat.enabled": "false",
+      "pm.16kb.app_compat.disabled": "true"
+    },
+    "app_sha256": "533c7769379425625ce0e0e5267f0ad5a8948daaf99ea1b56f96f9ce1fa85f4a",
+    "test_sha256": "91ceb116f8ffc437d6d40f89b9519ad064185747a5231f5294983c1b50d492d5",
+    "result": {
+      "expected": 9,
+      "passed": 9,
+      "failed": 0,
+      "not_run": 0,
+      "learning_snapshot_restored": true,
+      "cases": [
+        {
+          "name": "dedicated-emulator-and-real-engine-ready",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "reset-erases-native-and-manual-habits-but-preserves-book-and-phrases",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "reset-after-nine-key-can-reinitialize-twice",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "concurrent-native-queries-and-reset-do-not-use-closed-database",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "annotation-reset-cancels-pending-and-queued-old-snapshots",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "phrase-deletion-is-durable-and-preserves-other-input-data",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "voice-status-deletion-preserves-service-settings",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "shared-clipboard-history-clears-without-a-disk-copy",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "model-clears-symbol-recents-without-clearing-keyboard-settings",
+          "pass": true,
+          "error": null
+        }
+      ]
+    },
+    "compat_after": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "settings_restored": true
+  },
+  "native_regression": {
+    "device": "emulator-5580",
+    "required_page_size_bytes": 16384,
+    "passed": true,
+    "sdk": 36,
+    "fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+    "page_size_bytes": 16384,
+    "abi": "x86_64",
+    "app_sha256": "533c7769379425625ce0e0e5267f0ad5a8948daaf99ea1b56f96f9ce1fa85f4a",
+    "test_sha256": "d2e1d0b9e0297ede2913492587daa733c3db45aff123ef1d5f3eaa55454a402d",
+    "compat_properties_before": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "compat_properties_during": {
+      "bionic.linker.16kb.app_compat.enabled": "false",
+      "pm.16kb.app_compat.disabled": "true"
+    },
+    "result": {
+      "sdk": 36,
+      "abi": "x86_64",
+      "expected": 7,
+      "passed": 7,
+      "failed": 0,
+      "not_run": 0,
+      "cases": [
+        {
+          "name": "emulator-has-explicitly-required-page-size",
+          "pass": true,
+          "elapsed_ms": 3,
+          "error": null
+        },
+        {
+          "name": "native-library-and-shipped-dictionaries-initialize",
+          "pass": true,
+          "elapsed_ms": 351,
+          "error": null
+        },
+        {
+          "name": "full-phrase-candidate-consumes-all-pinyin",
+          "pass": true,
+          "elapsed_ms": 14,
+          "error": null
+        },
+        {
+          "name": "nine-key-and-pinyin-schema-switch-both-return-full-words",
+          "pass": true,
+          "elapsed_ms": 43,
+          "error": null
+        },
+        {
+          "name": "native-candidate-pagination-is-complete",
+          "pass": true,
+          "elapsed_ms": 2,
+          "error": null
+        },
+        {
+          "name": "repeated-native-schema-switching-keeps-candidates-valid",
+          "pass": true,
+          "elapsed_ms": 1629,
+          "error": null
+        },
+        {
+          "name": "native-learning-call-retains-full-candidate-consumption",
+          "pass": true,
+          "elapsed_ms": 14,
+          "error": null
+        }
+      ],
+      "observations": {
+        "process_page_size_bytes": 16384,
+        "expected_page_size_bytes": 16384,
+        "rime_state": "READY",
+        "rime_version": "1.16.1",
+        "rime_startup_ms": 227,
+        "rime_failure": "",
+        "mapped_dictionary_regions": [
+          "77cd62800000-77cd640a0000 r--s 00000000 fe:36 353343                     /data/data/com.vime.ime/files/rime/shared/build/vime_pinyin.table.bin",
+          "77d078ae4000-77d078ae8000 r--s 00000000 fe:36 353259                     /data/data/com.vime.ime/files/rime/user/vime_pinyin.userdb/000005.ldb",
+          "77d078b38000-77d078b40000 r--s 00000000 fe:36 353340                     /data/data/com.vime.ime/files/rime/shared/build/vime_pinyin.prism.bin"
+        ],
+        "native_user_database_files": [
+          "rime/user/vime_pinyin.userdb/LOG",
+          "rime/user/vime_pinyin.userdb/LOCK",
+          "rime/user/vime_pinyin.userdb/LOG.old",
+          "rime/user/vime_pinyin.userdb/CURRENT",
+          "rime/user/vime_pinyin.userdb/000005.ldb",
+          "rime/user/vime_pinyin.userdb/000178.log",
+          "rime/user/vime_pinyin.userdb/MANIFEST-000177",
+          "rime/user/user.yaml"
+        ]
+      },
+      "scope": "Actual native Rime calls; not a physical ARM64, ASR or long-term performance test"
+    },
+    "instrumentation_code": -1,
+    "compat_properties_after": {
+      "bionic.linker.16kb.app_compat.enabled": "",
+      "pm.16kb.app_compat.disabled": ""
+    },
+    "compat_properties_restored": true
+  },
+  "ui": {
+    "passed": 9,
+    "failed": 0,
+    "cases": [
+      {
+        "name": "home-opens-input-data",
+        "pass": true
+      },
+      {
+        "name": "cancel-reset-keeps-personal-word-counts",
+        "pass": true
+      },
+      {
+        "name": "confirmed-habits",
+        "pass": true,
+        "status": "选词习惯已重置"
+      },
+      {
+        "name": "confirmed-annotations",
+        "pass": true,
+        "status": "英文提示状态已重置"
+      },
+      {
+        "name": "confirmed-phrases",
+        "pass": true,
+        "status": "自定义短语已清空"
+      },
+      {
+        "name": "confirmed-clipboard",
+        "pass": true,
+        "status": "本应用的临时剪贴板历史已清空"
+      },
+      {
+        "name": "confirmed-recents",
+        "pass": true,
+        "status": "最近使用的符号与表情已清除"
+      },
+      {
+        "name": "confirmed-voice",
+        "pass": true,
+        "status": "语音故障记录已清除"
+      },
+      {
+        "name": "back-returns-to-home",
+        "pass": true
+      }
+    ]
+  },
+  "jvm": {
+    "tests": 112,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "lint_debug": {
+    "Warning": 163
+  },
+  "static_passed": 44,
+  "actual_native_record_erasure_verified": true,
+  "display_checks": {
+    "light_reviewed": true,
+    "dark_1_5x_font_reviewed": true,
+    "large_confirmation_dialog_reviewed": true,
+    "font_scale_restored": "1.0",
+    "night_mode_restored": 1,
+    "note": "An initial tap had no coordinates during configuration transition; fresh layout was obtained before the actual dialog check"
+  },
+  "artifacts": [
+    {
+      "abi": "arm64-v8a",
+      "file": "Vime-preview-0.20.0-arm64-v8a.apk",
+      "sha256": "a2ea2c36ccd2b171e1b286bb49b6363e474dfb20d93ead2713232fb09bc972fa",
+      "bytes": 24896730,
+      "certificate_sha256": "c41ce7fe52931687d7ef365d4dd6e4f7f4cd82ad1041f9616479ff30155adc29",
+      "native": [
+        {
+          "name": "lib/arm64-v8a/libc++_shared.so",
+          "required_elf_page_bytes": 16384,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 624800,
+              "address": 641184,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 1210520,
+              "address": 1243288,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 1250352,
+              "address": 1299504,
+              "alignment": 16384,
+              "page_16k": true
+            }
+          ],
+          "zip_offset": 3063808
+        },
+        {
+          "name": "lib/arm64-v8a/libvime_rime.so",
+          "required_elf_page_bytes": 16384,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 4413520,
+              "address": 4429904,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 4523112,
+              "address": 4555880,
+              "alignment": 16384,
+              "page_16k": true
+            }
+          ],
+          "zip_offset": 4325376
+        }
+      ]
+    },
+    {
+      "abi": "armeabi-v7a",
+      "file": "Vime-preview-0.20.0-armeabi-v7a.apk",
+      "sha256": "18ff83f219de3de2308452e9fc9800b5419417bc59540b4e0f08e938d2ffc691",
+      "bytes": 23107930,
+      "certificate_sha256": "c41ce7fe52931687d7ef365d4dd6e4f7f4cd82ad1041f9616479ff30155adc29",
+      "native": [
+        {
+          "name": "lib/armeabi-v7a/libc++_shared.so",
+          "required_elf_page_bytes": 4096,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 4096,
+              "page_16k": false
+            },
+            {
+              "offset": 429440,
+              "address": 433536,
+              "alignment": 4096,
+              "page_16k": false
+            },
+            {
+              "offset": 828016,
+              "address": 836208,
+              "alignment": 4096,
+              "page_16k": false
+            },
+            {
+              "offset": 848192,
+              "address": 860480,
+              "alignment": 4096,
+              "page_16k": false
+            }
+          ],
+          "zip_offset": 3063808
+        },
+        {
+          "name": "lib/armeabi-v7a/libvime_rime.so",
+          "required_elf_page_bytes": 4096,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 3090592,
+              "address": 3106976,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 3145852,
+              "address": 3178620,
+              "alignment": 16384,
+              "page_16k": true
+            }
+          ],
+          "zip_offset": 3915776
+        }
+      ]
+    },
+    {
+      "abi": "x86_64",
+      "file": "Vime-preview-0.20.0-x86_64.apk",
+      "sha256": "533c7769379425625ce0e0e5267f0ad5a8948daaf99ea1b56f96f9ce1fa85f4a",
+      "bytes": 24864580,
+      "certificate_sha256": "c41ce7fe52931687d7ef365d4dd6e4f7f4cd82ad1041f9616479ff30155adc29",
+      "native": [
+        {
+          "name": "lib/x86_64/libc++_shared.so",
+          "required_elf_page_bytes": 16384,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 604448,
+              "address": 620832,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 1187008,
+              "address": 1219776,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 1226704,
+              "address": 1275856,
+              "alignment": 16384,
+              "page_16k": true
+            }
+          ],
+          "zip_offset": 3063808
+        },
+        {
+          "name": "lib/x86_64/libvime_rime.so",
+          "required_elf_page_bytes": 16384,
+          "loads": [
+            {
+              "offset": 0,
+              "address": 0,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 4397776,
+              "address": 4414160,
+              "alignment": 16384,
+              "page_16k": true
+            },
+            {
+              "offset": 4507296,
+              "address": 4540064,
+              "alignment": 16384,
+              "page_16k": true
+            }
+          ],
+          "zip_offset": 4308992
+        }
+      ]
+    }
+  ],
+  "published": false,
+  "production_signed": false,
+  "goal_complete": false,
+  "limits": [
+    "API36/16KB x86_64 emulator; no physical phone upgrade or ARM64 runtime claim",
+    "The existing optional lexicon dataset test was skipped",
+    "Ongoing learning opt-out, complete privacy notice entry, independent speech and billing remain unfinished"
+  ]
+}

@@ -23,11 +23,11 @@
   ],
   "files": {
     "app/src/main/jniLibs/arm64-v8a/libc++_shared.so": "b17919df195f29b0a238468c04171b93cedcdffbe0d30cdc634327cf7f7889bc",
-    "app/src/main/jniLibs/arm64-v8a/libvime_rime.so": "6d28efe7112c55ea553220fbddf534226c74cfe127005616bbf630da58a5115e",
+    "app/src/main/jniLibs/arm64-v8a/libvime_rime.so": "8f04a6186a435c214f11d83d32dbb39bfecc0f9708e5386cf8cccc182c4d5394",
     "app/src/main/jniLibs/armeabi-v7a/libc++_shared.so": "4c8188135d5927f49a2eb5fff96714c5c5ea12e1f09ebbabe3d04aab25b0bd6a",
-    "app/src/main/jniLibs/armeabi-v7a/libvime_rime.so": "3d72cefabfca8acc60fb0b1ef2a683c2bdbb9681ceeda54c089a854305e25a45",
+    "app/src/main/jniLibs/armeabi-v7a/libvime_rime.so": "f8fe375704cbc4c2dfa2f56afd0708567abf94a9f0af9a6adb1e07f7e18aaacc",
     "app/src/main/jniLibs/x86_64/libc++_shared.so": "d6bceb7915ddb75ec4f96f97837efd80cf6084b00ad38e2666728f6cc24a9f68",
-    "app/src/main/jniLibs/x86_64/libvime_rime.so": "329176561a90d4102486110ab1e598d8e17882ab358ccc5fb349ffef9d8de448"
+    "app/src/main/jniLibs/x86_64/libvime_rime.so": "873aef35f1cf2dd4ce1f2a36f172afc376865371a2e355d9817a7653e71396ba"
   },
   "bridge": "native/rime_bridge.cpp; original Vime JNI adapter, paired with exact BSD Rime headers",
   "rebuild": "Build-Native.ps1, then Build-Verified.ps1. See native/README.md."

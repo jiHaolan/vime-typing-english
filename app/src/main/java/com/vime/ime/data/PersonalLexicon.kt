@@ -56,5 +56,12 @@ object PersonalLexicon {
     }
     @Synchronized fun count(raw: String, word: String) = counts[raw + "\t" + word] ?: 0
     @Synchronized fun rank(raw: String, items: List<Cand>) = items.sortedByDescending { count(raw, it.word) }
-    @Synchronized fun clearManualCounts() { counts.clear(); prefs.edit().remove("counts").apply() }
+    @Synchronized fun clearManualCounts() {
+        check(prefs.edit().remove("counts").commit()) { "词频清理未完成" }
+        counts.clear()
+    }
+    @Synchronized fun clearPhrases() {
+        check(prefs.edit().remove("phrases").commit()) { "短语清理未完成" }
+        rules = emptyList()
+    }
 }

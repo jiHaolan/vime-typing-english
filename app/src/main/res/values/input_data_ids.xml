@@ -1,0 +1,9 @@
+<resources>
+    <item name="inputDataStatus" type="id" />
+    <item name="inputDataHabits" type="id" />
+    <item name="inputDataAnnotations" type="id" />
+    <item name="inputDataPhrases" type="id" />
+    <item name="inputDataClipboard" type="id" />
+    <item name="inputDataRecents" type="id" />
+    <item name="inputDataVoice" type="id" />
+</resources>

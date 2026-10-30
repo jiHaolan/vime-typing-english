@@ -1,8 +1,16 @@
 package com.vime.ime.engine
 
 import com.vime.ime.data.*
+import android.content.Context
+import android.os.Looper
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicLong
+import java.util.concurrent.locks.ReentrantLock
 
 object InputEngine {
+    private val learningLock = ReentrantLock()
+    private val resetting = AtomicBoolean(false)
+    private val learningEpoch = AtomicLong()
     /** Custom phrases precede engine results, and their slot count is accounted for on every page. */
     fun query(raw: String, nine: Boolean, offset: Int = 0, limit: Int = 12, personalized: Boolean = true): List<Cand> {
         val manual = if (personalized) PersonalLexicon.query(raw, nine) else emptyList()
@@ -29,8 +37,24 @@ object InputEngine {
         return (selected + native).distinctBy { it.word }
     }
     fun selected(raw: String, c: Cand, allowed: Boolean) {
-        if (!allowed) return
-        PersonalLexicon.record(raw, c, true)
-        RimeEngine.learn(raw, c)
+        val epoch = learningEpoch.get()
+        // A background reset must never make committing text wait for database teardown.
+        if (!allowed || resetting.get() || !learningLock.tryLock()) return
+        try {
+            if (resetting.get() || epoch != learningEpoch.get()) return
+            PersonalLexicon.record(raw, c, true)
+            RimeEngine.learn(raw, c)
+        } finally { learningLock.unlock() }
+    }
+    fun resetPersonalization(context: Context): Boolean {
+        check(Looper.myLooper() != Looper.getMainLooper())
+        check(resetting.compareAndSet(false, true)) { "正在重置选词习惯" }
+        learningEpoch.incrementAndGet()
+        learningLock.lock()
+        try {
+            val ready = RimeEngine.resetPersonalization(context)
+            PersonalLexicon.clearManualCounts()
+            return ready
+        } finally { learningLock.unlock(); resetting.set(false) }
     }
 }

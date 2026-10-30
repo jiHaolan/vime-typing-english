@@ -13,7 +13,9 @@ val windowChecks = providers.gradleProperty("vimeWindowChecks").orNull
 require(windowChecks == null || windowChecks in listOf("true", "false")) { "vimeWindowChecks must be true or false" }
 val nativeChecks = providers.gradleProperty("vimeNativeChecks").orNull
 require(nativeChecks == null || nativeChecks in listOf("true", "false")) { "vimeNativeChecks must be true or false" }
-require(windowChecks != "true" || nativeChecks != "true") { "Select one instrumentation suite at a time" }
+val inputDataChecks = providers.gradleProperty("vimeInputDataChecks").orNull
+require(inputDataChecks == null || inputDataChecks in listOf("true", "false")) { "vimeInputDataChecks must be true or false" }
+require(listOf(windowChecks, nativeChecks, inputDataChecks).count { it == "true" } <= 1) { "Select one instrumentation suite at a time" }
 
 android {
     namespace = "com.vime.ime"
@@ -24,11 +26,12 @@ android {
         applicationId = "com.vime.ime"
         minSdk = 24
         targetSdk = 36
-        versionCode = 28
-        versionName = "0.19.0"
+        versionCode = 29
+        versionName = "0.20.0"
         testInstrumentationRunner = when {
             windowChecks == "true" -> "com.vime.ime.WindowInteractionInstrumentation"
             nativeChecks == "true" -> "com.vime.ime.NativeRuntimeInstrumentation"
+            inputDataChecks == "true" -> "com.vime.ime.InputDataInstrumentation"
             else -> "com.vime.ime.data.LearningStorageInstrumentation"
         }
     }

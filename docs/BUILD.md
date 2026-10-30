@@ -109,3 +109,13 @@ python tools/run_native_checks.py --sdk "$env:ANDROID_HOME" --device emulator-55
 普通4KB基线使用`--page-size 4096`。主机先读取目标的`getconf PAGE_SIZE`；物理手机、错误页大小或错误测试入口都会在安装前拒绝。原生进程再次读取`Os.sysconf(_SC_PAGESIZE)`，避免把普通4KB运行记录当作16KB结果。16KB检查在安装前关闭并回读核对`bionic.linker.16kb.app_compat.enabled`与`pm.16kb.app_compat.disabled`两个兼容回退开关，结束后恢复并回读原值；依据[Android官方16KB检查说明](https://developer.android.com/guide/practices/page-sizes#16-kb-backcompat-mode)。无需adb root。
 
 7项检查包含实际页大小、JNI加载及内存映射词典、完整拼音候选、九键/全拼切换、候选翻页、反复切换及原生学习调用。使用随APK分发的Rime库和词典，不伪造候选；学习调用会使用专用模拟器的Rime用户词典，不替换收藏与复习数据库。原生结果包含映射区域、引擎版本、逐项耗时与缺失项；不是长时性能、学习持久化、ASR或实体ARM64手机验收。收据保存系统指纹、页大小、ABI、APK哈希和实际Instrumentation返回结果，全部7项通过且返回码-1才成功。
+
+## 输入数据清理检查（0.20.0）
+
+构建`assembleDebugAndroidTest -PvimeInputDataChecks=true`，安装主调试包和该测试APK后，在专用模拟器执行：
+
+```powershell
+adb -s emulator-5580 shell am instrument -w com.vime.ime.test/com.vime.ime.InputDataInstrumentation
+```
+
+该入口与其他检查入口互斥，拒绝物理手机。它会创建并清理模拟器的选词习惯、提示状态、短语和临时历史；结束时恢复并核对原收藏/复习快照，不宣称恢复被清理的原输入习惯。9项验证包括真正释放并重开Rime用户库、反复重置、并发查询、延迟写入不能复活旧状态、保留收藏/短语/语音配置和键盘设置。原生库重新链接后需更新native/provenance.json的实际二进制哈希，再运行Verify-Reference.py及原生回归；不要用旧预览APK验证新JNI接口。

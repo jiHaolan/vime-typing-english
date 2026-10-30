@@ -37,6 +37,14 @@ class InputSettingsActivity : AppCompatActivity() {
         status = label(RimeEngine.label()).apply { id=R.id.inputEngineStatus }
         label("整句与九键由智能拼音处理；词典初次部署在后台完成。普通输入均离线。选择候选会学习用词习惯，密码和禁止学习的输入框不记录。")
         button("刷新引擎状态") { status.text=RimeEngine.label() }
+        button("重新准备智能拼音") {
+            status.text="正在准备智能拼音…"
+            io.submit {
+                RimeEngine.initialize(applicationContext)
+                runOnUiThread { if(!isFinishing && !isDestroyed) status.text=RimeEngine.label() }
+            }
+        }
+        button("管理本机输入数据") { startActivity(Intent(this,InputDataActivity::class.java)) }
         Ui.section(this,column,"自定义短语")
         label("触发码用英文字母，例如 hhhh；优先级越大越靠前。最多1000条，导入会按触发码和文字合并。")
         button("添加短语") { editPhrase(null) }.id=R.id.addPhrase

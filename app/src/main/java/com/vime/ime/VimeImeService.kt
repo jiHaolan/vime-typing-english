@@ -89,7 +89,7 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
     )
 
     private var sheet = Sheet.NONE
-    private val clipboardSession = ClipboardSession()
+    private val clipboardSession = ClipboardSession.shared
     private var privateInput = false
     private var learningAllowed = true
     private var suppressSuggestions = false

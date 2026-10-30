@@ -13,6 +13,7 @@ internal object RimeNative {
     external fun initialize(shared: String, user: String): String
     external fun candidates(raw: String, offset: Int, limit: Int): Array<String>
     external fun learn(raw: String, word: String, consumed: Int)
+    external fun shutdown()
 }
 
 /** All native calls are serialized; heavy asset deployment is always off the UI thread. */
@@ -62,6 +63,29 @@ object RimeEngine {
     fun learn(raw: String, c: Cand) {
         if (state != State.READY || !c.fromRime) return
         synchronized(this) { RimeNative.learn(raw, c.word, c.consumed) }
+    }
+    /** Releases all native handles before erasing this app's learned Rime data. */
+    @Synchronized fun resetPersonalization(context: Context): Boolean {
+        check(Looper.myLooper() != Looper.getMainLooper())
+        state = State.LOADING
+        try {
+            RimeNative.shutdown()
+            val root = context.filesDir.canonicalFile
+            val user = File(root, "rime/user")
+            fun remove(file: File) {
+                check(file.canonicalPath == file.absolutePath) { "Unexpected linked user-data path" }
+                if (file.isDirectory) checkNotNull(file.listFiles()).forEach(::remove)
+                check(!file.exists() || file.delete()) { "User data could not be removed" }
+            }
+            // Canonical root anchors every child; no symlink traversal or shared dictionary deletion.
+            remove(user)
+            version = ""; failure = ""
+        } catch (error: Throwable) {
+            state = State.FAILED; failure = error.javaClass.simpleName
+            throw error
+        }
+        initialize(context)
+        return state == State.READY
     }
     fun label() = when (state) {
         State.READY -> "智能拼音 · Rime $version"
