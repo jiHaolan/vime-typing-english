@@ -14,7 +14,7 @@ class InlineVoiceController(context: Context, state: (String?, Boolean, Float) -
     fun release() { if(system.active) system.release() else if(cloud.active) cloud.release() }
     fun start(keyboardLanguage: String, commit: (String) -> Unit) {
         cancel()
-        if(VoiceSettings.mode(appContext) == VoiceSettings.CLOUD) cloud.start(commit)
+        if(VoiceSettings.mode(appContext) != VoiceSettings.SYSTEM) cloud.start(commit)
         else system.start(VoiceSettings.language(appContext,keyboardLanguage),commit)
     }
 }

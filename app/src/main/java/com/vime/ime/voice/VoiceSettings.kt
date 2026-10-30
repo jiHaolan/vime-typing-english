@@ -11,12 +11,14 @@ import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
-data class VoiceConfig(val endpoint: String, val model: String, val key: String)
+data class VoiceConfig(val endpoint: String, val model: String, val key: String, val rawWav: Boolean = false)
 object VoiceSettings {
     const val SYSTEM = "system"
     const val CLOUD = "cloud"
+    const val HAOLIVE = "haolive"
     fun mode(c: Context): String {
         val p = prefs(c)
+        if (p.getString("mode", SYSTEM) == HAOLIVE) return HAOLIVE
         if (p.getString("mode", SYSTEM) != CLOUD) return SYSTEM
         if (read(c).key.isNotBlank()) return CLOUD
         // An older selection, cleared key or restored unreadable key must not strand
@@ -24,7 +26,12 @@ object VoiceSettings {
         p.edit().putString("mode", SYSTEM).apply()
         return SYSTEM
     }
-    fun setMode(c: Context, value: String) { require(value in listOf(SYSTEM,CLOUD));prefs(c).edit().putString("mode",value).apply() }
+    fun setMode(c: Context, value: String) { require(value in listOf(SYSTEM,CLOUD,HAOLIVE));prefs(c).edit().putString("mode",value).apply() }
+    fun haoLive(c: Context) = VoiceConfig(prefs(c).getString("haolive_endpoint", if (BuildConfig.DEBUG) "http://127.0.0.1:18781/v1/transcribe" else "").orEmpty(), "", "", rawWav = true)
+    fun saveHaoLive(c: Context, endpoint: String) {
+        VoiceProtocol.validateHaoLive(endpoint, BuildConfig.DEBUG)
+        check(prefs(c).edit().putString("haolive_endpoint", endpoint).putString("mode", HAOLIVE).commit()) { "语音设置保存失败" }
+    }
     fun provider(c: Context) = prefs(c).getString("system_provider", "").orEmpty()
     fun setProvider(c: Context,value: String) { prefs(c).edit().putString("system_provider",value).apply() }
     fun languageChoice(c: Context) = prefs(c).getString("language","keyboard").takeIf { it in listOf("keyboard","zh-CN","en-US") } ?: "keyboard"

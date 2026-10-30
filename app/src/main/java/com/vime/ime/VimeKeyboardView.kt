@@ -294,7 +294,7 @@ class VimeKeyboardView @JvmOverloads constructor(
                 invalidate()
                 val code = k.codes?.firstOrNull() ?: 0
                 listener?.onPress(code)
-                if (keyHaptics) HapticFeedback.play(context, hapticLevel)
+                // ImeRootLayout owns touch-down feedback for the whole keyboard.
                 // Only backspace arms a clear action after a continuous hold.
                 if (event.pointerCount == 1 && (code == Keyboard.KEYCODE_DELETE || code == 32 || KeyHints.secondary(code) != null)) scheduleRepeat(k)
             }

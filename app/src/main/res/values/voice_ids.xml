@@ -1,4 +1,5 @@
 <resources>
+    <item name="voiceHaoLiveEndpoint" type="id" /><item name="voiceHaoLiveSave" type="id" />
     <item name="voiceApiKey" type="id" /><item name="voiceEndpoint" type="id" />
     <item name="voiceModel" type="id" /><item name="voiceSave" type="id" /><item name="voiceClear" type="id" />
 <item name="voiceBackend" type="id" /><item name="voiceProvider" type="id" /><item name="voiceLanguage" type="id" /><item name="voiceServiceStatus" type="id" /><item name="voiceUseSystem" type="id" /><item name="voiceLastAttempt" type="id" /><item name="voiceCopyDiagnostics" type="id" /></resources>

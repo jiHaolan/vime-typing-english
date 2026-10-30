@@ -32,14 +32,15 @@ class VoiceSettingsActivity : AppCompatActivity() {
                 Toast.makeText(this,"已复制，可粘贴反馈",Toast.LENGTH_SHORT).show()
             }.id=R.id.voiceCopyDiagnostics
         }
-        label("长按空格2秒，看到「正在聆听」后说话，松手结束。滑出空格、点取消或切换输入框会放弃。手机语音服务可能自行提前结束收音。")
+        label("长按空格2秒，看到「正在聆听」或「正在录音」后说话，松手结束。滑出空格、点取消或切换输入框会放弃。手机语音服务可能自行提前结束收音。")
         fun choices(values:List<String>)=object:ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,values) {
             private fun style(view:View)=view.apply { if(this is TextView){setTextColor(uiColor(R.color.ink));setBackgroundColor(uiColor(R.color.panel_bg));minHeight=dp(48)} }
             override fun getView(position:Int,convertView:View?,parent:android.view.ViewGroup)=style(super.getView(position,convertView,parent))
             override fun getDropDownView(position:Int,convertView:View?,parent:android.view.ViewGroup)=style(super.getDropDownView(position,convertView,parent))
         }
-        val modeNames=listOf("手机语音 · 无需密钥","自定义联网服务 · 高级选项")
-        val backend=Spinner(this).apply { id=R.id.voiceBackend;backgroundTintList=android.content.res.ColorStateList.valueOf(uiColor(R.color.ink));adapter=choices(modeNames);setSelection(if(VoiceSettings.mode(this@VoiceSettingsActivity)==VoiceSettings.CLOUD)1 else 0);column.addView(this) }
+        val modes=listOf(VoiceSettings.SYSTEM,VoiceSettings.CLOUD,VoiceSettings.HAOLIVE)
+        val modeNames=listOf("手机语音 · 无需密钥","自定义联网服务 · 高级选项","电脑语音 · X-ASR · 无需密钥")
+        val backend=Spinner(this).apply { id=R.id.voiceBackend;backgroundTintList=android.content.res.ColorStateList.valueOf(uiColor(R.color.ink));adapter=choices(modeNames);setSelection(modes.indexOf(VoiceSettings.mode(this@VoiceSettingsActivity)).coerceAtLeast(0));column.addView(this) }
         val local=LinearLayout(this).apply { orientation=LinearLayout.VERTICAL;column.addView(this) }
         fun localLabel(text: String)=Ui.label(this,text,15f).also { local.addView(it);Ui.space(local,10) }
         localLabel("使用手机已安装的识别服务，无需注册或填写API。本应用不保存这一路径的录音；服务可能联网，数据处理和语言支持由所选服务提供。")
@@ -88,7 +89,24 @@ class VoiceSettingsActivity : AppCompatActivity() {
         }).apply { id=R.id.voiceSave })
         advanced.addView(Ui.button(this,"清除已保存的密钥",action={VoiceSettings.clear(this);key.text.clear();status.text="密钥已清除";backend.setSelection(0)}).apply { id=R.id.voiceClear })
         advanced.addView(Ui.button(this,"获取服务API密钥",action={runCatching { startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("https://cloud.siliconflow.cn/account/ak"))) }}))
-        fun showMode(index:Int){VoiceSettings.setMode(this,if(index==0)VoiceSettings.SYSTEM else VoiceSettings.CLOUD);local.visibility=if(index==0)View.VISIBLE else View.GONE;advanced.visibility=if(index==1)View.VISIBLE else View.GONE}
+        val computer=LinearLayout(this).apply { orientation=LinearLayout.VERTICAL;column.addView(this) }
+        fun computerLabel(text:String)=Ui.label(this,text,15f).also { computer.addView(it);Ui.space(computer,10) }
+        computerLabel("支持中文、英文和混合输入，每次最多30秒。无需注册或填写API密钥，模型放在电脑上；电脑服务必须保持运行并与手机连通。")
+        computerLabel("仅在长按空格开始录音、松手后，将本次录音发送到下方地址。本应用用后删除临时录音，电脑服务的数据处理由服务持有人负责。")
+        computerLabel(if(BuildConfig.DEBUG) "USB 测试地址已预填，由电脑建立测试连接；拔掉 USB 后需要重新连接。" else "填写已部署的 HaoLive 服务 HTTPS 地址。")
+        computerLabel("电脑语音服务地址")
+        val computerEndpoint=EditText(this).apply {
+            id=R.id.voiceHaoLiveEndpoint;setText(VoiceSettings.haoLive(this@VoiceSettingsActivity).endpoint)
+            hint="https://你的服务地址/v1/transcribe";inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI
+            setSingleLine();computer.addView(this)
+        }
+        val computerStatus=computerLabel("保存后返回输入框，长按空格2秒开始测试。")
+        computer.addView(Ui.button(this,"保存电脑语音",action={
+            runCatching { VoiceSettings.saveHaoLive(this,computerEndpoint.text.toString().trim()) }
+                .onSuccess { computerStatus.text="已保存 · 返回输入框，长按空格2秒说话" }
+                .onFailure { computerStatus.text=it.message ?: "保存失败" }
+        }).apply { id=R.id.voiceHaoLiveSave })
+        fun showMode(index:Int){VoiceSettings.setMode(this,modes[index]);local.visibility=if(index==0)View.VISIBLE else View.GONE;advanced.visibility=if(index==1)View.VISIBLE else View.GONE;computer.visibility=if(index==2)View.VISIBLE else View.GONE}
         backend.onItemSelectedListener=object:AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p:AdapterView<*>?,v:View?,n:Int,id:Long){showMode(n)}
             override fun onNothingSelected(p:AdapterView<*>?){}

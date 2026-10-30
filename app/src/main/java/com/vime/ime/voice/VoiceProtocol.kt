@@ -10,6 +10,17 @@ object VoiceProtocol {
     const val HOLD_MS = 2000L
     const val SAMPLE_RATE = 16000
     const val MAX_BYTES = SAMPLE_RATE * 2 * 60
+    const val HAOLIVE_MAX_BYTES = SAMPLE_RATE * 2 * 30
+    fun validateHaoLive(endpoint: String, debug: Boolean = false) {
+        val uri = try { URI(endpoint) } catch (_: Exception) { throw IllegalArgumentException("服务地址格式有误") }
+        val local = debug && uri.scheme == "http" && uri.host in setOf("10.0.2.2", "127.0.0.1", "localhost")
+        require((uri.scheme == "https" || local) && !uri.host.isNullOrBlank() && uri.rawUserInfo == null && uri.rawFragment == null && uri.rawQuery == null) { "服务地址须使用 HTTPS，且不含账号、查询参数或片段" }
+        require(uri.path == "/v1/transcribe") { "HaoLive 地址应以 /v1/transcribe 结尾" }
+    }
+    fun validate(config: VoiceConfig, debug: Boolean) {
+        if (config.rawWav) validateHaoLive(config.endpoint, debug)
+        else validate(config.endpoint, config.model, config.key, debug)
+    }
     fun validate(endpoint: String, model: String, key: String, debug: Boolean = false) {
         val uri = try { URI(endpoint) } catch (_: Exception) { throw IllegalArgumentException("服务地址格式有误") }
         val local = debug && uri.scheme == "http" && uri.host in setOf("10.0.2.2", "127.0.0.1", "localhost")
