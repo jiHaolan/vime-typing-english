@@ -23,7 +23,7 @@ class NativeRuntimeInstrumentation : Instrumentation() {
     private val cases = JSONArray()
     private val observations = JSONObject()
     private var expectedPageSize = 0L
-    private val expected = 8
+    private val expected = 9
 
     override fun onCreate(arguments: Bundle?) {
         super.onCreate(arguments)
@@ -104,6 +104,34 @@ class NativeRuntimeInstrumentation : Instrumentation() {
                     observations.put("native_user_database_files", JSONArray(
                         File(targetContext.filesDir, "rime/user").walkTopDown().filter { it.isFile }
                             .map { it.relativeTo(targetContext.filesDir).invariantSeparatorsPath }.toList()))
+                }
+                test("precompiled-runtime-works-without-raw-build-sources") {
+                    val folder=File(targetContext.cacheDir,"runtime-probe-"+java.util.UUID.randomUUID())
+                    val shared=File(folder,"shared").apply { check(mkdirs()) }
+                    val user=File(folder,"user").apply { check(mkdirs()) }
+                    val manifest=JSONObject(targetContext.assets.open("rime/manifest.json").bufferedReader().use { it.readText() })
+                    val names=manifest.getJSONObject("files").keys().asSequence().filter { it !in setOf("essay.txt","vime_pinyin.dict.yaml") }.toList()
+                    names.forEach { name ->
+                        val dest=File(shared,name);check(dest.canonicalPath.startsWith(shared.canonicalPath+File.separator))
+                        dest.parentFile!!.mkdirs();targetContext.assets.open("rime/$name").use { input -> dest.outputStream().use { input.copyTo(it) } }
+                    }
+                    synchronized(RimeEngine) {
+                        com.vime.ime.engine.RimeNative.shutdown()
+                        try {
+                            check(com.vime.ime.engine.RimeNative.initialize(shared.path,user.path).isNotBlank())
+                            for((raw,word) in mapOf("nihao" to "你好","zhendejiade" to "真的假的","zhangda" to "长大","yinhang" to "银行")) {
+                                for(input in listOf(raw,raw.map(CandidateIndex::digit).joinToString("")))
+                                    check(com.vime.ime.engine.RimeNative.candidates(input,0,100).any { it.substringBefore('\t')==word })
+                            }
+                            com.vime.ime.engine.RimeNative.learn("nihao","你好",5)
+                            observations.put("source_free_runtime_probe",JSONObject().put("files",names.size).put("fresh_private_user",true)
+                                .put("raw_essay_absent",!File(shared,"essay.txt").exists()).put("raw_dictionary_absent",!File(shared,"vime_pinyin.dict.yaml").exists()))
+                        } finally {
+                            com.vime.ime.engine.RimeNative.shutdown()
+                            check(com.vime.ime.engine.RimeNative.initialize(RimeEngine.sharedPath,File(targetContext.filesDir,"rime/user").path).isNotBlank())
+                        }
+                    }
+                    phrase("nihao","你好")
                 }
             }
         } catch (error: Throwable) {

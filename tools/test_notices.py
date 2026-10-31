@@ -52,16 +52,29 @@ class NoticesChecks(unittest.TestCase):
         self.assertIn("actual-runtime-artifact-hashes", result["failed_checks"])
 
     def test_exam_tag_edit_without_source_receipt_update_is_rejected(self):
-        dictionary = json.loads(self.read("dict.android.json"))
-        dictionary["lvl"]["unverified-exam-tag"] = "CET4"
-        result = inspect(lambda name: json.dumps(dictionary).encode() if name == "dict.android.json" else self.read(name))
-        self.assertIn("exam-tag-and-dictionary-hashes", result["failed_checks"])
+        dictionary = json.loads(self.read("english/levels.json"))
+        dictionary["entries"]["unverified-exam-tag"] = "CET4"
+        result = inspect(lambda name: json.dumps(dictionary).encode() if name == "english/levels.json" else self.read(name))
+        self.assertIn("exam-tag-asset-hashes", result["failed_checks"])
 
     def test_corrupt_mapped_input_is_rejected(self):
         data = bytearray(self.read("input/input.lex"))
         data[-1] ^= 1
         result = inspect(lambda name: bytes(data) if name == "input/input.lex" else self.read(name))
         self.assertIn("input-asset-bytes:input.lex", result["failed_checks"])
+
+    def test_corrupt_mapped_english_is_rejected(self):
+        data = bytearray(self.read("english/english.lex")); data[-1] ^= 1
+        result = inspect(lambda name: bytes(data) if name == "english/english.lex" else self.read(name))
+        self.assertIn("english-asset-bytes:english.lex", result["failed_checks"])
+
+    def test_incomplete_english_and_changed_runtime_are_rejected(self):
+        data = json.loads(self.read("english/manifest.json")); data["counts"]["senses"] -= 1
+        result = inspect(lambda name: json.dumps(data).encode() if name == "english/manifest.json" else self.read(name))
+        self.assertIn("complete-english-and-tonal-forms", result["failed_checks"])
+        name = "rime/build/vime_pinyin.table.bin"
+        result = inspect(lambda path: b"truncated table" if path == name else self.read(path))
+        self.assertIn("runtime-asset-bytes:build/vime_pinyin.table.bin", result["failed_checks"])
 
     def test_input_attribution_cannot_be_removed_from_the_catalog(self):
         path = "licenses/input-data-NOTICE.txt"

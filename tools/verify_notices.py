@@ -16,6 +16,7 @@ REQUIRED = {"licenses/GNU-GPL-3.0.txt", "licenses/Apache-2.0.txt", "licenses/ecd
             "licenses/CC-BY-SA-3.0.txt", "licenses/legacy-data-NOTICE.txt", "licenses/runtime-NOTICE.txt"}
 REQUIRED |= {"licenses/CC-BY-SA-4.0.txt", "licenses/supplement-NOTICE.txt"}
 REQUIRED.add("licenses/input-data-NOTICE.txt")
+REQUIRED.add("licenses/cedict-NOTICE.txt")
 
 
 def sha(data):
@@ -62,19 +63,18 @@ def inspect(read, inventory=None, commercial=False):
             actual = sorted((row["coordinate"], row["sha256"]) for row in data["runtime_artifacts"])
             check("actual-runtime-module-coverage", sorted(modules) == expected)
             check("actual-runtime-artifact-hashes", actual == artifacts)
-        dictionary_bytes = read("dict.android.json")
-        dictionary = json.loads(dictionary_bytes)
+        levels_bytes=read("english/levels.json")
+        levels=json.loads(levels_bytes)["entries"]
         source = json.loads(read("levels-source.json"))
-        check("exam-tag-source-and-fields", source["format"] == "vime-level-source-1"
+        check("exam-tag-source-and-fields", source["format"] == "vime-level-source-2"
               and source["commit"] == "ab22ad36302cafc6349a050e2b60894855208055"
               and source["license"] == "MIT" and source["fields_used"] == ["word", "tag"]
               and source["tag_policy"] == {"CET4": ["zk", "gk", "cet4"], "CET6": ["cet6"], "TOEFL": ["toefl"]})
-        check("exam-tag-and-dictionary-hashes", sha(encoded(dictionary["lvl"])) == source["levels_sha256"]
-              and sha(dictionary_bytes) == source["dictionary_sha256"])
-        check("unrelated-dictionary-sections-preserved", all(sha(encoded(dictionary[k])) == expected
-              for k, expected in source["preserved_sections_sha256"].items())
-              and set(source["preserved_sections_sha256"]) == {"en", "card"})
-        check("legacy-pinyin-section-removed", "pw" not in dictionary and source["removed_input_sections"] == ["pw"])
+        check("exam-tag-asset-hashes",sha(encoded(levels))==source["levels_sha256"] and sha(levels_bytes)==source["levels_file_sha256"])
+        def absent(name):
+            try:read(name);return False
+            except (FileNotFoundError,KeyError):return True
+        check("legacy-dictionary-asset-removed",absent("dict.android.json") and not source["legacy_dictionary_asset_present"])
         lexicon = json.loads(read("input/manifest.json"))
         check("complete-clean-input-source-counts", lexicon["format"] == "vime-input-lexicon-1"
               and lexicon["counts"]["entries"] == 569466 and lexicon["counts"]["words"] == 457884
@@ -93,8 +93,32 @@ def inspect(read, inventory=None, commercial=False):
         except (FileNotFoundError, KeyError):
             old_associations_absent = True
         check("legacy-associations-asset-removed", old_associations_absent)
-        check("three-explicit-exam-tiers", set(dictionary["lvl"].values()) == {"CET4", "CET6", "TOEFL"}
-              and all(sum(v == key for v in dictionary["lvl"].values()) == count for key, count in source["counts"].items()))
+        check("three-explicit-exam-tiers", set(levels.values()) == {"CET4", "CET6", "TOEFL"}
+              and all(sum(v == key for v in levels.values()) == count for key, count in source["counts"].items()))
+        english=json.loads(read("english/manifest.json"))
+        check("complete-english-and-tonal-forms",english["counts"]["groups"]==121814 and english["counts"]["headwords"]==121093
+              and english["counts"]["tonal_forms"]==122472 and english["counts"]["senses"]==198019
+              and not english["legacy_english_read"] and not english["hand_overrides_read"])
+        check("english-file-set-and-identity",set(english["files"])=={"english.lex","levels.json"}
+              and sha(json.dumps(english["files"],sort_keys=True,separators=(",",":")).encode())==english["dataset_id"])
+        for name,expected in english["files"].items():
+            if name not in ("english.lex","levels.json"):raise ValueError("Unsafe English asset path")
+            check("english-asset-bytes:"+name,sha(read("english/"+name))==expected)
+        runtime=json.loads(read("rime/manifest.json"))
+        check("precompiled-runtime-source-lineage",runtime["format"]=="vime-rime-runtime-1"
+              and set(runtime["build_sources"])=={"essay.txt","vime_pinyin.dict.yaml"}
+              and sha(json.dumps(runtime["files"]|runtime["build_sources"],sort_keys=True,separators=(",",":")).encode())==runtime["source_dataset_id"]
+              and runtime["source_dataset_id"]==lexicon["rime_dataset_id"]
+              and runtime["source_lock_sha256"]==lexicon["source_lock_sha256"]==english["source_lock_sha256"])
+        runtime_names={"default.yaml","vime_nine.schema.yaml","vime_pinyin.schema.yaml","build/default.yaml",
+                       "build/vime_nine.prism.bin","build/vime_nine.schema.yaml","build/vime_pinyin.prism.bin",
+                       "build/vime_pinyin.reverse.bin","build/vime_pinyin.schema.yaml","build/vime_pinyin.table.bin"}
+        check("runtime-file-set-and-identity",set(runtime["files"])==runtime_names
+              and sha(json.dumps(runtime["files"],sort_keys=True,separators=(",",":")).encode())==runtime["dataset_id"])
+        for name,expected in runtime["files"].items():
+            if name not in runtime_names:raise ValueError("Unsafe runtime asset path")
+            check("runtime-asset-bytes:"+name,sha(read("rime/"+name))==expected)
+        check("raw-build-sources-not-packaged",absent("rime/essay.txt") and absent("rime/vime_pinyin.dict.yaml"))
         blockers = data["release_blockers"]
         check("source-review-status-is-explicit", isinstance(blockers, list)
               and all(row.get("id") and row.get("detail") for row in blockers))

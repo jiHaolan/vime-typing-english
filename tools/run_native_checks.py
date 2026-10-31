@@ -91,7 +91,7 @@ def main():
         result = json.loads(summary[1])
         (output / 'native-results.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), 'utf-8')
         receipt.update(result=result, instrumentation_code=int(code[1]))
-        receipt['passed'] = (int(code[1]) == -1 and result['expected'] == result['passed'] == 8
+        receipt['passed'] = (int(code[1]) == -1 and result['expected'] == result['passed'] == 9
                              and result['failed'] == result['not_run'] == 0
                              and result['observations']['process_page_size_bytes'] == args.page_size)
         if not receipt['passed']: receipt['error'] = 'Native runtime checks failed or did not all run'

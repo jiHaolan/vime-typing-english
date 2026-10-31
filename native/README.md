@@ -6,7 +6,9 @@ Vime 自行编写 JNI 适配层；使用 Rime BSD 引擎，不包含 Trime 的 G
 
 在工程目录执行 `./Build-Native.ps1 -Prebuilt <绝对路径>`，再执行 `./Build-Verified.ps1`。适配层链接产物写入 app/src/main/jniLibs，允许替换修改后的原生模块并重新打包。provider 对应的构建配方在 https://github.com/fcitx5-android/prebuilder 的 prebuilder_commit；librime 源码来源与确切提交也在 provenance.json。需要修改静态引擎时按该配方及其固定依赖重建静态库，随后重新链接适配层。
 
-词典为 Luna Pinyin 和 Rime Essay 的简体转换/合并版本，原始 LGPL 文本随 assets/licenses 提供。可修改明文 .dict.yaml、essay.txt 和 schema；删除 rime/build 并相应更新 manifest（每文件 SHA-256）后，引擎会后台重编译。预编译 build 文件只含公共词典，不含用户词库。数据转换脚本另随构建材料交付。
+词典为固定 Luna Pinyin 和 Rime Essay 的简体转换/合并版本，原始 LGPL 文本随 assets/licenses 提供。0.23.0的APK只分发10个预编译运行文件和校验清单，不在手机上重新编译词典。完整.dict.yaml、essay.txt、转换脚本、编译工具和收据在对应来源包中；修改源数据后先用工具重新编译并核对，再执行project_rime_runtime.py生成运行目录、更新manifest并打包。不要删除build后期待缺少明文源的APK自动重编译。运行文件全部与完整编译产物逐字节相同；原生库二进制本轮未改动。
+
+全新独立用户目录、没有这两份明文源时的原生全拼/九键与学习调用另由第9项JNI检查验证。公共数据校验/替换只处理生成目录，原生用户词典根目录与收藏、复习记录独立保留。
 
 第三方组件许可见 assets/licenses 和 NOTICE-rime.txt；引擎 BSD 原文见 include/RIME-LICENSE。分架构 APK 版本号、包名及签名一致，覆盖升级时保留原应用学习数据。
 

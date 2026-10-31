@@ -27,7 +27,7 @@ object InputLexiconStore {
         loaded?.let { return it }
         check(Looper.myLooper() != Looper.getMainLooper())
         val manifest = context.assets.open("input/manifest.json").bufferedReader().use { JSONObject(it.readText()) }
-        require(manifest.getString("format") == "vime-input-lexicon-1" && manifest.getInt("version") == 1)
+        require(manifest.getString("format") == "vime-input-lexicon-1" && manifest.getInt("version") in 1..2)
         require(!manifest.getBoolean("legacy_vime_input_read") && !manifest.getBoolean("english_sources_merged"))
         val files = manifest.getJSONObject("files")
         val names = files.keys().asSequence().toList().sorted()

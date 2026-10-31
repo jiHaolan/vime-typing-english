@@ -15,6 +15,7 @@ import xml.etree.ElementTree as ET
 
 from verify_release import PREVIEW_CERT, verify
 from verify_notices import verify as verify_notices
+from optimize_apk_payload import sign_optimized
 
 ROOT = Path(__file__).resolve().parents[1]
 SIGNING_ENV = ('VIME_RELEASE_STORE_FILE', 'VIME_RELEASE_KEY_ALIAS',
@@ -197,6 +198,11 @@ def main():
             (output / f'notices-{abi}.json').write_text(json.dumps(notices, ensure_ascii=False, indent=2), 'utf-8')
             if not notices['passed']:
                 raise ValueError('Packaged third-party notices do not match verified source/runtime dependencies')
+            optimized=output/f'optimized-{abi}.apk'
+            compression=sign_optimized(source,optimized,args.sdk,args.java_home,store_path,
+                                       os.environ['VIME_RELEASE_KEY_ALIAS'],capture)
+            (output/f'compression-{abi}.json').write_text(json.dumps(compression,indent=2),'utf-8')
+            source=optimized
             report = verify(source, args.sdk, '36.0.0', cert, args.version_name, args.version_code)
             (output / f'verify-{abi}.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), 'utf-8')
             if not report['passed'] or report['abis'] != [abi]:

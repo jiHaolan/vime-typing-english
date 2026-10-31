@@ -15,7 +15,7 @@ object InputEngine {
     fun query(raw: String, nine: Boolean, offset: Int = 0, limit: Int = 12, personalized: Boolean = true): List<Cand> {
         val manual = if (personalized) PersonalLexicon.query(raw, nine) else emptyList()
         val shortcuts = if (!nine) InternetPhrases.query(raw) else emptyList()
-        val front = (manual + shortcuts).distinctBy { it.word }
+        val front = (manual + shortcuts + DictRepository.optionalCandidates(raw,nine)).distinctBy { it.word }
         val start = offset.coerceAtLeast(0)
         val selected = front.drop(start).take(limit)
         val remaining = limit - selected.size

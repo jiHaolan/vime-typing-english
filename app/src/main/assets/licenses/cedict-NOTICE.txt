@@ -1,0 +1,47 @@
+CC-CEDICT Chinese-English definitions and tonal readings
+
+Source: MDBG / CC-CEDICT contributors
+https://www.mdbg.net/chinese/dictionary?page=cc-cedict
+Snapshot: 2026-10-19T20:24:47Z
+Licensed under Creative Commons Attribution-ShareAlike 4.0 International.
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Original CEDICT: Copyright (C) 1997, 1998 Paul Andrew Denisowski.
+Modifications by Vime contributors, 2026: resolve equivalent references up to
+three hops; group input spellings while preserving all tonal forms, source
+senses and source ordinals; map repeated text through an indexed string pool.
+No legacy definitions or hand-written overrides are merged. Exact source and
+output hashes are recorded in english/manifest.json; matching raw sources and
+generation code accompany this version in the dictionary source archive.
+
+Original snapshot header:
+# CC-CEDICT
+# Community maintained free Chinese-English dictionary.
+# 
+# Published by MDBG
+# 
+# License:
+# Creative Commons Attribution-ShareAlike 4.0 International License
+# https://creativecommons.org/licenses/by-sa/4.0/
+# 
+# Referenced works:
+# CEDICT - Copyright (C) 1997, 1998 Paul Andrew Denisowski
+# 
+# CC-CEDICT can be downloaded from:
+# https://www.mdbg.net/chinese/dictionary?page=cc-cedict
+# 
+# Additions and corrections can be sent through:
+# https://cc-cedict.org/editor/editor.php
+# 
+# For more information about CC-CEDICT see:
+# https://cc-cedict.org/wiki/
+# 
+#! version=1
+#! subversion=0
+#! format=ts
+#! charset=UTF-8
+#! entries=125303
+#! publisher=MDBG
+#! license=https://creativecommons.org/licenses/by-sa/4.0/
+#! date=2026-10-19T20:24:47Z
+#! time=1792441487

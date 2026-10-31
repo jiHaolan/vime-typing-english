@@ -15,22 +15,15 @@ class LexiconDatasetTest {
         val pack = File(location!!).inputStream().use(LexiconPackCodec::read)
         val parseMs = (System.nanoTime() - started) / 1e6
         assertEquals(121814, pack.entries.size)
-        val asset = listOf(File("src/main/assets/dict.android.json"), File("app/src/main/assets/dict.android.json")).first { it.exists() }
-        val root = JSONObject(asset.readText())
+        val asset = listOf(File("src/main/assets/english/english.lex"), File("app/src/main/assets/english/english.lex")).first { it.exists() }
+        val englishIndex=MappedEnglishIndex.open(asset)
         val inputFile = listOf(File("src/main/assets/input/input.lex"), File("app/src/main/assets/input/input.lex")).first { it.exists() }
         val inputIndex = MappedInputIndex.open(inputFile)
         val words = HashMap<String, MutableList<String>>()
         val freq = HashMap<String, Int>()
         val en = HashMap<String, String>()
-        val rawEn = root.getJSONObject("en")
-        rawEn.keys().forEach { en[it] = rawEn.getString(it) }
         val baseCount = inputIndex.count
-        val baseGloss = en.size
-        for (entry in LexiconSupplement.entries) {
-            val list = words.getOrPut(entry.pinyin) { ArrayList() }
-            if (entry.word !in list) list.add(0, entry.word)
-            en.putIfAbsent(entry.word, entry.english); freq.putIfAbsent(entry.pinyin, 1000)
-        }
+        val baseGloss = englishIndex.labelledHeadwords
         for (entry in pack.entries) {
             val list = words.getOrPut(entry.pinyin) { ArrayList() }
             if (entry.word !in list) list.add(entry.word)
@@ -45,7 +38,7 @@ class LexiconDatasetTest {
         for ((py, word) in examples) {
             val candidates = (inputIndex.query(py, limit=100).map { Cand(it.word,en[it.word].orEmpty(),"",it.consumed) } + index.query(py, limit=100)).distinctBy { it.word }
             assertTrue("Missing input word: $word", candidates.any { it.word == word })
-            assertFalse("Missing gloss: $word", en[word].isNullOrBlank())
+            assertFalse("Missing gloss: $word", en[word].orEmpty().ifEmpty { englishIndex.label(word,py) }.isBlank())
             assertTrue("Missing T9 word: $word", inputIndex.query(py.map(CandidateIndex::digit).joinToString(""), true, 100).any { it.word == word })
             coverage.put(word, JSONObject().put("pinyin", py).put("position", candidates.indexOfFirst { it.word == word } + 1).put("gloss", en[word]))
         }

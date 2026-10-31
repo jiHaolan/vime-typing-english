@@ -79,6 +79,20 @@ def verify(args):
         result.update(mapped_input_dataset_id=index["mapped_input_dataset_id"], mapped_input_rebuilt_files=3,
                       all_mapped_input_bytes_equal=True,
                       mapped_input_source_coverage=json.loads((output / "input-rows-verified.json").read_bytes()))
+    if index.get("english_dataset_id"):
+        commands=[([sys.executable,"-S","tools/build_english_lexicon.py","--prepared","generated/plaintext","--lock","notices/dictionary-sources.lock.json","--output","rebuilt-english"],"english-build.log"),
+                  ([sys.executable,"-S","tools/verify_english_lexicon.py","--lexicon","rebuilt-english","--prepared","generated/plaintext","--report","english-rows-verified.json"],"english-verify.log"),
+                  ([sys.executable,"-S","tools/project_rime_runtime.py","--compiled","generated/compiled-rime","--output","rebuilt-runtime"],"runtime-projection.log")]
+        for command,log in commands:
+            process=subprocess.run(command,cwd=output,env=environment,capture_output=True)
+            (output/log).write_bytes(process.stdout+process.stderr)
+            if process.returncode:raise RuntimeError("English/runtime roundtrip failed: "+log)
+        for name in ("english.lex","levels.json","manifest.json"):
+            if digest(output/"generated/english"/name)!=digest(output/"rebuilt-english"/name):raise RuntimeError("English output differs")
+        if digest(output/"generated/runtime-rime/manifest.json")!=digest(output/"rebuilt-runtime/manifest.json"):raise RuntimeError("Runtime manifest differs")
+        result.update(english_dataset_id=index["english_dataset_id"],runtime_dataset_id=index["runtime_dataset_id"],
+                      complete_english_rebuilt_bytes_equal=True,complete_runtime_projection_equal=True,
+                      english_source_coverage=json.loads((output/"english-rows-verified.json").read_bytes()))
     (output / "roundtrip-result.json").write_text(json.dumps(result, indent=2), "utf-8")
     print(json.dumps(result))
 

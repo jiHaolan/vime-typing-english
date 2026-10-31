@@ -2,24 +2,24 @@ package com.vime.ime
 
 import com.vime.ime.data.AssociationIndex
 import com.vime.ime.data.CandidateIndex
-import com.vime.ime.data.LexiconSupplement
+import com.vime.ime.data.MappedInputIndex
+import com.vime.ime.data.MappedEnglishIndex
+import java.io.File
 import com.vime.ime.engine.NavigationRules
 import org.junit.Assert.*
 import org.junit.Test
 
 class FeedbackRegressionTest {
-    private fun supplements(): CandidateIndex {
-        val entries = LexiconSupplement.entries
-        return CandidateIndex(entries.groupBy { it.pinyin }.mapValues { (_, rows) -> rows.map { it.word } },
-            emptyMap(), entries.associate { it.word to it.english }, emptyMap())
-    }
+    private fun asset(name:String)=listOf(File("src/main/assets/$name"),File("app/src/main/assets/$name")).first { it.exists() }
+    private fun supplements()=MappedInputIndex.open(asset("input/input.lex"))
+    private fun meanings()=MappedEnglishIndex.open(asset("english/english.lex"))
     @Test fun goldCoinHasEnglishAndConsumesFullPinyin() {
-        val c = supplements().query("jinbi").single()
-        assertEquals("金币", c.word); assertEquals("gold coin", c.en); assertEquals(5, c.consumed)
+        val c = supplements().query("jinbi",limit=100).first { it.word=="金币" }
+        assertEquals("gold coin", meanings().label(c.word,c.code)); assertEquals(5, c.consumed)
     }
     @Test fun cassavaIsAvailableInFullPinyin() {
-        val c = supplements().query("mushu").single()
-        assertEquals("木薯", c.word); assertEquals("cassava", c.en); assertEquals(5, c.consumed)
+        val c = supplements().query("mushu",limit=100).first { it.word=="木薯" }
+        assertEquals("cassava", meanings().label(c.word,c.code)); assertEquals(5, c.consumed)
     }
     @Test fun supplementsAreAvailableInNineKey() {
         assertTrue(supplements().query("54624", nine = true).any { it.word == "金币" })
@@ -29,8 +29,11 @@ class FeedbackRegressionTest {
         assertTrue(supplements().query("mush").any { it.word == "木薯" })
     }
     @Test fun correctionsHaveSourcesAndNoDuplicateEntries() {
-        assertTrue(LexiconSupplement.entries.all { it.source.isNotBlank() && it.reading.isNotBlank() })
-        assertEquals(LexiconSupplement.entries.size, LexiconSupplement.entries.map { it.word }.distinct().size)
+        for(word in listOf("金币","木薯")) {
+            val groups=meanings().lookup(word)
+            assertTrue(groups.isNotEmpty() && groups.flatMap { it.forms }.all { it.reading.isNotBlank() && it.sourceRows.isNotEmpty() })
+            assertEquals(groups.size,groups.map { it.code }.distinct().size)
+        }
     }
     @Test fun associationPreservesCuratedOrderAndDeduplicates() {
         assertEquals(listOf("天气", "晚上"), AssociationIndex(mapOf("今天" to listOf("天气", "天气", "", "今天", "晚上"))).next("今天"))

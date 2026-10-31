@@ -16,6 +16,7 @@ class MappedInputIndex private constructor(private val data: ByteBuffer) {
     private val prefixStart: Int
     private val prefixCount: Int
     private val dataStart: Int
+    private val version: Int
     private data class Request(val raw: String, val nine: Boolean, val limit: Int)
     private val cache = object : LinkedHashMap<Request, List<Row>>(64, .75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Request, List<Row>>?) = size > 64
@@ -24,16 +25,22 @@ class MappedInputIndex private constructor(private val data: ByteBuffer) {
     init {
         require(data.limit() >= 64)
         require((0 until 8).map { data.get(it).toInt().toChar() }.joinToString("") == "VIMELEX1")
-        require(data.getInt(8) == 1)
+        version=data.getInt(8);require(version in 1..2)
         count = data.getInt(12)
         require(count in 1..2_000_000)
         indexes = intArrayOf(data.getInt(16), data.getInt(20), data.getInt(24))
         prefixStart = data.getInt(28); dataStart = data.getInt(32); prefixCount = data.getInt(40)
-        require(indexes.contentEquals(intArrayOf(64, 64 + count * 4, 64 + count * 8)))
-        require(prefixStart == 64 + count * 12 && prefixCount in 1..100_000)
+        if(version==1) {
+            require(indexes.contentEquals(intArrayOf(64,64+count*4,64+count*8)))
+            require(prefixStart==64+count*12 && (52..60 step 4).all { data.getInt(it)==0 })
+        } else {
+            val blocks=(count+63)/64
+            require(indexes[0]==64 && indexes[1]>64+blocks*4 && indexes[2]==indexes[1]+count*4)
+            require(prefixStart==indexes[2]+count*4 && data.getInt(52)==64 && data.getInt(56)==blocks && data.getInt(60)==0)
+        }
+        require(prefixCount in 1..100_000)
         require(dataStart.toLong() >= prefixStart.toLong() + prefixCount * 4L && dataStart < data.limit())
         require(data.getInt(36) == data.limit() && data.getInt(44) in 1..128 && data.getInt(48) == 160)
-        require((52..60 step 4).all { data.getInt(it) == 0 })
     }
 
     private fun byte(at: Int) = data.get(at).toInt() and 255
@@ -45,7 +52,25 @@ class MappedInputIndex private constructor(private val data: ByteBuffer) {
         require(data.getInt(at + 4) >= 0)
         return at
     }
-    private fun at(mode: Int, position: Int) = record(data.getInt(indexes[mode] + position * 4))
+    private fun at(mode: Int, position: Int): Int {
+        if(mode!=0 || version==1) return record(data.getInt(indexes[mode]+position*4))
+        var cursor=data.getInt(64+(position/64)*4)
+        require(cursor>=64+((count+63)/64)*4 && cursor<=indexes[1]-4)
+        var relative=data.getInt(cursor);cursor+=4
+        repeat(position%64) {
+            var delta=0;var shift=0
+            while(true) {
+                require(cursor<indexes[1] && shift<=28)
+                val next=byte(cursor++);delta=delta or ((next and 127) shl shift)
+                if(next<128) break
+                shift+=7
+            }
+            require(delta>0 && relative.toLong()+delta<Int.MAX_VALUE)
+            relative+=delta
+        }
+        require(relative>=0 && dataStart.toLong()+relative<data.limit())
+        return record(dataStart+relative)
+    }
     private fun weight(at: Int) = data.getInt(at + 4)
     private fun word(at: Int): String {
         val start = at + 8 + byte(at)

@@ -28,7 +28,7 @@ class NoticesInstrumentation:Instrumentation() {
             check(Build.PRODUCT.contains("sdk")) { "Dedicated emulator required" }
             test("packaged-catalog-and-all-document-references-parse") {
                 catalog=NoticeCatalog.parse(targetContext.assets.open("notices.json").bufferedReader().use { it.readText() })
-                check(catalog.components.size==13 && catalog.files.size==22)
+                check(catalog.components.size==14 && catalog.files.size==23)
                 observations.put("components",catalog.components.size).put("documents",catalog.files.size)
             }
             test("all-packaged-license-bytes-match-including-complete-gpl") {
@@ -48,7 +48,7 @@ class NoticesInstrumentation:Instrumentation() {
                 val heap=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory()-before
                 observations.put("dictionary_retained_java_heap_delta_bytes",heap)
                 check(DictRepository.ready && DictRepository.state==DictRepository.State.READY)
-                check(DictRepository.pinyinCount>=393950 && DictRepository.wordCount>=569466 && DictRepository.enCount>=14041)
+                check(DictRepository.pinyinCount>=393950 && DictRepository.wordCount>=569466 && DictRepository.enCount==120194)
                 check(heap<32L*1024*1024) { "Public dictionary retained Java heap exceeds32MiB" }
                 check(DictRepository.candidates("zhendejiade",100).any { it.word=="真的假的" })
                 check(DictRepository.getCard("你好")!=null && DictRepository.getEn("学习").isNotBlank())
@@ -95,11 +95,18 @@ class NoticesInstrumentation:Instrumentation() {
                 val index=com.vime.ime.data.MappedInputIndex.open(file)
                 val sample=java.io.RandomAccessFile(file,"r").use { source ->
                     val mapped=source.channel.map(java.nio.channels.FileChannel.MapMode.READ_ONLY,0,source.length()).order(java.nio.ByteOrder.LITTLE_ENDIAN)
-                    (0 until 400).map { item ->
-                        val at=mapped.getInt(64+(item*1423%index.count)*4)
+                    // Records are contiguous in both V1 and V2. Sampling the
+                    // body avoids interpreting V2 delta blocks as V1 offsets.
+                    val codes=ArrayList<String>(400)
+                    var at=mapped.getInt(32)
+                    repeat(index.count) { item ->
                         val length=mapped.get(at).toInt() and 255
-                        String(ByteArray(length) { mapped.get(at+8+it) },Charsets.US_ASCII).replace(" ","")
+                        val wordBytes=mapped.getShort(at+2).toInt() and 65535
+                        if(item%1423==0 && codes.size<400) codes.add(String(ByteArray(length) { mapped.get(at+8+it) },Charsets.US_ASCII).replace(" ",""))
+                        at+=8+length+wordBytes
                     }
+                    check(at==mapped.limit() && codes.size==400)
+                    codes
                 }
                 val requests=sample.flatMap { code -> listOf(code to false,code.take(3) to false,
                     code.map(com.vime.ime.data.CandidateIndex::digit).joinToString("") to true) }
@@ -113,6 +120,18 @@ class NoticesInstrumentation:Instrumentation() {
                     .put("sdk",Build.VERSION.SDK_INT).put("abi",Build.SUPPORTED_ABIS.first()).put("physical_phone",false)
                 observations.put("mapped_lookup",benchmark)
                 check(percentile(.99)<50) { "Fallback query p99 exceeds50ms" }
+                val enriched=requests.map { (code,nine) ->
+                    val started=SystemClock.elapsedRealtimeNanos()
+                    val candidates=if(nine) DictRepository.t9Candidates(code,12) else DictRepository.candidates(code,12)
+                    check(candidates.isNotEmpty())
+                    SystemClock.elapsedRealtimeNanos()-started
+                }.sorted()
+                fun enrichedPercentile(p:Double)=enriched[((enriched.size-1)*p).toInt()]/1e6
+                observations.put("repository_lookup_with_english",JSONObject().put("requests",requests.size).put("limit",12)
+                    .put("p50_ms",enrichedPercentile(.5)).put("p95_ms",enrichedPercentile(.95))
+                    .put("p99_ms",enrichedPercentile(.99)).put("max_ms",enriched.last()/1e6)
+                    .put("physical_phone",false))
+                check(enrichedPercentile(.99)<100) { "Enriched fallback query p99 exceeds100ms" }
                 val edge=JSONArray()
                 for(code in listOf("zhendejiadex","shishishishishishishishishi","z".repeat(48),"abcdefghijklmnopqrstuvwxyz","z".repeat(128))) {
                     val started=SystemClock.elapsedRealtimeNanos();index.query(code,false,100)
@@ -122,13 +141,51 @@ class NoticesInstrumentation:Instrumentation() {
                 }
                 observations.put("incomplete_query_bounds",edge)
             }
+            test("complete-english-reading-aware-tonal-cards-and-native-candidates") {
+                check(DictRepository.getEn("重","zhong")=="heavy" && DictRepository.getEn("重","chong")=="to repeat")
+                check(DictRepository.getEn("长","chang")=="long" && DictRepository.getEn("长","zhang")=="chief")
+                check(DictRepository.getEn("重").isEmpty())
+                val card=DictRepository.getCard("好","hao")?:error("Missing full tonal card")
+                check(card.py.contains("hao3") && card.py.contains("hao4") && (card.d1+card.d2).contains("to be prone to"))
+                val definition=DictRepository.definition("重")?:error("Missing definition")
+                check(definition.meaning.contains("heavy") && definition.meaning.contains("to repeat") && definition.source.contains("CC BY-SA 4.0"))
+                check(DictRepository.candidate("你好","nh",2).readingCode=="nihao")
+                for((raw,meaning) in mapOf("zhong" to "heavy","chong" to "to repeat")) {
+                    val native=com.vime.ime.engine.RimeEngine.query(raw,limit=100).first { it.word=="重" }
+                    check(native.en==meaning && native.readingCode==raw)
+                }
+                observations.put("english_labelled_headwords",DictRepository.enCount)
+            }
+            test("optional-pack-import-native-front-rollback-and-removal") {
+                val active=java.io.File(targetContext.filesDir,"dictionary/active.vimelex")
+                val original=active.takeIf { it.isFile }?.readBytes()
+                val row="ceshixingyun\t测试星云\tfixture nebula\tce4 shi4 xing1 yun2\n".toByteArray()
+                fun pack(valid:Boolean):ByteArray {
+                    val hash=if(valid) MessageDigest.getInstance("SHA-256").digest(row).joinToString("") { "%02x".format(it) } else "0".repeat(64)
+                    val values=mapOf("manifest.properties" to ("format=vimelex-1\nname=Isolated Vime test\nversion=1\nsource=https://example.invalid/test\nlicense=MIT\nentries=1\nsha256=$hash\n").toByteArray(),
+                        "entries.tsv" to row,"NOTICE.txt" to "Emulator-only fixture".toByteArray(),
+                        "LICENSE.txt" to targetContext.assets.open("licenses/ecdict-MIT.txt").use { it.readBytes() })
+                    val out=java.io.ByteArrayOutputStream()
+                    java.util.zip.ZipOutputStream(out).use { zip -> values.forEach { (name,data) -> zip.putNextEntry(java.util.zip.ZipEntry(name));zip.write(data);zip.closeEntry() } }
+                    return out.toByteArray()
+                }
+                try {
+                    DictRepository.install(targetContext,pack(true));val hash=DictRepository.installedPack!!.hash
+                    check(com.vime.ime.engine.InputEngine.query("ceshixingyun",false,personalized=false).first().let { it.word=="测试星云" && it.en=="fixture nebula" })
+                    check(DictRepository.definition("测试星云")!!.source.contains("Isolated Vime test"))
+                    check(DictRepository.enCandidates("fixt",100).any { it.word=="fixture" })
+                    check(runCatching { DictRepository.install(targetContext,pack(false)) }.isFailure)
+                    check(DictRepository.installedPack!!.hash==hash)
+                } finally { if(original!=null) DictRepository.install(targetContext,original) else DictRepository.uninstall(targetContext) }
+                check(DictRepository.getEn("学习").isNotBlank())
+            }
         } catch(error:Throwable) {
             cases.put(JSONObject().put("name","runner-error").put("pass",false).put("error",error.toString()))
         } finally {
             val passed=(0 until cases.length()).count { cases.getJSONObject(it).getBoolean("pass") }
-            val report=JSONObject().put("expected",7).put("passed",passed).put("failed",cases.length()-passed)
-                .put("not_run",(7-cases.length()).coerceAtLeast(0)).put("cases",cases).put("observations",observations)
-            finish(if(passed==7 && cases.length()==7) Activity.RESULT_OK else Activity.RESULT_CANCELED,
+            val report=JSONObject().put("expected",9).put("passed",passed).put("failed",cases.length()-passed)
+                .put("not_run",(9-cases.length()).coerceAtLeast(0)).put("cases",cases).put("observations",observations)
+            finish(if(passed==9 && cases.length()==9) Activity.RESULT_OK else Activity.RESULT_CANCELED,
                 Bundle().apply { putString("summary",report.toString()) })
         }
     }

@@ -103,19 +103,30 @@ def derive_senses(records):
         for code, forms in sorted(by_code.items()):
             senses = []
             source_rows = []
+            tonal = {}
             # Lowercase common readings precede same-spelling surname entries.
             forms.sort(key=lambda row: (row["reading"][:1].isupper(), row["row"]))
             for row in forms:
                 values, provenance = resolve(word, row)
                 source_rows += provenance
+                key = row["reading"].lower()
+                variant = tonal.setdefault(key, {"reading": row["reading"], "primary": "", "senses": [], "source_rows": []})
+                variant["source_rows"] += provenance
+                if values and not variant["primary"]:
+                    variant["primary"] = primary(values[0])
+                for sense in values or [s for s in row["senses"] if s]:
+                    if sense not in variant["senses"]:
+                        variant["senses"].append(sense)
                 for value in values:
                     if value not in senses:
                         senses.append(value)
             label = primary(senses[0]) if senses else ""
             original = senses or [s for row in forms for s in row["senses"] if s]
+            for variant in tonal.values():
+                variant["source_rows"] = sorted(set(variant["source_rows"]))
             result.append([word, code, forms[0]["reading"], label,
                            original[0] if original else "", original[1] if len(original) > 1 else "",
-                           sorted(set(source_rows))])
+                           sorted(set(source_rows)), list(tonal.values())])
     return result
 
 
@@ -263,7 +274,7 @@ def build(args):
     exam = levels(args.ecdict)
     output = args.output
     write(output / "data/pinyin.json", encoded({"format": "vime-pinyin-1", "rows": phonetics}))
-    write(output / "data/english.json", encoded({"format": "vime-english-1", "rows": english}))
+    write(output / "data/english.json", encoded({"format": "vime-english-2", "rows": english}))
     write(output / "data/frequencies.json", encoded({"format": "vime-frequencies-1", "rows": weights}))
     write(output / "data/levels.json", encoded({"format": "vime-levels-1", "entries": exam}))
     write(output / "data/associations.json", encoded(associations))
@@ -288,7 +299,7 @@ def build(args):
             "counts": {"phonetic_pairs": len(phonetics), "headwords": len(records), "senses": len(english),
                        "english_labels": sum(bool(row[3]) for row in english), "weight_rows": len(weights),
                        "association_prefixes": len(associations), "level_rows": len(exam), "unsupported": skipped},
-            "transformation": "CC-CEDICT simplified headwords and tone-free readings; group equal word/readings; first two source senses; resolve equivalent references at most3 hops; source ordinals retained; no gloss invented. Essay weights and prefix associations stored separately; ECDICT word/tag policy unchanged. No legacy Vime input is read."}
+            "transformation": "CC-CEDICT simplified headwords grouped by tone-free input; retain every tonal form, all its source senses and source ordinals. First two legacy preview fields retained for compatibility. Resolve equivalent references at most3 hops; no gloss invented. Essay weights/associations and ECDICT tags remain separate. No legacy Vime input is read."}
     write(output / "data/manifest.json", encoded(meta))
     print(json.dumps(meta["counts"], ensure_ascii=False))
 

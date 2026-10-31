@@ -46,7 +46,7 @@ object PersonalLexicon {
     }
     fun query(raw: String, nine: Boolean = false): List<Cand> = rules.filter { it.enabled &&
         (if (nine) it.trigger.map(CandidateIndex::digit).joinToString("") == raw else it.trigger == raw)
-    }.sortedByDescending { it.priority }.map { Cand(it.text, DictRepository.getEn(it.text), DictRepository.getLvl(it.text), raw.length) }
+    }.sortedByDescending { it.priority }.map { DictRepository.candidate(it.text,raw,raw.length) }
     @Synchronized fun record(raw: String, c: Cand, allowed: Boolean) {
         if (!allowed || !InputLearningPrefs.choicesEnabled || raw.isEmpty() || c.word.length > 64) return
         val key = raw.take(128) + "\t" + c.word

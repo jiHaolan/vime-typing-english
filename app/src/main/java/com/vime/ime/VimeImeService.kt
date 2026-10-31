@@ -1292,8 +1292,8 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
     private fun showCard(c: Cand) {
         if (!learningAllowed) return
         val b = binding ?: return
-        val card = DictRepository.getCard(c.word)
-        val en = if (english) c.word else DictRepository.getEn(c.word).ifBlank { c.en }
+        val card = DictRepository.getCard(c.word,c.readingCode)
+        val en = if (english) c.word else c.en.ifBlank { DictRepository.getEn(c.word,c.readingCode) }
         val def = if (english) c.en else listOfNotNull(card?.d1, card?.d2)
             .filter { it.isNotBlank() && it != "null" }
             .joinToString("；")

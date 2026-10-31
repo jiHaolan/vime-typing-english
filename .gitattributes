@@ -20,3 +20,10 @@ tools/verify_dictionary_source_kit.py text eol=lf
 tools/verify_input_lexicon.py text eol=lf
 tools/verify_rime_upgrade.py text eol=lf
 tools/dictionary-compiler/** text eol=lf
+
+app/src/main/assets/english/** -text -whitespace
+tools/build_english_lexicon.py text eol=lf
+tools/verify_english_lexicon.py text eol=lf
+tools/project_rime_runtime.py text eol=lf
+tools/optimize_apk_payload.py text eol=lf
+tools/test_apk_payload.py text eol=lf

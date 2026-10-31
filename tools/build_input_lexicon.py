@@ -17,6 +17,15 @@ MAGIC = b"VIMELEX1"
 HEADER = struct.Struct("<8s14I")
 RECORD = struct.Struct("<BBHI")
 PREFIX = struct.Struct("<BBH")
+BLOCK = 64
+
+
+def varint(value):
+    result = bytearray()
+    while value >= 128:
+        result.append((value & 127) | 128); value >>= 7
+    result.append(value)
+    return result
 DIGITS = str.maketrans("abcdefghijklmnopqrstuvwxyz", "22233344455566677778889999")
 
 
@@ -108,8 +117,20 @@ def build(args):
                     group.append(i)
     prefix_keys = sorted(prefixes)
     prefix_size = len(prefix_keys)*4 + sum(PREFIX.size + len(key[1]) + len(prefixes[key])*4 for key in prefix_keys)
+    # Full-order records are already contiguous. Bounded blocks retain random
+    # access while encoding their positive record-size deltas once per block.
+    relative = []; size = 0
+    for code, word, _, _, weight, syllables in rows:
+        relative.append(size); size += RECORD.size + len(syllables) + len(word.encode())
+    block_count = (len(rows)+BLOCK-1)//BLOCK
+    full_data = bytearray(); blocks = []
+    for start in range(0,len(rows),BLOCK):
+        blocks.append(len(full_data)); full_data += struct.pack("<I",relative[start])
+        for i in range(start+1,min(start+BLOCK,len(rows))):
+            full_data += varint(relative[i]-relative[i-1])
     full_start = HEADER.size
-    nine_start = full_start + len(rows)*4
+    full_data_start = full_start + block_count*4
+    nine_start = full_data_start + len(full_data)
     initials_start = nine_start + len(rows)*4
     prefix_start = initials_start + len(rows)*4
     data_start = prefix_start + prefix_size
@@ -125,9 +146,11 @@ def build(args):
     output.mkdir(parents=True)
     binary = output / "input.lex"
     with binary.open("wb") as stream:
-        stream.write(HEADER.pack(MAGIC, 1, len(rows), full_start, nine_start, initials_start, prefix_start, data_start, end,
-                                 len(prefix_keys), max(len(row[0]) for row in rows), 160, 0, 0, 0))
-        for index in (full, nine, initials):
+        stream.write(HEADER.pack(MAGIC, 2, len(rows), full_start, nine_start, initials_start, prefix_start, data_start, end,
+                                 len(prefix_keys), max(len(row[0]) for row in rows), 160, BLOCK, block_count, 0))
+        stream.write(struct.pack("<"+str(block_count)+"I",*(full_data_start+i for i in blocks)))
+        stream.write(full_data)
+        for index in (nine, initials):
             stream.write(struct.pack("<" + str(len(index)) + "I", *(offsets[i] for i in index)))
         cursor = prefix_start + len(prefix_keys)*4
         for key in prefix_keys:
@@ -144,7 +167,8 @@ def build(args):
     counts = {"entries": len(rows), "words": len({row[1] for row in rows}), "codes": len({row[0] for row in rows}),
               "subunit_weight_rows": sum(row[4] == 0 for row in rows), "prefix_keys": len(prefix_keys),
               "prefix_offsets": sum(map(len, prefixes.values())), "association_prefixes": len(json.loads(associations.read_bytes()))}
-    result = {"format": "vime-input-lexicon-1", "version": 1, "source_lock_sha256": lock_hash,
+    result = {"format": "vime-input-lexicon-1", "version": 2, "source_lock_sha256": lock_hash,
+              "index_encoding": "full-order monotone deltas in64-record blocks; complete nine/initials offsets unchanged",
               "rime_dataset_id": compiled["dataset_id"], "table_sha256": table_hash,
               "vocabulary_sha256": export["vocabulary_sha256"], "vocabulary_export_rows": export["rows"],
               "observed_export_source_lock_sha256": export["source_lock_sha256"], "license": "LGPL-3.0", "counts": counts,

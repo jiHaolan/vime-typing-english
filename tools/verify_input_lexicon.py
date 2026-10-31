@@ -20,8 +20,12 @@ def verify(args):
         raise ValueError("Source vocabulary checksum mismatch")
     raw = (args.lexicon / "input.lex").read_bytes()
     magic, version, count, full, nine, initials, prefixes, data, end, prefix_count, max_code, cap, *reserved = HEADER.unpack_from(raw)
-    if (magic, version, full, nine, initials, prefixes, end, cap, reserved) != (MAGIC, 1, 64, 64+count*4, 64+count*8, 64+count*12, len(raw), 160, [0,0,0]):
+    if magic!=MAGIC or full!=64 or end!=len(raw) or cap!=160 or version not in (1,2):
         raise ValueError("Mapped header differs")
+    if version==1:
+        if (nine,initials,prefixes,reserved)!=(64+count*4,64+count*8,64+count*12,[0,0,0]):raise ValueError("V1 index bounds differ")
+    elif reserved!=[64,(count+63)//64,0] or initials!=nine+count*4 or prefixes!=initials+count*4:
+        raise ValueError("V2 block bounds differ")
     records = {}
     position = data
     while position < end:
@@ -47,7 +51,22 @@ def verify(args):
     if source != actual or count != manifest["vocabulary_export_rows"]:
         raise ValueError("Mapped content differs from the complete public export")
     for start, column in ((full,0),(nine,2),(initials,3)):
-        offsets = struct.unpack_from("<"+str(count)+"I",raw,start)
+        if version==1 or start!=full:
+            offsets = struct.unpack_from("<"+str(count)+"I",raw,start)
+        else:
+            offsets=[]
+            for block in range((count+63)//64):
+                cursor=struct.unpack_from('<I',raw,64+block*4)[0]
+                relative=struct.unpack_from('<I',raw,cursor)[0];cursor+=4;offsets.append(data+relative)
+                for i in range(min(63,count-block*64-1)):
+                    delta=shift=0
+                    while True:
+                        value=raw[cursor];cursor+=1;delta|=(value&127)<<shift
+                        if value<128:break
+                        shift+=7
+                        if shift>28:raise ValueError('Invalid variable offset')
+                    if delta<=0:raise ValueError('Nonpositive delta')
+                    relative+=delta;offsets.append(data+relative)
         expected = sorted(records,key=lambda i:(records[i][column],-records[i][4],records[i][1],records[i][0]))
         if list(offsets) != expected:
             raise ValueError("Missing/duplicated/unsorted mapped index")

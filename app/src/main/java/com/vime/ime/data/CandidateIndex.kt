@@ -47,7 +47,7 @@ class CandidateIndex(
         fun append(key: String, consumed: Int, take: Int = limit) {
             for (word in words[key].orEmpty().take(take)) {
                 if (found.size >= limit) return
-                found.putIfAbsent(word, Cand(word, english[word].orEmpty(), levels[word].orEmpty(), consumed))
+                found.putIfAbsent(word, Cand(word, english[word].orEmpty(), levels[word].orEmpty(), consumed,readingCode=key))
             }
         }
         fun exact(prefix: String, consumed: Int) {

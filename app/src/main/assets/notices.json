@@ -139,19 +139,15 @@
       ]
     },
     {
-      "id": "legacy-dictionary",
-      "title": "内置释义与补充词条来源",
+      "id": "cc-cedict",
+      "title": "CC-CEDICT 中英释义与声调",
       "category": "词典与学习数据",
-      "license": "CC-BY-SA-3.0 / CC-BY-SA-4.0 / LGPL-3.0-or-later；部分待核对",
-      "source": "https://www.mdbg.net/chinese/dictionary?page=cc-cedict\nhttps://github.com/skishore/makemeahanzi\nhttps://en.wiktionary.org/wiki/金幣",
-      "version": "旧版合并数据 · 审核进行中",
-      "summary": "旧版 CC-CEDICT 释义、MakeMeAHanzi 字义和手工补充仍待按记录重建。旧拼音和旧联想已从当前 APK 移除；这不代表英文及全部商用来源审核完成。",
+      "license": "CC-BY-SA-4.0",
+      "source": "https://www.mdbg.net/chinese/dictionary?page=cc-cedict",
+      "version": "2026-10-19T20:24:47Z",
+      "summary": "从固定CC-CEDICT快照保留全部支持的词头、读音组、声调义项和来源记录；独立只读映射，不合并旧释义或人工覆盖。",
       "documents": [
-        "licenses/legacy-data-NOTICE.txt",
-        "licenses/CC-BY-SA-3.0.txt",
-        "licenses/makemeahanzi-COPYING.txt",
-        "licenses/GNU-GPL-3.0.txt",
-        "licenses/supplement-NOTICE.txt",
+        "licenses/cedict-NOTICE.txt",
         "licenses/CC-BY-SA-4.0.txt"
       ]
     },
@@ -166,6 +162,21 @@
       "documents": [
         "licenses/ecdict-MIT.txt"
       ]
+    },
+    {
+      "id": "legacy-history",
+      "title": "旧版本词库许可（本版内置数据已替换）",
+      "category": "历史版本记录",
+      "license": "CC-BY-SA-3.0 / CC-BY-SA-4.0 / LGPL-3.0-or-later；部分待核对",
+      "source": "https://www.mdbg.net/chinese/dictionary?page=cc-cedict\nhttps://github.com/skishore/makemeahanzi\nhttps://en.wiktionary.org/wiki/金幣",
+      "version": "旧版合并数据 · 审核进行中",
+      "summary": "保留旧版本来源及许可原文，便于历史学习记录和旧版资料查阅；当前新内置数据未合并这些旧文件。",
+      "documents": [
+        "licenses/legacy-data-NOTICE.txt",
+        "licenses/CC-BY-SA-3.0.txt",
+        "licenses/makemeahanzi-COPYING.txt",
+        "licenses/supplement-NOTICE.txt"
+      ]
     }
   ],
   "files": {
@@ -174,6 +185,7 @@
     "licenses/CC-BY-SA-4.0.txt": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5",
     "licenses/GNU-GPL-3.0.txt": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
     "licenses/boost-LICENSE.txt": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566",
+    "licenses/cedict-NOTICE.txt": "1c7942d30e63782126b7a992760c3005fac015f15476fd436b13e77e2055f88c",
     "licenses/ecdict-MIT.txt": "f8552dd246f61a4e064569eae6194a01c6b3d63b03bf27c6ca863593c549ed0f",
     "licenses/glog-LICENSE.txt": "136d48dea7a681413691f3db3098f6cf5ffaa3119d96d97bb83b8cff3ce38c4a",
     "licenses/input-data-NOTICE.txt": "09f65ced6500ee8d22c5aba31cd7d69a9a355e891905bf7a78d83c0b9a70153e",
@@ -1368,10 +1380,6 @@
     }
   ],
   "release_blockers": [
-    {
-      "id": "legacy-english-lineage",
-      "detail": "内置释义/词卡包含CC-CEDICT3、MakeMeAHanzi及手工覆盖，尚未完成按记录的来源映射或清洁重建及对应源材料交付。"
-    },
     {
       "id": "native-transitive-review",
       "detail": "已列出直接链接的原生依赖与固定配方；仍需核对其内嵌第三方代码和NOTICE，不能只据主项目许可证认定全部齐全。"

@@ -50,7 +50,7 @@ def run(args):
         summary = re.search(r"INSTRUMENTATION_RESULT: summary=(\{.*\})",text)
         if not summary: raise RuntimeError("No instrumentation result")
         result=json.loads(summary[1]);(output/"dictionary-results.json").write_text(json.dumps(result,indent=2),"utf-8")
-        if result["expected"]!=7 or result["passed"]!=7 or result["failed"] or result["not_run"] or "INSTRUMENTATION_CODE: -1" not in text:
+        if result["expected"]!=9 or result["passed"]!=9 or result["failed"] or result["not_run"] or "INSTRUMENTATION_CODE: -1" not in text:
             raise RuntimeError("Packaged dictionary checks failed")
         adb("shell","am","force-stop","com.vime.ime")
         data=adb("exec-out","run-as","com.vime.ime","tar","-cf","-","databases","shared_prefs","files/rime/user")
@@ -67,7 +67,7 @@ def run(args):
                 raise RuntimeError("Existing native user database bytes changed")
         settings={key:adb("shell","settings","get","secure",key).decode().strip() for key in baseline["settings"]}
         if settings!=baseline["settings"]:raise RuntimeError("Original input method settings changed")
-        receipt.update(passed=True, version=args.version, dictionary_checks_passed=7,
+        receipt.update(passed=True, version=args.version, dictionary_checks_passed=9,
                        populated_learning_rows_preserved=True, preferences_preserved=True,
                        original_sst_files_preserved=len(ssts), input_method_settings_unchanged=True,
                        wordbook_count=baseline["wordbook_count"],review_events=baseline["review_events"])

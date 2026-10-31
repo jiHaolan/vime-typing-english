@@ -55,12 +55,12 @@ object RimeEngine {
         val started = android.os.SystemClock.elapsedRealtime()
         try {
             val manifest = context.assets.open("rime/manifest.json").bufferedReader().use { JSONObject(it.readText()) }
-            check(manifest.getString("format") == "vime-rime-2" && manifest.getBoolean("compiled"))
+            check(manifest.getString("format") == "vime-rime-runtime-1" && manifest.getBoolean("compiled"))
             val id = manifest.getString("dataset_id")
             require(id.matches(Regex("[a-f0-9]{64}")))
             val files = manifest.getJSONObject("files")
             val names = files.keys().asSequence().toList().sorted()
-            val required = setOf("default.yaml", "essay.txt", "vime_pinyin.dict.yaml", "vime_pinyin.schema.yaml", "vime_nine.schema.yaml",
+            val required = setOf("default.yaml", "vime_pinyin.schema.yaml", "vime_nine.schema.yaml",
                 "build/default.yaml", "build/vime_pinyin.schema.yaml", "build/vime_nine.schema.yaml", "build/vime_pinyin.table.bin",
                 "build/vime_pinyin.prism.bin", "build/vime_nine.prism.bin", "build/vime_pinyin.reverse.bin")
             require(names.toSet() == required)
@@ -117,7 +117,8 @@ object RimeEngine {
         return synchronized(this) { RimeNative.candidates(raw, offset.coerceAtLeast(0), limit.coerceIn(1, 256)).mapNotNull { row ->
             val p = row.split('\t'); if (p.size != 3) return@mapNotNull null
             val consumed = p[1].toIntOrNull() ?: return@mapNotNull null
-            Cand(p[0], DictRepository.getEn(p[0]), DictRepository.getLvl(p[0]), consumed.coerceIn(1, raw.length), true)
+            val used=consumed.coerceIn(1,raw.length)
+            DictRepository.candidate(p[0],raw.take(used),used,true)
         } }
     }
     fun learn(raw: String, c: Cand) {

@@ -35,8 +35,9 @@ the delivered hashes are exact, including line endings. Outputs refuse an
 existing directory. CC-CEDICT definitions/phonetics, LGPL Essay frequencies and
 prefix associations, and MIT ECDICT word/tag labels are separate physical files.
 CC-CEDICT source ordinals count non-comment, non-empty records, not text lines.
-English cards retain the first two selected senses and their source ordinals;
-the full original dictionary is supplied under sources/cedict.
+English cards retain every tonal form, all senses and source ordinals. Older
+two-sense preview columns remain for compatibility; the full original dictionary
+is also supplied under sources/cedict.
 
 For binary Rime compilation, use the matching Vime source checkout, the pinned
 native libraries in native/provenance.json, Android SDK36, Gradle8.11.1 and JDK21.
@@ -171,6 +172,38 @@ change that public table. Both source identities remain explicitly recorded.
              "files": {name: {"bytes": len(content), "sha256": sha(content)} for name, content in sorted(files.items())}}
     if mapped_id:
         index["mapped_input_dataset_id"] = mapped_id
+    english_id = runtime_id = None
+    if args.english_lexicon or args.runtime_rime:
+        if not (args.english_lexicon and args.runtime_rime):
+            raise ValueError("Complete English data and runtime projection are supplied together")
+        english=json.loads((args.english_lexicon/"manifest.json").read_bytes())
+        runtime=json.loads((args.runtime_rime/"manifest.json").read_bytes())
+        if english["source_lock_sha256"]!=sha(lock_bytes) or runtime["source_dataset_id"]!=receipt["dataset_id"]:
+            raise ValueError("English/runtime source lineage differs")
+        for name,expected in english["files"].items():
+            if name not in ("english.lex","levels.json"):raise ValueError("Unexpected English file")
+            add("generated/english/"+name,(args.english_lexicon/name).read_bytes(),expected)
+        add("generated/english/manifest.json",(args.english_lexicon/"manifest.json").read_bytes())
+        for name,expected in runtime["files"].items():
+            if expected!=compiled_manifest["files"].get(name) or sha((args.runtime_rime/name).read_bytes())!=expected:
+                raise ValueError("Runtime file differs from compiled source")
+        add("generated/runtime-rime/manifest.json",(args.runtime_rime/"manifest.json").read_bytes())
+        for name in ("build_english_lexicon.py","verify_english_lexicon.py","project_rime_runtime.py"):
+            add("tools/"+name,(repo/"tools"/name).read_bytes())
+        for name in ("MappedInputIndex.kt","MappedEnglishIndex.kt"):
+            add("readers/"+name,(repo/"app/src/main/java/com/vime/ime/data"/name).read_bytes())
+        add("sources/cedict-NOTICE.txt",(repo/"app/src/main/assets/licenses/cedict-NOTICE.txt").read_bytes())
+        english_id=english["dataset_id"];runtime_id=runtime["dataset_id"]
+        files["README.md"]+=b'''\nComplete tonal English and precompiled runtime projection:
+python -S tools/build_english_lexicon.py --prepared generated/plaintext --lock notices/dictionary-sources.lock.json --output rebuilt-english
+python -S tools/verify_english_lexicon.py --lexicon rebuilt-english --prepared generated/plaintext --report english-rows-verified.json
+python -S tools/project_rime_runtime.py --compiled generated/compiled-rime --output rebuilt-runtime
+Compare all three English files and the runtime manifest. Runtime binary/schema
+files are byte-identical to generated/compiled-rime and are not duplicated in
+this archive. Full dictionary/Essay build sources remain in this source kit.
+'''
+        index["english_dataset_id"]=english_id;index["runtime_dataset_id"]=runtime_id
+        index["files"]={name:{"bytes":len(content),"sha256":sha(content)} for name,content in sorted(files.items())}
     files["MANIFEST.json"] = encoded(index)
     output.mkdir(parents=True)
     archive_path = output / "Vime-dictionary-sources-0.23.0.zip"
@@ -190,6 +223,8 @@ change that public table. Both source identities remain explicitly recorded.
               "archive": archive_path.name, "native_review_complete": False}
     if mapped_id:
         result["mapped_input_dataset_id"] = mapped_id
+    if english_id:
+        result["english_dataset_id"]=english_id;result["runtime_dataset_id"]=runtime_id
     (output / "receipt.json").write_text(json.dumps(result, indent=2), "utf-8")
     print(json.dumps(result))
 
@@ -198,6 +233,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("lock", "luna", "essay", "cedict", "cedict-license", "ecdict", "ecdict-license", "ecdict-readme", "prepared", "compiled", "receipt", "output"):
         parser.add_argument("--" + name, required=True, type=Path)
-    for name in ("input-lexicon", "public-export", "exporter-tool"):
+    for name in ("input-lexicon", "public-export", "exporter-tool", "english-lexicon", "runtime-rime"):
         parser.add_argument("--" + name, type=Path)
     package(parser.parse_args())

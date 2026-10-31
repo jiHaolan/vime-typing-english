@@ -15,6 +15,15 @@ def source(*rows):
 
 
 class CleanDictionaryTests(unittest.TestCase):
+    def test_tonal_forms_and_all_meanings_survive_same_input_code(self):
+        forms = self.forms("好 好 [hao3] /good/fine/OK/", "好 好 [hao4] /to like/to be fond of/")
+        row = forms["好", "hao"]
+        self.assertEqual(row[3], "good")
+        self.assertEqual([v["reading"] for v in row[7]], ["hao3", "hao4"])
+        self.assertEqual(row[7][0]["senses"], ["good", "fine", "OK"])
+        self.assertEqual(row[7][1]["senses"], ["to like", "to be fond of"])
+        self.assertEqual(row[7][1]["source_rows"], [2])
+
     def test_luna_reading_percentages_do_not_become_equal_common_frequencies(self):
         source = "...\n我\te\t0%\n我\two\t100%\n的\tde\t99.97%\n的\tdi\t0.03%\n给\tgei\t99.99%\n给\tji\t0.01%\n".encode()
         rows = data.luna_entries(source, {"我": 100000, "的": 1000000, "给": 200000})

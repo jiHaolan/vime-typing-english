@@ -1,5 +1,5 @@
 {
-  "format": "vime-level-source-1",
+  "format": "vime-level-source-2",
   "source": "https://github.com/skywind3000/ECDICT",
   "commit": "ab22ad36302cafc6349a050e2b60894855208055",
   "csv_sha256": "d1ecbdf9ee2b920afb6f430ca6b6bb9f559588cf0dff86e04bd255f9390843cc",
@@ -29,13 +29,7 @@
     "TOEFL": 3408
   },
   "levels_sha256": "3dd2d1b08f04e79bdfc935d38aeaf96ebe07930c009c18c2b3002773a12722e8",
-  "dictionary_sha256": "6ba6c98c9f3f223828590eb23826508a18607456d8ff53b2b31d0191eb9de98a",
-  "preserved_sections_sha256": {
-    "en": "6fef4581c989c973e1c4731a3d9172e973c8d61608954adee79a3a15309668fb",
-    "card": "fab64b7205d420bcceae94eaa6bee997a701cc82e8e31da0fdde3c9a091e0d8e"
-  },
-  "removed_input_sections": [
-    "pw"
-  ],
-  "input_replacement_manifest": "input/manifest.json"
+  "levels_file_sha256": "2c2bdc467a147980378150bbb298c82a552d9fe7cb4e59ae94046d1e158b1c29",
+  "legacy_dictionary_asset_present": false,
+  "english_replacement_manifest": "english/manifest.json"
 }

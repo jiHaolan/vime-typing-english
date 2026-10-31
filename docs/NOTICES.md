@@ -26,7 +26,7 @@ python tools/verify_notices.py app.apk --inventory app/build/reports/runtime-com
 python tools/verify_notices.py app/src/main/assets --release
 ```
 
-完整性通过和商用来源审核通过是两个字段。目前`--release`必须失败：旧词频/联想来源、旧释义来源映射/清洁重建及原生内嵌第三方代码仍未完成审核。不得删除待解决项来把检查变绿。普通正式候选构建会在需要签名凭据之前拒绝；validation-only仅验证工程和打包流程，不改变来源审核结论。
+完整性与来源审核分别记录。0.23.0的当前基础输入、英文释义与词卡已完成独立重建、逐条来源核对和完整归档回放，旧内置数据已移除。原生内嵌第三方代码/NOTICE审核仍未完成，因此`--release`继续失败。旧版本许可原文保留为历史组件，不能据此把旧内容合入新数据或宣称旧记录的许可已经改变。正式候选构建在签名前检查来源，validation-only不改变审核结论。
 
 ## 考试分级数据
 
@@ -36,10 +36,10 @@ python tools/verify_notices.py app/src/main/assets --release
 
 ```powershell
 python tools/prepare_levels.py --csv ecdict.csv --sha256 <已核对的原始CSV哈希> `
-  --dictionary app/src/main/assets/dict.android.json --receipt app/src/main/assets/levels-source.json
+  --levels app/src/main/assets/english/levels.json --receipt app/src/main/assets/levels-source.json
 ```
 
-生成器校验原始CSV哈希，并逐字段核对`pw`、`en`、`card`的规范JSON哈希保持相同。来源记录包括精确提交、原始CSV哈希、转换规则、分级结果哈希及整体字典哈希。更新数据后重新生成来源清单并执行检查，不手改词库标签而保留旧收据。
+生成器校验原始CSV哈希，只写独立`english/levels.json`及`levels-source.json`。收据记录精确提交、源CSV哈希、标签规则和结果哈希；英文正文与分级不合并来源。更新后重建英文manifest、生成来源清单并检查，不手改数据而保留旧收据。
 
 ## Android运行检查
 
@@ -49,4 +49,4 @@ python tools/prepare_levels.py --csv ecdict.csv --sha256 <已核对的原始CSV�
 adb -s emulator-5580 shell am instrument -w com.vime.ime.test/com.vime.ime.NoticesInstrumentation
 ```
 
-该入口与其他测试入口互斥，拒绝实体手机；5项检查实际AssetManager中的21份许可文档及真实DictRepository加载、基础/CET6/TOEFL标签、英文补全与完整中文候选。它不修改学习数据库，不等同于长期性能或词库版权全部完成。记录中的单次后台加载耗时只用于定位，不作为性能通过指标。
+该入口与其他测试入口互斥，拒绝实体手机。0.23.0为9项：核对实际AssetManager中的14组组件/23份文档、真实DictRepository完整输入/英文/标签、全拼九键简拼、纯索引及带英文的查询耗时、声调词卡、原生候选读音、可选词包安装/坏校验回滚/移除。测试临时词包在结束后恢复，不改收藏和复习；主机额外对比已有非空学习数据与设置。耗时仅代表API36 x86_64模拟器，不包含触摸、绘制或厂商真机性能。

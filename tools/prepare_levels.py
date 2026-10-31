@@ -50,33 +50,25 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--csv", required=True, type=Path)
     p.add_argument("--sha256", required=True)
-    p.add_argument("--dictionary", required=True, type=Path)
+    p.add_argument("--levels", required=True, type=Path)
     p.add_argument("--receipt", required=True, type=Path)
     a = p.parse_args()
     source_hash = digest(a.csv.read_bytes())
     if source_hash != a.sha256:
         raise ValueError("ECDICT source checksum mismatch")
-    data = json.loads(a.dictionary.read_text("utf-8"))
-    if "pw" in data:
-        raise ValueError("Remove legacy input via the clean mapped vocabulary pipeline first")
-    preserved = {key: digest(encode(data[key])) for key in ("en", "card")}
-    data["lvl"] = levels(a.csv)
+    data = {"format":"vime-levels-1","entries":levels(a.csv)}
     output = encode(data)
-    check = json.loads(output)
-    if {key: digest(encode(check[key])) for key in preserved} != preserved:
-        raise ValueError("Non-level dictionary section changed")
-    receipt = {"format": "vime-level-source-1", "source": "https://github.com/skywind3000/ECDICT",
+    receipt = {"format": "vime-level-source-2", "source": "https://github.com/skywind3000/ECDICT",
                "commit": COMMIT, "csv_sha256": source_hash, "license": "MIT",
                "license_file": "licenses/ecdict-MIT.txt", "fields_used": ["word", "tag"],
                "transformation": "ASCII lowercase words; CET4 learning tier includes zk/gk/cet4 basics, then cet6, then toefl; lowest tier wins; untagged words remain unclassified",
                "tag_policy": {"CET4": ["zk", "gk", "cet4"], "CET6": ["cet6"], "TOEFL": ["toefl"]},
-               "counts": dict(sorted(collections.Counter(data["lvl"].values()).items())),
-               "levels_sha256": digest(encode(data["lvl"])), "dictionary_sha256": digest(output),
-               "preserved_sections_sha256": preserved, "removed_input_sections": ["pw"],
-               "input_replacement_manifest": "input/manifest.json"}
-    a.dictionary.write_bytes(output)
+               "counts": dict(sorted(collections.Counter(data["entries"].values()).items())),
+               "levels_sha256": digest(encode(data["entries"])), "levels_file_sha256": digest(output),
+               "legacy_dictionary_asset_present":False,"english_replacement_manifest":"english/manifest.json"}
+    a.levels.write_bytes(output)
     a.receipt.write_text(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n", "utf-8")
-    print(json.dumps({"count": len(data["lvl"]), "counts": receipt["counts"], "preserved": list(preserved)}))
+    print(json.dumps({"count": len(data["entries"]), "counts": receipt["counts"]}))
 
 
 if __name__ == "__main__":
