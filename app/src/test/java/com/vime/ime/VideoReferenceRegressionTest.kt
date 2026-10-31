@@ -19,8 +19,8 @@ class VideoReferenceRegressionTest {
     @Test fun tapBackspaceDeletesOneNotClear() {
         assertEquals(KeyHoldPolicy.Output.Key(-5), KeyHoldPolicy.release(-5, false, true))
     }
-    @Test fun armedBackspaceClearsOnlyOnSameKeyRelease() {
-        assertEquals(KeyHoldPolicy.Output.Key(KeyHoldPolicy.CLEAR), KeyHoldPolicy.release(-5, true, true))
+    @Test fun stationaryBackspaceHoldCannotClear() {
+        assertEquals(KeyHoldPolicy.Output.Key(-5), KeyHoldPolicy.release(-5, true, true))
         assertNull(KeyHoldPolicy.release(-5, true, false))
     }
     @Test fun heldLetterEmitsItsHintNotOriginalLetter() {

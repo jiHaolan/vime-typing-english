@@ -77,6 +77,16 @@ def inspect(read, inventory=None, commercial=False, native_libraries=None):
         check("all-documents-reachable", references == files.keys())
         check("component-metadata-present", all(all(isinstance(row.get(k), str) and row[k]
               for k in ("id", "title", "category", "license", "version", "source", "summary")) for row in components))
+        frequency = json.loads(read("common-frequency.json"))
+        check("common-frequency-pinned-source", frequency["format"] == "vime-common-frequency-1"
+              and frequency["commit"] == "67fa2e36e72f69d9134b8a1037b83fbb070b9775"
+              and frequency["license"] == "MIT" and frequency["fields_used"] == ["word", "frequency"]
+              and frequency["source_sha256"] == "7197c3211ddd98962b036cdf40324d1ea2bfaa12bd028e68faa70111a88e12a8")
+        frequency_bytes = read("common-frequency.bin")
+        check("common-frequency-payload", frequency["entries"] == 126733
+              and frequency_bytes[:4] == b"CFQ1" and sha(frequency_bytes) == frequency["table_sha256"])
+        check("common-frequency-license", "licenses/jieba-MIT.txt" in files and any(
+              row["id"] == "jieba-frequency" and row["license"] == "MIT" for row in components))
         modules = data["runtime_modules"]
         check("runtime-pom-coverage", sorted(modules) == sorted(row["coordinate"] for row in data["runtime_metadata"])
               and len(set(modules)) == len(modules) and all(row["licenses"] and row["pom_evidence"] for row in data["runtime_metadata"]))

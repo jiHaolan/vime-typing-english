@@ -218,13 +218,20 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
         b.cardPanel.background = android.graphics.drawable.LayerDrawable(arrayOf(GlassUi.scene(themed), GlassUi.surface(themed)))
         b.cardPanel.clipToOutline = true
         binding = b
-        systemKeyboardBottom = 0
+        // The IME switcher/back controls can extend beyond navigationBars(),
+        // especially on gesture-navigation OEM builds. Keep their full touch row free.
+        val controlRow = if (Build.VERSION.SDK_INT >= 29) dp(48) else 0
+        systemKeyboardBottom = controlRow
+        b.cardOverlay.setPadding(0, 0, 0, controlRow)
+        b.panelSheet.root.setPadding(0, 0, 0, controlRow)
         ViewCompat.setOnApplyWindowInsetsListener(b.root) { view, insets ->
             if (binding === b) {
-                val types = WindowInsetsCompat.Type.navigationBars() or WindowInsetsCompat.Type.displayCutout()
+                val types = WindowInsetsCompat.Type.navigationBars() or WindowInsetsCompat.Type.captionBar() or
+                    WindowInsetsCompat.Type.tappableElement() or WindowInsetsCompat.Type.displayCutout()
                 val bars = insets.getInsets(types)
                 val rootBars = ViewCompat.getRootWindowInsets(view)?.getInsets(types)
-                val bottom = maxOf(bars.bottom, rootBars?.bottom ?: 0)
+                val gestures = insets.getInsets(WindowInsetsCompat.Type.mandatorySystemGestures())
+                val bottom = maxOf(controlRow, bars.bottom, rootBars?.bottom ?: 0, gestures.bottom)
                 val left = maxOf(bars.left, rootBars?.left ?: 0)
                 val right = maxOf(bars.right, rootBars?.right ?: 0)
                 if (systemKeyboardBottom != bottom || view.paddingLeft != left || view.paddingRight != right) {
@@ -585,7 +592,7 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
         }
     }
 
-    /** Only called after a held backspace is released on that key. No clipboard or text snapshot. */
+    /** Only called after backspace is held, swiped upward and released. No clipboard/text snapshot. */
     private fun clearEditor(ic: InputConnection) {
         if (backspaceConnection !== ic) {
             showHint("输入框已切换，已取消清空")
@@ -936,7 +943,7 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
 
     /** 帮助：在候选栏提示位说明用法，2.8 秒后自动恢复候选 */
     private fun showHelpHint() {
-        showHint("按住空格2秒说话 · 长按候选收藏 · 长按退格松手清空")
+        showHint("长按空格说话 · 长按候选收藏 · 按住删除键上划清空")
         main.postDelayed({ if (binding != null) renderCandidates() }, 2800)
     }
 
@@ -962,7 +969,7 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
             Sheet.THEME -> "主题与触感"
             Sheet.EMOJI -> "表情"
             Sheet.SYMBOLS -> "符号"
-            Sheet.FORMAT -> "本地排版 · 非AI生成"
+            Sheet.FORMAT -> "本地排版"
             Sheet.HELP -> "使用说明"
             Sheet.CANDIDATES -> "展开候选"
             Sheet.NONE -> return
@@ -1563,7 +1570,7 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
 
     private fun renderFormatting() {
         val root = customColumn(scroll = true)
-        root.addView(panelText("这是本地格式处理，不是AI总结、扩写或语义润色。请先在目标应用选中不超过4000字符的文字；没有选中内容时不会读取整个聊天框。"))
+        root.addView(panelText("先选中文字，再整理空格、按句分段或转换列表。每次最多4000字符，处理后可预览并替换选中内容。"))
         listOf("整理空格" to LocalFormatting.Action.SPACES, "按句分段" to LocalFormatting.Action.PARAGRAPHS,
             "转换列表" to LocalFormatting.Action.BULLETS, "英文大写" to LocalFormatting.Action.UPPERCASE).forEach { (label, action) ->
             panelButton(root, label) {
@@ -1591,9 +1598,9 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
     private fun renderHelp() {
         val root = customColumn(scroll = true)
         root.addView(panelText("打字与记词\n中文候选上方是小号英文，左右滑动看更多候选；长按候选查看词卡和主动收藏。生词本按钮进入复习。"))
-        root.addView(panelText("键盘操作\n候选右侧可展开更多词并翻页，点击输入、长按查看词卡。字母角标长按约半秒松手输入；退格长按约0.9秒后松手清空、移开取消。横竖屏分别保存尺寸。自定义短语、配色和高级触感可在应用首页输入与个性化中管理。"))
+        root.addView(panelText("键盘操作\n候选右侧可展开更多词并翻页，点击输入、长按查看词卡。字母角标长按约半秒松手输入；按住删除键后上划，看到「松手清空」再松手；回滑取消清空，单纯长按不会清空。横竖屏分别保存尺寸。自定义短语、配色和高级触感可在应用首页输入与个性化中管理。"))
         root.addView(panelText("布局与符号\n工具条键盘图标选择全键/拼音九键/数字布局；底行符号打开分类页，123打开数字符号，再点123可进数字九宫格。返回键回原字母布局。"))
-        root.addView(panelText("真实能力边界\n按住空格满2秒开始录音，松手结束并识别；手机服务可能自行提前结束收音。默认调用手机语音，无需密钥，识别语言跟随键盘中英切换。候选栏显示动效，点取消、滑出空格或切换输入框即取消。服务是否联网由所选语音服务决定；可在首页语音设置中查看服务或选择高级联网接口。本地排版只处理选中文字，不是AI生成。图片表情包、OCR、手写/五笔/双拼及云端AI尚未接通，不显示伪可用入口。"))
+        root.addView(panelText("语音与排版\n长按空格约半秒开始录音，松手结束并识别；手机服务可能自行提前结束收音。默认调用手机语音，无需密钥，识别语言跟随键盘中英切换。候选栏显示动效，点取消、滑出空格或切换输入框即取消。服务是否联网由所选语音服务决定，可在首页语音设置中更换。本地排版用于整理选中文字的空格、段落和列表。"))
         root.addView(panelText("隐私\n仅主动按住空格录音时申请麦克风权限；松手结束，隐藏键盘即取消。普通拼音离线。手机语音由选定服务处理，本应用不保存此路径的录音；高级联网模式向所填接口上传录音，并清理本机临时文件。不自动采集聊天内容。剪贴板仅主动打开面板后读取，临时历史需手动保存。表情/符号最近列表只保存预置条目，可在私密框隐藏。"))
     }
 

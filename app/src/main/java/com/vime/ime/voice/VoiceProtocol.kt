@@ -7,7 +7,7 @@ import java.net.URI
 object VoiceProtocol {
     const val ENDPOINT = "https://api.siliconflow.cn/v1/audio/transcriptions"
     const val MODEL = "FunAudioLLM/SenseVoiceSmall"
-    const val HOLD_MS = 2000L
+    const val HOLD_MS = 500L
     const val SAMPLE_RATE = 16000
     const val MAX_BYTES = SAMPLE_RATE * 2 * 60
     const val HAOLIVE_MAX_BYTES = SAMPLE_RATE * 2 * 30

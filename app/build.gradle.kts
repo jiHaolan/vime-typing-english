@@ -19,7 +19,9 @@ val inputDataChecks = providers.gradleProperty("vimeInputDataChecks").orNull
 require(inputDataChecks == null || inputDataChecks in listOf("true", "false")) { "vimeInputDataChecks must be true or false" }
 val noticeChecks = providers.gradleProperty("vimeNoticeChecks").orNull
 require(noticeChecks == null || noticeChecks in listOf("true", "false")) { "vimeNoticeChecks must be true or false" }
-require(listOf(windowChecks, nativeChecks, inputDataChecks, noticeChecks).count { it == "true" } <= 1) { "Select one instrumentation suite at a time" }
+val keyboardChecks = providers.gradleProperty("vimeKeyboardChecks").orNull
+require(keyboardChecks == null || keyboardChecks in listOf("true", "false")) { "vimeKeyboardChecks must be true or false" }
+require(listOf(windowChecks, nativeChecks, inputDataChecks, noticeChecks, keyboardChecks).count { it == "true" } <= 1) { "Select one instrumentation suite at a time" }
 
 android {
     namespace = "com.vime.ime"
@@ -30,9 +32,10 @@ android {
         applicationId = "com.vime.ime"
         minSdk = 24
         targetSdk = 36
-        versionCode = 37
-        versionName = "0.24.0"
+        versionCode = 38
+        versionName = "0.24.1"
         testInstrumentationRunner = when {
+            keyboardChecks == "true" -> "com.vime.ime.KeyboardUsabilityInstrumentation"
             windowChecks == "true" -> "com.vime.ime.WindowInteractionInstrumentation"
             nativeChecks == "true" -> "com.vime.ime.NativeRuntimeInstrumentation"
             inputDataChecks == "true" -> "com.vime.ime.InputDataInstrumentation"

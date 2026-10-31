@@ -32,7 +32,7 @@ class VoiceSettingsActivity : AppCompatActivity() {
                 Toast.makeText(this,"已复制，可粘贴反馈",Toast.LENGTH_SHORT).show()
             }.id=R.id.voiceCopyDiagnostics
         }
-        label("长按空格2秒，看到「正在聆听」或「正在录音」后说话，松手结束。滑出空格、点取消或切换输入框会放弃。手机语音服务可能自行提前结束收音。")
+        label("长按空格约半秒，看到「正在聆听」或「正在录音」后说话，松手结束。滑出空格、点取消或切换输入框会放弃。手机语音服务可能自行提前结束收音。")
         fun choices(values:List<String>)=object:ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,values) {
             private fun style(view:View)=view.apply { if(this is TextView){setTextColor(uiColor(R.color.ink));setBackgroundColor(uiColor(R.color.panel_bg));minHeight=dp(48)} }
             override fun getView(position:Int,convertView:View?,parent:android.view.ViewGroup)=style(super.getView(position,convertView,parent))
@@ -100,10 +100,10 @@ class VoiceSettingsActivity : AppCompatActivity() {
             hint="https://你的服务地址/v1/transcribe";inputType=InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_URI
             setSingleLine();computer.addView(this)
         }
-        val computerStatus=computerLabel("保存后返回输入框，长按空格2秒开始测试。")
+        val computerStatus=computerLabel("保存后返回输入框，长按空格约半秒开始测试。")
         computer.addView(Ui.button(this,"保存电脑语音",action={
             runCatching { VoiceSettings.saveHaoLive(this,computerEndpoint.text.toString().trim()) }
-                .onSuccess { computerStatus.text="已保存 · 返回输入框，长按空格2秒说话" }
+                .onSuccess { computerStatus.text="已保存 · 返回输入框，长按空格约半秒说话" }
                 .onFailure { computerStatus.text=it.message ?: "保存失败" }
         }).apply { id=R.id.voiceHaoLiveSave })
         fun showMode(index:Int){VoiceSettings.setMode(this,modes[index]);local.visibility=if(index==0)View.VISIBLE else View.GONE;advanced.visibility=if(index==1)View.VISIBLE else View.GONE;computer.visibility=if(index==2)View.VISIBLE else View.GONE}

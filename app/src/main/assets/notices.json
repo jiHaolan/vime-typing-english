@@ -243,6 +243,18 @@
       "documents": [
         "licenses/legacy-octagram-GPL-3.0.txt"
       ]
+    },
+    {
+      "id": "jieba-frequency",
+      "title": "结巴中文词频",
+      "category": "中文候选排序",
+      "license": "MIT",
+      "version": "67fa2e36e72f69d9134b8a1037b83fbb070b9775",
+      "source": "https://github.com/fxsjy/jieba",
+      "summary": "仅提取固定dict.txt中的词与频次，辅助同读音候选排序；不接入分词代码，不生成释义。",
+      "documents": [
+        "licenses/jieba-MIT.txt"
+      ]
     }
   ],
   "files": {
@@ -279,7 +291,8 @@
     "licenses/supplement-NOTICE.txt": "426fbe2c3b09c56df95b2810d5e19c31a52009ca2e0325aab0f99ad4cd57dd35",
     "licenses/utf8cpp-embedded-NOTICE.txt": "025779cd615b102cac5356fd11bd00689a2842ab8dd002f03a9a3a657d9263cb",
     "licenses/x11-keysyms-NOTICE.txt": "15883cfd398fef571ebc3c42ab00d2027dfe74e5f937d067ff997277cf4729d5",
-    "licenses/yaml-cpp-LICENSE.txt": "aa6fcc27be034e41e21dd832f9175bfe694a48491d9e14ff0fa278e19ad14f1b"
+    "licenses/yaml-cpp-LICENSE.txt": "aa6fcc27be034e41e21dd832f9175bfe694a48491d9e14ff0fa278e19ad14f1b",
+    "licenses/jieba-MIT.txt": "18ba0984839f85853b29fadaf992f7dba8fd0ca0fbeae34de2b8735222dc7a37"
   },
   "runtime_modules": [
     "androidx.activity:activity:1.6.0",

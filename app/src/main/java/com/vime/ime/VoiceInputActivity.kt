@@ -15,7 +15,7 @@ class VoiceInputActivity : Activity() {
         if (checkSelfPermission(Manifest.permission.RECORD_AUDIO) == android.content.pm.PackageManager.PERMISSION_GRANTED) { finish(); return }
         val pref = getSharedPreferences("voice_permission", MODE_PRIVATE)
         if (state == null && pref.getBoolean("asked", false) && !shouldShowRequestPermissionRationale(Manifest.permission.RECORD_AUDIO)) {
-            AlertDialog.Builder(this).setTitle("开启麦克风权限").setMessage("语音输入需要麦克风。请在系统应用权限中开启后，返回按住空格2秒说话。")
+            AlertDialog.Builder(this).setTitle("开启麦克风权限").setMessage("语音输入需要麦克风。请在系统应用权限中开启后，返回长按空格约半秒说话。")
                 .setPositiveButton("前往设置") { _, _ -> startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName"))); finish() }
                 .setNegativeButton("取消") { _, _ -> finish() }.setOnCancelListener { finish() }.show()
         } else if (state == null) {
@@ -27,7 +27,7 @@ class VoiceInputActivity : Activity() {
         super.onRequestPermissionsResult(code, permissions, results)
         if (code == 12) {
             Toast.makeText(this, if (results.firstOrNull() == android.content.pm.PackageManager.PERMISSION_GRANTED)
-                "已授权，返回输入框按住空格2秒说话" else "未授权麦克风，可继续打字", Toast.LENGTH_LONG).show()
+                "已授权，返回输入框长按空格约半秒说话" else "未授权麦克风，可继续打字", Toast.LENGTH_LONG).show()
             finish()
         }
     }

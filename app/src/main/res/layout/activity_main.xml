@@ -33,7 +33,7 @@
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:orientation="vertical" android:background="@drawable/card_bg" android:padding="4dp" android:tag="glass_card">
       <TextView android:id="@+id/btnTheme" style="@style/SettingRow" android:text="皮肤配色" android:drawableStart="@drawable/ic_theme" android:drawablePadding="12dp" />
       <TextView android:id="@+id/btnHaptics" style="@style/SettingRow" android:text="按键触感" android:drawableStart="@drawable/ic_sliders" android:drawablePadding="12dp" />
-      <TextView android:id="@+id/btnVoiceConfig" style="@style/SettingRow" android:text="语音输入    长按空格 2 秒  ›" android:drawableStart="@drawable/ic_voice" android:drawablePadding="12dp" />
+      <TextView android:id="@+id/btnVoiceConfig" style="@style/SettingRow" android:text="语音输入    长按空格说话  ›" android:drawableStart="@drawable/ic_voice" android:drawablePadding="12dp" />
       <TextView android:id="@+id/btnInputSettings" style="@style/SettingRow" android:text="输入设置    尺寸、短语与配色  ›" android:drawableStart="@drawable/ic_keyboard" android:drawablePadding="12dp" />
       <TextView android:id="@+id/btnInputData" style="@style/SettingRow" android:text="输入数据    管理本机记录  ›" android:drawableStart="@drawable/ic_wordbook" android:drawablePadding="12dp" />
     </LinearLayout>

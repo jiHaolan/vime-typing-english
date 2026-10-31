@@ -5,7 +5,7 @@ import android.content.Context
 /** Public corpora stay mapped. Optional user packs are published atomically. */
 object DictRepository {
     private data class PackForm(val code:String,val reading:String,val gloss:String)
-    private data class Snapshot(val input:InputLexiconStore.BuiltIn,val english:EnglishLexiconStore.BuiltIn,
+    private data class Snapshot(val input:InputLexiconStore.BuiltIn,val english:EnglishLexiconStore.BuiltIn,val frequency:CommonFrequency,
         val index:CandidateIndex,val pack:LexiconPack?,val forms:Map<String,List<PackForm>>,val packRows:Int,val packCodes:Int,
         val reverse:Map<String,String>,val englishKeys:List<String>)
     @Volatile private var snapshot:Snapshot?=null
@@ -47,6 +47,7 @@ object DictRepository {
     }
     private fun build(context:Context,pack:LexiconPack?):Snapshot {
         val input=InputLexiconStore.load(context);val english=EnglishLexiconStore.load(context)
+        val frequency=snapshot?.frequency ?: context.assets.open("common-frequency.bin").use { CommonFrequency(it.readBytes()) }
         val words=HashMap<String,MutableList<String>>();val glosses=HashMap<String,String>()
         val forms=HashMap<String,MutableList<PackForm>>()
         for(entry in pack?.entries.orEmpty()) {
@@ -58,7 +59,7 @@ object DictRepository {
         for((word,gloss) in glosses.toSortedMap()) for(token in tokens.findAll(gloss)) {
             val key=token.value.lowercase().trim('-');if(key.length>=2) reverse.putIfAbsent(key,word)
         }
-        return Snapshot(input,english,CandidateIndex(words.mapValues { it.value.toList() },words.keys.associateWith { 1 },glosses,emptyMap()),
+        return Snapshot(input,english,frequency,CandidateIndex(words.mapValues { it.value.toList() },words.keys.associateWith { 1 },glosses,emptyMap()),
             pack,forms.mapValues { it.value.toList() },pack?.entries?.size?:0,words.size,reverse,reverse.keys.sorted())
     }
     private fun packForms(s:Snapshot,word:String,hint:String):List<PackForm> {
@@ -146,6 +147,7 @@ object DictRepository {
         return s.input.associations.next(previous,limit).map { candidate(it,"",0) }
     }
     val pinyinCount get()=snapshot?.let { it.input.codes+it.packCodes }?:0
+    fun wordFrequency(word:String)=snapshot?.frequency?.get(word)?:0
     val wordCount get()=snapshot?.let { it.input.entryCount+it.packRows }?:0
     val enCount get()=snapshot?.english?.index?.labelledHeadwords?:0
     val lvlCount get()=snapshot?.english?.index?.gradedHeadwords?:0

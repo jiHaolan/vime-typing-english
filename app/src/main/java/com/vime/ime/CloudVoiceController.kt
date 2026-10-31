@@ -48,7 +48,7 @@ internal class CloudVoiceController(private val context: Context,
         catch (e: IllegalArgumentException) { hint(e.message ?: "语音设置有误"); return }
         if (context.checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             context.startActivity(Intent(context, VoiceInputActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-            hint("授权后返回输入框，按住空格2秒说话"); return
+            hint("授权后返回输入框，长按空格约半秒说话"); return
         }
         val s = Session(gate.start()); session = s; active = true
         val maxBytes = if (config.rawWav) VoiceProtocol.HAOLIVE_MAX_BYTES else VoiceProtocol.MAX_BYTES
@@ -69,7 +69,7 @@ internal class CloudVoiceController(private val context: Context,
                 try {
                     require(recorder.state == AudioRecord.STATE_INITIALIZED) { "麦克风暂不可用，请关闭其他录音后重试" }
                     if (s.cancelled) return@submit
-                    require(!s.released) { "录音太短，请按住空格2秒后继续说话" }
+                    require(!s.released) { "录音太短，请开始录音后继续说话" }
                     recorder.startRecording()
                     check(recorder.recordingState == AudioRecord.RECORDSTATE_RECORDING) { "无法开始录音" }
                     RandomAccessFile(recording, "rw").use { wav ->
@@ -88,7 +88,7 @@ internal class CloudVoiceController(private val context: Context,
                     }
                 } finally { runCatching { recorder.stop() }; recorder.release() }
                 if (s.cancelled) return@submit
-                require(bytes >= VoiceProtocol.SAMPLE_RATE * 2 / 5) { "录音太短，请按住空格2秒后继续说话" }
+                require(bytes >= VoiceProtocol.SAMPLE_RATE * 2 / 5) { "录音太短，请开始录音后继续说话" }
                 if (!s.released) {
                     main.post { if (gate.accepts(s.token) && !s.released) state("已达${maxBytes / (VoiceProtocol.SAMPLE_RATE * 2)}秒 · 松手识别", false, 0f) }
                     s.finish.await()

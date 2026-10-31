@@ -18,6 +18,7 @@ import android.view.View
 import android.view.HapticFeedbackConstants
 import com.vime.ime.data.KeyHints
 import com.vime.ime.engine.KeyHoldPolicy
+import com.vime.ime.engine.BackspaceGesture
 import com.vime.ime.engine.PointerKeys
 import com.vime.ime.engine.OrderedReleases
 import com.vime.ime.engine.TouchGeometry
@@ -47,6 +48,7 @@ class VimeKeyboardView @JvmOverloads constructor(
 
     var keyboard: Keyboard? = null
         set(value) {
+            deletePointer = -1; backspaceGesture.cancel()
             cancelVoiceHold()
             cancelRepeat()
             pointers.values().forEach { it.pressed = false }
@@ -157,6 +159,8 @@ class VimeKeyboardView @JvmOverloads constructor(
     private var holdPointer = -1
     private var repeated = false
     private var heldText: String? = null
+    private val backspaceGesture = BackspaceGesture(dp(36f), dp(48f))
+    private var deletePointer = -1
     private val repeatHandler = Handler(Looper.getMainLooper())
     private var repeatRunnable: Runnable? = null
 
@@ -235,9 +239,10 @@ class VimeKeyboardView @JvmOverloads constructor(
             canvas.drawText(label, (l + r) / 2f, baseline, text)
         }
         val previewCode = downKey?.codes?.firstOrNull()
-        val showClear = repeated && previewCode == Keyboard.KEYCODE_DELETE
+        val showClear = deletePointer >= 0 && backspaceGesture.armed
         val preview = when {
             showClear -> "松手清空"
+            deletePointer >= 0 && backspaceGesture.held(android.os.SystemClock.uptimeMillis()) -> "上划清空"
             // The voice strip owns live status. A timer bubble would outlive a failed service.
             repeated && previewCode == 32 -> null
             !previewEnabled -> null
@@ -247,7 +252,7 @@ class VimeKeyboardView @JvmOverloads constructor(
         }
         if (preview != null && downKey != null) {
             val key = downKey!!
-            val bubbleWidth = dp(if (showClear || heldText != null || previewCode == 32) 96f else 48f)
+            val bubbleWidth = dp(if (deletePointer >= 0 || heldText != null || previewCode == 32) 96f else 48f)
             val left = ((key.x + key.width / 2f) * sx - bubbleWidth / 2).coerceIn(0f, (width - bubbleWidth).coerceAtLeast(0f))
             val top = (key.y * sy - dp(40f)).coerceAtLeast(dp(3f))
             fill.color = cAccent
@@ -285,6 +290,11 @@ class VimeKeyboardView @JvmOverloads constructor(
             MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
                 if (event.actionMasked == MotionEvent.ACTION_DOWN) resetPointers()
                 // A second finger disarms destructive holds; normal taps remain independent.
+                if (deletePointer >= 0) {
+                    pointers.get(deletePointer)?.pressed = false
+                    pointers.move(deletePointer, null)
+                    deletePointer = -1; backspaceGesture.cancel()
+                }
                 if (voiceHolding) { downKey?.pressed = false; pointers.move(holdPointer, null) }
                 cancelRepeat()
                 cancelVoiceHold()
@@ -304,7 +314,11 @@ class VimeKeyboardView @JvmOverloads constructor(
                 val code = k.codes?.firstOrNull() ?: 0
                 listener?.onPress(code)
                 // ImeRootLayout owns touch-down feedback for the whole keyboard.
-                // Only backspace arms a clear action after a continuous hold.
+                if (code == Keyboard.KEYCODE_DELETE && event.pointerCount == 1) {
+                    deletePointer = id
+                    backspaceGesture.begin(event.eventTime, event.getX(i), event.getY(i))
+                    parent?.requestDisallowInterceptTouchEvent(true)
+                }
                 if (event.pointerCount == 1 && (code == Keyboard.KEYCODE_DELETE || code == 32 || KeyHints.secondary(code) != null)) scheduleRepeat(k)
             }
 
@@ -312,6 +326,15 @@ class VimeKeyboardView @JvmOverloads constructor(
                 for (i in 0 until event.pointerCount) {
                     val id = event.getPointerId(i)
                     val k = pointers.get(id) ?: continue
+                    if (id == deletePointer) {
+                        val wasArmed = backspaceGesture.armed
+                        backspaceGesture.move(event.eventTime, event.getX(i), event.getY(i))
+                        if (event.getX(i) !in 0f..width.toFloat() || event.getY(i) !in 0f..height.toFloat()) backspaceGesture.cancel()
+                        if (!wasArmed && backspaceGesture.armed && keyHaptics) HapticFeedback.play(context, hapticLevel, true)
+                        k.pressed = backspaceGesture.active
+                        downKey = k.takeIf { backspaceGesture.active }
+                        continue
+                    }
                     val hit = keyAt(event.getX(i), event.getY(i), k)
                     if (hit !== k) {
                         val armed = id == holdPointer && (repeated || heldText != null)
@@ -334,10 +357,11 @@ class VimeKeyboardView @JvmOverloads constructor(
                 val i = event.actionIndex
                 val id = event.getPointerId(i)
                 var k = pointers.release(id)
+                val isDelete = id == deletePointer
                 val armed = id == holdPointer && (repeated || heldText != null)
                 val hit = keyAt(event.getX(i), event.getY(i), k)
                 val releasedKey = k
-                if (!armed && k != null) k = hit
+                if (!armed && !isDelete && k != null) k = hit
                 releasedKey?.pressed = releasedKey in pointers.values()
                 invalidate()
                 if (id == holdPointer && voiceHolding) {
@@ -350,9 +374,9 @@ class VimeKeyboardView @JvmOverloads constructor(
                     val releasedCode = k.codes?.firstOrNull() ?: 0
                     k.pressed = k in pointers.values()
                     invalidate()
-                    // Timer only arms; release on the same key confirms clear.
-                    val output = KeyHoldPolicy.release(k.codes?.firstOrNull() ?: 0,
-                        armed, hit === k)
+                    val output = if (isDelete) backspaceGesture.release(event.eventTime, event.getX(i), event.getY(i), hit === k)
+                        ?.let { KeyHoldPolicy.Output.Key(it) }
+                        else KeyHoldPolicy.release(k.codes?.firstOrNull() ?: 0, armed, hit === k)
                     tap = {
                         when (output) {
                             is KeyHoldPolicy.Output.Key -> listener?.onKey(output.code, releasedCodes)
@@ -369,6 +393,7 @@ class VimeKeyboardView @JvmOverloads constructor(
                     heldText = null
                     repeated = false
                 }
+                if (isDelete) { deletePointer = -1; backspaceGesture.cancel() }
                 val layout = keyboard
                 for (emit in releases.release(id, tap)) {
                     // A prior functional key may change layouts; discard old-layout pending output.
@@ -388,14 +413,15 @@ class VimeKeyboardView @JvmOverloads constructor(
         return true
     }
 
-    /** Long hold arms clear; release confirms, moving away cancels. Never clear on timer alone. */
+    /** Timer starts voice or previews the delete/secondary gesture; never clears by itself. */
     private fun scheduleRepeat(key: Keyboard.Key) {
         cancelRepeat()
         val code = key.codes?.firstOrNull() ?: return
         val r = object : Runnable {
             override fun run() {
                 if (downKey !== key || !key.pressed || pointers.size != 1) return
-                if (code == Keyboard.KEYCODE_DELETE || code == 32) repeated = true
+                if (code == Keyboard.KEYCODE_DELETE) backspaceGesture.refresh(android.os.SystemClock.uptimeMillis())
+                if (code == 32) repeated = true
                 else heldText = KeyHints.secondary(code)
                 if (code == 32) { voiceHolding = true; voiceStart?.invoke() }
                 if (keyHaptics) HapticFeedback.play(context, hapticLevel, true)
@@ -403,7 +429,7 @@ class VimeKeyboardView @JvmOverloads constructor(
             }
         }
         repeatRunnable = r
-        repeatHandler.postDelayed(r, when (code) { 32 -> VoiceProtocol.HOLD_MS; Keyboard.KEYCODE_DELETE -> REPEAT_DELAY; else -> 500L })
+        repeatHandler.postDelayed(r, when (code) { 32 -> VoiceProtocol.HOLD_MS; Keyboard.KEYCODE_DELETE -> BackspaceGesture.HOLD_MS; else -> 500L })
     }
 
     private fun cancelRepeat() {
@@ -417,6 +443,7 @@ class VimeKeyboardView @JvmOverloads constructor(
     }
 
     private fun resetPointers() {
+        deletePointer = -1; backspaceGesture.cancel()
         cancelVoiceHold()
         cancelRepeat()
         pointers.values().forEach { it.pressed = false }
@@ -476,7 +503,6 @@ class VimeKeyboardView @JvmOverloads constructor(
         const val CODE_NUMPAD = -20005
         const val CODE_RETURN = -20006
 
-        private const val REPEAT_DELAY = 900L
     }
 }
 

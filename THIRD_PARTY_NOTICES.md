@@ -16,6 +16,7 @@
 | 内置 CC-CEDICT 派生释义 | 历史源文件标明 CC-BY-SA-3.0、2018-10-31；不同于下方可选扩展包 |
 | MakeMeAHanzi 字义兜底 | dictionary.txt 的上游 COPYING 声明 LGPL-3.0-or-later；不使用其笔画 graphics.txt |
 | ECDICT 考试标签（0.22.0） | 上游 MIT；固定提交 ab22ad36302cafc6349a050e2b60894855208055，仅提取 word/tag，不导入释义、音标或词频 |
+| jieba 候选词频（0.24.1） | MIT；固定提交67fa2e36e72f69d9134b8a1037b83fbb070b9775，仅提取dict.txt的word/frequency；许可原文与生成摘要随包提供 |
 | 少量补充词条 | 原代码记录 Wiktionary 与本地 CC-CEDICT 参考；补充说明与 CC-BY-SA-4.0 原文已附带，确切历史修订仍待核对 |
 | 可选 CC-CEDICT 词包 | CC-BY-SA-4.0；https://www.mdbg.net/chinese/dictionary?page=cc-cedict ，完整来源/许可随词包提供 |
 
