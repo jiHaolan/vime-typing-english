@@ -65,6 +65,23 @@ class MappedInputIndexTest {
             jobs.forEach { assertTrue(it.get()) }
         } finally { pool.shutdownNow() }
     }
+    @Test fun v2BlockBoundariesAndEvictionMatchTheSerializedBody() {
+        val file=listOf(File("src/main/assets/input/input.lex"),File("app/src/main/assets/input/input.lex")).first { it.exists() }
+        val bytes=ByteBuffer.wrap(file.readBytes()).order(ByteOrder.LITTLE_ENDIAN)
+        val index=full();val selected=linkedMapOf<Int,Int>()
+        val boundaries=setOf(0,1,62,63,64,65,126,127,128,index.count-1)
+        var cursor=bytes.getInt(32)
+        repeat(index.count) { position ->
+            if(position in boundaries || position%4096==0) selected[position]=cursor
+            cursor+=8+(bytes.get(cursor).toInt() and 255)+(bytes.getShort(cursor+2).toInt() and 65535)
+        }
+        assertEquals(bytes.limit(),cursor)
+        val at=MappedInputIndex::class.java.getDeclaredMethod("at",Int::class.javaPrimitiveType,Int::class.javaPrimitiveType).apply { isAccessible=true }
+        // More than64 distinct blocks forces eviction. A second reverse pass
+        // catches stale block reuse, including the final partially filled block.
+        for(entries in listOf(selected.entries.toList(),selected.entries.reversed()))
+            for((position,expected) in entries) assertEquals("offset $position",expected,at.invoke(index,0,position))
+    }
     private fun fixture(): ByteArray {
         val bytes=ByteBuffer.allocate(102).order(ByteOrder.LITTLE_ENDIAN)
         bytes.put("VIMELEX1".toByteArray())

@@ -1,0 +1,20 @@
+Vime native engine source rebuild (0.23.1)
+
+The source lock and native/provenance.json identify exact sources and binaries.
+Rime core is rebuilt from upstream source with explicit BSD Lua/Predict plugins.
+Octagram is not configured by the Vime schemas and is excluded from this build.
+No input vocabulary, definitions or existing native learning capabilities are removed.
+
+Historical finding: Vime0.23.0 linked the provider librime.a with Octagram code.
+The Octagram snapshot declares GPL3. Its licence is retained as a historical
+component; that does not relicense Vime code or resolve past distribution duties.
+Other historical packages have not been individually audited here.
+
+The six dependency archives and306 headers are authenticated against the fixed
+provider Git tree. These dependencies have not all been rebuilt independently.
+Embedded UTF8/Darts/X11/RapidJSON/Lua notices and complete NDK LLVM notices are
+included. RapidJSON's original notice also lists test data not included in
+OpenCC's bundled runtime headers. The full SDK notice may cover extra SDK tools.
+
+Current source/archive and historical-release review remain explicit release
+blockers. This source inventory is not a blanket commercial-rights approval.

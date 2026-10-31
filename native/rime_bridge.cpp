@@ -66,7 +66,7 @@ Java_com_vime_ime_engine_RimeNative_initialize(JNIEnv* e, jobject, jstring share
         RIME_STRUCT(RimeTraits, traits);
         traits.shared_data_dir = shared_dir.c_str(); traits.user_data_dir = user_dir.c_str();
         traits.distribution_name = "Vime"; traits.distribution_code_name = "vime";
-        traits.distribution_version = "0.14"; traits.app_name = "rime.vime";
+        traits.distribution_version = VIME_DISTRIBUTION_VERSION; traits.app_name = "rime.vime";
         traits.min_log_level = 3; traits.log_dir = "";
         api->setup(&traits); api->initialize(&traits);
         bool compiled = std::ifstream(shared_dir + "/build/vime_pinyin.table.bin").good() &&

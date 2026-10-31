@@ -5,6 +5,7 @@ commercial distribution approval is complete. Never includes product user data.
 """
 import argparse
 import json
+import re
 from pathlib import Path
 import zipfile
 
@@ -62,6 +63,9 @@ the current app's release blockers by itself.
 
 
 def package(args):
+    version = getattr(args, "version", "0.23.0")
+    if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", version):
+        raise ValueError("A numeric package version is required")
     repo = Path(__file__).resolve().parents[1]
     output = args.output.resolve()
     if output.exists():
@@ -93,7 +97,7 @@ def package(args):
             raise ValueError("Source hash mismatch: " + name)
         files[name] = content
 
-    add("README.md", README.encode("utf-8"))
+    add("README.md", README.replace("source kit 0.23.0", "source kit " + version).encode("utf-8"))
     add("notices/dictionary-sources.lock.json", lock_bytes)
     for key, folder in (("luna", args.luna), ("essay", args.essay)):
         for name in spec[key]["files"]:
@@ -206,7 +210,7 @@ this archive. Full dictionary/Essay build sources remain in this source kit.
         index["files"]={name:{"bytes":len(content),"sha256":sha(content)} for name,content in sorted(files.items())}
     files["MANIFEST.json"] = encoded(index)
     output.mkdir(parents=True)
-    archive_path = output / "Vime-dictionary-sources-0.23.0.zip"
+    archive_path = output / ("Vime-dictionary-sources-" + version + ".zip")
     with zipfile.ZipFile(archive_path, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         for name, content in sorted(files.items()):
             info = zipfile.ZipInfo(name, date_time=(2000, 1, 1, 0, 0, 0))
@@ -231,6 +235,7 @@ this archive. Full dictionary/Essay build sources remain in this source kit.
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--version", default="0.23.0")
     for name in ("lock", "luna", "essay", "cedict", "cedict-license", "ecdict", "ecdict-license", "ecdict-readme", "prepared", "compiled", "receipt", "output"):
         parser.add_argument("--" + name, required=True, type=Path)
     for name in ("input-lexicon", "public-export", "exporter-tool", "english-lexicon", "runtime-rime"):

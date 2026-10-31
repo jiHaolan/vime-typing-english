@@ -91,6 +91,12 @@ def main():
         result = json.loads(summary[1])
         (output / 'native-results.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), 'utf-8')
         receipt.update(result=result, instrumentation_code=int(code[1]))
+        if "public_candidate_probe" in result.get("observations", {}):
+            probe = result["observations"]["public_candidate_probe"]
+            data = subprocess.check_output(base + ["exec-out", "run-as", "com.vime.ime", "cat", "files/native-public-candidate-probes.json"], timeout=30)
+            if hashlib.sha256(data).hexdigest() != probe["sha256"] or len(data) != probe["bytes"]:
+                raise RuntimeError("Public candidate probe transport checksum differs")
+            (output / "public-candidate-probes.json").write_bytes(data)
         receipt['passed'] = (int(code[1]) == -1 and result['expected'] == result['passed'] == 9
                              and result['failed'] == result['not_run'] == 0
                              and result['observations']['process_page_size_bytes'] == args.page_size)

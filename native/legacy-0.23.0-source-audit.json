@@ -1,0 +1,162 @@
+{
+  "version": "0.23.0",
+  "abis": [
+    {
+      "abi": "arm64-v8a",
+      "librime_archive_sha256": "27c157d9080fabf5ab0261d3fdb40e02ba0c177c3db24196f7c5217e6be72db8",
+      "shipped_library_sha256": "8f04a6186a435c214f11d83d32dbb39bfecc0f9708e5386cf8cccc182c4d5394",
+      "archive_members": 124,
+      "plugin_object_members": [
+        "lua_gears.cc.o",
+        "lua.cc.o",
+        "gram_db.cc.o",
+        "grammar_module.cc.o",
+        "octagram.cc.o",
+        "predict_db.cc.o",
+        "predict_engine.cc.o",
+        "predict_module.cc.o",
+        "predict_translator.cc.o",
+        "predictor.cc.o"
+      ],
+      "shipped_symbol_evidence": {
+        "Octagram::": [
+          "0000000000269334 T rime::Octagram::Query(std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>> const&, std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>> const&, bool)",
+          "0000000000268c74 T rime::Octagram::Octagram(rime::Config*, rime::OctagramComponent*)",
+          "0000000000268c74 T rime::Octagram::Octagram(rime::Config*, rime::OctagramComponent*)",
+          "0000000000269310 T rime::Octagram::~Octagram()",
+          "00000000002692ec T rime::Octagram::~Octagram()",
+          "00000000002692ec T rime::Octagram::~Octagram()"
+        ],
+        "PredictEngine::": [
+          "000000000026b690 T rime::PredictEngine::Clear()",
+          "000000000026b610 T rime::PredictEngine::Predict(rime::Context*, std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>> const&)",
+          "000000000026b4c8 T rime::PredictEngine::PredictEngine(std::__ndk1::shared_ptr<rime::PredictDb>, int, int)",
+          "000000000026b4c8 T rime::PredictEngine::PredictEngine(std::__ndk1::shared_ptr<rime::PredictDb>, int, int)",
+          "000000000026b5ec T rime::PredictEngine::~PredictEngine()",
+          "000000000026b528 T rime::PredictEngine::~PredictEngine()",
+          "000000000026b528 T rime::PredictEngine::~PredictEngine()",
+          "000000000026b6b8 T rime::PredictEngine::CreatePredictSegment(rime::Context*) const"
+        ],
+        "LuaTranslation": [
+          "00000000001cb7ec T rime::LuaTranslation::Next()",
+          "00000000001cefd0 W rime::LuaTranslation::Peek()",
+          "00000000001cc178 T rime::LuaTranslation::~LuaTranslation()",
+          "00000000001cc0cc T rime::LuaTranslation::~LuaTranslation()",
+          "00000000001cc0cc T rime::LuaTranslation::~LuaTranslation()",
+          "00000000001d2210 W std::__ndk1::__shared_ptr_emplace<rime::LuaTranslation, std::__ndk1::allocator<rime::LuaTranslation>>::__shared_ptr_emplace[abi:ne190000]<Lua*&, std::__ndk1::shared_ptr<LuaObj>&, std::__ndk1::allocator<rime::LuaTranslation>, 0>(std::__ndk1::allocator<rime::LuaTranslation>, Lua*&, std::__ndk1::shared_ptr<LuaObj>&)",
+          "00000000001d2384 W std::__ndk1::__shared_ptr_emplace<rime::LuaTranslation, std::__ndk1::allocator<rime::LuaTranslation>>::~__shared_ptr_emplace()",
+          "00000000001d2370 W std::__ndk1::__shared_ptr_emplace<rime::LuaTranslation, std::__ndk1::allocator<rime::LuaTranslation>>::~__shared_ptr_emplace()"
+        ],
+        "rime_get_module_grammar": [],
+        "rime_get_module_lua": [],
+        "rime_get_module_predict": []
+      }
+    },
+    {
+      "abi": "armeabi-v7a",
+      "librime_archive_sha256": "2728df31e426a140f06f7b77c7e56b68c18df9dd1de5766bb5b94badc1fdb0cb",
+      "shipped_library_sha256": "f8fe375704cbc4c2dfa2f56afd0708567abf94a9f0af9a6adb1e07f7e18aaacc",
+      "archive_members": 124,
+      "plugin_object_members": [
+        "lua_gears.cc.o",
+        "lua.cc.o",
+        "gram_db.cc.o",
+        "grammar_module.cc.o",
+        "octagram.cc.o",
+        "predict_db.cc.o",
+        "predict_engine.cc.o",
+        "predict_module.cc.o",
+        "predict_translator.cc.o",
+        "predictor.cc.o"
+      ],
+      "shipped_symbol_evidence": {
+        "Octagram::": [
+          "001a3158 T rime::Octagram::Query(std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>> const&, std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>> const&, bool)",
+          "001a2c30 T rime::Octagram::Octagram(rime::Config*, rime::OctagramComponent*)",
+          "001a2c30 T rime::Octagram::Octagram(rime::Config*, rime::OctagramComponent*)",
+          "001a3140 T rime::Octagram::~Octagram()",
+          "001a3110 T rime::Octagram::~Octagram()",
+          "001a3110 T rime::Octagram::~Octagram()"
+        ],
+        "PredictEngine::": [
+          "001a4972 T rime::PredictEngine::Clear()",
+          "001a4926 T rime::PredictEngine::Predict(rime::Context*, std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>> const&)",
+          "001a4838 T rime::PredictEngine::PredictEngine(std::__ndk1::shared_ptr<rime::PredictDb>, int, int)",
+          "001a4838 T rime::PredictEngine::PredictEngine(std::__ndk1::shared_ptr<rime::PredictDb>, int, int)",
+          "001a4912 T rime::PredictEngine::~PredictEngine()",
+          "001a487c T rime::PredictEngine::~PredictEngine()",
+          "001a487c T rime::PredictEngine::~PredictEngine()",
+          "001a4990 T rime::PredictEngine::CreatePredictSegment(rime::Context*) const"
+        ],
+        "LuaTranslation": [
+          "00130518 T rime::LuaTranslation::Next()",
+          "00132e00 W rime::LuaTranslation::Peek()",
+          "00130bcc T rime::LuaTranslation::~LuaTranslation()",
+          "00130b4c T rime::LuaTranslation::~LuaTranslation()",
+          "00130b4c T rime::LuaTranslation::~LuaTranslation()",
+          "00135210 W std::__ndk1::__shared_ptr_emplace<rime::LuaTranslation, std::__ndk1::allocator<rime::LuaTranslation>>::~__shared_ptr_emplace()",
+          "001351fc W std::__ndk1::__shared_ptr_emplace<rime::LuaTranslation, std::__ndk1::allocator<rime::LuaTranslation>>::~__shared_ptr_emplace()",
+          "0013523c W void std::__ndk1::allocator<rime::LuaTranslation>::construct[abi:ne190000]<rime::LuaTranslation, Lua*&, std::__ndk1::shared_ptr<LuaObj>&>(rime::LuaTranslation*, Lua*&, std::__ndk1::shared_ptr<LuaObj>&)"
+        ],
+        "rime_get_module_grammar": [],
+        "rime_get_module_lua": [],
+        "rime_get_module_predict": []
+      }
+    },
+    {
+      "abi": "x86_64",
+      "librime_archive_sha256": "2be593298baf9b017befb61d6a94263fb6649dbd8d45c43ae1119b3c3ee3f91a",
+      "shipped_library_sha256": "873aef35f1cf2dd4ce1f2a36f172afc376865371a2e355d9817a7653e71396ba",
+      "archive_members": 124,
+      "plugin_object_members": [
+        "lua_gears.cc.o",
+        "lua.cc.o",
+        "gram_db.cc.o",
+        "grammar_module.cc.o",
+        "octagram.cc.o",
+        "predict_db.cc.o",
+        "predict_engine.cc.o",
+        "predict_module.cc.o",
+        "predict_translator.cc.o",
+        "predictor.cc.o"
+      ],
+      "shipped_symbol_evidence": {
+        "Octagram::": [
+          "000000000024c0f0 T rime::Octagram::Query(std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>> const&, std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>> const&, bool)",
+          "000000000024b9a0 T rime::Octagram::Octagram(rime::Config*, rime::OctagramComponent*)",
+          "000000000024b9a0 T rime::Octagram::Octagram(rime::Config*, rime::OctagramComponent*)",
+          "000000000024c0d0 T rime::Octagram::~Octagram()",
+          "000000000024c0a0 T rime::Octagram::~Octagram()",
+          "000000000024c0a0 T rime::Octagram::~Octagram()"
+        ],
+        "PredictEngine::": [
+          "000000000024e830 T rime::PredictEngine::Clear()",
+          "000000000024e7c0 T rime::PredictEngine::Predict(rime::Context*, std::__ndk1::basic_string<char, std::__ndk1::char_traits<char>, std::__ndk1::allocator<char>> const&)",
+          "000000000024e6c0 T rime::PredictEngine::PredictEngine(std::__ndk1::shared_ptr<rime::PredictDb>, int, int)",
+          "000000000024e6c0 T rime::PredictEngine::PredictEngine(std::__ndk1::shared_ptr<rime::PredictDb>, int, int)",
+          "000000000024e7a0 T rime::PredictEngine::~PredictEngine()",
+          "000000000024e700 T rime::PredictEngine::~PredictEngine()",
+          "000000000024e700 T rime::PredictEngine::~PredictEngine()",
+          "000000000024e860 T rime::PredictEngine::CreatePredictSegment(rime::Context*) const"
+        ],
+        "LuaTranslation": [
+          "00000000001b39f0 T rime::LuaTranslation::Next()",
+          "00000000001b7080 W rime::LuaTranslation::Peek()",
+          "00000000001b43a0 T rime::LuaTranslation::~LuaTranslation()",
+          "00000000001b4300 T rime::LuaTranslation::~LuaTranslation()",
+          "00000000001b4300 T rime::LuaTranslation::~LuaTranslation()",
+          "00000000001ba400 W std::__ndk1::__shared_ptr_emplace<rime::LuaTranslation, std::__ndk1::allocator<rime::LuaTranslation>>::__shared_ptr_emplace[abi:ne190000]<Lua*&, std::__ndk1::shared_ptr<LuaObj>&, std::__ndk1::allocator<rime::LuaTranslation>, 0>(std::__ndk1::allocator<rime::LuaTranslation>, Lua*&, std::__ndk1::shared_ptr<LuaObj>&)",
+          "00000000001ba550 W std::__ndk1::__shared_ptr_emplace<rime::LuaTranslation, std::__ndk1::allocator<rime::LuaTranslation>>::~__shared_ptr_emplace()",
+          "00000000001ba530 W std::__ndk1::__shared_ptr_emplace<rime::LuaTranslation, std::__ndk1::allocator<rime::LuaTranslation>>::~__shared_ptr_emplace()"
+        ],
+        "rime_get_module_grammar": [],
+        "rime_get_module_lua": [],
+        "rime_get_module_predict": []
+      }
+    }
+  ],
+  "audit_complete": false,
+  "missing_component": "librime-octagram GPL3 plus BSD plugins and embedded third parties",
+  "source_of_plugin_license": "https://github.com/lotem/librime-octagram/blob/dfcc15115788c828d9dd7b4bff68067d3ce2ffb8/LICENSE",
+  "scope": "Actual0.23.0 three-ABI binaries only; other historical packages not individually audited"
+}

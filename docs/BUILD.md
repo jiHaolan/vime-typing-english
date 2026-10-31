@@ -129,3 +129,9 @@ adb -s emulator-5580 shell am instrument -w com.vime.ime.test/com.vime.ime.Input
 原生测试现在为9项，新增没有明文编译源、全新独立用户目录的预编译数据检查。词典测试为9项。每次改变Cand等应用接口后必须重新构建对应测试APK，不能复用旧测试二进制。
 
 `tools/build_release.py`在实际包来源核对后调用`optimize_apk_payload.py`重新创建ZIP：仅重压原DEFLATED条目，保持所有有效载荷字节及STORED原生库，再以`zipalign -P16`对齐并用操作者提供的既有证书签名。最终仍执行严格版本、证书、网络、ELF/ZIP和32MiB检查；未提供正式身份时不能将debug预览当成正式发布。独立优化命令只产出未签名APK，不能直接分发。
+
+## 0.23.1原生构建与数据库升级核对
+
+当前`Build-Native.ps1`必须提供`-EngineBuild`，先按`native/README.md`从固定源码构建引擎。不得再使用旧provider的librime.a；构建器保留六个已锁定依赖的哈希，完整源码与说明见对应原生来源包。
+
+`run_dictionary_checks.py`若基线中存在原生userdb目录，必须传`--leveldb-reader`（包括只有WAL、没有.ldb/.sst的情况）。读取器由`tools/native-leveldb-reader`以同一SDK/NDK和锁定LevelDB静态库构建；它只打开推到专用模拟器的快照副本，不打开真实在用数据库。表文件可压缩改名，所以升级比较逻辑键、记录与测试允许的学习更新。`verify_native_userdb.py`可对已有快照单独补核对，原始数据不得进入公开来源包。

@@ -47,6 +47,40 @@ class NativeRuntimeInstrumentation : Instrumentation() {
         }
     }
 
+    /** Public corpus only, on the fresh isolated native user opened by case9. */
+    private fun publicCandidateProbes() {
+        val builtIn=com.vime.ime.data.InputLexiconStore.load(targetContext)
+        val manifest=JSONObject(targetContext.assets.open("input/manifest.json").bufferedReader().use { it.readText() })
+        val file=File(targetContext.filesDir,"lexicon-input/${manifest.getString("dataset_id")}/input.lex")
+        val codes=linkedSetOf("nihao","zhendejiade","wo","e","jiwo","nidi","changdai","zhong","chong","zhang","chang","nh","wode","zhongguo","xuexiyingyu")
+        java.io.RandomAccessFile(file,"r").use { source ->
+            val mapped=source.channel.map(java.nio.channels.FileChannel.MapMode.READ_ONLY,0,source.length()).order(java.nio.ByteOrder.LITTLE_ENDIAN)
+            var at=mapped.getInt(32);val count=mapped.getInt(12)
+            check(builtIn.index.count==count)
+            repeat(count) { row ->
+                val length=mapped.get(at).toInt() and 255
+                val wordBytes=mapped.getShort(at+2).toInt() and 65535
+                if(row%3164==0) codes.add(String(ByteArray(length) { mapped.get(at+8+it) },Charsets.US_ASCII).replace(" ",""))
+                at+=8+length+wordBytes
+            }
+            check(at==mapped.limit())
+        }
+        val requests=codes.flatMap { raw -> listOf(raw,raw.map(CandidateIndex::digit).joinToString("")) }.distinct()
+        val rows=JSONArray()
+        for(raw in requests) {
+            val values=com.vime.ime.engine.RimeNative.candidates(raw,0,100)
+            check(values.isNotEmpty()) { "Missing public native probe: $raw" }
+            rows.put(JSONObject().put("raw",raw).put("rows",JSONArray(values.toList())))
+        }
+        val report=JSONObject().put("format","vime-public-native-candidate-probes-1")
+            .put("fresh_isolated_user",true).put("limit",100).put("requests",rows)
+        val bytes=report.toString().toByteArray(Charsets.UTF_8)
+        File(targetContext.filesDir,"native-public-candidate-probes.json").writeBytes(bytes)
+        val sha=java.security.MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }
+        observations.put("public_candidate_probe",JSONObject().put("requests",requests.size).put("bytes",bytes.size).put("sha256",sha)
+            .put("fresh_isolated_user",true).put("product_user_dictionary_read",false))
+    }
+
     override fun onStart() {
         var previousChoices:Boolean?=null
         try {
@@ -119,6 +153,7 @@ class NativeRuntimeInstrumentation : Instrumentation() {
                         com.vime.ime.engine.RimeNative.shutdown()
                         try {
                             check(com.vime.ime.engine.RimeNative.initialize(shared.path,user.path).isNotBlank())
+                            publicCandidateProbes()
                             for((raw,word) in mapOf("nihao" to "你好","zhendejiade" to "真的假的","zhangda" to "长大","yinhang" to "银行")) {
                                 for(input in listOf(raw,raw.map(CandidateIndex::digit).joinToString("")))
                                     check(com.vime.ime.engine.RimeNative.candidates(input,0,100).any { it.substringBefore('\t')==word })

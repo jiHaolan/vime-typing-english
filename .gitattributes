@@ -27,3 +27,14 @@ tools/verify_english_lexicon.py text eol=lf
 tools/project_rime_runtime.py text eol=lf
 tools/optimize_apk_payload.py text eol=lf
 tools/test_apk_payload.py text eol=lf
+
+# Native source receipts and packaged metadata use exact-byte hashes.
+native/sources.lock.json -text -whitespace
+notices/native-notice-sources.json -text -whitespace
+app/src/main/assets/native-sources.json -text -whitespace
+tools/build_native_engine.py text eol=lf
+tools/prepare_native_notices.py text eol=lf
+tools/package_native_sources.py text eol=lf
+tools/verify_native_source_kit.py text eol=lf
+tools/verify_native_userdb.py text eol=lf
+tools/native-leveldb-reader/** text eol=lf

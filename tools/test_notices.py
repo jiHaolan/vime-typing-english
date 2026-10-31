@@ -32,6 +32,17 @@ class NoticesChecks(unittest.TestCase):
         self.assertFalse(result["passed"])
         self.assertIn("gpl-companion-is-complete", result["failed_checks"])
 
+    def test_compatibility_label_comment_is_not_a_complete_license(self):
+        result = inspect(lambda name: b"/* Copyright notice in lua.h */" if name == "licenses/lua-compat-NOTICE.txt" else self.read(name))
+        self.assertIn("lua-compat-notices-are-complete", result["failed_checks"])
+
+    def test_provider_plugin_regression_and_stale_native_bytes_are_rejected(self):
+        source = json.loads(self.read("native-sources.json")); source["octagram_included"] = True
+        result = inspect(lambda name: json.dumps(source).encode() if name == "native-sources.json" else self.read(name))
+        self.assertIn("native-source-and-plugin-policy", result["failed_checks"])
+        result = inspect(self.read, native_libraries={"x86_64/libvime_rime.so": b"old binary", "x86_64/libc++_shared.so": b"wrong runtime"})
+        self.assertIn("native-binary-bytes:x86_64/libvime_rime.so", result["failed_checks"])
+
     def test_license_missing_from_package_is_rejected(self):
         def read(name):
             if name == "licenses/ecdict-MIT.txt":

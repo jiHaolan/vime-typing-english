@@ -1,0 +1,1422 @@
+{
+  "format": "vime-native-sources-1",
+  "prebuilt_provider": {
+    "url": "https://github.com/fcitx5-android/prebuilt",
+    "commit": "3f987c60ae1485a7b2a2cf7db301726af4700f29"
+  },
+  "prebuilder_commit": "d7774b67a46237ed53aae913c7f02ddb367f647c",
+  "sources": [
+    {
+      "id": "librime",
+      "repository": "https://github.com/rime/librime",
+      "commit": "de4700e9f6b75b109910613df907965e3cbe0567",
+      "url": "https://codeload.github.com/rime/librime/tar.gz/de4700e9f6b75b109910613df907965e3cbe0567",
+      "archive_bytes": 2650014,
+      "archive_sha256": "62816f834d938fe40bef86565116826319485c0585d3e2bb1fdd255e3a56308d"
+    },
+    {
+      "id": "librime-lua",
+      "repository": "https://github.com/hchunhui/librime-lua",
+      "commit": "68f9c364a2d25a04c7d4794981d7c796b05ab627",
+      "url": "https://codeload.github.com/hchunhui/librime-lua/tar.gz/68f9c364a2d25a04c7d4794981d7c796b05ab627",
+      "archive_bytes": 50336,
+      "archive_sha256": "3c4a60bacf8dd6389ca1b4b4889207b8f6c0c6a43e7b848cdac570d592a640b5"
+    },
+    {
+      "id": "librime-octagram",
+      "repository": "https://github.com/lotem/librime-octagram",
+      "commit": "dfcc15115788c828d9dd7b4bff68067d3ce2ffb8",
+      "url": "https://codeload.github.com/lotem/librime-octagram/tar.gz/dfcc15115788c828d9dd7b4bff68067d3ce2ffb8",
+      "archive_bytes": 17426,
+      "archive_sha256": "7da3df7a5dae82557f7a4842b94dfe81dd21ef7e036b132df0f462f2dae18393"
+    },
+    {
+      "id": "librime-predict",
+      "repository": "https://github.com/rime/librime-predict",
+      "commit": "920bd41ebf6f9bf6855d14fbe80212e54e749791",
+      "url": "https://codeload.github.com/rime/librime-predict/tar.gz/920bd41ebf6f9bf6855d14fbe80212e54e749791",
+      "archive_bytes": 9790,
+      "archive_sha256": "38b2f32254e1a35ac04dba376bc8999915c8fbdb35be489bffdf09079983400c"
+    },
+    {
+      "id": "glog",
+      "repository": "https://github.com/google/glog",
+      "commit": "7b134a5c82c0c0b5698bb6bf7a835b230c5638e4",
+      "url": "https://codeload.github.com/google/glog/tar.gz/7b134a5c82c0c0b5698bb6bf7a835b230c5638e4",
+      "archive_bytes": 182928,
+      "archive_sha256": "9c48c7c631be5af3502a19d06ebdb5c2f67d8d0bf216f896848089c1792e6193"
+    },
+    {
+      "id": "leveldb",
+      "repository": "https://github.com/google/leveldb",
+      "commit": "99b3c03b3284f5886f9ef9a4ef703d57373e61be",
+      "url": "https://codeload.github.com/google/leveldb/tar.gz/99b3c03b3284f5886f9ef9a4ef703d57373e61be",
+      "archive_bytes": 243094,
+      "archive_sha256": "bc87b9bbc5674c91246a89813355e78401759761342cc049e1c3d56350a8a9d1"
+    },
+    {
+      "id": "Lua",
+      "repository": "https://github.com/walterschell/Lua",
+      "commit": "504ef66d500fa1fb4f1684b6617b01342eee704a",
+      "url": "https://codeload.github.com/walterschell/Lua/tar.gz/504ef66d500fa1fb4f1684b6617b01342eee704a",
+      "archive_bytes": 1524939,
+      "archive_sha256": "e1f4b21091b5011e0e61c2d3ed7b9316d432dd1208e69119067437b03807c94b"
+    },
+    {
+      "id": "marisa-trie",
+      "repository": "https://github.com/s-yata/marisa-trie",
+      "commit": "3e87d53b78e15f2f43783d5e376561a8c9722051",
+      "url": "https://codeload.github.com/s-yata/marisa-trie/tar.gz/3e87d53b78e15f2f43783d5e376561a8c9722051",
+      "archive_bytes": 212943,
+      "archive_sha256": "c24516edc43be8049ef4e23e50a574d4670036fe3595c49c0f01d4d87ce58f57"
+    },
+    {
+      "id": "OpenCC",
+      "repository": "https://github.com/BYVoid/OpenCC",
+      "commit": "907bfcbbd3aae86ff04bc8eaca67c8af03108ddf",
+      "url": "https://codeload.github.com/BYVoid/OpenCC/tar.gz/907bfcbbd3aae86ff04bc8eaca67c8af03108ddf",
+      "archive_bytes": 3439596,
+      "archive_sha256": "6d87833234227dcb2ef190b12c7051859195dbe07f0c69fc66455c610d3e8267"
+    },
+    {
+      "id": "yaml-cpp",
+      "repository": "https://github.com/jbeder/yaml-cpp",
+      "commit": "56e3bb550c91fd7005566f19c079cb7a503223cf",
+      "url": "https://codeload.github.com/jbeder/yaml-cpp/tar.gz/56e3bb550c91fd7005566f19c079cb7a503223cf",
+      "archive_bytes": 1057032,
+      "archive_sha256": "b8e01ea231a96d6984b0795f225281d1e9989f40ccd589568a051450f41e9151"
+    }
+  ],
+  "engine_plugins": [
+    "lua",
+    "predict"
+  ],
+  "excluded_engine_plugins": {
+    "octagram": "GPL-3.0; absent from current Vime schemas; old0.23.0 binaries contain this plugin"
+  },
+  "core_build_policy": "Build the exact upstream BSD core from source with explicit BSD Lua/Predict. Provider core archive is forbidden. Keep complete input/English data and current schema capabilities.",
+  "dependency_archives": {
+    "glog/arm64-v8a/lib/libglog.a": {
+      "bytes": 619232,
+      "sha256": "e795b0f687fa221bf1f4d24718b06c5c347859ba9e2a4cfe9f92469f23ffd27d",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "glog/armeabi-v7a/lib/libglog.a": {
+      "bytes": 504994,
+      "sha256": "308d985e03b4a45e20f503ceaa927cd07a623efc632d86a9ba53c9282078cdc7",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "glog/x86_64/lib/libglog.a": {
+      "bytes": 601678,
+      "sha256": "7825fa0cfcdd9890a7215e95428ef2b185c30012a40437e5513a8f607c10633a",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "leveldb/arm64-v8a/lib/libleveldb.a": {
+      "bytes": 718620,
+      "sha256": "e070afd4eff2392a96976a17c69c66694d6f891ac0177a96b91e9edb4cf6781a",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "leveldb/armeabi-v7a/lib/libleveldb.a": {
+      "bytes": 687318,
+      "sha256": "e8b6a03b8dbd5ea480982c84fa122471647ca7b7517feea6de7a319f92cf7c52",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "leveldb/x86_64/lib/libleveldb.a": {
+      "bytes": 702512,
+      "sha256": "b2b545ff3b5dda82d959196f91e16aebca3e5aaaeb3a274c6a353fd4bd2905ad",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "lua/arm64-v8a/lib/liblua_static.a": {
+      "bytes": 650558,
+      "sha256": "4429c503ae46688c3a66e76447e1543dd761988d885e5d22d636c5b88292c814",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "lua/armeabi-v7a/lib/liblua_static.a": {
+      "bytes": 533502,
+      "sha256": "e4b54ba0d1cd3e6b96ff4ed57558630d44e0026b42b3bdded05bead3e1ab3c6a",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "lua/x86_64/lib/liblua_static.a": {
+      "bytes": 661886,
+      "sha256": "ae2e20108668d371217cbddf9d77520708b5890e6b6e00bad8815781489e3a6c",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "marisa/arm64-v8a/lib/libmarisa.a": {
+      "bytes": 346406,
+      "sha256": "572eae47d67aa6915a999658ab7671c99430c9446f8813615a19a0c53dc777a6",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "marisa/armeabi-v7a/lib/libmarisa.a": {
+      "bytes": 278324,
+      "sha256": "1100f275cd34e395ee3c33a491a4bb5f248a0c6e94b6820ab3a6d45baf3a7513",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "marisa/x86_64/lib/libmarisa.a": {
+      "bytes": 333276,
+      "sha256": "121ea01c7997f333a16646b581259196ae4fd6b6b6284e56a9d49f6cb8d4b368",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "opencc/arm64-v8a/lib/libopencc.a": {
+      "bytes": 897536,
+      "sha256": "e5f889175425165c4a78d9ecee9b3cd90b0daba15764c0813a2888a725b633e7",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "opencc/armeabi-v7a/lib/libopencc.a": {
+      "bytes": 797622,
+      "sha256": "21c3aa8614ead3eb789e2f44fef2bd947892e82446d3cc00f94e742d9cf83988",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "opencc/x86_64/lib/libopencc.a": {
+      "bytes": 857960,
+      "sha256": "74fc96b9303c92dbed06f7919e32aebe584a7571c17b1db143cd13e628873d33",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "yaml-cpp/arm64-v8a/lib/libyaml-cpp.a": {
+      "bytes": 1068292,
+      "sha256": "5a3a443dd099e543db6e5a79f1bd01258b52c379d4c20394ae81396c8a941ba0",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "yaml-cpp/armeabi-v7a/lib/libyaml-cpp.a": {
+      "bytes": 908870,
+      "sha256": "338d90239e8177d0f0c9e42ea6408c4cf456bc6fb2cf2cc38b0bf310965c9186",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    },
+    "yaml-cpp/x86_64/lib/libyaml-cpp.a": {
+      "bytes": 1035314,
+      "sha256": "039ab3ad0eff99daf3c1d6e710483cab4079f6b6f7d6fd58b81f8899c849d68a",
+      "provider_git_blob_or_lfs_pointer_verified": true
+    }
+  },
+  "boost": {
+    "version": "1.90.0",
+    "url": "https://github.com/boostorg/boost/releases/download/boost-1.90.0/boost-1.90.0-cmake.tar.xz",
+    "bytes": 101592940,
+    "sha256": "aca59f889f0f32028ad88ba6764582b63c916ce5f77b31289ad19421a96c555f"
+  },
+  "dependency_headers": {
+    "glog/arm64-v8a/include/glog/export.h": {
+      "sha256": "a41214efb04074cbbde22b3f7e1b4899f80c193f13ee6fc6fbff39701da5b8b5",
+      "git_blob": "cec421aacd9e23f12fbeb59cb9eee191e36d843a"
+    },
+    "glog/arm64-v8a/include/glog/flags.h": {
+      "sha256": "2b7b13370f469066c17ff6e30ef754abb28b891ae95799f76c69fd40f91cac65",
+      "git_blob": "cb542b930c769651d2262923d800d826ed1050c6"
+    },
+    "glog/arm64-v8a/include/glog/log_severity.h": {
+      "sha256": "e55c8b7fca6b0a7bc17f9d0953a1e410501e0ebae33f33e0d9acd61488d07f30",
+      "git_blob": "2fdafeb9c0cc58afc008b93815db263e413641c9"
+    },
+    "glog/arm64-v8a/include/glog/logging.h": {
+      "sha256": "6104573fe314f86769645842e028fb1da70120dc24434ccece1a1481b3ff352f",
+      "git_blob": "88d793f183b3d4aecd3ca16e13091e036b3be20b"
+    },
+    "glog/arm64-v8a/include/glog/platform.h": {
+      "sha256": "18b7396ed25652647a548d4e1ef8af468eb04f18de17ef6dd1068733f78dc665",
+      "git_blob": "efb6ff912da7feb7c98afa384ca6e77cf4edba08"
+    },
+    "glog/arm64-v8a/include/glog/raw_logging.h": {
+      "sha256": "058e65849c09dcdbf9225239c0b6b27c07c7f91cff94c0343b3d1e39d3dc5598",
+      "git_blob": "54cdd3b9d4b88b0667c205a3b00c471deddd846a"
+    },
+    "glog/arm64-v8a/include/glog/stl_logging.h": {
+      "sha256": "3411843baf7ebfefc716ba749b99a9f3c136ab2133ebe3ed06c704fa1b915385",
+      "git_blob": "8dd7707e00db7533202f4ff95b6270b25ce02ef3"
+    },
+    "glog/arm64-v8a/include/glog/types.h": {
+      "sha256": "92d2ca8db98d754f1a24728ecfd3b9b2c0ba0fc3b8b9a054c642f2c2743a9a45",
+      "git_blob": "dca2f06f83e6656baec171d2d185e33287cbb034"
+    },
+    "glog/arm64-v8a/include/glog/vlog_is_on.h": {
+      "sha256": "b87b73d7b91b5a304ee7412a59d6a3a693833db72b12113c15c7de6a3c738cf9",
+      "git_blob": "eb1c23353ad10d7cfdebbc4fe14dfebcddda6d48"
+    },
+    "glog/armeabi-v7a/include/glog/export.h": {
+      "sha256": "a41214efb04074cbbde22b3f7e1b4899f80c193f13ee6fc6fbff39701da5b8b5",
+      "git_blob": "cec421aacd9e23f12fbeb59cb9eee191e36d843a"
+    },
+    "glog/armeabi-v7a/include/glog/flags.h": {
+      "sha256": "2b7b13370f469066c17ff6e30ef754abb28b891ae95799f76c69fd40f91cac65",
+      "git_blob": "cb542b930c769651d2262923d800d826ed1050c6"
+    },
+    "glog/armeabi-v7a/include/glog/log_severity.h": {
+      "sha256": "e55c8b7fca6b0a7bc17f9d0953a1e410501e0ebae33f33e0d9acd61488d07f30",
+      "git_blob": "2fdafeb9c0cc58afc008b93815db263e413641c9"
+    },
+    "glog/armeabi-v7a/include/glog/logging.h": {
+      "sha256": "6104573fe314f86769645842e028fb1da70120dc24434ccece1a1481b3ff352f",
+      "git_blob": "88d793f183b3d4aecd3ca16e13091e036b3be20b"
+    },
+    "glog/armeabi-v7a/include/glog/platform.h": {
+      "sha256": "18b7396ed25652647a548d4e1ef8af468eb04f18de17ef6dd1068733f78dc665",
+      "git_blob": "efb6ff912da7feb7c98afa384ca6e77cf4edba08"
+    },
+    "glog/armeabi-v7a/include/glog/raw_logging.h": {
+      "sha256": "058e65849c09dcdbf9225239c0b6b27c07c7f91cff94c0343b3d1e39d3dc5598",
+      "git_blob": "54cdd3b9d4b88b0667c205a3b00c471deddd846a"
+    },
+    "glog/armeabi-v7a/include/glog/stl_logging.h": {
+      "sha256": "3411843baf7ebfefc716ba749b99a9f3c136ab2133ebe3ed06c704fa1b915385",
+      "git_blob": "8dd7707e00db7533202f4ff95b6270b25ce02ef3"
+    },
+    "glog/armeabi-v7a/include/glog/types.h": {
+      "sha256": "92d2ca8db98d754f1a24728ecfd3b9b2c0ba0fc3b8b9a054c642f2c2743a9a45",
+      "git_blob": "dca2f06f83e6656baec171d2d185e33287cbb034"
+    },
+    "glog/armeabi-v7a/include/glog/vlog_is_on.h": {
+      "sha256": "b87b73d7b91b5a304ee7412a59d6a3a693833db72b12113c15c7de6a3c738cf9",
+      "git_blob": "eb1c23353ad10d7cfdebbc4fe14dfebcddda6d48"
+    },
+    "glog/x86_64/include/glog/export.h": {
+      "sha256": "a41214efb04074cbbde22b3f7e1b4899f80c193f13ee6fc6fbff39701da5b8b5",
+      "git_blob": "cec421aacd9e23f12fbeb59cb9eee191e36d843a"
+    },
+    "glog/x86_64/include/glog/flags.h": {
+      "sha256": "2b7b13370f469066c17ff6e30ef754abb28b891ae95799f76c69fd40f91cac65",
+      "git_blob": "cb542b930c769651d2262923d800d826ed1050c6"
+    },
+    "glog/x86_64/include/glog/log_severity.h": {
+      "sha256": "e55c8b7fca6b0a7bc17f9d0953a1e410501e0ebae33f33e0d9acd61488d07f30",
+      "git_blob": "2fdafeb9c0cc58afc008b93815db263e413641c9"
+    },
+    "glog/x86_64/include/glog/logging.h": {
+      "sha256": "6104573fe314f86769645842e028fb1da70120dc24434ccece1a1481b3ff352f",
+      "git_blob": "88d793f183b3d4aecd3ca16e13091e036b3be20b"
+    },
+    "glog/x86_64/include/glog/platform.h": {
+      "sha256": "18b7396ed25652647a548d4e1ef8af468eb04f18de17ef6dd1068733f78dc665",
+      "git_blob": "efb6ff912da7feb7c98afa384ca6e77cf4edba08"
+    },
+    "glog/x86_64/include/glog/raw_logging.h": {
+      "sha256": "058e65849c09dcdbf9225239c0b6b27c07c7f91cff94c0343b3d1e39d3dc5598",
+      "git_blob": "54cdd3b9d4b88b0667c205a3b00c471deddd846a"
+    },
+    "glog/x86_64/include/glog/stl_logging.h": {
+      "sha256": "3411843baf7ebfefc716ba749b99a9f3c136ab2133ebe3ed06c704fa1b915385",
+      "git_blob": "8dd7707e00db7533202f4ff95b6270b25ce02ef3"
+    },
+    "glog/x86_64/include/glog/types.h": {
+      "sha256": "92d2ca8db98d754f1a24728ecfd3b9b2c0ba0fc3b8b9a054c642f2c2743a9a45",
+      "git_blob": "dca2f06f83e6656baec171d2d185e33287cbb034"
+    },
+    "glog/x86_64/include/glog/vlog_is_on.h": {
+      "sha256": "b87b73d7b91b5a304ee7412a59d6a3a693833db72b12113c15c7de6a3c738cf9",
+      "git_blob": "eb1c23353ad10d7cfdebbc4fe14dfebcddda6d48"
+    },
+    "leveldb/arm64-v8a/include/leveldb/c.h": {
+      "sha256": "1f748936dabb722e1ad6f869711ffe2cceeae55ffe1fcf9bc7d7bcb12fd639c1",
+      "git_blob": "02c79ba72e0919ddec530b936fb75f5fd98b4f15"
+    },
+    "leveldb/arm64-v8a/include/leveldb/cache.h": {
+      "sha256": "bf57da5d1b3872eefef20a840c292911d017315aaffc7667926dd77e170bb0e3",
+      "git_blob": "98c95acd4b0e90d6ee74e58ae04ecee8e1907037"
+    },
+    "leveldb/arm64-v8a/include/leveldb/comparator.h": {
+      "sha256": "bab63b57205a5cd5e5e4b1a65d2a97888cc4238491a32c2d673b43f0771fb538",
+      "git_blob": "a85b51ebd886aeb675423e2cbc7afe2fcb5a1023"
+    },
+    "leveldb/arm64-v8a/include/leveldb/db.h": {
+      "sha256": "66ee880f9cb5f249a251844dab340df5dad3df7fc334c9a0f27bdadec516f2a6",
+      "git_blob": "a13d147167cdc26823a5413dd17c84bd7d5b8d2a"
+    },
+    "leveldb/arm64-v8a/include/leveldb/dumpfile.h": {
+      "sha256": "b6b20cddab9b3fccf79eb54216e17d976a7571024be9cc16b2ca46869862042f",
+      "git_blob": "a58bc6b36c16d764dd3738d49078c648d7e1003d"
+    },
+    "leveldb/arm64-v8a/include/leveldb/env.h": {
+      "sha256": "61f0e148884622cc1a17a0a78db60f5edf1a543e37e3e57f52df0aeb19cd8181",
+      "git_blob": "e00895a2bbbcd61a95ad5a65351661f065eaf4d0"
+    },
+    "leveldb/arm64-v8a/include/leveldb/export.h": {
+      "sha256": "748060f62a05b34cac5ec3363156891bbbfdeab46a5812d05c46c9a537259867",
+      "git_blob": "6ba9b183da49e96603aec7d8c4e6b01442ff3c2a"
+    },
+    "leveldb/arm64-v8a/include/leveldb/filter_policy.h": {
+      "sha256": "363ca6ae98e071c82157746e4f7c0dfc054d2911dfdfaf613b7881e47a189f32",
+      "git_blob": "49c8eda7768ad342d6d53054cd6595ceaf355b73"
+    },
+    "leveldb/arm64-v8a/include/leveldb/iterator.h": {
+      "sha256": "2001e49297c01c0c7aeed0fd20fe7d4d3305d8fde072a91a29649f0f57d08382",
+      "git_blob": "bb9a5df8f54a798654b82fdd2bd0bae61620eb61"
+    },
+    "leveldb/arm64-v8a/include/leveldb/options.h": {
+      "sha256": "14e67ffd4c9d0c578ba17fdb066b7f32599d854077c8fad272e027fac4889b74",
+      "git_blob": "0f285bc6c75fa34bc12c3eeace6359e7ab02bebd"
+    },
+    "leveldb/arm64-v8a/include/leveldb/slice.h": {
+      "sha256": "3ccdff8e957fdfaf9721c118f83cdd6b4dafa31d30f804ee741d6d0915d39039",
+      "git_blob": "37cb82178dfcc0eea109f055f555822b32a2c4f2"
+    },
+    "leveldb/arm64-v8a/include/leveldb/status.h": {
+      "sha256": "27992d9a4be244ea7d0b601215076a3e9cdf666eb60ae3d7f2bbc4d87aefed6e",
+      "git_blob": "e3273144e481174cee99c1db73bef9ca6925f46a"
+    },
+    "leveldb/arm64-v8a/include/leveldb/table.h": {
+      "sha256": "c70f76ce772f7c0289976e0d3c663b13ea4e1e333a206163f422f872e11e0f1a",
+      "git_blob": "a30e90301c5d848865e3084caf26c83c96ed0f04"
+    },
+    "leveldb/arm64-v8a/include/leveldb/table_builder.h": {
+      "sha256": "bf4144f39b3dcded42a288abb2c645819e49504a5235849c23bc93698b8891df",
+      "git_blob": "85710c3321b040dff396937c81ce6cf215c1a32d"
+    },
+    "leveldb/arm64-v8a/include/leveldb/write_batch.h": {
+      "sha256": "d84cb826f924c0d47f54db071fb68e2abd7beecd6b190ba250af9ddc359a7c7e",
+      "git_blob": "94d4115fed5a2dccc6450d84d0df53bcac7624e3"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/c.h": {
+      "sha256": "1f748936dabb722e1ad6f869711ffe2cceeae55ffe1fcf9bc7d7bcb12fd639c1",
+      "git_blob": "02c79ba72e0919ddec530b936fb75f5fd98b4f15"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/cache.h": {
+      "sha256": "bf57da5d1b3872eefef20a840c292911d017315aaffc7667926dd77e170bb0e3",
+      "git_blob": "98c95acd4b0e90d6ee74e58ae04ecee8e1907037"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/comparator.h": {
+      "sha256": "bab63b57205a5cd5e5e4b1a65d2a97888cc4238491a32c2d673b43f0771fb538",
+      "git_blob": "a85b51ebd886aeb675423e2cbc7afe2fcb5a1023"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/db.h": {
+      "sha256": "66ee880f9cb5f249a251844dab340df5dad3df7fc334c9a0f27bdadec516f2a6",
+      "git_blob": "a13d147167cdc26823a5413dd17c84bd7d5b8d2a"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/dumpfile.h": {
+      "sha256": "b6b20cddab9b3fccf79eb54216e17d976a7571024be9cc16b2ca46869862042f",
+      "git_blob": "a58bc6b36c16d764dd3738d49078c648d7e1003d"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/env.h": {
+      "sha256": "61f0e148884622cc1a17a0a78db60f5edf1a543e37e3e57f52df0aeb19cd8181",
+      "git_blob": "e00895a2bbbcd61a95ad5a65351661f065eaf4d0"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/export.h": {
+      "sha256": "748060f62a05b34cac5ec3363156891bbbfdeab46a5812d05c46c9a537259867",
+      "git_blob": "6ba9b183da49e96603aec7d8c4e6b01442ff3c2a"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/filter_policy.h": {
+      "sha256": "363ca6ae98e071c82157746e4f7c0dfc054d2911dfdfaf613b7881e47a189f32",
+      "git_blob": "49c8eda7768ad342d6d53054cd6595ceaf355b73"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/iterator.h": {
+      "sha256": "2001e49297c01c0c7aeed0fd20fe7d4d3305d8fde072a91a29649f0f57d08382",
+      "git_blob": "bb9a5df8f54a798654b82fdd2bd0bae61620eb61"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/options.h": {
+      "sha256": "14e67ffd4c9d0c578ba17fdb066b7f32599d854077c8fad272e027fac4889b74",
+      "git_blob": "0f285bc6c75fa34bc12c3eeace6359e7ab02bebd"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/slice.h": {
+      "sha256": "3ccdff8e957fdfaf9721c118f83cdd6b4dafa31d30f804ee741d6d0915d39039",
+      "git_blob": "37cb82178dfcc0eea109f055f555822b32a2c4f2"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/status.h": {
+      "sha256": "27992d9a4be244ea7d0b601215076a3e9cdf666eb60ae3d7f2bbc4d87aefed6e",
+      "git_blob": "e3273144e481174cee99c1db73bef9ca6925f46a"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/table.h": {
+      "sha256": "c70f76ce772f7c0289976e0d3c663b13ea4e1e333a206163f422f872e11e0f1a",
+      "git_blob": "a30e90301c5d848865e3084caf26c83c96ed0f04"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/table_builder.h": {
+      "sha256": "bf4144f39b3dcded42a288abb2c645819e49504a5235849c23bc93698b8891df",
+      "git_blob": "85710c3321b040dff396937c81ce6cf215c1a32d"
+    },
+    "leveldb/armeabi-v7a/include/leveldb/write_batch.h": {
+      "sha256": "d84cb826f924c0d47f54db071fb68e2abd7beecd6b190ba250af9ddc359a7c7e",
+      "git_blob": "94d4115fed5a2dccc6450d84d0df53bcac7624e3"
+    },
+    "leveldb/x86_64/include/leveldb/c.h": {
+      "sha256": "1f748936dabb722e1ad6f869711ffe2cceeae55ffe1fcf9bc7d7bcb12fd639c1",
+      "git_blob": "02c79ba72e0919ddec530b936fb75f5fd98b4f15"
+    },
+    "leveldb/x86_64/include/leveldb/cache.h": {
+      "sha256": "bf57da5d1b3872eefef20a840c292911d017315aaffc7667926dd77e170bb0e3",
+      "git_blob": "98c95acd4b0e90d6ee74e58ae04ecee8e1907037"
+    },
+    "leveldb/x86_64/include/leveldb/comparator.h": {
+      "sha256": "bab63b57205a5cd5e5e4b1a65d2a97888cc4238491a32c2d673b43f0771fb538",
+      "git_blob": "a85b51ebd886aeb675423e2cbc7afe2fcb5a1023"
+    },
+    "leveldb/x86_64/include/leveldb/db.h": {
+      "sha256": "66ee880f9cb5f249a251844dab340df5dad3df7fc334c9a0f27bdadec516f2a6",
+      "git_blob": "a13d147167cdc26823a5413dd17c84bd7d5b8d2a"
+    },
+    "leveldb/x86_64/include/leveldb/dumpfile.h": {
+      "sha256": "b6b20cddab9b3fccf79eb54216e17d976a7571024be9cc16b2ca46869862042f",
+      "git_blob": "a58bc6b36c16d764dd3738d49078c648d7e1003d"
+    },
+    "leveldb/x86_64/include/leveldb/env.h": {
+      "sha256": "61f0e148884622cc1a17a0a78db60f5edf1a543e37e3e57f52df0aeb19cd8181",
+      "git_blob": "e00895a2bbbcd61a95ad5a65351661f065eaf4d0"
+    },
+    "leveldb/x86_64/include/leveldb/export.h": {
+      "sha256": "748060f62a05b34cac5ec3363156891bbbfdeab46a5812d05c46c9a537259867",
+      "git_blob": "6ba9b183da49e96603aec7d8c4e6b01442ff3c2a"
+    },
+    "leveldb/x86_64/include/leveldb/filter_policy.h": {
+      "sha256": "363ca6ae98e071c82157746e4f7c0dfc054d2911dfdfaf613b7881e47a189f32",
+      "git_blob": "49c8eda7768ad342d6d53054cd6595ceaf355b73"
+    },
+    "leveldb/x86_64/include/leveldb/iterator.h": {
+      "sha256": "2001e49297c01c0c7aeed0fd20fe7d4d3305d8fde072a91a29649f0f57d08382",
+      "git_blob": "bb9a5df8f54a798654b82fdd2bd0bae61620eb61"
+    },
+    "leveldb/x86_64/include/leveldb/options.h": {
+      "sha256": "14e67ffd4c9d0c578ba17fdb066b7f32599d854077c8fad272e027fac4889b74",
+      "git_blob": "0f285bc6c75fa34bc12c3eeace6359e7ab02bebd"
+    },
+    "leveldb/x86_64/include/leveldb/slice.h": {
+      "sha256": "3ccdff8e957fdfaf9721c118f83cdd6b4dafa31d30f804ee741d6d0915d39039",
+      "git_blob": "37cb82178dfcc0eea109f055f555822b32a2c4f2"
+    },
+    "leveldb/x86_64/include/leveldb/status.h": {
+      "sha256": "27992d9a4be244ea7d0b601215076a3e9cdf666eb60ae3d7f2bbc4d87aefed6e",
+      "git_blob": "e3273144e481174cee99c1db73bef9ca6925f46a"
+    },
+    "leveldb/x86_64/include/leveldb/table.h": {
+      "sha256": "c70f76ce772f7c0289976e0d3c663b13ea4e1e333a206163f422f872e11e0f1a",
+      "git_blob": "a30e90301c5d848865e3084caf26c83c96ed0f04"
+    },
+    "leveldb/x86_64/include/leveldb/table_builder.h": {
+      "sha256": "bf4144f39b3dcded42a288abb2c645819e49504a5235849c23bc93698b8891df",
+      "git_blob": "85710c3321b040dff396937c81ce6cf215c1a32d"
+    },
+    "leveldb/x86_64/include/leveldb/write_batch.h": {
+      "sha256": "d84cb826f924c0d47f54db071fb68e2abd7beecd6b190ba250af9ddc359a7c7e",
+      "git_blob": "94d4115fed5a2dccc6450d84d0df53bcac7624e3"
+    },
+    "lua/arm64-v8a/include/lauxlib.h": {
+      "sha256": "4c8bf271755392ffa7addb6cd22c056c000e794ccdb085e518f2684bfe88455d",
+      "git_blob": "5b977e2a39f13192dab2060cb4f4c1ce01bc1b5b"
+    },
+    "lua/arm64-v8a/include/lua.h": {
+      "sha256": "8d92dd8c495629724f0a6b59f5f201abbd41ddafdc3589556d0802ef423d2233",
+      "git_blob": "f050dac0913175c9d01f3ccb6a47ca0e9ab5c06a"
+    },
+    "lua/arm64-v8a/include/lua.hpp": {
+      "sha256": "a7a47ce4cd19f703b8025696f0631c09a664d54cfa831be4538d10441aebb48d",
+      "git_blob": "ec417f59469c8672a13a726afe6186cccbe54895"
+    },
+    "lua/arm64-v8a/include/luaconf.h": {
+      "sha256": "645b103e79cd38ad2f36be3e631be35c9c8075db5b81b1c12cc9ff36c3611e16",
+      "git_blob": "33bb580d17c5be2379518c398fd7f673b6019420"
+    },
+    "lua/arm64-v8a/include/lualib.h": {
+      "sha256": "fe3668187ef62817276fb2571a687d0c5e9d2874387185120b392400dd5590aa",
+      "git_blob": "2625529076a8f47cd733a778665c6963908fed44"
+    },
+    "lua/armeabi-v7a/include/lauxlib.h": {
+      "sha256": "4c8bf271755392ffa7addb6cd22c056c000e794ccdb085e518f2684bfe88455d",
+      "git_blob": "5b977e2a39f13192dab2060cb4f4c1ce01bc1b5b"
+    },
+    "lua/armeabi-v7a/include/lua.h": {
+      "sha256": "8d92dd8c495629724f0a6b59f5f201abbd41ddafdc3589556d0802ef423d2233",
+      "git_blob": "f050dac0913175c9d01f3ccb6a47ca0e9ab5c06a"
+    },
+    "lua/armeabi-v7a/include/lua.hpp": {
+      "sha256": "a7a47ce4cd19f703b8025696f0631c09a664d54cfa831be4538d10441aebb48d",
+      "git_blob": "ec417f59469c8672a13a726afe6186cccbe54895"
+    },
+    "lua/armeabi-v7a/include/luaconf.h": {
+      "sha256": "645b103e79cd38ad2f36be3e631be35c9c8075db5b81b1c12cc9ff36c3611e16",
+      "git_blob": "33bb580d17c5be2379518c398fd7f673b6019420"
+    },
+    "lua/armeabi-v7a/include/lualib.h": {
+      "sha256": "fe3668187ef62817276fb2571a687d0c5e9d2874387185120b392400dd5590aa",
+      "git_blob": "2625529076a8f47cd733a778665c6963908fed44"
+    },
+    "lua/x86_64/include/lauxlib.h": {
+      "sha256": "4c8bf271755392ffa7addb6cd22c056c000e794ccdb085e518f2684bfe88455d",
+      "git_blob": "5b977e2a39f13192dab2060cb4f4c1ce01bc1b5b"
+    },
+    "lua/x86_64/include/lua.h": {
+      "sha256": "8d92dd8c495629724f0a6b59f5f201abbd41ddafdc3589556d0802ef423d2233",
+      "git_blob": "f050dac0913175c9d01f3ccb6a47ca0e9ab5c06a"
+    },
+    "lua/x86_64/include/lua.hpp": {
+      "sha256": "a7a47ce4cd19f703b8025696f0631c09a664d54cfa831be4538d10441aebb48d",
+      "git_blob": "ec417f59469c8672a13a726afe6186cccbe54895"
+    },
+    "lua/x86_64/include/luaconf.h": {
+      "sha256": "645b103e79cd38ad2f36be3e631be35c9c8075db5b81b1c12cc9ff36c3611e16",
+      "git_blob": "33bb580d17c5be2379518c398fd7f673b6019420"
+    },
+    "lua/x86_64/include/lualib.h": {
+      "sha256": "fe3668187ef62817276fb2571a687d0c5e9d2874387185120b392400dd5590aa",
+      "git_blob": "2625529076a8f47cd733a778665c6963908fed44"
+    },
+    "marisa/arm64-v8a/include/marisa.h": {
+      "sha256": "9b8a3acbbdca6eebf956b599f3bf94e72a3b682eb46cd19bb57a777e79d7481d",
+      "git_blob": "a7284328975dd24b3b9d1c9423b8d4a13c7a2bff"
+    },
+    "marisa/arm64-v8a/include/marisa/agent.h": {
+      "sha256": "b21f929f65714be77ee1906ba858b74a4e68572e4c655481de53ac3b55d2ee2a",
+      "git_blob": "c6ccb7aa2a40cfabbf8524f2658300ced1fe1c46"
+    },
+    "marisa/arm64-v8a/include/marisa/base.h": {
+      "sha256": "269d5ae8bab0bf3c034bc7ca18726908d4528656ef1ae01df6f9e7df8732f9eb",
+      "git_blob": "bbb1870da1631f69d064ff4738c8bc5fdb692f51"
+    },
+    "marisa/arm64-v8a/include/marisa/iostream.h": {
+      "sha256": "b2dcee00359295a9651253f227496d6548f2a2015b86837dde9af26ae85cca10",
+      "git_blob": "05d139a23b89d2e4ab0e0e75e660aeba72d196af"
+    },
+    "marisa/arm64-v8a/include/marisa/key.h": {
+      "sha256": "31c99806dba63052fab6f9be1da3c38eb6cfa26e27134ba3d2544c9fe21c0281",
+      "git_blob": "da5af5d6aa73dddde13430acd37624d0fc083c9d"
+    },
+    "marisa/arm64-v8a/include/marisa/keyset.h": {
+      "sha256": "b271b17f71dd0545757b9e65609128fd676742efcadd27a6023c71833e8e6042",
+      "git_blob": "c4d47ae12ba37b40b7cbf3fe232bd2f4834e1eff"
+    },
+    "marisa/arm64-v8a/include/marisa/query.h": {
+      "sha256": "a1289b611ded78233743579d2de9dac29845071cd752cf5ec0c1ca6f8ff451a8",
+      "git_blob": "d877a0bd5a6c64c0ea4f17ed72bc5487b0d25ecc"
+    },
+    "marisa/arm64-v8a/include/marisa/stdio.h": {
+      "sha256": "1bd162267f017f23c01de4f0ad2c6a32f3f60d1171e382648e126037805c92a6",
+      "git_blob": "ee9a7b7795ff8b6ad74cdf85a8b93d7f16192e6b"
+    },
+    "marisa/arm64-v8a/include/marisa/trie.h": {
+      "sha256": "9d29e5dca4fcbe1c55201720586c10807b3c1016aa7654793bb20b363a65f15e",
+      "git_blob": "2435a1bd89181c3f3e899a75d1e0e2b48aabe0bc"
+    },
+    "marisa/armeabi-v7a/include/marisa.h": {
+      "sha256": "9b8a3acbbdca6eebf956b599f3bf94e72a3b682eb46cd19bb57a777e79d7481d",
+      "git_blob": "a7284328975dd24b3b9d1c9423b8d4a13c7a2bff"
+    },
+    "marisa/armeabi-v7a/include/marisa/agent.h": {
+      "sha256": "b21f929f65714be77ee1906ba858b74a4e68572e4c655481de53ac3b55d2ee2a",
+      "git_blob": "c6ccb7aa2a40cfabbf8524f2658300ced1fe1c46"
+    },
+    "marisa/armeabi-v7a/include/marisa/base.h": {
+      "sha256": "269d5ae8bab0bf3c034bc7ca18726908d4528656ef1ae01df6f9e7df8732f9eb",
+      "git_blob": "bbb1870da1631f69d064ff4738c8bc5fdb692f51"
+    },
+    "marisa/armeabi-v7a/include/marisa/iostream.h": {
+      "sha256": "b2dcee00359295a9651253f227496d6548f2a2015b86837dde9af26ae85cca10",
+      "git_blob": "05d139a23b89d2e4ab0e0e75e660aeba72d196af"
+    },
+    "marisa/armeabi-v7a/include/marisa/key.h": {
+      "sha256": "31c99806dba63052fab6f9be1da3c38eb6cfa26e27134ba3d2544c9fe21c0281",
+      "git_blob": "da5af5d6aa73dddde13430acd37624d0fc083c9d"
+    },
+    "marisa/armeabi-v7a/include/marisa/keyset.h": {
+      "sha256": "b271b17f71dd0545757b9e65609128fd676742efcadd27a6023c71833e8e6042",
+      "git_blob": "c4d47ae12ba37b40b7cbf3fe232bd2f4834e1eff"
+    },
+    "marisa/armeabi-v7a/include/marisa/query.h": {
+      "sha256": "a1289b611ded78233743579d2de9dac29845071cd752cf5ec0c1ca6f8ff451a8",
+      "git_blob": "d877a0bd5a6c64c0ea4f17ed72bc5487b0d25ecc"
+    },
+    "marisa/armeabi-v7a/include/marisa/stdio.h": {
+      "sha256": "1bd162267f017f23c01de4f0ad2c6a32f3f60d1171e382648e126037805c92a6",
+      "git_blob": "ee9a7b7795ff8b6ad74cdf85a8b93d7f16192e6b"
+    },
+    "marisa/armeabi-v7a/include/marisa/trie.h": {
+      "sha256": "9d29e5dca4fcbe1c55201720586c10807b3c1016aa7654793bb20b363a65f15e",
+      "git_blob": "2435a1bd89181c3f3e899a75d1e0e2b48aabe0bc"
+    },
+    "marisa/x86_64/include/marisa.h": {
+      "sha256": "9b8a3acbbdca6eebf956b599f3bf94e72a3b682eb46cd19bb57a777e79d7481d",
+      "git_blob": "a7284328975dd24b3b9d1c9423b8d4a13c7a2bff"
+    },
+    "marisa/x86_64/include/marisa/agent.h": {
+      "sha256": "b21f929f65714be77ee1906ba858b74a4e68572e4c655481de53ac3b55d2ee2a",
+      "git_blob": "c6ccb7aa2a40cfabbf8524f2658300ced1fe1c46"
+    },
+    "marisa/x86_64/include/marisa/base.h": {
+      "sha256": "269d5ae8bab0bf3c034bc7ca18726908d4528656ef1ae01df6f9e7df8732f9eb",
+      "git_blob": "bbb1870da1631f69d064ff4738c8bc5fdb692f51"
+    },
+    "marisa/x86_64/include/marisa/iostream.h": {
+      "sha256": "b2dcee00359295a9651253f227496d6548f2a2015b86837dde9af26ae85cca10",
+      "git_blob": "05d139a23b89d2e4ab0e0e75e660aeba72d196af"
+    },
+    "marisa/x86_64/include/marisa/key.h": {
+      "sha256": "31c99806dba63052fab6f9be1da3c38eb6cfa26e27134ba3d2544c9fe21c0281",
+      "git_blob": "da5af5d6aa73dddde13430acd37624d0fc083c9d"
+    },
+    "marisa/x86_64/include/marisa/keyset.h": {
+      "sha256": "b271b17f71dd0545757b9e65609128fd676742efcadd27a6023c71833e8e6042",
+      "git_blob": "c4d47ae12ba37b40b7cbf3fe232bd2f4834e1eff"
+    },
+    "marisa/x86_64/include/marisa/query.h": {
+      "sha256": "a1289b611ded78233743579d2de9dac29845071cd752cf5ec0c1ca6f8ff451a8",
+      "git_blob": "d877a0bd5a6c64c0ea4f17ed72bc5487b0d25ecc"
+    },
+    "marisa/x86_64/include/marisa/stdio.h": {
+      "sha256": "1bd162267f017f23c01de4f0ad2c6a32f3f60d1171e382648e126037805c92a6",
+      "git_blob": "ee9a7b7795ff8b6ad74cdf85a8b93d7f16192e6b"
+    },
+    "marisa/x86_64/include/marisa/trie.h": {
+      "sha256": "9d29e5dca4fcbe1c55201720586c10807b3c1016aa7654793bb20b363a65f15e",
+      "git_blob": "2435a1bd89181c3f3e899a75d1e0e2b48aabe0bc"
+    },
+    "opencc/arm64-v8a/include/opencc/Common.hpp": {
+      "sha256": "ace5b0d0db99138112967120349b8ae8013c323a91b4eb31d35804f89a7345ea",
+      "git_blob": "067966b55386cafcad2d8d631d0b57319474c383"
+    },
+    "opencc/arm64-v8a/include/opencc/Config.hpp": {
+      "sha256": "2452179585496ddadbfd7fbfcd91f13499c03b5fde9b65fff18586c8a580a1b7",
+      "git_blob": "6b744b9aa39a169b4cacfd9a5d5e8c86f65c103a"
+    },
+    "opencc/arm64-v8a/include/opencc/Conversion.hpp": {
+      "sha256": "3a740e0cabf0d2409d5971c424d5d1dd37e42a781305a537f8e630cbf646e48a",
+      "git_blob": "cf73a254a3f9998d0a6620f4494e6637de89e1d9"
+    },
+    "opencc/arm64-v8a/include/opencc/ConversionChain.hpp": {
+      "sha256": "272bba197684a900f8e25d5fb1f0d0bee9440825d57188b6223d73e931dc1f08",
+      "git_blob": "28853c67cd042a933e5e11217f3ab24d2438a4bc"
+    },
+    "opencc/arm64-v8a/include/opencc/Converter.hpp": {
+      "sha256": "87e0fe02eb791e39507858075c2f94463452ccc420e09110b73db82f367919ef",
+      "git_blob": "9f1f3f9421b56a120179ef3758bcfb463f30a8a6"
+    },
+    "opencc/arm64-v8a/include/opencc/Dict.hpp": {
+      "sha256": "7dd90ea26f20c601764d1d0e31f6d41e27366e267d1fd85ada7af9f52d6a2cdb",
+      "git_blob": "1c810346c17ec7b710434890760bd693e17e2956"
+    },
+    "opencc/arm64-v8a/include/opencc/DictConverter.hpp": {
+      "sha256": "81996f2fe67d8dda3b969d6c295f9262024b9b15ddb4031868675cf355f177de",
+      "git_blob": "f911c4feb57affd8106309249a03031f3192ad96"
+    },
+    "opencc/arm64-v8a/include/opencc/DictEntry.hpp": {
+      "sha256": "34608c1516bc1fe3fb44f0365f8c58635bbbfbf2aae5003febb39960d0d12e6b",
+      "git_blob": "7b2babda52a4123ccb31ddb9f5f8d285d4772a78"
+    },
+    "opencc/arm64-v8a/include/opencc/DictGroup.hpp": {
+      "sha256": "f488f7a67de8950260105806c41a853714cd979d916f9f9bc6c97074e5c53153",
+      "git_blob": "fd51d9133da1b6eac3904009edfd07cdc662e57c"
+    },
+    "opencc/arm64-v8a/include/opencc/Exception.hpp": {
+      "sha256": "3e0480c49c82ffda59b5074966343d4f9247c7a567d391e63728e38c694306cd",
+      "git_blob": "7875537f60e042135019536daa6943652e60d901"
+    },
+    "opencc/arm64-v8a/include/opencc/Export.hpp": {
+      "sha256": "541b2538c4294a6dea159cfa3dd6449e929f15417c7b103e196d98746699a86b",
+      "git_blob": "0015e880f3e09f4d79511edfa78dbb1081027e11"
+    },
+    "opencc/arm64-v8a/include/opencc/Lexicon.hpp": {
+      "sha256": "370251120b707c2a3751a391ac4f84b8e4fc237e53e07b6a231f5bd97d52c576",
+      "git_blob": "61dcc59ed74e0176c623f8207b2e00bff29c20f1"
+    },
+    "opencc/arm64-v8a/include/opencc/MarisaDict.hpp": {
+      "sha256": "fc3b87a7ce32c87b800294e5de094e6af68a0b5e90d900ed17be1cc31e6f11cd",
+      "git_blob": "6917c23aa885381d803851ccda080c3684c82c12"
+    },
+    "opencc/arm64-v8a/include/opencc/MaxMatchSegmentation.hpp": {
+      "sha256": "31f8a0ba0b37dbfa9142c23b041445bed118b4087ca4fbfefa6b1723aeea5783",
+      "git_blob": "1ecc227e2ed0920af95527a25c15854ca4faa698"
+    },
+    "opencc/arm64-v8a/include/opencc/Optional.hpp": {
+      "sha256": "db8042c763da2846bcd8ecf386e8caa1d08d9e312aaed1a2910b74b8c9a485af",
+      "git_blob": "8a510f43b1c9d637678b68209e74b828e5c59648"
+    },
+    "opencc/arm64-v8a/include/opencc/PhraseExtract.hpp": {
+      "sha256": "0273a65f9b97dcc3fb7501533044fa916762c76a9be5c761977e7da85756a131",
+      "git_blob": "75a165deb0f75ae5f5403b2924d2d54037ef637b"
+    },
+    "opencc/arm64-v8a/include/opencc/Segmentation.hpp": {
+      "sha256": "ab467d5a9eb529ac1c140dc53e763582cb4c97816f240f0952b5ca3fccfc000a",
+      "git_blob": "c260ea6de995560929398df37a5c77aecde1700d"
+    },
+    "opencc/arm64-v8a/include/opencc/Segments.hpp": {
+      "sha256": "a37f7509e8a6e562b3ca9b48105303be529537574a2cd896835a5ed5731c92e8",
+      "git_blob": "57320fe21b65a2f2967058017f683bd6c4e88af6"
+    },
+    "opencc/arm64-v8a/include/opencc/SerializableDict.hpp": {
+      "sha256": "216c1d8080f6025c5b4aca0e1d807ca55373aba68f908cfc76eda3a7c22a878c",
+      "git_blob": "17cea8903d7d66c78499d267af64e76b87e4fa8a"
+    },
+    "opencc/arm64-v8a/include/opencc/SerializedValues.hpp": {
+      "sha256": "0e2da715c962bfd443b2e4cc56fb2cb2e611abb1de3fbb47eb4bac69c835b4c1",
+      "git_blob": "f7e5bb264513a450b4aca6d4670a66892b7caa76"
+    },
+    "opencc/arm64-v8a/include/opencc/SimpleConverter.hpp": {
+      "sha256": "978866f0d118f79eb203b4c8190a875159047a4ecd3e2584851426135e859fc0",
+      "git_blob": "c7cda2bf7f42f869c439a8fd80beb973b02b284a"
+    },
+    "opencc/arm64-v8a/include/opencc/TextDict.hpp": {
+      "sha256": "bb52701738c882421362ce4b86663277a0ee8eb2d3a3e3a4955554d43b05dce6",
+      "git_blob": "f1cb67d92e81069a2e74ecb3938acfbaf1d7a21a"
+    },
+    "opencc/arm64-v8a/include/opencc/UTF8StringSlice.hpp": {
+      "sha256": "63c170ead21aa76e2c902fdea169544314a0c9936f7d48dff66d17ddec4fc64f",
+      "git_blob": "0c9dfdc6eccd1486f6146776340128b3e9eaa947"
+    },
+    "opencc/arm64-v8a/include/opencc/UTF8Util.hpp": {
+      "sha256": "b49ed431c5fcb0b73af0f6c34395ba1b9a66eb4e0bee63d4c274c660a8ac767b",
+      "git_blob": "6babd3674be37fdc9239f8d5228a5b0471eb13e2"
+    },
+    "opencc/arm64-v8a/include/opencc/opencc.h": {
+      "sha256": "83f7e3fa6b9c098569224ac4d8b2a36d14dbfeb2824fbf79ceb614bf04e5f3b6",
+      "git_blob": "bc3a9e97b509936585ee8a8e960a80459e7ce299"
+    },
+    "opencc/arm64-v8a/include/opencc/opencc_config.h": {
+      "sha256": "a0c4008abe7e73666fa356797b64975f42b491005f3249a83a87cd2b3386cb68",
+      "git_blob": "8dad4489643fa136090008146add852117dbf086"
+    },
+    "opencc/armeabi-v7a/include/opencc/Common.hpp": {
+      "sha256": "ace5b0d0db99138112967120349b8ae8013c323a91b4eb31d35804f89a7345ea",
+      "git_blob": "067966b55386cafcad2d8d631d0b57319474c383"
+    },
+    "opencc/armeabi-v7a/include/opencc/Config.hpp": {
+      "sha256": "2452179585496ddadbfd7fbfcd91f13499c03b5fde9b65fff18586c8a580a1b7",
+      "git_blob": "6b744b9aa39a169b4cacfd9a5d5e8c86f65c103a"
+    },
+    "opencc/armeabi-v7a/include/opencc/Conversion.hpp": {
+      "sha256": "3a740e0cabf0d2409d5971c424d5d1dd37e42a781305a537f8e630cbf646e48a",
+      "git_blob": "cf73a254a3f9998d0a6620f4494e6637de89e1d9"
+    },
+    "opencc/armeabi-v7a/include/opencc/ConversionChain.hpp": {
+      "sha256": "272bba197684a900f8e25d5fb1f0d0bee9440825d57188b6223d73e931dc1f08",
+      "git_blob": "28853c67cd042a933e5e11217f3ab24d2438a4bc"
+    },
+    "opencc/armeabi-v7a/include/opencc/Converter.hpp": {
+      "sha256": "87e0fe02eb791e39507858075c2f94463452ccc420e09110b73db82f367919ef",
+      "git_blob": "9f1f3f9421b56a120179ef3758bcfb463f30a8a6"
+    },
+    "opencc/armeabi-v7a/include/opencc/Dict.hpp": {
+      "sha256": "7dd90ea26f20c601764d1d0e31f6d41e27366e267d1fd85ada7af9f52d6a2cdb",
+      "git_blob": "1c810346c17ec7b710434890760bd693e17e2956"
+    },
+    "opencc/armeabi-v7a/include/opencc/DictConverter.hpp": {
+      "sha256": "81996f2fe67d8dda3b969d6c295f9262024b9b15ddb4031868675cf355f177de",
+      "git_blob": "f911c4feb57affd8106309249a03031f3192ad96"
+    },
+    "opencc/armeabi-v7a/include/opencc/DictEntry.hpp": {
+      "sha256": "34608c1516bc1fe3fb44f0365f8c58635bbbfbf2aae5003febb39960d0d12e6b",
+      "git_blob": "7b2babda52a4123ccb31ddb9f5f8d285d4772a78"
+    },
+    "opencc/armeabi-v7a/include/opencc/DictGroup.hpp": {
+      "sha256": "f488f7a67de8950260105806c41a853714cd979d916f9f9bc6c97074e5c53153",
+      "git_blob": "fd51d9133da1b6eac3904009edfd07cdc662e57c"
+    },
+    "opencc/armeabi-v7a/include/opencc/Exception.hpp": {
+      "sha256": "3e0480c49c82ffda59b5074966343d4f9247c7a567d391e63728e38c694306cd",
+      "git_blob": "7875537f60e042135019536daa6943652e60d901"
+    },
+    "opencc/armeabi-v7a/include/opencc/Export.hpp": {
+      "sha256": "541b2538c4294a6dea159cfa3dd6449e929f15417c7b103e196d98746699a86b",
+      "git_blob": "0015e880f3e09f4d79511edfa78dbb1081027e11"
+    },
+    "opencc/armeabi-v7a/include/opencc/Lexicon.hpp": {
+      "sha256": "370251120b707c2a3751a391ac4f84b8e4fc237e53e07b6a231f5bd97d52c576",
+      "git_blob": "61dcc59ed74e0176c623f8207b2e00bff29c20f1"
+    },
+    "opencc/armeabi-v7a/include/opencc/MarisaDict.hpp": {
+      "sha256": "fc3b87a7ce32c87b800294e5de094e6af68a0b5e90d900ed17be1cc31e6f11cd",
+      "git_blob": "6917c23aa885381d803851ccda080c3684c82c12"
+    },
+    "opencc/armeabi-v7a/include/opencc/MaxMatchSegmentation.hpp": {
+      "sha256": "31f8a0ba0b37dbfa9142c23b041445bed118b4087ca4fbfefa6b1723aeea5783",
+      "git_blob": "1ecc227e2ed0920af95527a25c15854ca4faa698"
+    },
+    "opencc/armeabi-v7a/include/opencc/Optional.hpp": {
+      "sha256": "db8042c763da2846bcd8ecf386e8caa1d08d9e312aaed1a2910b74b8c9a485af",
+      "git_blob": "8a510f43b1c9d637678b68209e74b828e5c59648"
+    },
+    "opencc/armeabi-v7a/include/opencc/PhraseExtract.hpp": {
+      "sha256": "0273a65f9b97dcc3fb7501533044fa916762c76a9be5c761977e7da85756a131",
+      "git_blob": "75a165deb0f75ae5f5403b2924d2d54037ef637b"
+    },
+    "opencc/armeabi-v7a/include/opencc/Segmentation.hpp": {
+      "sha256": "ab467d5a9eb529ac1c140dc53e763582cb4c97816f240f0952b5ca3fccfc000a",
+      "git_blob": "c260ea6de995560929398df37a5c77aecde1700d"
+    },
+    "opencc/armeabi-v7a/include/opencc/Segments.hpp": {
+      "sha256": "a37f7509e8a6e562b3ca9b48105303be529537574a2cd896835a5ed5731c92e8",
+      "git_blob": "57320fe21b65a2f2967058017f683bd6c4e88af6"
+    },
+    "opencc/armeabi-v7a/include/opencc/SerializableDict.hpp": {
+      "sha256": "216c1d8080f6025c5b4aca0e1d807ca55373aba68f908cfc76eda3a7c22a878c",
+      "git_blob": "17cea8903d7d66c78499d267af64e76b87e4fa8a"
+    },
+    "opencc/armeabi-v7a/include/opencc/SerializedValues.hpp": {
+      "sha256": "0e2da715c962bfd443b2e4cc56fb2cb2e611abb1de3fbb47eb4bac69c835b4c1",
+      "git_blob": "f7e5bb264513a450b4aca6d4670a66892b7caa76"
+    },
+    "opencc/armeabi-v7a/include/opencc/SimpleConverter.hpp": {
+      "sha256": "978866f0d118f79eb203b4c8190a875159047a4ecd3e2584851426135e859fc0",
+      "git_blob": "c7cda2bf7f42f869c439a8fd80beb973b02b284a"
+    },
+    "opencc/armeabi-v7a/include/opencc/TextDict.hpp": {
+      "sha256": "bb52701738c882421362ce4b86663277a0ee8eb2d3a3e3a4955554d43b05dce6",
+      "git_blob": "f1cb67d92e81069a2e74ecb3938acfbaf1d7a21a"
+    },
+    "opencc/armeabi-v7a/include/opencc/UTF8StringSlice.hpp": {
+      "sha256": "63c170ead21aa76e2c902fdea169544314a0c9936f7d48dff66d17ddec4fc64f",
+      "git_blob": "0c9dfdc6eccd1486f6146776340128b3e9eaa947"
+    },
+    "opencc/armeabi-v7a/include/opencc/UTF8Util.hpp": {
+      "sha256": "b49ed431c5fcb0b73af0f6c34395ba1b9a66eb4e0bee63d4c274c660a8ac767b",
+      "git_blob": "6babd3674be37fdc9239f8d5228a5b0471eb13e2"
+    },
+    "opencc/armeabi-v7a/include/opencc/opencc.h": {
+      "sha256": "83f7e3fa6b9c098569224ac4d8b2a36d14dbfeb2824fbf79ceb614bf04e5f3b6",
+      "git_blob": "bc3a9e97b509936585ee8a8e960a80459e7ce299"
+    },
+    "opencc/armeabi-v7a/include/opencc/opencc_config.h": {
+      "sha256": "a0c4008abe7e73666fa356797b64975f42b491005f3249a83a87cd2b3386cb68",
+      "git_blob": "8dad4489643fa136090008146add852117dbf086"
+    },
+    "opencc/x86_64/include/opencc/Common.hpp": {
+      "sha256": "ace5b0d0db99138112967120349b8ae8013c323a91b4eb31d35804f89a7345ea",
+      "git_blob": "067966b55386cafcad2d8d631d0b57319474c383"
+    },
+    "opencc/x86_64/include/opencc/Config.hpp": {
+      "sha256": "2452179585496ddadbfd7fbfcd91f13499c03b5fde9b65fff18586c8a580a1b7",
+      "git_blob": "6b744b9aa39a169b4cacfd9a5d5e8c86f65c103a"
+    },
+    "opencc/x86_64/include/opencc/Conversion.hpp": {
+      "sha256": "3a740e0cabf0d2409d5971c424d5d1dd37e42a781305a537f8e630cbf646e48a",
+      "git_blob": "cf73a254a3f9998d0a6620f4494e6637de89e1d9"
+    },
+    "opencc/x86_64/include/opencc/ConversionChain.hpp": {
+      "sha256": "272bba197684a900f8e25d5fb1f0d0bee9440825d57188b6223d73e931dc1f08",
+      "git_blob": "28853c67cd042a933e5e11217f3ab24d2438a4bc"
+    },
+    "opencc/x86_64/include/opencc/Converter.hpp": {
+      "sha256": "87e0fe02eb791e39507858075c2f94463452ccc420e09110b73db82f367919ef",
+      "git_blob": "9f1f3f9421b56a120179ef3758bcfb463f30a8a6"
+    },
+    "opencc/x86_64/include/opencc/Dict.hpp": {
+      "sha256": "7dd90ea26f20c601764d1d0e31f6d41e27366e267d1fd85ada7af9f52d6a2cdb",
+      "git_blob": "1c810346c17ec7b710434890760bd693e17e2956"
+    },
+    "opencc/x86_64/include/opencc/DictConverter.hpp": {
+      "sha256": "81996f2fe67d8dda3b969d6c295f9262024b9b15ddb4031868675cf355f177de",
+      "git_blob": "f911c4feb57affd8106309249a03031f3192ad96"
+    },
+    "opencc/x86_64/include/opencc/DictEntry.hpp": {
+      "sha256": "34608c1516bc1fe3fb44f0365f8c58635bbbfbf2aae5003febb39960d0d12e6b",
+      "git_blob": "7b2babda52a4123ccb31ddb9f5f8d285d4772a78"
+    },
+    "opencc/x86_64/include/opencc/DictGroup.hpp": {
+      "sha256": "f488f7a67de8950260105806c41a853714cd979d916f9f9bc6c97074e5c53153",
+      "git_blob": "fd51d9133da1b6eac3904009edfd07cdc662e57c"
+    },
+    "opencc/x86_64/include/opencc/Exception.hpp": {
+      "sha256": "3e0480c49c82ffda59b5074966343d4f9247c7a567d391e63728e38c694306cd",
+      "git_blob": "7875537f60e042135019536daa6943652e60d901"
+    },
+    "opencc/x86_64/include/opencc/Export.hpp": {
+      "sha256": "541b2538c4294a6dea159cfa3dd6449e929f15417c7b103e196d98746699a86b",
+      "git_blob": "0015e880f3e09f4d79511edfa78dbb1081027e11"
+    },
+    "opencc/x86_64/include/opencc/Lexicon.hpp": {
+      "sha256": "370251120b707c2a3751a391ac4f84b8e4fc237e53e07b6a231f5bd97d52c576",
+      "git_blob": "61dcc59ed74e0176c623f8207b2e00bff29c20f1"
+    },
+    "opencc/x86_64/include/opencc/MarisaDict.hpp": {
+      "sha256": "fc3b87a7ce32c87b800294e5de094e6af68a0b5e90d900ed17be1cc31e6f11cd",
+      "git_blob": "6917c23aa885381d803851ccda080c3684c82c12"
+    },
+    "opencc/x86_64/include/opencc/MaxMatchSegmentation.hpp": {
+      "sha256": "31f8a0ba0b37dbfa9142c23b041445bed118b4087ca4fbfefa6b1723aeea5783",
+      "git_blob": "1ecc227e2ed0920af95527a25c15854ca4faa698"
+    },
+    "opencc/x86_64/include/opencc/Optional.hpp": {
+      "sha256": "db8042c763da2846bcd8ecf386e8caa1d08d9e312aaed1a2910b74b8c9a485af",
+      "git_blob": "8a510f43b1c9d637678b68209e74b828e5c59648"
+    },
+    "opencc/x86_64/include/opencc/PhraseExtract.hpp": {
+      "sha256": "0273a65f9b97dcc3fb7501533044fa916762c76a9be5c761977e7da85756a131",
+      "git_blob": "75a165deb0f75ae5f5403b2924d2d54037ef637b"
+    },
+    "opencc/x86_64/include/opencc/Segmentation.hpp": {
+      "sha256": "ab467d5a9eb529ac1c140dc53e763582cb4c97816f240f0952b5ca3fccfc000a",
+      "git_blob": "c260ea6de995560929398df37a5c77aecde1700d"
+    },
+    "opencc/x86_64/include/opencc/Segments.hpp": {
+      "sha256": "a37f7509e8a6e562b3ca9b48105303be529537574a2cd896835a5ed5731c92e8",
+      "git_blob": "57320fe21b65a2f2967058017f683bd6c4e88af6"
+    },
+    "opencc/x86_64/include/opencc/SerializableDict.hpp": {
+      "sha256": "216c1d8080f6025c5b4aca0e1d807ca55373aba68f908cfc76eda3a7c22a878c",
+      "git_blob": "17cea8903d7d66c78499d267af64e76b87e4fa8a"
+    },
+    "opencc/x86_64/include/opencc/SerializedValues.hpp": {
+      "sha256": "0e2da715c962bfd443b2e4cc56fb2cb2e611abb1de3fbb47eb4bac69c835b4c1",
+      "git_blob": "f7e5bb264513a450b4aca6d4670a66892b7caa76"
+    },
+    "opencc/x86_64/include/opencc/SimpleConverter.hpp": {
+      "sha256": "978866f0d118f79eb203b4c8190a875159047a4ecd3e2584851426135e859fc0",
+      "git_blob": "c7cda2bf7f42f869c439a8fd80beb973b02b284a"
+    },
+    "opencc/x86_64/include/opencc/TextDict.hpp": {
+      "sha256": "bb52701738c882421362ce4b86663277a0ee8eb2d3a3e3a4955554d43b05dce6",
+      "git_blob": "f1cb67d92e81069a2e74ecb3938acfbaf1d7a21a"
+    },
+    "opencc/x86_64/include/opencc/UTF8StringSlice.hpp": {
+      "sha256": "63c170ead21aa76e2c902fdea169544314a0c9936f7d48dff66d17ddec4fc64f",
+      "git_blob": "0c9dfdc6eccd1486f6146776340128b3e9eaa947"
+    },
+    "opencc/x86_64/include/opencc/UTF8Util.hpp": {
+      "sha256": "b49ed431c5fcb0b73af0f6c34395ba1b9a66eb4e0bee63d4c274c660a8ac767b",
+      "git_blob": "6babd3674be37fdc9239f8d5228a5b0471eb13e2"
+    },
+    "opencc/x86_64/include/opencc/opencc.h": {
+      "sha256": "83f7e3fa6b9c098569224ac4d8b2a36d14dbfeb2824fbf79ceb614bf04e5f3b6",
+      "git_blob": "bc3a9e97b509936585ee8a8e960a80459e7ce299"
+    },
+    "opencc/x86_64/include/opencc/opencc_config.h": {
+      "sha256": "a0c4008abe7e73666fa356797b64975f42b491005f3249a83a87cd2b3386cb68",
+      "git_blob": "8dad4489643fa136090008146add852117dbf086"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/anchor.h": {
+      "sha256": "595983999be1c6726188c180a11220be9fb6ec3032eab80935eb40c28c5625f2",
+      "git_blob": "f46d1d79dd8a1478b4055dc1b572c14c8c93ce9a"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/binary.h": {
+      "sha256": "85066ccce1c7b6f86caf231e3cb2489a1633d185d14cc19c566dfb484aa4599b",
+      "git_blob": "1050dae98c3cc9fe0b6261737895c24bf8518fde"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/contrib/anchordict.h": {
+      "sha256": "aa7751ca3f42d00f2ad88b33f0b6dfd630bf6f936a6bea3b9b3897de9ab8ad68",
+      "git_blob": "1b7809b875f6ea8d5933ce8e5720955f935c0f78"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/contrib/graphbuilder.h": {
+      "sha256": "c679a0ad59c425f1786a2fa88534fcf3e3cd65af60dff1276ec55e5cf1e18073",
+      "git_blob": "dbffd921e6691be5a7faa3ea52421a02c84b9555"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/depthguard.h": {
+      "sha256": "48b100b68ca96a97411f16ff590c7a00adbd92255391640a08ea9f665e6273a0",
+      "git_blob": "8ca61ac6ccc175fc557d3e3a203ed72fe0387b9e"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/dll.h": {
+      "sha256": "bb0d0bf4e5a9112ec4652741ff65c803c105bc3f1aaac62aadc3cb26babb3bcb",
+      "git_blob": "4e55ab8c22449e4f71a91dd19de744aa09d66e1a"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/emitfromevents.h": {
+      "sha256": "a92fced3faea68fe641e703435cd92a729fb05529ee3b4c2b9db51e275f88be3",
+      "git_blob": "c00d26e74d0bccc3717f66d8f015ba9337b444ae"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/emitter.h": {
+      "sha256": "b582e5a77294c3c4391d73ce3a684c904463e2d019a1a1699fe009539defe667",
+      "git_blob": "67810ef3418f0ddd7f2baadb3beec223b343f9c6"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/emitterdef.h": {
+      "sha256": "c6645ad3eeb21a98c7a5e0e1290c40420f567d9aa59775b51922a3a4f83c6245",
+      "git_blob": "0b426957fae2764eeceefb51e6ad8add6626c7e2"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/emittermanip.h": {
+      "sha256": "fd7e585b852d0761354e3a90dd0ff386d1f44664885e3dd1c655df46b6cdc53c",
+      "git_blob": "976d14950fc7a71fffa34ca714322d0405dc9bd0"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/emitterstyle.h": {
+      "sha256": "cc23df6976aea63debf280d3120d2a9f682a3afd2301f52f2c658c4d088b434e",
+      "git_blob": "5a6355fa2bf1fb50b836c38bccad7e66d1e7eb0a"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/eventhandler.h": {
+      "sha256": "48accbd7cf820c8522f18028220a28230a0cd42186401fff86f3b667cf47f550",
+      "git_blob": "7242fe1f5ba9dbb8808ab74a26959a05c375572a"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/exceptions.h": {
+      "sha256": "6dfc5fdd2d62cdaac6545b9a8394a83509eac36fb54219422ffe0ec6245c7a9d",
+      "git_blob": "99e06b24ebfbbeb2549faf8794129f6e5b52af65"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/fptostring.h": {
+      "sha256": "f14693b9052ae32449eb6a8b77b695e5ab3b471a87b80a08d2d42e1d325c2170",
+      "git_blob": "051053be9a4e3f3973e37b1d7633ac81ab1f19e0"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/mark.h": {
+      "sha256": "5a953c4daf1bd800b6c88f5760c6edb71800aff6f784700747afebb0a057f2e8",
+      "git_blob": "bf94b4f41fc6c96fcb9ffebcda55a4f60cc6cfdf"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/convert.h": {
+      "sha256": "5c2c6803ae811e0425554f618bf875bf9d5fa7349c47acd9068f1af9ba1fa21b",
+      "git_blob": "0f04ea6fd7a2e8a5bfb8ad16d1e89763ca91612d"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/detail/impl.h": {
+      "sha256": "1818946058354cbba298a44cc706dca214c7dda060e3af6f4208902abea89a04",
+      "git_blob": "b38038dfd225207d008730d673a7845dcfb16027"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/detail/iterator.h": {
+      "sha256": "2d1037aa2b3f28b87844707787479d3d34f422502f5667a9fde95ef4c528c2e4",
+      "git_blob": "04d2da4fca2594a62480ef5a62f1aecaf484954d"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/detail/iterator_fwd.h": {
+      "sha256": "dd1d89979d868a4642709ebfe0fa1e05be47e0e52706f1422f3a4df9ff70973c",
+      "git_blob": "75c9de086c05727dadd237cec874120d2c9fec88"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/detail/memory.h": {
+      "sha256": "c64fee6b9d34c51cdee214b00bec5cdee7e3751942aacda0a94e4f8acb553978",
+      "git_blob": "942ab668d4cfca6f28f6abb34f94d312fbe53c4b"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/detail/node.h": {
+      "sha256": "0bd4b3c9eb96df9cb5e8b7f5270d2f90bc45db14c1f370d557ee1aadcaaa8550",
+      "git_blob": "acf60ffb6dff588dcc4f47675ec97ef8cc9d9a5e"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/detail/node_data.h": {
+      "sha256": "2eaec20ffb3bbb5cfad02641a2f35ec645aa9047e2d41c1cd46c2db50c3bcdbf",
+      "git_blob": "07cf81aa099217822bfefff5558889a899c3cf86"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/detail/node_iterator.h": {
+      "sha256": "3c0f13e62e8beda5b7638ac58ad1167a34d85139198feeef2cf0a9260e89bcc5",
+      "git_blob": "6eb4ddc13409c17aaa04cf46795865b6e7f12deb"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/detail/node_ref.h": {
+      "sha256": "07ee60ac30df95777aba6499566228f3d5eac34ff5aa32c1cb23b431e7ab86e4",
+      "git_blob": "d8a94f8b8045cf106f5db24e7254f02fada9df2b"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/emit.h": {
+      "sha256": "d07f0d701ffc3c4932decac9b1f4625524a5c60f843794c4831c739e40176a6e",
+      "git_blob": "032268c5d04af8ab09d98e51ddc4288f640b2152"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/impl.h": {
+      "sha256": "220e60a9e1271cdb9a49df12aeb3e9c8efbcd02529a51c03f713200ed1957e13",
+      "git_blob": "f5d622b25409661e7c811568acf3c2441386971f"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/iterator.h": {
+      "sha256": "e12d8aa1d1563a6ca454d2309c6e2e2f09dabebfee199684ae2d615a815aa31e",
+      "git_blob": "1fcf6e400ff6b3c31bcac731c834159bbccf37bf"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/node.h": {
+      "sha256": "3ceaff497eaf561cd0307019e6fb9d74c0982741ad70e8df8957f4fd1ceba9d5",
+      "git_blob": "c9e9a0a4bc190d2f1236ffb9a369663569d04a31"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/parse.h": {
+      "sha256": "8f2ad0fba222a0d809b095a47436ed9598a1c8f40b6476011b60d056e119a545",
+      "git_blob": "7745fd7245bec055711877d13b5ea34d87395b20"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/ptr.h": {
+      "sha256": "c73b278143cb2479a5df1898d306fd321c22061c94a026a6275043bcdfde55b8",
+      "git_blob": "f55d95ed9cade1f12b9e0b6fbb9170b1a4b4dc72"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/node/type.h": {
+      "sha256": "410436953a5c962a330719de11133acffc59a497be69dd5c52d2ebf877dbf228",
+      "git_blob": "b1237670cf173b92849947e03f700180f6c2741a"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/noexcept.h": {
+      "sha256": "5392dd44e94d7cf2dbe686cdb66b1f2e3112517fbb3ec272157751a057cd13a0",
+      "git_blob": "6aac63516f357aab77a3019099e1a5545dd7d48b"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/null.h": {
+      "sha256": "f6ed6aa5179ff7d72cdffd46841a2115b8551a65833aaf869ff3f91f1594d943",
+      "git_blob": "472e961eae60f7f3d6efdb0643e0a59eb956e98a"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/ostream_wrapper.h": {
+      "sha256": "032a5d98a8357033f94a22516ba9e168307dbc59bb8c8462077fcb50be24ab5c",
+      "git_blob": "cf89741d0935aad2d7b28ad49eb59a1cb0e05326"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/parser.h": {
+      "sha256": "abcf07ab1d4c74d9e286d7a7c8626c9e499748fc7eb81eb2c8b2eb3176419c0b",
+      "git_blob": "2f403c3504805641884eab084e4c7729e1c18cdd"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/stlemitter.h": {
+      "sha256": "d564df8d86cdeba5addc2aa6f6fc52d29b445d6408b452b7ad89861c07133510",
+      "git_blob": "210a2f64e6a816bca3535dcb945e52881d452562"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/traits.h": {
+      "sha256": "a42df66f19b567b573b91ff0ca94785d2732ff21c5311d7e1674f6df9dff368b",
+      "git_blob": "8df939305481ab94ed859027af8fcd9d4e725a7c"
+    },
+    "yaml-cpp/arm64-v8a/include/yaml-cpp/yaml.h": {
+      "sha256": "16f4aeffc7f75370ed29fb260dac5237ee649a30d9a65fe4d892e7376e0bded4",
+      "git_blob": "7da7cf333be28ededab0582b502ea45f80956f0c"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/anchor.h": {
+      "sha256": "595983999be1c6726188c180a11220be9fb6ec3032eab80935eb40c28c5625f2",
+      "git_blob": "f46d1d79dd8a1478b4055dc1b572c14c8c93ce9a"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/binary.h": {
+      "sha256": "85066ccce1c7b6f86caf231e3cb2489a1633d185d14cc19c566dfb484aa4599b",
+      "git_blob": "1050dae98c3cc9fe0b6261737895c24bf8518fde"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/contrib/anchordict.h": {
+      "sha256": "aa7751ca3f42d00f2ad88b33f0b6dfd630bf6f936a6bea3b9b3897de9ab8ad68",
+      "git_blob": "1b7809b875f6ea8d5933ce8e5720955f935c0f78"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/contrib/graphbuilder.h": {
+      "sha256": "c679a0ad59c425f1786a2fa88534fcf3e3cd65af60dff1276ec55e5cf1e18073",
+      "git_blob": "dbffd921e6691be5a7faa3ea52421a02c84b9555"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/depthguard.h": {
+      "sha256": "48b100b68ca96a97411f16ff590c7a00adbd92255391640a08ea9f665e6273a0",
+      "git_blob": "8ca61ac6ccc175fc557d3e3a203ed72fe0387b9e"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/dll.h": {
+      "sha256": "bb0d0bf4e5a9112ec4652741ff65c803c105bc3f1aaac62aadc3cb26babb3bcb",
+      "git_blob": "4e55ab8c22449e4f71a91dd19de744aa09d66e1a"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/emitfromevents.h": {
+      "sha256": "a92fced3faea68fe641e703435cd92a729fb05529ee3b4c2b9db51e275f88be3",
+      "git_blob": "c00d26e74d0bccc3717f66d8f015ba9337b444ae"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/emitter.h": {
+      "sha256": "b582e5a77294c3c4391d73ce3a684c904463e2d019a1a1699fe009539defe667",
+      "git_blob": "67810ef3418f0ddd7f2baadb3beec223b343f9c6"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/emitterdef.h": {
+      "sha256": "c6645ad3eeb21a98c7a5e0e1290c40420f567d9aa59775b51922a3a4f83c6245",
+      "git_blob": "0b426957fae2764eeceefb51e6ad8add6626c7e2"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/emittermanip.h": {
+      "sha256": "fd7e585b852d0761354e3a90dd0ff386d1f44664885e3dd1c655df46b6cdc53c",
+      "git_blob": "976d14950fc7a71fffa34ca714322d0405dc9bd0"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/emitterstyle.h": {
+      "sha256": "cc23df6976aea63debf280d3120d2a9f682a3afd2301f52f2c658c4d088b434e",
+      "git_blob": "5a6355fa2bf1fb50b836c38bccad7e66d1e7eb0a"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/eventhandler.h": {
+      "sha256": "48accbd7cf820c8522f18028220a28230a0cd42186401fff86f3b667cf47f550",
+      "git_blob": "7242fe1f5ba9dbb8808ab74a26959a05c375572a"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/exceptions.h": {
+      "sha256": "6dfc5fdd2d62cdaac6545b9a8394a83509eac36fb54219422ffe0ec6245c7a9d",
+      "git_blob": "99e06b24ebfbbeb2549faf8794129f6e5b52af65"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/fptostring.h": {
+      "sha256": "f14693b9052ae32449eb6a8b77b695e5ab3b471a87b80a08d2d42e1d325c2170",
+      "git_blob": "051053be9a4e3f3973e37b1d7633ac81ab1f19e0"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/mark.h": {
+      "sha256": "5a953c4daf1bd800b6c88f5760c6edb71800aff6f784700747afebb0a057f2e8",
+      "git_blob": "bf94b4f41fc6c96fcb9ffebcda55a4f60cc6cfdf"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/convert.h": {
+      "sha256": "5c2c6803ae811e0425554f618bf875bf9d5fa7349c47acd9068f1af9ba1fa21b",
+      "git_blob": "0f04ea6fd7a2e8a5bfb8ad16d1e89763ca91612d"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/detail/impl.h": {
+      "sha256": "1818946058354cbba298a44cc706dca214c7dda060e3af6f4208902abea89a04",
+      "git_blob": "b38038dfd225207d008730d673a7845dcfb16027"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/detail/iterator.h": {
+      "sha256": "2d1037aa2b3f28b87844707787479d3d34f422502f5667a9fde95ef4c528c2e4",
+      "git_blob": "04d2da4fca2594a62480ef5a62f1aecaf484954d"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/detail/iterator_fwd.h": {
+      "sha256": "dd1d89979d868a4642709ebfe0fa1e05be47e0e52706f1422f3a4df9ff70973c",
+      "git_blob": "75c9de086c05727dadd237cec874120d2c9fec88"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/detail/memory.h": {
+      "sha256": "c64fee6b9d34c51cdee214b00bec5cdee7e3751942aacda0a94e4f8acb553978",
+      "git_blob": "942ab668d4cfca6f28f6abb34f94d312fbe53c4b"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/detail/node.h": {
+      "sha256": "0bd4b3c9eb96df9cb5e8b7f5270d2f90bc45db14c1f370d557ee1aadcaaa8550",
+      "git_blob": "acf60ffb6dff588dcc4f47675ec97ef8cc9d9a5e"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/detail/node_data.h": {
+      "sha256": "2eaec20ffb3bbb5cfad02641a2f35ec645aa9047e2d41c1cd46c2db50c3bcdbf",
+      "git_blob": "07cf81aa099217822bfefff5558889a899c3cf86"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/detail/node_iterator.h": {
+      "sha256": "3c0f13e62e8beda5b7638ac58ad1167a34d85139198feeef2cf0a9260e89bcc5",
+      "git_blob": "6eb4ddc13409c17aaa04cf46795865b6e7f12deb"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/detail/node_ref.h": {
+      "sha256": "07ee60ac30df95777aba6499566228f3d5eac34ff5aa32c1cb23b431e7ab86e4",
+      "git_blob": "d8a94f8b8045cf106f5db24e7254f02fada9df2b"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/emit.h": {
+      "sha256": "d07f0d701ffc3c4932decac9b1f4625524a5c60f843794c4831c739e40176a6e",
+      "git_blob": "032268c5d04af8ab09d98e51ddc4288f640b2152"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/impl.h": {
+      "sha256": "220e60a9e1271cdb9a49df12aeb3e9c8efbcd02529a51c03f713200ed1957e13",
+      "git_blob": "f5d622b25409661e7c811568acf3c2441386971f"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/iterator.h": {
+      "sha256": "e12d8aa1d1563a6ca454d2309c6e2e2f09dabebfee199684ae2d615a815aa31e",
+      "git_blob": "1fcf6e400ff6b3c31bcac731c834159bbccf37bf"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/node.h": {
+      "sha256": "3ceaff497eaf561cd0307019e6fb9d74c0982741ad70e8df8957f4fd1ceba9d5",
+      "git_blob": "c9e9a0a4bc190d2f1236ffb9a369663569d04a31"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/parse.h": {
+      "sha256": "8f2ad0fba222a0d809b095a47436ed9598a1c8f40b6476011b60d056e119a545",
+      "git_blob": "7745fd7245bec055711877d13b5ea34d87395b20"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/ptr.h": {
+      "sha256": "c73b278143cb2479a5df1898d306fd321c22061c94a026a6275043bcdfde55b8",
+      "git_blob": "f55d95ed9cade1f12b9e0b6fbb9170b1a4b4dc72"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/node/type.h": {
+      "sha256": "410436953a5c962a330719de11133acffc59a497be69dd5c52d2ebf877dbf228",
+      "git_blob": "b1237670cf173b92849947e03f700180f6c2741a"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/noexcept.h": {
+      "sha256": "5392dd44e94d7cf2dbe686cdb66b1f2e3112517fbb3ec272157751a057cd13a0",
+      "git_blob": "6aac63516f357aab77a3019099e1a5545dd7d48b"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/null.h": {
+      "sha256": "f6ed6aa5179ff7d72cdffd46841a2115b8551a65833aaf869ff3f91f1594d943",
+      "git_blob": "472e961eae60f7f3d6efdb0643e0a59eb956e98a"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/ostream_wrapper.h": {
+      "sha256": "032a5d98a8357033f94a22516ba9e168307dbc59bb8c8462077fcb50be24ab5c",
+      "git_blob": "cf89741d0935aad2d7b28ad49eb59a1cb0e05326"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/parser.h": {
+      "sha256": "abcf07ab1d4c74d9e286d7a7c8626c9e499748fc7eb81eb2c8b2eb3176419c0b",
+      "git_blob": "2f403c3504805641884eab084e4c7729e1c18cdd"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/stlemitter.h": {
+      "sha256": "d564df8d86cdeba5addc2aa6f6fc52d29b445d6408b452b7ad89861c07133510",
+      "git_blob": "210a2f64e6a816bca3535dcb945e52881d452562"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/traits.h": {
+      "sha256": "a42df66f19b567b573b91ff0ca94785d2732ff21c5311d7e1674f6df9dff368b",
+      "git_blob": "8df939305481ab94ed859027af8fcd9d4e725a7c"
+    },
+    "yaml-cpp/armeabi-v7a/include/yaml-cpp/yaml.h": {
+      "sha256": "16f4aeffc7f75370ed29fb260dac5237ee649a30d9a65fe4d892e7376e0bded4",
+      "git_blob": "7da7cf333be28ededab0582b502ea45f80956f0c"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/anchor.h": {
+      "sha256": "595983999be1c6726188c180a11220be9fb6ec3032eab80935eb40c28c5625f2",
+      "git_blob": "f46d1d79dd8a1478b4055dc1b572c14c8c93ce9a"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/binary.h": {
+      "sha256": "85066ccce1c7b6f86caf231e3cb2489a1633d185d14cc19c566dfb484aa4599b",
+      "git_blob": "1050dae98c3cc9fe0b6261737895c24bf8518fde"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/contrib/anchordict.h": {
+      "sha256": "aa7751ca3f42d00f2ad88b33f0b6dfd630bf6f936a6bea3b9b3897de9ab8ad68",
+      "git_blob": "1b7809b875f6ea8d5933ce8e5720955f935c0f78"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/contrib/graphbuilder.h": {
+      "sha256": "c679a0ad59c425f1786a2fa88534fcf3e3cd65af60dff1276ec55e5cf1e18073",
+      "git_blob": "dbffd921e6691be5a7faa3ea52421a02c84b9555"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/depthguard.h": {
+      "sha256": "48b100b68ca96a97411f16ff590c7a00adbd92255391640a08ea9f665e6273a0",
+      "git_blob": "8ca61ac6ccc175fc557d3e3a203ed72fe0387b9e"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/dll.h": {
+      "sha256": "bb0d0bf4e5a9112ec4652741ff65c803c105bc3f1aaac62aadc3cb26babb3bcb",
+      "git_blob": "4e55ab8c22449e4f71a91dd19de744aa09d66e1a"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/emitfromevents.h": {
+      "sha256": "a92fced3faea68fe641e703435cd92a729fb05529ee3b4c2b9db51e275f88be3",
+      "git_blob": "c00d26e74d0bccc3717f66d8f015ba9337b444ae"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/emitter.h": {
+      "sha256": "b582e5a77294c3c4391d73ce3a684c904463e2d019a1a1699fe009539defe667",
+      "git_blob": "67810ef3418f0ddd7f2baadb3beec223b343f9c6"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/emitterdef.h": {
+      "sha256": "c6645ad3eeb21a98c7a5e0e1290c40420f567d9aa59775b51922a3a4f83c6245",
+      "git_blob": "0b426957fae2764eeceefb51e6ad8add6626c7e2"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/emittermanip.h": {
+      "sha256": "fd7e585b852d0761354e3a90dd0ff386d1f44664885e3dd1c655df46b6cdc53c",
+      "git_blob": "976d14950fc7a71fffa34ca714322d0405dc9bd0"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/emitterstyle.h": {
+      "sha256": "cc23df6976aea63debf280d3120d2a9f682a3afd2301f52f2c658c4d088b434e",
+      "git_blob": "5a6355fa2bf1fb50b836c38bccad7e66d1e7eb0a"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/eventhandler.h": {
+      "sha256": "48accbd7cf820c8522f18028220a28230a0cd42186401fff86f3b667cf47f550",
+      "git_blob": "7242fe1f5ba9dbb8808ab74a26959a05c375572a"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/exceptions.h": {
+      "sha256": "6dfc5fdd2d62cdaac6545b9a8394a83509eac36fb54219422ffe0ec6245c7a9d",
+      "git_blob": "99e06b24ebfbbeb2549faf8794129f6e5b52af65"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/fptostring.h": {
+      "sha256": "f14693b9052ae32449eb6a8b77b695e5ab3b471a87b80a08d2d42e1d325c2170",
+      "git_blob": "051053be9a4e3f3973e37b1d7633ac81ab1f19e0"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/mark.h": {
+      "sha256": "5a953c4daf1bd800b6c88f5760c6edb71800aff6f784700747afebb0a057f2e8",
+      "git_blob": "bf94b4f41fc6c96fcb9ffebcda55a4f60cc6cfdf"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/convert.h": {
+      "sha256": "5c2c6803ae811e0425554f618bf875bf9d5fa7349c47acd9068f1af9ba1fa21b",
+      "git_blob": "0f04ea6fd7a2e8a5bfb8ad16d1e89763ca91612d"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/detail/impl.h": {
+      "sha256": "1818946058354cbba298a44cc706dca214c7dda060e3af6f4208902abea89a04",
+      "git_blob": "b38038dfd225207d008730d673a7845dcfb16027"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/detail/iterator.h": {
+      "sha256": "2d1037aa2b3f28b87844707787479d3d34f422502f5667a9fde95ef4c528c2e4",
+      "git_blob": "04d2da4fca2594a62480ef5a62f1aecaf484954d"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/detail/iterator_fwd.h": {
+      "sha256": "dd1d89979d868a4642709ebfe0fa1e05be47e0e52706f1422f3a4df9ff70973c",
+      "git_blob": "75c9de086c05727dadd237cec874120d2c9fec88"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/detail/memory.h": {
+      "sha256": "c64fee6b9d34c51cdee214b00bec5cdee7e3751942aacda0a94e4f8acb553978",
+      "git_blob": "942ab668d4cfca6f28f6abb34f94d312fbe53c4b"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/detail/node.h": {
+      "sha256": "0bd4b3c9eb96df9cb5e8b7f5270d2f90bc45db14c1f370d557ee1aadcaaa8550",
+      "git_blob": "acf60ffb6dff588dcc4f47675ec97ef8cc9d9a5e"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/detail/node_data.h": {
+      "sha256": "2eaec20ffb3bbb5cfad02641a2f35ec645aa9047e2d41c1cd46c2db50c3bcdbf",
+      "git_blob": "07cf81aa099217822bfefff5558889a899c3cf86"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/detail/node_iterator.h": {
+      "sha256": "3c0f13e62e8beda5b7638ac58ad1167a34d85139198feeef2cf0a9260e89bcc5",
+      "git_blob": "6eb4ddc13409c17aaa04cf46795865b6e7f12deb"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/detail/node_ref.h": {
+      "sha256": "07ee60ac30df95777aba6499566228f3d5eac34ff5aa32c1cb23b431e7ab86e4",
+      "git_blob": "d8a94f8b8045cf106f5db24e7254f02fada9df2b"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/emit.h": {
+      "sha256": "d07f0d701ffc3c4932decac9b1f4625524a5c60f843794c4831c739e40176a6e",
+      "git_blob": "032268c5d04af8ab09d98e51ddc4288f640b2152"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/impl.h": {
+      "sha256": "220e60a9e1271cdb9a49df12aeb3e9c8efbcd02529a51c03f713200ed1957e13",
+      "git_blob": "f5d622b25409661e7c811568acf3c2441386971f"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/iterator.h": {
+      "sha256": "e12d8aa1d1563a6ca454d2309c6e2e2f09dabebfee199684ae2d615a815aa31e",
+      "git_blob": "1fcf6e400ff6b3c31bcac731c834159bbccf37bf"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/node.h": {
+      "sha256": "3ceaff497eaf561cd0307019e6fb9d74c0982741ad70e8df8957f4fd1ceba9d5",
+      "git_blob": "c9e9a0a4bc190d2f1236ffb9a369663569d04a31"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/parse.h": {
+      "sha256": "8f2ad0fba222a0d809b095a47436ed9598a1c8f40b6476011b60d056e119a545",
+      "git_blob": "7745fd7245bec055711877d13b5ea34d87395b20"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/ptr.h": {
+      "sha256": "c73b278143cb2479a5df1898d306fd321c22061c94a026a6275043bcdfde55b8",
+      "git_blob": "f55d95ed9cade1f12b9e0b6fbb9170b1a4b4dc72"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/node/type.h": {
+      "sha256": "410436953a5c962a330719de11133acffc59a497be69dd5c52d2ebf877dbf228",
+      "git_blob": "b1237670cf173b92849947e03f700180f6c2741a"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/noexcept.h": {
+      "sha256": "5392dd44e94d7cf2dbe686cdb66b1f2e3112517fbb3ec272157751a057cd13a0",
+      "git_blob": "6aac63516f357aab77a3019099e1a5545dd7d48b"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/null.h": {
+      "sha256": "f6ed6aa5179ff7d72cdffd46841a2115b8551a65833aaf869ff3f91f1594d943",
+      "git_blob": "472e961eae60f7f3d6efdb0643e0a59eb956e98a"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/ostream_wrapper.h": {
+      "sha256": "032a5d98a8357033f94a22516ba9e168307dbc59bb8c8462077fcb50be24ab5c",
+      "git_blob": "cf89741d0935aad2d7b28ad49eb59a1cb0e05326"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/parser.h": {
+      "sha256": "abcf07ab1d4c74d9e286d7a7c8626c9e499748fc7eb81eb2c8b2eb3176419c0b",
+      "git_blob": "2f403c3504805641884eab084e4c7729e1c18cdd"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/stlemitter.h": {
+      "sha256": "d564df8d86cdeba5addc2aa6f6fc52d29b445d6408b452b7ad89861c07133510",
+      "git_blob": "210a2f64e6a816bca3535dcb945e52881d452562"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/traits.h": {
+      "sha256": "a42df66f19b567b573b91ff0ca94785d2732ff21c5311d7e1674f6df9dff368b",
+      "git_blob": "8df939305481ab94ed859027af8fcd9d4e725a7c"
+    },
+    "yaml-cpp/x86_64/include/yaml-cpp/yaml.h": {
+      "sha256": "16f4aeffc7f75370ed29fb260dac5237ee649a30d9a65fe4d892e7376e0bded4",
+      "git_blob": "7da7cf333be28ededab0582b502ea45f80956f0c"
+    }
+  }
+}

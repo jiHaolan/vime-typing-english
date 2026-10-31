@@ -1,12 +1,13 @@
 {
-  "format": "vime-native-provenance-1",
+  "format": "vime-native-provenance-2",
   "librime": {
     "url": "https://github.com/rime/librime",
     "commit": "de4700e9f6b75b109910613df907965e3cbe0567"
   },
   "static_provider": {
     "url": "https://github.com/fcitx5-android/prebuilt",
-    "commit": "3f987c60ae1485a7b2a2cf7db301726af4700f29"
+    "commit": "3f987c60ae1485a7b2a2cf7db301726af4700f29",
+    "scope": "Six explicitly pinned permissive dependency archives; provider librime.a is not linked"
   },
   "prebuilder_commit": "d7774b67a46237ed53aae913c7f02ddb367f647c",
   "toolchain": {
@@ -23,12 +24,46 @@
   ],
   "files": {
     "app/src/main/jniLibs/arm64-v8a/libc++_shared.so": "b17919df195f29b0a238468c04171b93cedcdffbe0d30cdc634327cf7f7889bc",
-    "app/src/main/jniLibs/arm64-v8a/libvime_rime.so": "8f04a6186a435c214f11d83d32dbb39bfecc0f9708e5386cf8cccc182c4d5394",
+    "app/src/main/jniLibs/arm64-v8a/libvime_rime.so": "77e7d26e7e88060dd544a58cd9e327428a315914bd4567e6034b1bf28e06249e",
     "app/src/main/jniLibs/armeabi-v7a/libc++_shared.so": "4c8188135d5927f49a2eb5fff96714c5c5ea12e1f09ebbabe3d04aab25b0bd6a",
-    "app/src/main/jniLibs/armeabi-v7a/libvime_rime.so": "f8fe375704cbc4c2dfa2f56afd0708567abf94a9f0af9a6adb1e07f7e18aaacc",
+    "app/src/main/jniLibs/armeabi-v7a/libvime_rime.so": "6918ce8d0ac046c014707f34d197f6d513b86fdeafe65b43d149a2e4996672b3",
     "app/src/main/jniLibs/x86_64/libc++_shared.so": "d6bceb7915ddb75ec4f96f97837efd80cf6084b00ad38e2666728f6cc24a9f68",
-    "app/src/main/jniLibs/x86_64/libvime_rime.so": "873aef35f1cf2dd4ce1f2a36f172afc376865371a2e355d9817a7653e71396ba"
+    "app/src/main/jniLibs/x86_64/libvime_rime.so": "a7ea47fc73641438935001bcdb8df48f434ae91a9b7785cf9a3fc8dd88c06b03"
   },
   "bridge": "native/rime_bridge.cpp; original Vime JNI adapter, paired with exact BSD Rime headers",
-  "rebuild": "Build-Native.ps1, then Build-Verified.ps1. See native/README.md."
+  "rebuild": "Build pinned source engine first, then Build-Native.ps1 -EngineBuild <verified-output> -Prebuilt <pinned-dependencies>. See native/README.md.",
+  "previous_provider_core_used": false,
+  "engine_build": {
+    "tool": "tools/build_native_engine.py",
+    "source_lock_sha256": "64ee03da85c1fd0584f256d405effab92c8090e4cd3fd1758aa6161ce7273c21",
+    "plugins": [
+      "lua",
+      "predict"
+    ],
+    "octagram_included": false,
+    "upstream_cpp_sources_changed": false,
+    "abis": {
+      "arm64-v8a": {
+        "archive": "E:\\Vime-build-work\\native-source-audit-v1\\engine-b\\arm64-v8a\\lib\\librime.a",
+        "sha256": "85bb8f5a7ecb8a5f22e97b2f99859a9c9577495829dcb5746524132d9bf50207",
+        "bytes": 142316350,
+        "members": 120,
+        "source_build_passed": true
+      },
+      "armeabi-v7a": {
+        "archive": "E:\\Vime-build-work\\native-source-audit-v1\\engine-b\\armeabi-v7a\\lib\\librime.a",
+        "sha256": "405057d5b63dd969e711f16ed74d9adde80349dc97b34b76ce4a545fb4426b25",
+        "bytes": 100657416,
+        "members": 120,
+        "source_build_passed": true
+      },
+      "x86_64": {
+        "archive": "E:\\Vime-build-work\\native-source-audit-v1\\engine-b\\x86_64\\lib\\librime.a",
+        "sha256": "3884e152be70b4d0d7a5409371c047c1c6d31d1e25bdabdb10f342c5c0f10737",
+        "bytes": 132668732,
+        "members": 120,
+        "source_build_passed": true
+      }
+    }
+  }
 }

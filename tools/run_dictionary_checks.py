@@ -12,8 +12,10 @@ from pathlib import Path
 import re
 import subprocess
 import tarfile
+from argparse import Namespace
 
 from verify_rime_upgrade import databases, preferences
+from verify_native_userdb import verify as verify_userdb
 
 
 def run(args):
@@ -27,6 +29,12 @@ def run(args):
     baseline = json.loads((args.baseline / "baseline.json").read_bytes())
     if baseline["wordbook_count"] < 2 or baseline["review_events"] < 1:
         raise ValueError("A populated real learning baseline is required")
+    native_tables = [path for path in (args.baseline/"before/files/rime/user").rglob("*") if path.suffix in {".ldb", ".sst"}]
+    native_databases = list((args.baseline/"before/files/rime/user").rglob("*.userdb"))
+    if any(not path.is_dir() for path in native_databases):
+        raise ValueError("Unsupported native database format; inspect before upgrading")
+    if native_databases and not getattr(args, "leveldb_reader", None):
+        raise ValueError("Existing native databases require --leveldb-reader, including WAL-only data; compare logical records, not table filenames")
     output.mkdir(parents=True)
     receipt = {"passed": False, "device": args.device, "userspace_page_size": 16384,
                "physical_phone_changed": False, "uninstalled": False, "seeded_data": False}
@@ -60,16 +68,17 @@ def run(args):
         tables=databases(after)
         if tables!=baseline["tables"]:raise RuntimeError("Learning records changed during upgrade")
         if preferences(after)!=baseline["preferences"]:raise RuntimeError("Preferences changed during upgrade")
-        ssts=list((args.baseline/"before/files/rime/user").rglob("*.sst"))
-        for before in ssts:
-            relative=before.relative_to(args.baseline/"before")
-            if not (after/relative).is_file() or sha(before)!=sha(after/relative):
-                raise RuntimeError("Existing native user database bytes changed")
+        native_proof = None
+        if native_databases:
+            native_proof=verify_userdb(Namespace(sdk=args.sdk,device=args.device,reader=args.leveldb_reader,
+                runtime=args.native_runtime or Path(__file__).resolve().parents[1]/"app/src/main/jniLibs/x86_64/libc++_shared.so",
+                before=args.baseline/"before",after=after,output=output/"native-userdb-semantic",allowed_word=["你好"]))
         settings={key:adb("shell","settings","get","secure",key).decode().strip() for key in baseline["settings"]}
         if settings!=baseline["settings"]:raise RuntimeError("Original input method settings changed")
         receipt.update(passed=True, version=args.version, dictionary_checks_passed=9,
                        populated_learning_rows_preserved=True, preferences_preserved=True,
-                       original_sst_files_preserved=len(ssts), input_method_settings_unchanged=True,
+                       baseline_native_table_files=len(native_tables), native_userdb_semantics_verified=bool(native_proof),
+                       native_userdb_semantic_result=native_proof, input_method_settings_unchanged=True,
                        wordbook_count=baseline["wordbook_count"],review_events=baseline["review_events"])
     except Exception as error:
         receipt["error"]=str(error)
@@ -82,4 +91,6 @@ if __name__=="__main__":
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ("sdk","app-apk","test-apk","baseline","output"):parser.add_argument("--"+name,required=True,type=Path)
     parser.add_argument("--device",required=True);parser.add_argument("--version",required=True)
+    parser.add_argument("--leveldb-reader",type=Path)
+    parser.add_argument("--native-runtime",type=Path)
     raise SystemExit(run(parser.parse_args()))

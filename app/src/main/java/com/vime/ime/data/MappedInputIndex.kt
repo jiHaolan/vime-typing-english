@@ -21,6 +21,12 @@ class MappedInputIndex private constructor(private val data: ByteBuffer) {
     private val cache = object : LinkedHashMap<Request, List<Row>>(64, .75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Request, List<Row>>?) = size > 64
     }
+    // V2 bounds random access to64 deltas, but a completion scan accesses
+    // neighboring rows repeatedly. Retain64 decoded blocks (at most16KiB of
+    // offsets), avoiding quadratic repeated decoding on a cold Android JIT.
+    private val fullBlocks = object : LinkedHashMap<Int, IntArray>(64, .75f, true) {
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Int, IntArray>?) = size > 64
+    }
 
     init {
         require(data.limit() >= 64)
@@ -54,10 +60,16 @@ class MappedInputIndex private constructor(private val data: ByteBuffer) {
     }
     private fun at(mode: Int, position: Int): Int {
         if(mode!=0 || version==1) return record(data.getInt(indexes[mode]+position*4))
-        var cursor=data.getInt(64+(position/64)*4)
+        require(position in 0 until count)
+        val block=position/64
+        synchronized(fullBlocks) { fullBlocks[block]?.let { return record(it[position%64]) } }
+        var cursor=data.getInt(64+block*4)
         require(cursor>=64+((count+63)/64)*4 && cursor<=indexes[1]-4)
         var relative=data.getInt(cursor);cursor+=4
-        repeat(position%64) {
+        require(relative>=0 && dataStart.toLong()+relative<data.limit())
+        val offsets=IntArray(minOf(64,count-block*64))
+        offsets[0]=dataStart+relative
+        for(i in 1 until offsets.size) {
             var delta=0;var shift=0
             while(true) {
                 require(cursor<indexes[1] && shift<=28)
@@ -67,9 +79,11 @@ class MappedInputIndex private constructor(private val data: ByteBuffer) {
             }
             require(delta>0 && relative.toLong()+delta<Int.MAX_VALUE)
             relative+=delta
+            require(dataStart.toLong()+relative<data.limit())
+            offsets[i]=dataStart+relative
         }
-        require(relative>=0 && dataStart.toLong()+relative<data.limit())
-        return record(dataStart+relative)
+        synchronized(fullBlocks) { fullBlocks[block]=offsets }
+        return record(offsets[position%64])
     }
     private fun weight(at: Int) = data.getInt(at + 4)
     private fun word(at: Int): String {

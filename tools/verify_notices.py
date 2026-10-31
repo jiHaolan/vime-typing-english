@@ -17,6 +17,10 @@ REQUIRED = {"licenses/GNU-GPL-3.0.txt", "licenses/Apache-2.0.txt", "licenses/ecd
 REQUIRED |= {"licenses/CC-BY-SA-4.0.txt", "licenses/supplement-NOTICE.txt"}
 REQUIRED.add("licenses/input-data-NOTICE.txt")
 REQUIRED.add("licenses/cedict-NOTICE.txt")
+REQUIRED |= {"licenses/" + name for name in ("librime-lua-BSD-3-Clause.txt", "librime-predict-BSD-3-Clause.txt",
+              "legacy-octagram-GPL-3.0.txt", "darts-clone-BSD-3-Clause.txt", "utf8cpp-embedded-NOTICE.txt",
+              "x11-keysyms-NOTICE.txt", "lua-compat-NOTICE.txt", "rapidjson-upstream-NOTICE.txt",
+              "ndk-llvm-full-NOTICE.txt", "glog-embedded-NOTICE.txt", "native-rebuild-NOTICE.txt")}
 
 
 def sha(data):
@@ -27,7 +31,7 @@ def encoded(value):
     return json.dumps(value, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
 
 
-def inspect(read, inventory=None, commercial=False):
+def inspect(read, inventory=None, commercial=False, native_libraries=None):
     result = {"passed": False, "commercial_distribution_ready": False, "checks": []}
     def check(name, okay):
         result["checks"].append({"name": name, "pass": bool(okay)})
@@ -47,6 +51,25 @@ def inspect(read, inventory=None, commercial=False):
                   and re.fullmatch("[a-f0-9]{64}", expected) and sha(content) == expected)
         check("gpl-companion-is-complete", len(read("licenses/GNU-GPL-3.0.txt")) > 30000
               and b"END OF TERMS AND CONDITIONS" in read("licenses/GNU-GPL-3.0.txt"))
+        check("lua-compat-notices-are-complete", read("licenses/lua-compat-NOTICE.txt").count(b"Permission is hereby granted") == 2
+              and b"Kepler Project" in read("licenses/lua-compat-NOTICE.txt")
+              and b"Lua.org" in read("licenses/lua-compat-NOTICE.txt"))
+        native = json.loads(read("native-sources.json"))
+        expected_native = {abi + "/" + name for abi in ("arm64-v8a", "armeabi-v7a", "x86_64")
+                           for name in ("libvime_rime.so", "libc++_shared.so")}
+        check("native-source-and-plugin-policy", native["format"] == "vime-native-runtime-1"
+              and native["core_from_source"] and not native["octagram_included"]
+              and native["engine_plugins"] == ["lua", "predict"]
+              and re.fullmatch("[a-f0-9]{64}", native["source_lock_sha256"]))
+        check("native-declared-library-set", set(native["libraries"]) == expected_native
+              and all(re.fullmatch("[a-f0-9]{64}", value) for value in native["libraries"].values()))
+        if native_libraries is not None:
+            present = set(native_libraries)
+            abis = {name.split("/")[0] for name in present}
+            check("actual-native-library-set", bool(abis) and abis <= {"arm64-v8a", "armeabi-v7a", "x86_64"}
+                  and present == {abi + "/" + name for abi in abis for name in ("libvime_rime.so", "libc++_shared.so")})
+            for name, content in native_libraries.items():
+                check("native-binary-bytes:" + name, name in native["libraries"] and sha(content) == native["libraries"][name])
         components = data["components"]
         check("unique-component-ids", 1 <= len(components) <= 100
               and len({row["id"] for row in components}) == len(components))
@@ -138,7 +161,9 @@ def verify(path, inventory=None, commercial=False):
     if path.is_dir():
         return inspect(lambda name: (path / name).read_bytes(), inventory, commercial)
     with zipfile.ZipFile(path) as apk:
-        return inspect(lambda name: apk.read("assets/" + name), inventory, commercial)
+        native = {name.removeprefix("lib/"): apk.read(name) for name in apk.namelist()
+                  if name.startswith("lib/") and name.endswith(".so")}
+        return inspect(lambda name: apk.read("assets/" + name), inventory, commercial, native)
 
 
 def main():

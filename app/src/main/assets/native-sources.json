@@ -1,0 +1,22 @@
+{
+  "format": "vime-native-runtime-1",
+  "source_lock_sha256": "64ee03da85c1fd0584f256d405effab92c8090e4cd3fd1758aa6161ce7273c21",
+  "rime_commit": "de4700e9f6b75b109910613df907965e3cbe0567",
+  "engine_plugins": [
+    "lua",
+    "predict"
+  ],
+  "octagram_included": false,
+  "core_from_source": true,
+  "dependency_archives_sha256": "56fd015e277bcb0e8b271c849b0a3b2f09d80b62132962885ed259043de61246",
+  "libraries": {
+    "arm64-v8a/libc++_shared.so": "b17919df195f29b0a238468c04171b93cedcdffbe0d30cdc634327cf7f7889bc",
+    "arm64-v8a/libvime_rime.so": "77e7d26e7e88060dd544a58cd9e327428a315914bd4567e6034b1bf28e06249e",
+    "armeabi-v7a/libc++_shared.so": "4c8188135d5927f49a2eb5fff96714c5c5ea12e1f09ebbabe3d04aab25b0bd6a",
+    "armeabi-v7a/libvime_rime.so": "6918ce8d0ac046c014707f34d197f6d513b86fdeafe65b43d149a2e4996672b3",
+    "x86_64/libc++_shared.so": "d6bceb7915ddb75ec4f96f97837efd80cf6084b00ad38e2666728f6cc24a9f68",
+    "x86_64/libvime_rime.so": "a7ea47fc73641438935001bcdb8df48f434ae91a9b7785cf9a3fc8dd88c06b03"
+  },
+  "notice_source_receipt_sha256": "03608a7913920c2391a3cfa29eb6d8fa853c5912380dda50bef0832c6ad2617b",
+  "current_native_source_audit_complete": false
+}

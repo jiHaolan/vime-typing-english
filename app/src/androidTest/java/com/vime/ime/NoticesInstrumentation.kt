@@ -18,7 +18,8 @@ class NoticesInstrumentation:Instrumentation() {
     private lateinit var catalog:NoticeCatalog
     override fun onCreate(arguments:Bundle?) { super.onCreate(arguments);start() }
     private fun test(name:String,action:()->Unit) {
-        val result=runCatching(action)
+        android.os.Trace.beginSection(name)
+        val result=try { runCatching(action) } finally { android.os.Trace.endSection() }
         cases.put(JSONObject().put("name",name).put("pass",result.isSuccess)
             .put("error",result.exceptionOrNull()?.toString() ?: JSONObject.NULL))
         sendStatus(0,Bundle().apply { putString("stream","${if(result.isSuccess) "PASS" else "FAIL"} $name\n") })
@@ -28,7 +29,7 @@ class NoticesInstrumentation:Instrumentation() {
             check(Build.PRODUCT.contains("sdk")) { "Dedicated emulator required" }
             test("packaged-catalog-and-all-document-references-parse") {
                 catalog=NoticeCatalog.parse(targetContext.assets.open("notices.json").bufferedReader().use { it.readText() })
-                check(catalog.components.size==14 && catalog.files.size==23)
+                check(catalog.components.size==19 && catalog.files.size==34)
                 observations.put("components",catalog.components.size).put("documents",catalog.files.size)
             }
             test("all-packaged-license-bytes-match-including-complete-gpl") {
@@ -110,14 +111,25 @@ class NoticesInstrumentation:Instrumentation() {
                 }
                 val requests=sample.flatMap { code -> listOf(code to false,code.take(3) to false,
                     code.map(com.vime.ime.data.CandidateIndex::digit).joinToString("") to true) }
+                val cpuTimes=ArrayList<Long>(requests.size)
+                val slow=JSONArray()
                 val timings=requests.map { (code,nine) ->
-                    val started=SystemClock.elapsedRealtimeNanos();check(index.query(code,nine,100).isNotEmpty());
-                    SystemClock.elapsedRealtimeNanos()-started
+                    val started=SystemClock.elapsedRealtimeNanos();val cpu=android.os.Debug.threadCpuTimeNanos()
+                    android.os.Trace.beginSection("vime.mapped.query")
+                    try { check(index.query(code,nine,100).isNotEmpty()) } finally { android.os.Trace.endSection() }
+                    val elapsed=SystemClock.elapsedRealtimeNanos()-started
+                    val usedCpu=android.os.Debug.threadCpuTimeNanos()-cpu;cpuTimes.add(usedCpu)
+                    if(elapsed>20_000_000 && slow.length()<20) slow.put(JSONObject().put("public_code",code).put("nine",nine)
+                        .put("wall_ms",elapsed/1e6).put("thread_cpu_ms",usedCpu/1e6))
+                    elapsed
                 }.sorted()
                 fun percentile(p:Double)=timings[((timings.size-1)*p).toInt()]/1e6
                 val benchmark=JSONObject().put("requests",requests.size).put("limit",100).put("p50_ms",percentile(.5))
                     .put("p95_ms",percentile(.95)).put("p99_ms",percentile(.99)).put("max_ms",timings.last()/1e6)
                     .put("sdk",Build.VERSION.SDK_INT).put("abi",Build.SUPPORTED_ABIS.first()).put("physical_phone",false)
+                    .put("thread_cpu_p99_ms",cpuTimes.sorted()[((cpuTimes.size-1)*.99).toInt()]/1e6)
+                    .put("thread_cpu_total_ms",cpuTimes.sum()/1e6).put("wall_total_ms",timings.sum()/1e6)
+                    .put("slow_public_requests",slow)
                 observations.put("mapped_lookup",benchmark)
                 check(percentile(.99)<50) { "Fallback query p99 exceeds50ms" }
                 val enriched=requests.map { (code,nine) ->
