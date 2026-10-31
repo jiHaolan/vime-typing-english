@@ -1,62 +1,51 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:fillViewport="true" android:background="?attr/vimePanelBg" android:clipToPadding="false">
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:orientation="vertical" android:focusable="true" android:focusableInTouchMode="true" android:paddingStart="@dimen/page_gutter"
-        android:paddingEnd="@dimen/page_gutter" android:paddingTop="20dp" android:paddingBottom="32dp">
-        <TextView style="@style/PageTitle" android:text="边打字边背单词" android:accessibilityHeading="true" />
-        <TextView style="@style/BodyText" android:layout_marginTop="6dp" android:text="输入中文时，看见简短英文。" />
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="24dp" android:orientation="vertical" android:background="@drawable/card_bg" android:padding="20dp">
-            <TextView style="@style/SectionTitle" android:text="今日复习" />
-            <TextView android:id="@+id/tvLearningCount" style="@style/PageTitle"
-                android:layout_marginTop="10dp" android:text="从第一个词开始" android:textSize="28sp" android:textStyle="normal" />
-            <TextView android:id="@+id/tvLearningHint" style="@style/BodyText" android:layout_marginTop="6dp" android:text="长按键盘候选词，即可收藏。" />
-            <TextView android:id="@+id/btnStudy" style="@style/Action" android:layout_marginTop="16dp" android:text="打开生词本" />
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp" android:baselineAligned="false">
-                <TextView android:id="@+id/btnWordbook" style="@style/QuietAction" android:layout_width="0dp" android:layout_weight="1" android:text="全部生词" />
-                <TextView android:id="@+id/btnAnalytics" style="@style/QuietAction" android:layout_width="0dp" android:layout_weight="1" android:text="学习数据" />
-            </LinearLayout>
-        </LinearLayout>
-        <TextView style="@style/SectionTitle" android:layout_marginTop="24dp" android:text="试试键盘" />
-        <EditText android:id="@+id/typingPreview" android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" android:minHeight="56dp" android:hint="输入“你好”，看看英文提示"
-            android:contentDescription="试用输入法，输入中文查看英文提示" android:inputType="textCapSentences|textMultiLine"
-            android:maxLines="3" android:gravity="top|start" android:textSize="16sp"
-            android:textColor="?attr/vimeInk" android:textColorHint="?attr/vimeInk2"
-            android:background="@drawable/pill_bg" android:padding="16dp" android:importantForAutofill="no" />
-        <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:scrollbars="none">
-            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-                <include android:id="@+id/demo1" layout="@layout/candidate_item" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <include android:id="@+id/demo2" layout="@layout/candidate_item" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-                <include android:id="@+id/demo3" layout="@layout/candidate_item" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-            </LinearLayout>
-        </HorizontalScrollView>
-        <TextView style="@style/SectionTitle" android:layout_marginTop="24dp" android:text="键盘偏好" />
-        <TextView style="@style/BodyText" android:layout_marginTop="8dp" android:text="英文提示范围" />
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal" android:baselineAligned="false">
-            <TextView android:id="@+id/lvCet4" style="@style/LevelChip" android:text="CET4" />
-            <TextView android:id="@+id/lvCet6" style="@style/LevelChip" android:layout_marginStart="8dp" android:text="CET6" />
-            <TextView android:id="@+id/lvToefl" style="@style/LevelChip" android:layout_marginStart="8dp" android:text="TOEFL" />
-            <TextView android:id="@+id/lvAll" style="@style/LevelChip" android:layout_marginStart="8dp" android:text="全部" />
-        </LinearLayout>
-        <TextView style="@style/BodyText" android:layout_marginTop="8dp" android:textSize="12sp" android:text="CET4 档含基础词，分级仅供学习参考。" />
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:orientation="vertical" android:background="@drawable/card_bg" android:padding="4dp">
-            <TextView android:id="@+id/btnTheme" style="@style/SettingRow" android:text="皮肤配色" />
-            <TextView android:id="@+id/btnHaptics" style="@style/SettingRow" android:text="按键触感" />
-            <TextView android:id="@+id/btnVoiceConfig" style="@style/SettingRow" android:text="语音输入    长按空格 2 秒  ›" />
-            <TextView android:id="@+id/btnInputSettings" style="@style/SettingRow" android:text="输入设置    尺寸、短语与配色  ›" />
-            <TextView android:id="@+id/btnInputData" style="@style/SettingRow" android:text="输入数据    管理本机记录  ›" />
-        </LinearLayout>
-        <TextView style="@style/SectionTitle" android:layout_marginTop="24dp" android:text="离线词典" />
-        <TextView android:id="@+id/btnDictionary" style="@style/SettingRow" android:layout_marginTop="8dp" android:text="词包与查词    管理本机词库  ›" />
-        <TextView android:id="@+id/tvStat" style="@style/BodyText" android:layout_marginTop="4dp" android:text="正在载入本机词典…" android:textSize="12sp" />
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:orientation="vertical" android:background="@drawable/card_bg" android:padding="20dp">
-            <TextView style="@style/SectionTitle" android:text="键盘连接" />
-            <TextView android:id="@+id/tvStep1" style="@style/BodyText" android:layout_marginTop="10dp" android:text="尚未在系统中启用" />
-            <TextView android:id="@+id/tvStep2" style="@style/BodyText" android:layout_marginTop="4dp" android:text="请在系统键盘菜单中选择" />
-            <TextView android:id="@+id/btnEnable" style="@style/QuietAction" android:layout_marginTop="6dp" android:text="前往系统设置" />
-        </LinearLayout>
-        <TextView style="@style/BodyText" android:layout_marginTop="20dp" android:text="拼音离线使用 · 只收藏你主动选择的词" android:textSize="12sp" />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="@android:color/transparent" android:clipToPadding="false">
+  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:focusable="true" android:focusableInTouchMode="true" android:paddingStart="@dimen/page_gutter" android:paddingEnd="@dimen/page_gutter" android:paddingTop="20dp" android:paddingBottom="32dp">
+    <TextView style="@style/PageTitle" android:text="边打字，边记词" android:accessibilityHeading="true" />
+    <TextView style="@style/BodyText" android:layout_marginTop="6dp" android:text="打字，也能积累英语。" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:orientation="vertical" android:background="@drawable/card_bg" android:padding="20dp" android:tag="glass_card">
+      <TextView style="@style/SectionTitle" android:text="今日复习" android:textColor="?attr/vimeAccInk" android:textSize="13sp" />
+      <TextView android:id="@+id/tvLearningCount" style="@style/PageTitle" android:layout_marginTop="10dp" android:text="从第一个词开始" android:textSize="30sp" android:textStyle="normal" android:fontFamily="sans-serif-medium" />
+      <TextView android:id="@+id/tvLearningHint" style="@style/BodyText" android:layout_marginTop="6dp" android:text="长按键盘候选词，即可收藏。" />
+      <TextView android:id="@+id/btnStudy" style="@style/Action" android:layout_marginTop="16dp" android:text="打开生词本" />
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp" android:baselineAligned="false">
+        <TextView android:id="@+id/btnWordbook" style="@style/QuietAction" android:layout_width="0dp" android:layout_weight="1" android:text="全部生词" />
+        <TextView android:id="@+id/btnAnalytics" style="@style/QuietAction" android:layout_width="0dp" android:layout_weight="1" android:text="学习数据" />
+      </LinearLayout>
     </LinearLayout>
+    <TextView style="@style/SectionTitle" android:layout_marginTop="24dp" android:text="从一次输入开始" />
+    <EditText android:id="@+id/typingPreview" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:minHeight="56dp" android:hint="输入“你好”，遇见 hello" android:contentDescription="试用输入法，输入中文查看英文提示" android:inputType="textCapSentences|textMultiLine" android:maxLines="3" android:gravity="top|start" android:textSize="16sp" android:textColor="?attr/vimeInk" android:textColorHint="?attr/vimeInk2" android:background="@drawable/pill_bg" android:padding="16dp" android:importantForAutofill="no" />
+    <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:scrollbars="none">
+      <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+        <include android:id="@+id/demo1" layout="@layout/candidate_item" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <include android:id="@+id/demo2" layout="@layout/candidate_item" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <include android:id="@+id/demo3" layout="@layout/candidate_item" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+      </LinearLayout>
+    </HorizontalScrollView>
+    <TextView style="@style/SectionTitle" android:layout_marginTop="24dp" android:text="键盘偏好" />
+    <TextView style="@style/BodyText" android:layout_marginTop="8dp" android:text="英文提示范围" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal" android:baselineAligned="false">
+      <TextView android:id="@+id/lvCet4" style="@style/LevelChip" android:text="CET4" />
+      <TextView android:id="@+id/lvCet6" style="@style/LevelChip" android:layout_marginStart="8dp" android:text="CET6" />
+      <TextView android:id="@+id/lvToefl" style="@style/LevelChip" android:layout_marginStart="8dp" android:text="TOEFL" />
+      <TextView android:id="@+id/lvAll" style="@style/LevelChip" android:layout_marginStart="8dp" android:text="全部" />
+    </LinearLayout>
+    <TextView style="@style/BodyText" android:layout_marginTop="8dp" android:textSize="12sp" android:text="CET4 档含基础词，分级仅供学习参考。" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:orientation="vertical" android:background="@drawable/card_bg" android:padding="4dp" android:tag="glass_card">
+      <TextView android:id="@+id/btnTheme" style="@style/SettingRow" android:text="皮肤配色" android:drawableStart="@drawable/ic_theme" android:drawablePadding="12dp" />
+      <TextView android:id="@+id/btnHaptics" style="@style/SettingRow" android:text="按键触感" android:drawableStart="@drawable/ic_sliders" android:drawablePadding="12dp" />
+      <TextView android:id="@+id/btnVoiceConfig" style="@style/SettingRow" android:text="语音输入    长按空格 2 秒  ›" android:drawableStart="@drawable/ic_voice" android:drawablePadding="12dp" />
+      <TextView android:id="@+id/btnInputSettings" style="@style/SettingRow" android:text="输入设置    尺寸、短语与配色  ›" android:drawableStart="@drawable/ic_keyboard" android:drawablePadding="12dp" />
+      <TextView android:id="@+id/btnInputData" style="@style/SettingRow" android:text="输入数据    管理本机记录  ›" android:drawableStart="@drawable/ic_wordbook" android:drawablePadding="12dp" />
+    </LinearLayout>
+    <TextView style="@style/SectionTitle" android:layout_marginTop="24dp" android:text="离线词典" />
+    <TextView android:id="@+id/btnDictionary" style="@style/SettingRow" android:layout_marginTop="8dp" android:text="词包与查词    管理本机词库  ›" />
+    <TextView android:id="@+id/tvStat" style="@style/BodyText" android:layout_marginTop="4dp" android:text="正在载入本机词典…" android:textSize="12sp" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:orientation="vertical" android:background="@drawable/card_bg" android:padding="20dp" android:tag="glass_card">
+      <TextView style="@style/SectionTitle" android:text="键盘连接" />
+      <TextView android:id="@+id/tvStep1" style="@style/BodyText" android:layout_marginTop="10dp" android:text="尚未在系统中启用" />
+      <TextView android:id="@+id/tvStep2" style="@style/BodyText" android:layout_marginTop="4dp" android:text="请在系统键盘菜单中选择" />
+      <TextView android:id="@+id/btnEnable" style="@style/QuietAction" android:layout_marginTop="6dp" android:text="前往系统设置" />
+    </LinearLayout>
+    <TextView style="@style/BodyText" android:layout_marginTop="20dp" android:text="拼音离线使用 · 只收藏你主动选择的词" android:textSize="12sp" />
+  </LinearLayout>
 </ScrollView>

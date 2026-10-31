@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -22,6 +23,7 @@ object Ui {
     private data class WindowPadding(val left:Int,val top:Int,val right:Int,val bottom:Int)
     fun dp(view: View, n: Int) = (view.resources.displayMetrics.density * n).toInt()
     fun window(activity: Activity) {
+        (activity.findViewById<ViewGroup>(android.R.id.content))?.getChildAt(0)?.let(GlassUi::page)
         activity.window.decorView.post { com.vime.ime.data.CustomTheme.apply(activity.window.decorView) }
         val edge = Build.VERSION.SDK_INT >= 30
         val background=activity.uiColor(R.color.panel_bg)
@@ -63,7 +65,7 @@ object Ui {
     fun label(activity: Activity, value: String, size: Float = 15f, bold: Boolean = false, secondary: Boolean = false) = TextView(activity).apply {
         text = value; textSize = size; includeFontPadding = true
         setTextColor(activity.uiColor(if (secondary) R.color.ink_2 else R.color.ink))
-        if (bold) typeface = Typeface.DEFAULT_BOLD
+        if (bold) typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
         setLineSpacing(dp(this, 3).toFloat(), 1f)
     }
     fun space(column: LinearLayout, height: Int) {
@@ -78,7 +80,8 @@ object Ui {
     fun card(column: LinearLayout): LinearLayout = LinearLayout(column.context).apply {
         orientation = LinearLayout.VERTICAL
         setPadding(dp(this, 20), dp(this, 20), dp(this, 20), dp(this, 20))
-        setBackgroundResource(R.drawable.card_bg)
+        background = GlassUi.surface(context)
+        elevation = 0f
         column.addView(this, LinearLayout.LayoutParams(-1, -2).apply { bottomMargin = dp(column, 16) })
     }
     fun button(activity: Activity, value: String, primary: Boolean = false, action: () -> Unit) = Button(activity).apply {

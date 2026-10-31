@@ -1,0 +1,376 @@
+{
+  "format": "vime-glass-ui-verification-1",
+  "date": "2026-10-31T12:21:35.676319+08:00",
+  "version": "0.24.0",
+  "version_code": 37,
+  "profile": "debug-preview",
+  "source_worktree": "E:\\Vime-build-work\\android-ime-glass-ui",
+  "branch": "codex/ios-glass-ui",
+  "base_commit": "cc225a41420dbcd8dd244d1cfbc664fe6709a108",
+  "reference": "https://www.stylekit.top/zh/styles/glassmorphism",
+  "artifacts": {
+    "armeabi-v7a": {
+      "file": "E:\\Vime-build-work\\releases\\v0.24.0\\Vime-0.24.0-armeabi-v7a.apk",
+      "bytes": 29818681,
+      "sha256": "c66871b2d36f92f3100877a368e01249484056946f6fdd262766fa866edb276e"
+    },
+    "arm64-v8a": {
+      "file": "E:\\Vime-build-work\\releases\\v0.24.0\\Vime-0.24.0-arm64-v8a.apk",
+      "bytes": 31600437,
+      "sha256": "cee654aa42c5c22169032c4c01e7da779aca3afa80480086f1193a23eaf3bbd9"
+    },
+    "x86_64": {
+      "file": "E:\\Vime-build-work\\releases\\v0.24.0\\Vime-0.24.0-x86_64.apk",
+      "bytes": 31567663,
+      "sha256": "2b1978cc6f0e8c1c14e960eefd2f1ac10d07e64e0a7eeae6ea98c554f3bc4076"
+    }
+  },
+  "native_and_assets": {
+    "armeabi-v7a": {
+      "unchanged_from": {
+        "file": "E:\\Vime-build-work\\releases\\v0.23.1-preview-final\\Vime-0.23.1-armeabi-v7a.apk",
+        "bytes": 29814585,
+        "sha256": "b793a944dceb4e7bfbcc9391c0e046ac0542a51947450208c2b8d12577e9a254"
+      },
+      "native": {
+        "lib/armeabi-v7a/libc++_shared.so": "4c8188135d5927f49a2eb5fff96714c5c5ea12e1f09ebbabe3d04aab25b0bd6a",
+        "lib/armeabi-v7a/libvime_rime.so": "6918ce8d0ac046c014707f34d197f6d513b86fdeafe65b43d149a2e4996672b3"
+      },
+      "asset_count": 56,
+      "license_document_count": 34,
+      "all_native_and_assets_equal": true,
+      "file_digest_manifest_sha256": "a8a3f4d074795e621627e95c63f24dd12b7e24a3ca6deda11c351493823753b8"
+    },
+    "arm64-v8a": {
+      "unchanged_from": {
+        "file": "E:\\Vime-build-work\\releases\\v0.23.1-preview-final\\Vime-0.23.1-arm64-v8a.apk",
+        "bytes": 31596341,
+        "sha256": "482a1765ad9bc0e757a7659a202f052cac073601673d6881eba727238f3a1224"
+      },
+      "native": {
+        "lib/arm64-v8a/libc++_shared.so": "b17919df195f29b0a238468c04171b93cedcdffbe0d30cdc634327cf7f7889bc",
+        "lib/arm64-v8a/libvime_rime.so": "77e7d26e7e88060dd544a58cd9e327428a315914bd4567e6034b1bf28e06249e"
+      },
+      "asset_count": 56,
+      "license_document_count": 34,
+      "all_native_and_assets_equal": true,
+      "file_digest_manifest_sha256": "149e120e3cae2b2c38266f91fa5ba439fe5add768f97ef580576d6963020a02c"
+    },
+    "x86_64": {
+      "unchanged_from": {
+        "file": "E:\\Vime-build-work\\releases\\v0.23.1-preview-final\\Vime-0.23.1-x86_64.apk",
+        "bytes": 31563567,
+        "sha256": "0856653b617615f49eab1511afc2f20e7d8778d54e81f1d21c4edb61f67ed6f5"
+      },
+      "native": {
+        "lib/x86_64/libc++_shared.so": "d6bceb7915ddb75ec4f96f97837efd80cf6084b00ad38e2666728f6cc24a9f68",
+        "lib/x86_64/libvime_rime.so": "a7ea47fc73641438935001bcdb8df48f434ae91a9b7785cf9a3fc8dd88c06b03"
+      },
+      "asset_count": 56,
+      "license_document_count": 34,
+      "all_native_and_assets_equal": true,
+      "file_digest_manifest_sha256": "2bf813c617cf73287e07d627dd93b3abcc10e5ffaec3920c05226002bab9a6ce"
+    }
+  },
+  "build_log": "E:\\Vime-build-work\\glass-ui-20261031\\app-build-i.log",
+  "jvm": {
+    "tests": 129,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "passed": 128
+  },
+  "lint": {
+    "Error": 0,
+    "Warning": 171,
+    "Fatal": 0
+  },
+  "static": {
+    "passed": 44,
+    "report": "E:\\Vime-build-work\\glass-ui-20261031\\static-final.json"
+  },
+  "contrast": {
+    "resource_pairs": 72,
+    "combinations": 12,
+    "passed": true,
+    "report": "E:\\Vime-build-work\\glass-ui-20261031\\contrast.json",
+    "scope": "Resource pairs only, not arbitrary custom colors or all composite surfaces"
+  },
+  "window": {
+    "device": "emulator-5580",
+    "passed": true,
+    "settings_restored": true,
+    "sdk": 36,
+    "app_sha256": "2b1978cc6f0e8c1c14e960eefd2f1ac10d07e64e0a7eeae6ea98c554f3bc4076",
+    "test_sha256": "030555bc4833c75574a1f20eed42b4fd3d494a477334aab2bf6e687ec40c34ab",
+    "settings_before": {
+      "default_input_method": "com.vime.ime/.VimeImeService",
+      "show_ime_with_hard_keyboard": "1",
+      "vime_enabled": true
+    },
+    "instrumentation_code": -1,
+    "result": {
+      "sdk": 36,
+      "expected": 7,
+      "passed": 7,
+      "failed": 0,
+      "not_run": 0,
+      "cases": [
+        {
+          "name": "home-launches-and-has-foreground-focus",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "vime-keyboard-opens-after-tapping-editor",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "whole-focused-editor-stays-above-keyboard",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "three-line-editor-remains-fully-visible",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "back-hides-keyboard-and-keeps-home-open",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "wordbook-opens-from-home-action",
+          "pass": true,
+          "error": null
+        },
+        {
+          "name": "back-returns-from-wordbook-to-home",
+          "pass": true,
+          "error": null
+        }
+      ],
+      "geometry": [
+        {
+          "editor": "[53,1274][1027,1421]",
+          "visible": "[53,1274][1027,1421]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 0,
+          "top_bar": 136,
+          "editor_focused": false,
+          "window_focused": true,
+          "ime_visible": false,
+          "layout_pending": false,
+          "lines": 1,
+          "label": "before-editor-touch"
+        },
+        {
+          "editor": "[53,1264][1027,1411]",
+          "visible": "[53,1264][1027,1396]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 1004,
+          "top_bar": 136,
+          "editor_focused": true,
+          "window_focused": true,
+          "ime_visible": true,
+          "layout_pending": false,
+          "lines": 1,
+          "label": "after-editor-touch"
+        },
+        {
+          "editor": "[53,1258][1027,1405]",
+          "visible": "[53,1258][1027,1396]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 1004,
+          "top_bar": 136,
+          "editor_focused": true,
+          "window_focused": true,
+          "ime_visible": true,
+          "layout_pending": false,
+          "lines": 1,
+          "label": "keyboard-open"
+        },
+        {
+          "editor": "[53,1249][1027,1396]",
+          "visible": "[53,1249][1027,1396]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 1004,
+          "top_bar": 136,
+          "editor_focused": true,
+          "window_focused": true,
+          "ime_visible": true,
+          "layout_pending": false,
+          "lines": 1,
+          "label": "whole-editor"
+        },
+        {
+          "editor": "[53,1169][1027,1396]",
+          "visible": "[53,1169][1027,1396]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 1004,
+          "top_bar": 136,
+          "editor_focused": true,
+          "window_focused": true,
+          "ime_visible": true,
+          "layout_pending": false,
+          "lines": 3,
+          "label": "three-lines"
+        },
+        {
+          "editor": "[53,1169][1027,1396]",
+          "visible": "[53,1169][1027,1396]",
+          "window": "[0,0][1080,2400]",
+          "ime_bottom": 0,
+          "top_bar": 136,
+          "editor_focused": true,
+          "window_focused": true,
+          "ime_visible": false,
+          "layout_pending": false,
+          "lines": 3,
+          "label": "after-keyboard-back"
+        }
+      ],
+      "diagnostics": {
+        "ime_selection": "Input method com.vime.ime/.VimeImeService selected for user #0"
+      },
+      "touches": [
+        {
+          "view_id": 2131230995,
+          "bounds": "[53,1274][1027,1421]"
+        },
+        {
+          "view_id": 2131230797,
+          "bounds": "[106,829][540,955]"
+        }
+      ],
+      "scope": "real touch, window metrics and Back key; predictive edge gesture is separate"
+    },
+    "settings_after": {
+      "default_input_method": "com.vime.ime/.VimeImeService",
+      "show_ime_with_hard_keyboard": "1",
+      "vime_enabled": true
+    }
+  },
+  "screenshots": {
+    "delivery-home-light": {
+      "file": "E:\\Vime-build-work\\glass-ui-20261031\\delivery-home-light.png",
+      "sha256": "0d78584ef17d8e4875ed32e25d522fd2600862954a4a9d94b572ba24f8399258",
+      "visually_reviewed": true
+    },
+    "delivery-home-dark": {
+      "file": "E:\\Vime-build-work\\glass-ui-20261031\\delivery-home-dark.png",
+      "sha256": "e1161bb876cffbd8f8bd46526dbee3e4662a32a88cbd05b936de02364f5eaa95",
+      "visually_reviewed": true
+    },
+    "delivery-keyboard-light": {
+      "file": "E:\\Vime-build-work\\glass-ui-20261031\\delivery-keyboard-light.png",
+      "sha256": "7f0e5f936bf9a71468d679b2f0328debc184841ac5fb284ab8db4e437ebb767e",
+      "visually_reviewed": true
+    },
+    "delivery-wordcard-dark-ready": {
+      "file": "E:\\Vime-build-work\\glass-ui-20261031\\delivery-wordcard-dark-ready.png",
+      "sha256": "cabbd041a83ec9969168009f9d7b6bc262b75092889ea9a27ea36f23f5fb2561",
+      "visually_reviewed": true
+    },
+    "delivery-card-close-check": {
+      "file": "E:\\Vime-build-work\\glass-ui-20261031\\delivery-card-close-check.png",
+      "sha256": "2cb5f76f8afa2a4608477a404e15fcf05dde4abf322998cce00bee0112544c38",
+      "visually_reviewed": true
+    }
+  },
+  "manual_checks": {
+    "final_package": [
+      "light/dark home",
+      "actual Chinese candidates and word card",
+      "word-card close",
+      "light keyboard and navigation icons",
+      "animations disabled"
+    ],
+    "intermediate_builds_only": [
+      "375dp/200% font home and review",
+      "landscape actual Vime keyboard",
+      "English e direct commit"
+    ],
+    "intermediate_capture_files": [
+      "home-small-font200.png",
+      "review-small-font200.png",
+      "home-landscape.png",
+      "keyboard-landscape-visible.png",
+      "keyboard-english-safe.png"
+    ],
+    "not_executed": [
+      "physical phone test",
+      "new haptics tests",
+      "custom palette runtime sweep",
+      "all devices/a11y performance certification"
+    ],
+    "haptics": "Only historical 0.17.4 record; no new physical phone operation"
+  },
+  "failure_history": [
+    {
+      "build": "A",
+      "issue": "ViewBinding fields missing after resource XML prefix rewrite",
+      "resolution": "Restored android prefix and rebuilt"
+    },
+    {
+      "window_run": "A",
+      "issue": "Android CLI UiAutomation helper already registered; harness connection failure",
+      "resolution": "Stopped owned helper; serial B/C/H/I runs passed",
+      "evidence": "E:\\Vime-build-work\\glass-ui-20261031\\window-checks-a"
+    },
+    {
+      "manual": "translucent card showed platform shadow through material",
+      "resolution": "Removed card elevation"
+    },
+    {
+      "manual": "system navigation overlapped bottom row",
+      "resolution": "Added navigation/cutout insets and separate overlay padding"
+    },
+    {
+      "capture_helper": "Two final light-capture attempts used wrong ID/invalid shell quoting",
+      "resolution": "Queried actual hierarchy; used typingPreview resource ID; no app defect"
+    }
+  ],
+  "emulator_restoration": {
+    "device": "emulator-5580",
+    "settings": {
+      "secure": {
+        "default_input_method": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME",
+        "enabled_input_methods": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME;1594443099:com.google.android.tts/com.google.android.apps.speech.tts.googletts.settings.asr.voiceime.VoiceInputMethodService",
+        "show_ime_with_hard_keyboard": "0"
+      },
+      "system": {
+        "font_scale": "1.0",
+        "accelerometer_rotation": "1",
+        "user_rotation": "0"
+      },
+      "global": {
+        "animator_duration_scale": "null",
+        "transition_animation_scale": "1.0",
+        "window_animation_scale": "1.0"
+      }
+    },
+    "night": "Night mode: no",
+    "wm_size": "Physical size: 1080x2400",
+    "wm_density": "Physical density: 420",
+    "appearance_file_existed": false,
+    "settings_restored": true,
+    "app_force_stopped": true,
+    "retained_install": "canonical UI preview 0.24.0; no personal phone accessed"
+  },
+  "physical_phone_accessed": false,
+  "source_assets_manifest_permissions_unchanged": true,
+  "paused_native_integration_resumed": false,
+  "production_ready": false,
+  "goal_achieved": false,
+  "publicly_published": false,
+  "preview_certificate_sha256": "c41ce7fe52931687d7ef365d4dd6e4f7f4cd82ad1041f9616479ff30155adc29",
+  "production_checks_expected_failed": [
+    "not_debuggable",
+    "https_only_network_config",
+    "not_preview_certificate"
+  ],
+  "future_version_code": "Any later native integration package must use a code greater than 37"
+}

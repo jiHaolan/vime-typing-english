@@ -132,6 +132,11 @@ class VimeKeyboardView @JvmOverloads constructor(
     private val cInk = context.uiColor(R.color.ink)
     private val cInk3 = context.uiColor(R.color.ink_3)
     private val cAccent = context.uiColor(R.color.acc)
+    private val cOnAccent = context.uiColor(R.color.on_acc)
+    private val rim = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.STROKE; strokeWidth = dp(.65f)
+        color = if (androidx.core.graphics.ColorUtils.calculateLuminance(cKey) < .25) 0x34FFFFFF else 0xE6FFFFFF.toInt()
+    }
     private val metrics = Paint.FontMetrics()
 
     private val fill = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL }
@@ -198,6 +203,10 @@ class VimeKeyboardView @JvmOverloads constructor(
             val faceBottom = b
             rect.set(l, t, r, faceBottom)
             canvas.drawRoundRect(rect, radius, radius, fill)
+            if (!pressed) {
+                rect.inset(dp(.4f), dp(.4f))
+                canvas.drawRoundRect(rect, radius, radius, rim)
+            }
 
             KeyHints.secondary(code)?.takeIf { !pressed }?.let { hint ->
                 text.textSize = dp(11f); text.color = cInk3; text.textAlign = Paint.Align.RIGHT
@@ -217,8 +226,8 @@ class VimeKeyboardView @JvmOverloads constructor(
                 else -> dp(20f)
             }
             text.color = when (code) {
-                Keyboard.KEYCODE_DONE -> if (!pressed && strongAction()) 0xffffffff.toInt() else cInk
-                32 -> cInk3
+                Keyboard.KEYCODE_DONE -> if (!pressed && strongAction()) cOnAccent else cInk
+                32 -> cInk
                 else -> cInk
             }
             val fm = metrics.also { text.getFontMetrics(it) }
@@ -244,7 +253,7 @@ class VimeKeyboardView @JvmOverloads constructor(
             fill.color = cAccent
             rect.set(left, top, left + bubbleWidth, top + dp(34f))
             canvas.drawRoundRect(rect, dp(9f), dp(9f), fill)
-            text.color = 0xffffffff.toInt(); text.textSize = dp(14f)
+            text.color = cOnAccent; text.textSize = dp(14f)
             val fm = text.fontMetrics
             canvas.drawText(preview, rect.centerX(), rect.centerY() - (fm.ascent + fm.descent) / 2f, text)
         }

@@ -18,6 +18,10 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.doOnAttach
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.widget.LinearLayout
@@ -201,12 +205,50 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
     }
 
     private var renderedTheme: String? = null
+    private var systemKeyboardBottom = 0
 
     private fun buildInputView(): View {
         val themed = ThemePref.keyboardContext(this)
         keyboardContext = themed
         val b = ImeInputBinding.inflate(LayoutInflater.from(themed))
+        b.keyboardBody.background = GlassUi.scene(themed, keyboard = true)
+        b.keyboard.setBackgroundColor(android.graphics.Color.TRANSPARENT)
+        b.toolbar.background = GlassUi.surface(themed, 0f)
+        b.candidateBar.background = GlassUi.surface(themed, 0f)
+        b.cardPanel.background = android.graphics.drawable.LayerDrawable(arrayOf(GlassUi.scene(themed), GlassUi.surface(themed)))
+        b.cardPanel.clipToOutline = true
         binding = b
+        systemKeyboardBottom = 0
+        ViewCompat.setOnApplyWindowInsetsListener(b.root) { view, insets ->
+            if (binding === b) {
+                val types = WindowInsetsCompat.Type.navigationBars() or WindowInsetsCompat.Type.displayCutout()
+                val bars = insets.getInsets(types)
+                val rootBars = ViewCompat.getRootWindowInsets(view)?.getInsets(types)
+                val bottom = maxOf(bars.bottom, rootBars?.bottom ?: 0)
+                val left = maxOf(bars.left, rootBars?.left ?: 0)
+                val right = maxOf(bars.right, rootBars?.right ?: 0)
+                if (systemKeyboardBottom != bottom || view.paddingLeft != left || view.paddingRight != right) {
+                    systemKeyboardBottom = bottom
+                    view.setPadding(left, 0, right, 0)
+                    b.cardOverlay.setPadding(0, 0, 0, bottom)
+                    b.panelSheet.root.setPadding(0, 0, 0, bottom)
+                    applyKeyboardScale(keyboardScale)
+                }
+            }
+            insets
+        }
+        b.root.doOnAttach { view ->
+            ViewCompat.requestApplyInsets(view)
+            view.post {
+                window?.window?.let { imeWindow ->
+                    val color = themed.uiColor(R.color.kb_bg)
+                    val light = androidx.core.graphics.ColorUtils.calculateLuminance(color) > .5
+                    imeWindow.navigationBarColor = if (Build.VERSION.SDK_INT < 26 && light) themed.uiColor(R.color.ink) else color
+                    WindowCompat.getInsetsController(imeWindow, imeWindow.decorView).isAppearanceLightNavigationBars = light
+                    if (Build.VERSION.SDK_INT >= 29) imeWindow.isNavigationBarContrastEnforced = false
+                }
+            }
+        }
         renderedTheme = ThemePref.signature(this)
         // Let enlarged candidate text fit without changing the keyboard touch geometry.
         val candidateTextHeight = ((themed.resources.getDimension(R.dimen.cand_tag_size) +
@@ -1049,18 +1091,18 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
         val base = resources.getDimensionPixelSize(R.dimen.keyboard_height)
         val metrics = resources.displayMetrics
         val proportionalCap = (metrics.heightPixels * if (resources.configuration.orientation == 2) .48f else .43f).toInt()
-        val header = b.candidateBar.layoutParams.height + b.toolbar.layoutParams.height + dp(12 + keyboardBottom)
+        val header = b.candidateBar.layoutParams.height + b.toolbar.layoutParams.height + dp(12 + keyboardBottom) + systemKeyboardBottom
         // screenHeightDp already excludes system bars. Reserve some editor space even with large text.
         val remaining = (dp(resources.configuration.screenHeightDp) - header - dp(32)).coerceAtLeast(dp(64))
         val maxHeight = minOf(proportionalCap, remaining)
-        val availableWidth = b.root.width.takeIf { it > 0 } ?: metrics.widthPixels
+        val availableWidth = ((b.root.width.takeIf { it > 0 } ?: metrics.widthPixels) - b.root.paddingLeft - b.root.paddingRight).coerceAtLeast(1)
         val width = availableWidth * keyboardWidth / 100
         b.keyboard.layoutParams = (b.keyboard.layoutParams as LinearLayout.LayoutParams).apply {
             height = (base * scale).toInt().coerceIn(minOf(dp(120), maxHeight), maxHeight)
             this.width = width
             marginStart = (availableWidth - width) * keyboardPosition / 100
         }
-        b.bottomInset.layoutParams = b.bottomInset.layoutParams.also { it.height = dp(keyboardBottom) }
+        b.bottomInset.layoutParams = b.bottomInset.layoutParams.also { it.height = dp(keyboardBottom) + systemKeyboardBottom }
         b.keyboard.requestLayout()
     }
 
@@ -1276,7 +1318,7 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
     }
 
     private fun idleHint(): String = when {
-        DictRepository.ready -> RimeEngine.label() + " · 上方显示英文释义"
+        DictRepository.ready -> if (english) "直接输入英文，轻点候选可补全" else "输入中文，看见英文 · 长按候选查看词卡"
         RimeEngine.state == RimeEngine.State.READY -> "智能拼音已就绪 · 英文词库载入中"
         DictRepository.state == DictRepository.State.FAILED -> "词典加载失败：${DictRepository.loadError ?: "未知错误"}"
         else -> "词典加载中…"
@@ -1363,12 +1405,12 @@ class VimeImeService : InputMethodService(), KeyboardView.OnKeyboardActionListen
         }
 
         if (b.cardOverlay.visibility == View.VISIBLE) return
-        b.cardOverlay.alpha = 0f
+        val motion = if(android.os.Build.VERSION.SDK_INT >= 26) android.animation.ValueAnimator.areAnimatorsEnabled()
+            else android.provider.Settings.Global.getFloat(contentResolver, android.provider.Settings.Global.ANIMATOR_DURATION_SCALE,1f)>0f
+        b.cardOverlay.alpha = if(motion) 0f else 1f
         b.cardOverlay.visibility = View.VISIBLE
-        b.cardOverlay.animate().alpha(1f).setDuration(110).start()
-        b.cardPanel.scaleX = 0.94f
-        b.cardPanel.scaleY = 0.94f
-        b.cardPanel.animate().scaleX(1f).scaleY(1f).setDuration(160).start()
+        b.cardPanel.scaleX = 1f; b.cardPanel.scaleY = 1f
+        if(motion) b.cardOverlay.animate().alpha(1f).setDuration(220).start()
     }
 
     /** 掌握度进度条：weightSum=100，用两段 View 的 weight 表示比例 */

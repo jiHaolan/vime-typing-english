@@ -216,13 +216,14 @@ class LearningActivity : AppCompatActivity() {
         }
         recall.addView(spelling)
         if (!revealed) {
-            body.addView(button("查看答案，再判断是否记得", true) {
+            body.addView(button("查看答案", true) {
                 draft = spelling?.text?.toString().orEmpty(); revealed = true; render()
             })
         } else {
-            body.addView(text(entry.english, 26f, true))
-            pronunciation(body, entry.english)
-            if (draft.isNotBlank()) body.addView(text(
+            Ui.space(recall, 20)
+            recall.addView(Ui.label(this, entry.english, 28f, true))
+            pronunciation(recall, entry.english)
+            if (draft.isNotBlank()) recall.addView(text(
                 if (normalize(draft) == normalize(entry.english)) "拼写与本词条一致" else "与本词条释义不同，请自行核对；同义表达可能仍然正确。", 13f))
             var answering = false
             val answerButtons = ArrayList<TextView>()
