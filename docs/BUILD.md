@@ -135,3 +135,5 @@ adb -s emulator-5580 shell am instrument -w com.vime.ime.test/com.vime.ime.Input
 当前`Build-Native.ps1`必须提供`-EngineBuild`，先按`native/README.md`从固定源码构建引擎。不得再使用旧provider的librime.a；构建器保留六个已锁定依赖的哈希，完整源码与说明见对应原生来源包。
 
 `run_dictionary_checks.py`若基线中存在原生userdb目录，必须传`--leveldb-reader`（包括只有WAL、没有.ldb/.sst的情况）。读取器由`tools/native-leveldb-reader`以同一SDK/NDK和锁定LevelDB静态库构建；它只打开推到专用模拟器的快照副本，不打开真实在用数据库。表文件可压缩改名，所以升级比较逻辑键、记录与测试允许的学习更新。`verify_native_userdb.py`可对已有快照单独补核对，原始数据不得进入公开来源包。
+
+后续六个依赖的独立源码构建、真实产物校验与专用模拟器检查见[NATIVE_DEPENDENCY_BUILD.md](NATIVE_DEPENDENCY_BUILD.md)。该构建尚未替换0.23.1 APK；不要混用旧APK与新静态库来证明应用升级完成。

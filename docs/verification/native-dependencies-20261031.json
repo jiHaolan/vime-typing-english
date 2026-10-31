@@ -1,0 +1,403 @@
+{
+  "format": "vime-native-dependency-verification-1",
+  "date": "2026-10-31T10:19:44.955847+08:00",
+  "goal_achieved": false,
+  "production_ready": false,
+  "packaged_apk_version": "0.23.1",
+  "new_dependencies_integrated_into_apk": false,
+  "packaged_apk_source_commit": "43c5fc1dd81a1cd1a1c65468959511548268ff43",
+  "packaged_apks_unchanged": true,
+  "source_lock_sha256": "64ee03da85c1fd0584f256d405effab92c8090e4cd3fd1758aa6161ce7273c21",
+  "source_build_receipt_sha256": "d3516a498acafd146e4bcc4182f60dffb73a8d1fe7653ccfb62de28e7bc1cad6",
+  "builder_sha256": "d23e8a98063dc61e83bdba6ec78aa3e31a575e6d593f4f21bf178507c8a4b1cd",
+  "provider_binary_inputs_used": false,
+  "upstream_native_sources_unchanged": true,
+  "native_source_snapshot_files": 1129,
+  "source_inputs": [
+    {
+      "source_id": "glog",
+      "repository": "https://github.com/google/glog",
+      "commit": "7b134a5c82c0c0b5698bb6bf7a835b230c5638e4",
+      "archive_sha256": "9c48c7c631be5af3502a19d06ebdb5c2f67d8d0bf216f896848089c1792e6193",
+      "archive_bytes": 182928
+    },
+    {
+      "source_id": "leveldb",
+      "repository": "https://github.com/google/leveldb",
+      "commit": "99b3c03b3284f5886f9ef9a4ef703d57373e61be",
+      "archive_sha256": "bc87b9bbc5674c91246a89813355e78401759761342cc049e1c3d56350a8a9d1",
+      "archive_bytes": 243094
+    },
+    {
+      "source_id": "Lua",
+      "repository": "https://github.com/walterschell/Lua",
+      "commit": "504ef66d500fa1fb4f1684b6617b01342eee704a",
+      "archive_sha256": "e1f4b21091b5011e0e61c2d3ed7b9316d432dd1208e69119067437b03807c94b",
+      "archive_bytes": 1524939
+    },
+    {
+      "source_id": "marisa-trie",
+      "repository": "https://github.com/s-yata/marisa-trie",
+      "commit": "3e87d53b78e15f2f43783d5e376561a8c9722051",
+      "archive_sha256": "c24516edc43be8049ef4e23e50a574d4670036fe3595c49c0f01d4d87ce58f57",
+      "archive_bytes": 212943
+    },
+    {
+      "source_id": "OpenCC",
+      "repository": "https://github.com/BYVoid/OpenCC",
+      "commit": "907bfcbbd3aae86ff04bc8eaca67c8af03108ddf",
+      "archive_sha256": "6d87833234227dcb2ef190b12c7051859195dbe07f0c69fc66455c610d3e8267",
+      "archive_bytes": 3439596
+    },
+    {
+      "source_id": "yaml-cpp",
+      "repository": "https://github.com/jbeder/yaml-cpp",
+      "commit": "56e3bb550c91fd7005566f19c079cb7a503223cf",
+      "archive_sha256": "b8e01ea231a96d6984b0795f225281d1e9989f40ccd589568a051450f41e9151",
+      "archive_bytes": 1057032
+    }
+  ],
+  "builds": {
+    "glog/arm64-v8a": {
+      "source_id": "glog",
+      "sha256": "99a8b58fa93d28877346b31ab7cd9bb99e570337e4a082bb28b0abedc1b6784a",
+      "bytes": 4399104,
+      "members": 10,
+      "elf_machine": "EM_AARCH64",
+      "compile_commands": 10,
+      "build_passed": true
+    },
+    "leveldb/arm64-v8a": {
+      "source_id": "leveldb",
+      "sha256": "bb2919edce2be07cba603f5c0df18202eba6981eaf41856066a542f2a4c0dda6",
+      "bytes": 8823588,
+      "members": 38,
+      "elf_machine": "EM_AARCH64",
+      "compile_commands": 39,
+      "build_passed": true
+    },
+    "lua/arm64-v8a": {
+      "source_id": "Lua",
+      "sha256": "df4f0247514c6b040092a2d9e5ffe7c61c91c4295da78c98202571a8a26b66a2",
+      "bytes": 3046326,
+      "members": 32,
+      "elf_machine": "EM_AARCH64",
+      "compile_commands": 32,
+      "build_passed": true
+    },
+    "marisa/arm64-v8a": {
+      "source_id": "marisa-trie",
+      "sha256": "5a0f97a22f12d0116a791c6214f00b30d91e0549c1f0b392ea48f8bb3adb9fea",
+      "bytes": 3055566,
+      "members": 9,
+      "elf_machine": "EM_AARCH64",
+      "compile_commands": 9,
+      "build_passed": true
+    },
+    "opencc/arm64-v8a": {
+      "source_id": "OpenCC",
+      "sha256": "f28cf396a135f65ac5ad4d6bf174afc235b9a0763000731268bd73e42f1015bb",
+      "bytes": 8884800,
+      "members": 18,
+      "elf_machine": "EM_AARCH64",
+      "compile_commands": 18,
+      "build_passed": true
+    },
+    "yaml-cpp/arm64-v8a": {
+      "source_id": "yaml-cpp",
+      "sha256": "7317f7175694003021f393ffc782e3f782c7bc65313bf15ccc3b8582b0a1a350",
+      "bytes": 9754028,
+      "members": 30,
+      "elf_machine": "EM_AARCH64",
+      "compile_commands": 30,
+      "build_passed": true
+    },
+    "glog/armeabi-v7a": {
+      "source_id": "glog",
+      "sha256": "49162fa33c93850cebf12a0bf370ce26a64a38dba7baf78267b34f025c34b6d0",
+      "bytes": 2878822,
+      "members": 10,
+      "elf_machine": "EM_ARM",
+      "compile_commands": 10,
+      "build_passed": true
+    },
+    "leveldb/armeabi-v7a": {
+      "source_id": "leveldb",
+      "sha256": "9bef302b3c065b8d61de622027bd869c2855380fd19e74a223cd3e2b9042c7a3",
+      "bytes": 6090206,
+      "members": 38,
+      "elf_machine": "EM_ARM",
+      "compile_commands": 39,
+      "build_passed": true
+    },
+    "lua/armeabi-v7a": {
+      "source_id": "Lua",
+      "sha256": "7078e16099bed48a9133b83157aad267ccf465cbf89875f300d37e3ad52f8f96",
+      "bytes": 1781518,
+      "members": 32,
+      "elf_machine": "EM_ARM",
+      "compile_commands": 32,
+      "build_passed": true
+    },
+    "marisa/armeabi-v7a": {
+      "source_id": "marisa-trie",
+      "sha256": "fe7a67dd652c7c35cbb42be99c9c1eabd80e458c37cc32173e7141389946f246",
+      "bytes": 1989532,
+      "members": 9,
+      "elf_machine": "EM_ARM",
+      "compile_commands": 9,
+      "build_passed": true
+    },
+    "opencc/armeabi-v7a": {
+      "source_id": "OpenCC",
+      "sha256": "385aededc11b5377f9ce07af497337606b3837e8e63a4ddcb4816512f853acff",
+      "bytes": 6221458,
+      "members": 18,
+      "elf_machine": "EM_ARM",
+      "compile_commands": 18,
+      "build_passed": true
+    },
+    "yaml-cpp/armeabi-v7a": {
+      "source_id": "yaml-cpp",
+      "sha256": "3b5f6af6196f5ef734a3f3243a098b0773e5bbc7fcc31a3b71d334f855e08bd0",
+      "bytes": 6833230,
+      "members": 30,
+      "elf_machine": "EM_ARM",
+      "compile_commands": 30,
+      "build_passed": true
+    },
+    "glog/x86_64": {
+      "source_id": "glog",
+      "sha256": "5a2494e8da565d2283f42e33dfd18ed2a04d3abb646158cc653d453d5ad44008",
+      "bytes": 4100942,
+      "members": 10,
+      "elf_machine": "EM_X86_64",
+      "compile_commands": 10,
+      "build_passed": true
+    },
+    "leveldb/x86_64": {
+      "source_id": "leveldb",
+      "sha256": "42ec6a0f8a7559b638f82af28ce2ea68a308f84b8c705f5cf81ba26a733c14a9",
+      "bytes": 8327728,
+      "members": 38,
+      "elf_machine": "EM_X86_64",
+      "compile_commands": 39,
+      "build_passed": true
+    },
+    "lua/x86_64": {
+      "source_id": "Lua",
+      "sha256": "49f0f3e0187a12ba6ac33634591706cd06eee245b9c67b5dfa7f3d88ceb6150c",
+      "bytes": 2902694,
+      "members": 32,
+      "elf_machine": "EM_X86_64",
+      "compile_commands": 32,
+      "build_passed": true
+    },
+    "marisa/x86_64": {
+      "source_id": "marisa-trie",
+      "sha256": "5ceb674f993067da41e19df4caf721594a34c11659ca5528d865e77834fbd6ba",
+      "bytes": 2765004,
+      "members": 9,
+      "elf_machine": "EM_X86_64",
+      "compile_commands": 9,
+      "build_passed": true
+    },
+    "opencc/x86_64": {
+      "source_id": "OpenCC",
+      "sha256": "15fd60dae2b9cc2286f267b71950c824285a9c9d784eb076c7482b517d96ecfb",
+      "bytes": 8390968,
+      "members": 18,
+      "elf_machine": "EM_X86_64",
+      "compile_commands": 18,
+      "build_passed": true
+    },
+    "yaml-cpp/x86_64": {
+      "source_id": "yaml-cpp",
+      "sha256": "9d938d123ca0f6714cc2ddd5069474e180a25985f76dbe47bd08d5dfb62a72e7",
+      "bytes": 9414210,
+      "members": 30,
+      "elf_machine": "EM_X86_64",
+      "compile_commands": 30,
+      "build_passed": true
+    }
+  },
+  "actual_archives_verified": 18,
+  "installed_files_verified": 408,
+  "cmake_adaptations": {
+    "CMakeLists.txt": {
+      "before_sha256": "4755b13384953caf7ad7ed44c5fed919fab01ba70beaed37ded2714007995076",
+      "after_sha256": "a3b251bd4ba9461cb27475902bc77e763ff7a3574a652f24714f853f26ea5a52"
+    },
+    "src/CMakeLists.txt": {
+      "before_sha256": "4a40142bde5922cf8f07ac3120314802bb9a400846557850ded65f358b6bfed9",
+      "after_sha256": "6e2cdb4589e635530c7d11adedd937cc1520831d74c5058970393f71f559fe85"
+    }
+  },
+  "sdk_tools": {
+    "E:\\Android\\Sdk\\cmake\\3.31.6\\bin\\cmake.exe": "3b54862b40c3b50b329c49d916475fef4f254d70e7f4deb70c452b3fccc20f01",
+    "E:\\Android\\Sdk\\cmake\\3.31.6\\bin\\ninja.exe": "091c5f8a241c0c2a9a883cd06339f4a3b48564fe59ef5db758689263d5f95835",
+    "E:\\Android\\Sdk\\ndk\\28.0.13004108\\build\\cmake\\android.toolchain.cmake": "dbad92d9dcfea0d32b7c5e5f82f5072d878ded5d46a5d3f1f581ea108ca7fe89",
+    "E:\\Android\\Sdk\\ndk\\28.0.13004108\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\llvm-ar.exe": "26a85b7d574c185640e357ff14b3a976051e472e713446677f8791bbd6a43d50",
+    "E:\\Android\\Sdk\\ndk\\28.0.13004108\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\llvm-readobj.exe": "c51df8ee8cf0a7e362a135664cf8862999b4399ab187c1f0198bc4063bd89b73",
+    "E:\\Android\\Sdk\\ndk\\28.0.13004108\\source.properties": "4f060f28f653cb492fdfbf48d7c4777399574bd2e4c14090141d2db770eef129"
+  },
+  "standalone_runtime": {
+    "passed": true,
+    "device": "emulator-5580",
+    "abi": "x86_64",
+    "physical_phone_used": false,
+    "app_data_accessed": false,
+    "app_installed": false,
+    "fingerprint": "google/sdk_gphone16k_x86_64/emu64xa16k:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys",
+    "remote_temporary_files_removed": true,
+    "executable_sha256": "89c02979e5c290f73d9da6809de44cae56bbeb21ac115c648da29ff1ec502c7a",
+    "runtime_sha256": "69d9c9695dd3bc15440c1e348abb4be2ecb67497095940e5c0f1ce0cfe7b10c6",
+    "all6_source_archives_in_actual_link_map": true,
+    "result": {
+      "expected": 7,
+      "passed": 7,
+      "failed": 0,
+      "process_page_size": 16384,
+      "cases": [
+        {
+          "name": "actual-process-page-size",
+          "pass": true
+        },
+        {
+          "name": "glog-initialize-log-shutdown",
+          "pass": true
+        },
+        {
+          "name": "leveldb-sync-batch-close-reopen",
+          "pass": true
+        },
+        {
+          "name": "lua-utf8-standard-libraries",
+          "pass": true
+        },
+        {
+          "name": "marisa-prefix-save-mmap",
+          "pass": true
+        },
+        {
+          "name": "opencc-text-binary-conversion",
+          "pass": true
+        },
+        {
+          "name": "yaml-unicode-typed-and-malformed-input",
+          "pass": true
+        }
+      ]
+    }
+  },
+  "negative_input_checks": {
+    "passed": true,
+    "negative_cases_passed": 6,
+    "cases": [
+      {
+        "name": "missing-one-ABI-dependency",
+        "passed": true,
+        "rejected_reason": "All six dependencies and three ABIs are required"
+      },
+      {
+        "name": "provider-archive-receipt",
+        "passed": true,
+        "rejected_reason": "Dependency receipt does not match source build policy"
+      },
+      {
+        "name": "different-upstream-commit",
+        "passed": true,
+        "rejected_reason": "Dependency source differs: leveldb"
+      },
+      {
+        "name": "changed-installed-header",
+        "passed": true,
+        "rejected_reason": "Installed dependency input changed: lua/arm64-v8a/include/lua.h"
+      },
+      {
+        "name": "changed-native-source-snapshot",
+        "passed": true,
+        "rejected_reason": "Native source snapshot changed: leveldb"
+      },
+      {
+        "name": "wrong-machine-with-valid-content-digests",
+        "passed": true,
+        "rejected_reason": "Actual dependency object architecture differs: leveldb/arm64-v8a"
+      }
+    ],
+    "restored_clone_verified": true,
+    "authoritative_build_unchanged": true,
+    "physical_phone_used": false
+  },
+  "legacy_userdb_snapshot_read": {
+    "passed": true,
+    "format": "vime-native-userdb-semantic-check-1",
+    "databases": [
+      {
+        "database": "vime_pinyin.userdb",
+        "before_logical_records": 6,
+        "after_logical_records": 6,
+        "before_learned_records": 1,
+        "all_preexisting_keys_retained": true,
+        "changed_records_with_monotonic_learning": 2,
+        "before_table_files": 3,
+        "after_table_files": 3
+      }
+    ],
+    "reader_sha256": "f035d22bccc7274e9f6cfaf1a17575fd97042368e2abe8a8bc2874f3a8a29bb8",
+    "snapshots_unchanged": true,
+    "live_product_database_opened": false,
+    "expected_test_learning_updates_only": true,
+    "remote_snapshot_copies_removed": true,
+    "physical_phone_used": false,
+    "raw_record_files_are_private_and_not_for_public_source_archives": true
+  },
+  "reader_cmake_negative_checks": {
+    "passed": true,
+    "cases": [
+      {
+        "name": "old-provider-archive",
+        "passed": true,
+        "exit_code": 1
+      },
+      {
+        "name": "wrong-source-lock",
+        "passed": true,
+        "exit_code": 1
+      }
+    ]
+  },
+  "current_tool_source_hashes": {
+    "tools/build_native_dependencies.py": "d23e8a98063dc61e83bdba6ec78aa3e31a575e6d593f4f21bf178507c8a4b1cd",
+    "tools/verify_native_dependencies.py": "26b616403faacfb77bd02f9d4e0c7b4611bd3fa057cc9a1bf6f1e0e9a89306ae",
+    "tools/run_native_dependency_probe.py": "6626d6bde2ac2ced6bf1989c9d762f71988ca411caa4472faddf13155d2ed0b9",
+    "tools/test_native_dependency_guards.py": "fbb934ebe6ded2980046df4b5b29dc77b4237328bf7489b96cc432e08b2b3980",
+    "tools/native-dependency-probe/CMakeLists.txt": "af8a711a599bc665b9a27e14673344ded1801231d300c5840e354aa907250113",
+    "tools/native-dependency-probe/main.cpp": "ead5771f993b798ff08c155a62ee6ee34625045ce247938bae935165b74e11bf",
+    "tools/native-leveldb-reader/CMakeLists.txt": "e021cac112845872e94a67cd07e6af38a1bf6b50f33e3a76f98deecdb9ad1dea"
+  },
+  "initial_failure": {
+    "path": "E:\\Vime-build-work\\native-dependency-source-v1\\build-a\\receipt.json",
+    "completed_dependency_builds": 4,
+    "reason": "OpenCC relative PATH install option resolved into checkout; expected prefix archive missing. BuildB uses absolute install prefix, fixed child cwd and verifies every install-manifest path.",
+    "owned_generated_files_moved_to": "E:\\Vime-build-work\\native-dependency-source-v1\\failed-install-a",
+    "generated_files": 6,
+    "original_project_files_deleted": false
+  },
+  "checks_not_repeated": [
+    "JVM/app Instrumentation/lint: no product code or APK changed. Standalone native fixtures are new evidence, not app regression proof."
+  ],
+  "physical_phone_used": false,
+  "phone_preference": "先用已有测试记录，暂不复测",
+  "haptics_retested": false,
+  "public_push_performed": false,
+  "evidence_root": "E:\\Vime-build-work\\native-dependency-source-v1",
+  "build_output": "E:\\Vime-build-work\\native-dependency-source-v1\\build-b",
+  "limits": [
+    "Current0.23.1 APK still links the earlier authenticated provider dependencies. Full Rime/JNI/APK source dependency integration and app regressions remain.",
+    "All18 archives cross-compiled, runtime7 covers owned API36/x86_64/16KB emulator only, not ARM physical devices or API24 runtime.",
+    "Historical snapshot comparison covers6logical records and does not constitute a new app upgrade or arbitrary corrupt-database recovery proof.",
+    "Native source snapshots and installed-file hashes do not prove compiler output byte reproducibility on another machine.",
+    "Historical GPL distribution review, own code licence decision, full source release, production signing, independent speech, billing and multi-device/long-term quality remain."
+  ]
+}

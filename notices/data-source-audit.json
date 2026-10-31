@@ -91,7 +91,7 @@
   "remaining_release_blockers": [
     {
       "id": "native-transitive-review",
-      "detail": "0.23.0实际包含GPL3 Octagram；0.23.1已验证显式源码引擎排除该插件、补充内嵌许可并归档重建材料。六个底层依赖尚未全部独立重建，历史发布事项仍待审核。"
+      "detail": "六个底层依赖的独立源码重建已验证；当前0.23.1预览包仍链接既有provider依赖，后续接入、应用级回归、完整来源归档与历史发布审核尚未完成。"
     }
   ],
   "commercial_rights_complete": false,
@@ -198,5 +198,15 @@
     "dictionary_source_kit_sha256": "4b854196fe962fda01b870adc732d5ea41611603b6a73b438e3af90de5ed2144",
     "baseline_table_counter_corrected": true,
     "native_records_verified": 6
+  },
+  "standalone_dependency_source_build": {
+    "date": "2026-10-31",
+    "all6_dependencies_3abis_source_built": true,
+    "static_archives_verified": 18,
+    "installed_files_verified": 408,
+    "standalone16k_runtime_passed": 7,
+    "negative_input_cases_passed": 6,
+    "packaged_apk_uses_new_dependencies": false,
+    "evidence": "docs/verification/native-dependencies-20261031.json"
   }
 }
