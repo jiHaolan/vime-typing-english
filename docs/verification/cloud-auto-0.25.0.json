@@ -1,0 +1,44 @@
+{
+  "version": "0.25.0",
+  "version_code": 40,
+  "job_name": "键忆0250商店前云测",
+  "submitted_local": "2026-11-01 11:13:03",
+  "checked_at": "2026-11-01T14:36:02.185624+08:00",
+  "platform": "vivo official automatic cloud testing",
+  "submitted_artifact": {
+    "name": "Jianyi-0.25.0-arm64-v8a.apk",
+    "sha256": "3ab4d556f4a93694e8192e2599a616c35518d21ed6b1180ac5bc68c3b00fe428"
+  },
+  "compatibility": "passed",
+  "devices": [
+    {
+      "name": "vivo X300 Pro",
+      "android": 17,
+      "status": "passed"
+    },
+    {
+      "name": "vivo X100",
+      "android": 14,
+      "status": "passed"
+    },
+    {
+      "name": "vivo Pad5",
+      "android": 16,
+      "status": "passed"
+    }
+  ],
+  "security_engines": {
+    "one": "passed",
+    "two": "passed"
+  },
+  "privacy_test_submitted": false,
+  "result_text_sha256": "8b60fc045302271060bd0771cb2aeb76360ba022cad634cf890e9f18dc044cb8",
+  "scope_limits": [
+    "No independent ASR/model in the tested 0.25.0 APK",
+    "No microphone accuracy, actual haptics or audible pronunciation qualification",
+    "No ARM64 kernel page-size measurement",
+    "No assertion of complete security, policy, licensing or store acceptance",
+    "Does not qualify 0.25.1 or later APKs"
+  ],
+  "account_identifiers_and_session_urls_not_published": true
+}
