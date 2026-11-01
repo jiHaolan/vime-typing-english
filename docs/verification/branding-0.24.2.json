@@ -1,0 +1,194 @@
+{
+  "version": "0.24.2",
+  "version_code": 39,
+  "name": "键忆",
+  "apk_inspection": {
+    "armeabi-v7a": {
+      "labels": {
+        "app_name": "键忆",
+        "ime_label": "键忆输入法",
+        "subtype_label": "中文 · 打字学英语",
+        "brand_tagline": "边打字，边记词。"
+      },
+      "unchanged_payload": {
+        "assets/": {
+          "count": 59,
+          "all_bytes_equal": true
+        },
+        "lib/": {
+          "count": 2,
+          "all_bytes_equal": true
+        }
+      },
+      "legacy_icons": {
+        "res/mipmap-mdpi-v4/ic_launcher.png": {
+          "size": 48,
+          "sha256": "b09c4c896206b40a5be950b80c5b48b83ce10a11064f47bf02553a7eb1b0cc74"
+        },
+        "res/mipmap-hdpi-v4/ic_launcher.png": {
+          "size": 72,
+          "sha256": "33c1e72053d492db4719844fd6acb7bb0b965b30bc66d6d06c75b131eafae431"
+        },
+        "res/mipmap-xhdpi-v4/ic_launcher.png": {
+          "size": 96,
+          "sha256": "dc5423dfaba52a4d24ff6cb9a47701a5f43ae756a82250bc0478973dccfb98b7"
+        },
+        "res/mipmap-xxhdpi-v4/ic_launcher.png": {
+          "size": 144,
+          "sha256": "b32539e3486527201a411944277e5e9d0762f2363e4a1363c3c8252d60250eae"
+        },
+        "res/mipmap-xxxhdpi-v4/ic_launcher.png": {
+          "size": 192,
+          "sha256": "2d46482b36cdded90ebd09891c48068339ee5da1a9b356b8822d03b1447ff8af"
+        }
+      },
+      "compiled_xml": {
+        "res/mipmap-anydpi-v26/ic_launcher.xml": {
+          "sha256": "75653da2e945844bcbe105b83d737f304c8f8acd3d81e5900992f69d3fa301bd"
+        },
+        "res/mipmap-anydpi-v33/ic_launcher.xml": {
+          "sha256": "6c215c787d6518cff75ee68723c9c381bc9e15b0e15da5b27c8ff46ac59efc1c"
+        },
+        "res/drawable/ic_launcher_background.xml": {
+          "sha256": "9ad2ae706e6b3993f03f513143c26d798ed5681ab6c6868a3b045b4e384d63c1"
+        },
+        "res/drawable/ic_launcher_fg.xml": {
+          "sha256": "58ecde85bca396c0f2e7830eee670036c83c9478f99b7ef90ae310274904d425"
+        },
+        "res/drawable/ic_launcher_mono.xml": {
+          "sha256": "3ff193be2fe3ff8a175ed4065df1e54468c6b6ac5aee85e1a1f11976bb19a1be"
+        },
+        "res/layout/activity_main.xml": {
+          "sha256": "ce96fb9255bbd47269e7943377b759fd5772612f24483c002de62e74f8845e98"
+        }
+      }
+    },
+    "x86_64": {
+      "labels": {
+        "app_name": "键忆",
+        "ime_label": "键忆输入法",
+        "subtype_label": "中文 · 打字学英语",
+        "brand_tagline": "边打字，边记词。"
+      },
+      "unchanged_payload": {
+        "assets/": {
+          "count": 59,
+          "all_bytes_equal": true
+        },
+        "lib/": {
+          "count": 2,
+          "all_bytes_equal": true
+        }
+      },
+      "legacy_icons": {
+        "res/mipmap-mdpi-v4/ic_launcher.png": {
+          "size": 48,
+          "sha256": "b09c4c896206b40a5be950b80c5b48b83ce10a11064f47bf02553a7eb1b0cc74"
+        },
+        "res/mipmap-hdpi-v4/ic_launcher.png": {
+          "size": 72,
+          "sha256": "33c1e72053d492db4719844fd6acb7bb0b965b30bc66d6d06c75b131eafae431"
+        },
+        "res/mipmap-xhdpi-v4/ic_launcher.png": {
+          "size": 96,
+          "sha256": "dc5423dfaba52a4d24ff6cb9a47701a5f43ae756a82250bc0478973dccfb98b7"
+        },
+        "res/mipmap-xxhdpi-v4/ic_launcher.png": {
+          "size": 144,
+          "sha256": "b32539e3486527201a411944277e5e9d0762f2363e4a1363c3c8252d60250eae"
+        },
+        "res/mipmap-xxxhdpi-v4/ic_launcher.png": {
+          "size": 192,
+          "sha256": "2d46482b36cdded90ebd09891c48068339ee5da1a9b356b8822d03b1447ff8af"
+        }
+      },
+      "compiled_xml": {
+        "res/mipmap-anydpi-v26/ic_launcher.xml": {
+          "sha256": "75653da2e945844bcbe105b83d737f304c8f8acd3d81e5900992f69d3fa301bd"
+        },
+        "res/mipmap-anydpi-v33/ic_launcher.xml": {
+          "sha256": "6c215c787d6518cff75ee68723c9c381bc9e15b0e15da5b27c8ff46ac59efc1c"
+        },
+        "res/drawable/ic_launcher_background.xml": {
+          "sha256": "9ad2ae706e6b3993f03f513143c26d798ed5681ab6c6868a3b045b4e384d63c1"
+        },
+        "res/drawable/ic_launcher_fg.xml": {
+          "sha256": "58ecde85bca396c0f2e7830eee670036c83c9478f99b7ef90ae310274904d425"
+        },
+        "res/drawable/ic_launcher_mono.xml": {
+          "sha256": "3ff193be2fe3ff8a175ed4065df1e54468c6b6ac5aee85e1a1f11976bb19a1be"
+        },
+        "res/layout/activity_main.xml": {
+          "sha256": "ce96fb9255bbd47269e7943377b759fd5772612f24483c002de62e74f8845e98"
+        }
+      }
+    },
+    "arm64-v8a": {
+      "labels": {
+        "app_name": "键忆",
+        "ime_label": "键忆输入法",
+        "subtype_label": "中文 · 打字学英语",
+        "brand_tagline": "边打字，边记词。"
+      },
+      "unchanged_payload": {
+        "assets/": {
+          "count": 59,
+          "all_bytes_equal": true
+        },
+        "lib/": {
+          "count": 2,
+          "all_bytes_equal": true
+        }
+      },
+      "legacy_icons": {
+        "res/mipmap-mdpi-v4/ic_launcher.png": {
+          "size": 48,
+          "sha256": "b09c4c896206b40a5be950b80c5b48b83ce10a11064f47bf02553a7eb1b0cc74"
+        },
+        "res/mipmap-hdpi-v4/ic_launcher.png": {
+          "size": 72,
+          "sha256": "33c1e72053d492db4719844fd6acb7bb0b965b30bc66d6d06c75b131eafae431"
+        },
+        "res/mipmap-xhdpi-v4/ic_launcher.png": {
+          "size": 96,
+          "sha256": "dc5423dfaba52a4d24ff6cb9a47701a5f43ae756a82250bc0478973dccfb98b7"
+        },
+        "res/mipmap-xxhdpi-v4/ic_launcher.png": {
+          "size": 144,
+          "sha256": "b32539e3486527201a411944277e5e9d0762f2363e4a1363c3c8252d60250eae"
+        },
+        "res/mipmap-xxxhdpi-v4/ic_launcher.png": {
+          "size": 192,
+          "sha256": "2d46482b36cdded90ebd09891c48068339ee5da1a9b356b8822d03b1447ff8af"
+        }
+      },
+      "compiled_xml": {
+        "res/mipmap-anydpi-v26/ic_launcher.xml": {
+          "sha256": "75653da2e945844bcbe105b83d737f304c8f8acd3d81e5900992f69d3fa301bd"
+        },
+        "res/mipmap-anydpi-v33/ic_launcher.xml": {
+          "sha256": "6c215c787d6518cff75ee68723c9c381bc9e15b0e15da5b27c8ff46ac59efc1c"
+        },
+        "res/drawable/ic_launcher_background.xml": {
+          "sha256": "9ad2ae706e6b3993f03f513143c26d798ed5681ab6c6868a3b045b4e384d63c1"
+        },
+        "res/drawable/ic_launcher_fg.xml": {
+          "sha256": "58ecde85bca396c0f2e7830eee670036c83c9478f99b7ef90ae310274904d425"
+        },
+        "res/drawable/ic_launcher_mono.xml": {
+          "sha256": "3ff193be2fe3ff8a175ed4065df1e54468c6b6ac5aee85e1a1f11976bb19a1be"
+        },
+        "res/layout/activity_main.xml": {
+          "sha256": "ce96fb9255bbd47269e7943377b759fd5772612f24483c002de62e74f8845e98"
+        }
+      }
+    }
+  },
+  "lint": {
+    "Warning": 169
+  },
+  "build": "assembleDebug lintDebug --rerun-tasks: BUILD SUCCESSFUL",
+  "scope": "Resource branding; native/data payload unchanged; no fresh keyboard/voice/physical-device claims.",
+  "preview_certificate": true,
+  "published": false
+}

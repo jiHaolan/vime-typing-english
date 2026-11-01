@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="@android:color/transparent" android:clipToPadding="false">
   <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:focusable="true" android:focusableInTouchMode="true" android:paddingStart="@dimen/page_gutter" android:paddingEnd="@dimen/page_gutter" android:paddingTop="20dp" android:paddingBottom="32dp">
-    <TextView style="@style/PageTitle" android:text="边打字，边记词" android:accessibilityHeading="true" />
-    <TextView style="@style/BodyText" android:layout_marginTop="6dp" android:text="打字，也能积累英语。" />
+    <TextView style="@style/PageTitle" android:text="@string/app_name" android:accessibilityHeading="true" />
+    <TextView style="@style/BodyText" android:layout_marginTop="6dp" android:text="@string/brand_tagline" />
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:orientation="vertical" android:background="@drawable/card_bg" android:padding="20dp" android:tag="glass_card">
       <TextView style="@style/SectionTitle" android:text="今日复习" android:textColor="?attr/vimeAccInk" android:textSize="13sp" />
       <TextView android:id="@+id/tvLearningCount" style="@style/PageTitle" android:layout_marginTop="10dp" android:text="从第一个词开始" android:textSize="30sp" android:textStyle="normal" android:fontFamily="sans-serif-medium" />

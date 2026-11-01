@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">边打字边背单词</string>
-    <string name="ime_label">边打字边背单词</string>
-    <string name="subtype_label">中文（边背单词）</string>
+    <string name="app_name">键忆</string>
+    <string name="ime_label">键忆输入法</string>
+    <string name="subtype_label">中文 · 打字学英语</string>
+    <string name="brand_tagline">边打字，边记词。</string>
     <string name="loading_dict">加载词典…</string>
 </resources>
 

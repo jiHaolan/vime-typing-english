@@ -32,8 +32,8 @@ android {
         applicationId = "com.vime.ime"
         minSdk = 24
         targetSdk = 36
-        versionCode = 38
-        versionName = "0.24.1"
+        versionCode = 39
+        versionName = "0.24.2"
         testInstrumentationRunner = when {
             keyboardChecks == "true" -> "com.vime.ime.KeyboardUsabilityInstrumentation"
             windowChecks == "true" -> "com.vime.ime.WindowInteractionInstrumentation"

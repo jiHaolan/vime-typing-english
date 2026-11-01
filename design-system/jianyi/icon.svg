@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="18 18 72 72">
+<defs><linearGradient id="navy" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#21384F"/><stop offset="1" stop-color="#0B1322"/></linearGradient></defs>
+<rect x="0" y="0" width="108" height="108" fill="url(#navy)"/>
+<path fill="#9FAFBE" d="M41,29 H67 Q79,29 79,41 V69 Q79,81 67,81 H41 Q29,81 29,69 V41 Q29,29 41,29 Z"/>
+<path fill="#F5F6F2" d="M41,29 H67 Q79,29 79,41 V65 Q79,77 67,77 H41 Q29,77 29,65 V41 Q29,29 41,29 Z"/>
+<path fill="#182638" d="M38,44 Q46,40 53,45 V65 Q46,60 38,63 Z"/>
+<path fill="#182638" d="M55,45 Q63,40 71,44 V63 Q63,60 55,65 Z"/>
+<path fill="#E4B863" d="M62,43 H66 V57 L64,55 L62,57 Z"/>
+</svg>
