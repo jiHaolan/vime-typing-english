@@ -1,0 +1,130 @@
+{
+  "scope": "Native engine experiment only; not included in the 0.25.1 APK",
+  "runtime": {
+    "scope": "Native offline inference of synthetic TTS fixtures; not microphone/IME/physical phone acceptance",
+    "abi": "x86_64",
+    "api": "36",
+    "page_size": 16384,
+    "model": {
+      "url": "https://huggingface.co/cstr/x-asr-zh-en-GGUF/resolve/acb1a95eac809719a2c86d1048471f96fc6444ad/x-asr-zh-en-q4_k.gguf",
+      "revision": "acb1a95eac809719a2c86d1048471f96fc6444ad",
+      "sha256": "3300f743cf34f686004cf600a1ea206c7eee50ecaa01e95b4aff418876f613c8",
+      "bytes": 92665824,
+      "license": "Apache-2.0 per upstream model card",
+      "seconds": 66.78
+    },
+    "executable_sha256": "af7473aef7452ac2ae9218333e87937ae87a76162cb8db291cbf809bfb364cbd",
+    "source_commit": "1dd0bf6fb9e7a8bf5849cb7a14605b2234e6ee93",
+    "ggml_commit": "e2ae679a563014f46c546ce6c6448e8601e4dea6",
+    "fixtures": {
+      "zh": {
+        "kind": "Windows local TTS",
+        "pcm_sha256": "71a0cffa371911e35f48ba8e53ef19b6f133be42caab42bda1b63adf3b6641f3",
+        "seconds": 5.245,
+        "transcript": "今天开始练习英语， 欢迎使用建议输入法",
+        "metrics": {
+          "LOAD_MS": 593,
+          "DECODE_MS": 31639,
+          "MAX_RSS_KIB": 173528
+        },
+        "wall_seconds": 32.34
+      },
+      "en": {
+        "kind": "Windows local TTS",
+        "pcm_sha256": "929fa27b322a01224a3a72bab207e18d77d848e6aecb3ae9e08ab479054c17da",
+        "seconds": 4.945,
+        "transcript": "Hello. Nice to meet you. Today we practice English.",
+        "metrics": {
+          "LOAD_MS": 57,
+          "DECODE_MS": 3390,
+          "MAX_RSS_KIB": 173460
+        },
+        "wall_seconds": 3.62
+      }
+    },
+    "network_before": {
+      "wifi_on": "1",
+      "mobile_data": "1"
+    },
+    "network_during": {
+      "wifi_on": "0",
+      "mobile_data": "0"
+    },
+    "routes_during": "",
+    "network_after": {
+      "wifi_on": "1",
+      "mobile_data": "1"
+    },
+    "network_restored": true,
+    "remote_temporary_files_removed": true
+  },
+  "arm64_build": {
+    "scope": "native build only; no APK/microphone/physical-device acceptance",
+    "abi": "arm64-v8a",
+    "api": 24,
+    "ndk": "28.0.13004108",
+    "crispasr_commit": "1dd0bf6fb9e7a8bf5849cb7a14605b2234e6ee93",
+    "ggml_commit": "e2ae679a563014f46c546ce6c6448e8601e4dea6",
+    "upstream_sources_changed": false,
+    "probe_sources": {
+      "CMakeLists.txt": "1b2a7172bb3f3df676055d055fc932d273856d1ff392b89b92546014da6ccc05",
+      "probe.cpp": "9ffe579dd489c6267504697dc232538494ecfb8503229ccee431a0008b46837d",
+      "build.py": "6ec0207e63642d1e1e570cc1759a9697fcd3ef09cca072db5b908dfd374c5537"
+    },
+    "executable": {
+      "name": "jianyi-xasr-probe",
+      "bytes": 15914288,
+      "sha256": "02f17f1bdfec2e642f5e37883c98afa5aacfe201024d15fe0cba714cf601f11a"
+    },
+    "load_alignments": [
+      16384,
+      16384,
+      16384
+    ]
+  },
+  "four_thread_runs": [
+    {
+      "limit_seconds": 240,
+      "result": "host timeout, no transcript; original partial output unavailable",
+      "network_restored": true,
+      "temporary_files_removed": true
+    },
+    {
+      "limit_seconds": 45,
+      "result": "Android timeout exit 137",
+      "last_phases": [
+        "model_load",
+        "inference"
+      ],
+      "network_restored": true,
+      "temporary_files_removed": true
+    }
+  ],
+  "first_build_failures": [
+    "CMake terminated during compiler detection with the original host working directory on two installed tool versions. Build succeeded with the ASCII build working directory; underlying CMake cause not established."
+  ],
+  "synthesis": {
+    "zh": {
+      "voice": "Microsoft Huihui Desktop",
+      "expected": "今天开始练习英语，欢迎使用键忆输入法。"
+    },
+    "en": {
+      "voice": "Microsoft Zira Desktop",
+      "expected": "Hello, nice to meet you. Today we practice English."
+    }
+  },
+  "interpretation": {
+    "both_languages_returned": true,
+    "brand_name_error_preserved": "键忆 -> 建议",
+    "four_thread_root_cause": "unknown",
+    "physical_phone_speed_qualified": false,
+    "microphone_or_ime_integration_qualified": false,
+    "model_in_current_apk": false,
+    "offline_model_import_in_current_apk": false
+  },
+  "source_documents": [
+    "https://github.com/CrispStrobe/CrispASR/tree/1dd0bf6fb9e7a8bf5849cb7a14605b2234e6ee93",
+    "https://github.com/CrispStrobe/ggml/tree/e2ae679a563014f46c546ce6c6448e8601e4dea6",
+    "https://huggingface.co/cstr/x-asr-zh-en-GGUF/blob/acb1a95eac809719a2c86d1048471f96fc6444ad/x-asr-zh-en-q4_k.gguf"
+  ]
+}

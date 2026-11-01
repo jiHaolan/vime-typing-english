@@ -31,6 +31,8 @@ Android 7.0 及以上。安装后在系统设置中启用并选择本输入法�
 
 [免密钥语音设置与故障排查](docs/VOICE.md)：0.17.1 会将未配置的旧联网模式恢复为手机语音。
 
+[手机离线语音进展](docs/OFFLINE_VOICE.md)：93MB中英文模型在Android16/16KB模拟器完成原生断网实验，ARM64仅完成编译；尚未接入0.25.1，不作为真实麦克风或商店语音验收。
+
 [学习备份与数据管理](docs/LEARNING_DATA.md) · [商用能力与验收进度](docs/COMMERCIAL_READINESS.md)
 
 ## 这版修正
