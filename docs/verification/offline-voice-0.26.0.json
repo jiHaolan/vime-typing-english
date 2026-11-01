@@ -173,14 +173,16 @@
   },
   "offline_source_kit": {
     "format": "jianyi-offline-source-kit-check-1",
-    "archive_sha256": "18f8e42b98be7d4f94aca60d111463d4f9ac507463bdd0b52913ea4013ac186e",
+    "archive_sha256": "896e86696eab5a92f524555a7e11a057ae846c5f48595f49bdf78c30de309d9f",
     "all_payload_hashes_match": true,
     "public_bundles_clone_and_checkout_with_file_protocol_only": true,
     "exact_source_pins": true,
     "upstream_tracked_sources_unchanged": true,
     "shipped_recipe_hashes_match": true,
     "second_native_compilation_performed": false,
-    "contains_model_or_user_data": false
+    "contains_jianyi_user_data": false,
+    "separate_xasr_weights_included": false,
+    "public_upstream_example_assets_may_be_in_git_history": true
   },
   "controlled_emulator_system_job": {
     "main_apk_sha256": "4c2be210c80ec29c42e84a9e8b933ab6d102a59fc4dc8ba1ddcec14e40ca012d",

@@ -44,8 +44,10 @@ def main():
  readme=('''# Jianyi 0.26.0 offline speech source/rebuild kit
 
 This kit contains public upstream Git bundles, the unchanged pinned sources,
-the exact JNI recipe and current binaries. No model, recording, learning data,
-credentials, machine-specific Git configuration or signing keys are included.
+the exact JNI recipe and current binaries. No separately distributed X-ASR
+weights, Jianyi user recordings, learning data, credentials, machine-specific
+Git configuration or signing keys are included. Public upstream histories may
+contain their own example/test assets, with their original notices retained.
 Full upstream per-file licences and third-party notices remain in the bundles.
 The app's other native engine/dictionaries retain their separate source kits.
 
