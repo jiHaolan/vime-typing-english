@@ -1,0 +1,236 @@
+{
+  "format": "jianyi-cloud-basic-workflows-1",
+  "date": "2026-11-01T11:05:58.850255+08:00",
+  "version": "0.25.0",
+  "version_code": 40,
+  "commit": "ae88eaf67240638c60e6bb189c73cc210f917b41",
+  "provider": "vivo official cloud real device",
+  "device": {
+    "model": "X300",
+    "android": "16",
+    "abi_reported_by_portal": "arm64-v8a",
+    "resolution_reported_by_portal": "1216x2640",
+    "memory_page_size": "not measured"
+  },
+  "submitted_artifact": {
+    "name": "Jianyi-0.25.0-arm64-v8a.apk",
+    "bytes": 32617111,
+    "sha256": "3ab4d556f4a93694e8192e2599a616c35518d21ed6b1180ac5bc68c3b00fe428",
+    "installed_file_digest_read_back": false
+  },
+  "method": "Native phone UI controlled through official portal video, with screenshots visually reviewed. No USB personal phone operated. Cloud device network remained enabled.",
+  "checks": [
+    {
+      "id": "install_launch",
+      "result": "observed_pass",
+      "detail": "Uploaded final ARM64 APK; portal parsed Jianyi 0.25.0, installation launched its home UI.",
+      "evidence": [
+        {
+          "file": "cloud-x300-unlock-video.png",
+          "sha256": "fc421398d9029734e14f9d0fa7d1a8246b756222dc17f64a705211364c1cd19c",
+          "public_image_uploaded": false
+        }
+      ]
+    },
+    {
+      "id": "enable_and_switch",
+      "result": "observed_pass",
+      "detail": "Android enabled Jianyi; selecting it through the navigation globe popup displayed the actual keyboard. Original default-picker attempts did not switch it.",
+      "evidence": [
+        {
+          "file": "cloud-x300-enable-warning.png",
+          "sha256": "c15c4686f8502ad3bb3bc2ec7d40b063ece93868e846a4405ab8941ee88fa897",
+          "public_image_uploaded": false
+        },
+        {
+          "file": "cloud-x300-navbar-picker.png",
+          "sha256": "e1d14e99abb7d7402f2c68dc2db3251196fd3218bc93a03ac8fce899966c0518",
+          "public_image_uploaded": false
+        },
+        {
+          "file": "cloud-x300-jianyi-keyboard.png",
+          "sha256": "b6c7f0698cc75acde7a4bb8d913c02e2089994ea81146ce43f4e7a76e646fe96",
+          "public_image_uploaded": false
+        }
+      ]
+    },
+    {
+      "id": "full_pinyin_and_english",
+      "result": "observed_pass",
+      "detail": "With 1500ms between remote clicks, all 11 letters zhendejiade were visible; first candidate 真的假的 carried is that true.",
+      "evidence": [
+        {
+          "file": "cloud-x300-full-pinyin-final.png",
+          "sha256": "f36ec753ceaea6c8a3d2e2fb2b30004fd743e071b12ea9d41a748700289e2dab",
+          "public_image_uploaded": false
+        }
+      ]
+    },
+    {
+      "id": "whole_word_commit",
+      "result": "observed_pass",
+      "detail": "Tapping that candidate committed exactly 真的假的 with no remaining pinyin.",
+      "evidence": [
+        {
+          "file": "cloud-x300-chinese-committed.png",
+          "sha256": "bb5ec950f306b5ab39fed20696e982360e114b68c05c920ef6e6e04bc76394e2",
+          "public_image_uploaded": false
+        }
+      ]
+    },
+    {
+      "id": "backspace_up_clear",
+      "result": "observed_pass",
+      "detail": "Held backspace then dragged upward; field became empty and UI stated current input was cleared.",
+      "evidence": [
+        {
+          "file": "cloud-x300-clear-gesture.png",
+          "sha256": "78060a34750414b8f2294dc89dc5dbc5ff81a0aa919d05043a33b85de76bf7e1",
+          "public_image_uploaded": false
+        }
+      ]
+    },
+    {
+      "id": "english_direct_input",
+      "result": "observed_pass",
+      "detail": "After mode was visibly confirmed English, abc appeared without composition underline and without accepting a candidate.",
+      "evidence": [
+        {
+          "file": "cloud-x300-mode-switch.png",
+          "sha256": "553b9ab56e015169e01021fd0125a95bdf69cd90d074d9f4cb420e543b64ce61",
+          "public_image_uploaded": false
+        },
+        {
+          "file": "cloud-x300-english-confirmed.png",
+          "sha256": "bc60cc62ff7fcd55f991a5da8a3601cd57c9965ab4f6bd3cb425b95c05e569cc",
+          "public_image_uploaded": false
+        }
+      ]
+    },
+    {
+      "id": "common_word_and_card",
+      "result": "observed_pass",
+      "detail": "nihao showed 你好 / hello. A 2100ms remote hold displayed the complete ni3 hao3, hello; hi card. Does not verify the minimum hold threshold.",
+      "evidence": [
+        {
+          "file": "cloud-x300-nihao-candidate.png",
+          "sha256": "1617bc3ba4a670024a0cd217a691046633ea18d68e1df5fe6e1b0a3e760b8742",
+          "public_image_uploaded": false
+        },
+        {
+          "file": "cloud-x300-candidate-held.png",
+          "sha256": "d162b4698d43cafc077693f66fb137037559549e124d35c81a883db9c997099b",
+          "public_image_uploaded": false
+        }
+      ]
+    },
+    {
+      "id": "tts_completion_callback",
+      "result": "observed_pass",
+      "detail": "After Play English the label became 再次播放英文; WordPronouncer sets this label only from TTS onDone. Audible quality not assessed.",
+      "evidence": [
+        {
+          "file": "cloud-x300-saved-word.png",
+          "sha256": "b98cd3a73b70b7bbb221eaafe277c49ac975f4afeac833e333382e0473cb2b21",
+          "public_image_uploaded": false
+        }
+      ]
+    },
+    {
+      "id": "bookmark_and_readback",
+      "result": "observed_pass",
+      "detail": "Card became 已加入生词本; actual word book showed 1 saved word, 你好 / hello, and 1 due word.",
+      "evidence": [
+        {
+          "file": "cloud-x300-saved-word.png",
+          "sha256": "b98cd3a73b70b7bbb221eaafe277c49ac975f4afeac833e333382e0473cb2b21",
+          "public_image_uploaded": false
+        },
+        {
+          "file": "cloud-x300-wordbook.png",
+          "sha256": "497b08de3884a5b13448f7aebd95d3493dbe4b135c3e86325add7317a0207a70",
+          "public_image_uploaded": false
+        }
+      ]
+    },
+    {
+      "id": "review_and_schedule",
+      "result": "observed_pass",
+      "detail": "Revealed hello, submitted Remember once; completed count 1, book due count 0, review count 1 and next due 11-02 11:01.",
+      "evidence": [
+        {
+          "file": "cloud-x300-review-answer.png",
+          "sha256": "7093eafa510e12a93a559fe67a1523a55fb761155f3aca045f5244fb12bd3ca9",
+          "public_image_uploaded": false
+        },
+        {
+          "file": "cloud-x300-review-completed.png",
+          "sha256": "36a1f2883532b5d94e7ea4f2b4c540efdc5c22192d7c88d4c8248326a12ae4ff",
+          "public_image_uploaded": false
+        },
+        {
+          "file": "cloud-x300-wordbook-after-review.png",
+          "sha256": "161963e7259fc7d0d4a1972c01036ef48b68c662ec4f5948facd7adc2d21378f",
+          "public_image_uploaded": false
+        }
+      ]
+    },
+    {
+      "id": "charts_and_test_data_removal",
+      "result": "observed_pass",
+      "detail": "Statistics showed 1 review/1 remembered, actual seven-day chart, future due count and explicitly estimated forgetting curve. Removed only the newly created test word using confirmation; saved-word UI returned to zero.",
+      "evidence": [
+        {
+          "file": "cloud-x300-learning-stats.png",
+          "sha256": "a4654e27fb9aad701ff224f18615f4eb2d3ad1486ae80213a4ebcdf5a2d89d41",
+          "public_image_uploaded": false
+        },
+        {
+          "file": "cloud-x300-memory-curve.png",
+          "sha256": "8dfccbf47423d3e311b9735b9e1f08873f69e92131c84effdf83628ce4ca61dc",
+          "public_image_uploaded": false
+        },
+        {
+          "file": "cloud-x300-test-word-removed.png",
+          "sha256": "cc308d08e46f4061997679e6154b26fa200564fde7354038e61e90dca66c63fe",
+          "public_image_uploaded": false
+        }
+      ]
+    }
+  ],
+  "transport_observations": [
+    "At 160ms between remote clicks n was absent; at 600ms i was absent. Both failures retained. No event receipt from phone, so cannot assign the cause to the app or the remote transport. Do not use the later 1500ms pass as typing-speed validation.",
+    "One attempted mode switch did not take effect before letters were sent. It remained Chinese composition. The mode was then observed explicitly before the passing English-direct-input check.",
+    "Candidate holds of 750ms did not display the card; another attempt stopped in a browser preparation timeout. A later 2100ms hold displayed the card. Do not claim a measured native gesture latency.",
+    "Browser minimization and viewport changes required restoring a stable 2548x1303 portal viewport. One unresponsive portal evaluation was recovered by reloading that same page and continuing the same device lease."
+  ],
+  "cleanup": {
+    "test_word_ui_zero_confirmed": true,
+    "raw_database_readback": false,
+    "default_ime_and_switcher_restore_verified": false,
+    "lease_end_confirmed": true,
+    "portal_end_message": "退出设备成功",
+    "provider_exit_notice": "退出调试后测试数据将不会保存",
+    "provider_device_reset_independently_verified": false,
+    "other_existing_leases_ended": false
+  },
+  "unverified": [
+    "microphone and speech recognition",
+    "audible pronunciation quality",
+    "physical vibration sensation",
+    "high-speed and long-duration input",
+    "cloud-phone domain-pack imports",
+    "multi-device and upgrade compatibility",
+    "ARM64 16KB runtime",
+    "rotation, dark mode, large fonts and accessibility on this cloud phone"
+  ],
+  "store_readiness": {
+    "submitted_to_store": false,
+    "vivo_draft_created": true,
+    "all_store_acceptance_passed": false,
+    "filing_number_obtained": false,
+    "formal_production_signing_passed": false,
+    "phone_independent_voice_complete": false
+  },
+  "public_screenshot_policy": "Screenshots remain in the private local evidence directory because the portal also displays developer-account chrome; only filenames and digests are published."
+}
