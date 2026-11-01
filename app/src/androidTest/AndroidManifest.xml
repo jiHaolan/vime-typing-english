@@ -1,0 +1,4 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="42" android:versionName="0.26.0">
+    <queries><package android:name="com.vime.cloudfixture" /></queries>
+    <application android:label="键忆离线检查" android:icon="@mipmap/ic_cloud_checks" android:allowBackup="false" />
+</manifest>

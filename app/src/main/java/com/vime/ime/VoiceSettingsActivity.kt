@@ -15,6 +15,8 @@ import com.vime.ime.data.ThemePref
 import com.vime.ime.voice.*
 
 class VoiceSettingsActivity : AppCompatActivity() {
+    private var refreshModeFromPreferences:(()->Unit)?=null
+    private val offlineSetup=registerForActivityResult(androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult()){refreshModeFromPreferences?.invoke()}
     override fun onCreate(savedInstanceState: Bundle?) {
         ThemePref.apply(this);super.onCreate(savedInstanceState)
         val scroll=ScrollView(this).apply { setBackgroundColor(uiColor(R.color.panel_bg)) }
@@ -38,9 +40,14 @@ class VoiceSettingsActivity : AppCompatActivity() {
             override fun getView(position:Int,convertView:View?,parent:android.view.ViewGroup)=style(super.getView(position,convertView,parent))
             override fun getDropDownView(position:Int,convertView:View?,parent:android.view.ViewGroup)=style(super.getDropDownView(position,convertView,parent))
         }
-        val modes=listOf(VoiceSettings.SYSTEM,VoiceSettings.CLOUD,VoiceSettings.HAOLIVE)
-        val modeNames=listOf("手机语音 · 无需密钥","自定义联网服务 · 高级选项","电脑语音 · X-ASR · 无需密钥")
-        val backend=Spinner(this).apply { id=R.id.voiceBackend;backgroundTintList=android.content.res.ColorStateList.valueOf(uiColor(R.color.ink));adapter=choices(modeNames);setSelection(modes.indexOf(VoiceSettings.mode(this@VoiceSettingsActivity)).coerceAtLeast(0));column.addView(this) }
+        val modes=listOf(VoiceSettings.SYSTEM,VoiceSettings.CLOUD,VoiceSettings.HAOLIVE,VoiceSettings.OFFLINE)
+        val modeNames=listOf("手机语音 · 无需密钥","自定义联网服务 · 高级选项","电脑语音 · X-ASR · 无需密钥","离线语音 · 中英文 · 无需密钥")
+        val backend=Spinner(this).apply { id=R.id.voiceBackend;isSaveEnabled=false;backgroundTintList=android.content.res.ColorStateList.valueOf(uiColor(R.color.ink));adapter=choices(modeNames);setSelection(modes.indexOf(VoiceSettings.mode(this@VoiceSettingsActivity)).coerceAtLeast(0));column.addView(this) }
+        column.addView(Ui.button(this,"离线语音 · 导入与管理模型",action={
+            offlineSetup.launch(Intent(this,OfflineVoiceSettingsActivity::class.java))
+        }).apply { id=R.id.voiceOfflineSettings })
+        val offline=LinearLayout(this).apply { orientation=LinearLayout.VERTICAL;column.addView(this) }
+        offline.addView(Ui.label(this,"导入约93MB的中英文模型后，直接在手机识别。无需电脑、服务账号或API密钥，离线模式不会上传录音。",15f,secondary=true))
         val local=LinearLayout(this).apply { orientation=LinearLayout.VERTICAL;column.addView(this) }
         fun localLabel(text: String)=Ui.label(this,text,15f).also { local.addView(it);Ui.space(local,10) }
         localLabel("使用手机已安装的识别服务，无需注册或填写API。本应用不保存这一路径的录音；服务可能联网，数据处理和语言支持由所选服务提供。")
@@ -52,10 +59,10 @@ class VoiceSettingsActivity : AppCompatActivity() {
         providers.addAll(services.map { it.component.flattenToString() to
             if((labelCounts[it.label] ?: 0)>1) "${it.label} · ${it.component.shortClassName}" else it.label })
         localLabel("识别服务")
-        val provider=Spinner(this).apply { id=R.id.voiceProvider;backgroundTintList=android.content.res.ColorStateList.valueOf(uiColor(R.color.ink));adapter=choices(providers.map { it.second });setSelection(providers.indexOfFirst { it.first==saved }.coerceAtLeast(0));local.addView(this) }
+        val provider=Spinner(this).apply { id=R.id.voiceProvider;isSaveEnabled=false;backgroundTintList=android.content.res.ColorStateList.valueOf(uiColor(R.color.ink));adapter=choices(providers.map { it.second });setSelection(providers.indexOfFirst { it.first==saved }.coerceAtLeast(0));local.addView(this) }
         localLabel("识别语言")
         val languages=listOf("keyboard" to "跟随键盘中英切换","zh-CN" to "中文","en-US" to "English")
-        val language=Spinner(this).apply { id=R.id.voiceLanguage;backgroundTintList=android.content.res.ColorStateList.valueOf(uiColor(R.color.ink));adapter=choices(languages.map { it.second });setSelection(languages.indexOfFirst { it.first==VoiceSettings.languageChoice(this@VoiceSettingsActivity) }.coerceAtLeast(0));local.addView(this) }
+        val language=Spinner(this).apply { id=R.id.voiceLanguage;isSaveEnabled=false;backgroundTintList=android.content.res.ColorStateList.valueOf(uiColor(R.color.ink));adapter=choices(languages.map { it.second });setSelection(languages.indexOfFirst { it.first==VoiceSettings.languageChoice(this@VoiceSettingsActivity) }.coerceAtLeast(0));local.addView(this) }
         val serviceStatus=localLabel("").apply { id=R.id.voiceServiceStatus }
         fun updateStatus() { serviceStatus.text=SystemVoiceServices.selected(this)?.let { "已检测到：${it.label}\n${it.component.flattenToShortString()}\n尚不能据此确认可识别；返回输入框测试，具体语言支持由该服务提供。" } ?: "没有可用的识别服务。请检查手机语音设置，或启用已安装的语音服务。仅有语音助手不一定能供其他应用调用。" }
         provider.onItemSelectedListener=object:AdapterView.OnItemSelectedListener {
@@ -106,12 +113,17 @@ class VoiceSettingsActivity : AppCompatActivity() {
                 .onSuccess { computerStatus.text="已保存 · 返回输入框，长按空格约半秒说话" }
                 .onFailure { computerStatus.text=it.message ?: "保存失败" }
         }).apply { id=R.id.voiceHaoLiveSave })
-        fun showMode(index:Int){VoiceSettings.setMode(this,modes[index]);local.visibility=if(index==0)View.VISIBLE else View.GONE;advanced.visibility=if(index==1)View.VISIBLE else View.GONE;computer.visibility=if(index==2)View.VISIBLE else View.GONE}
+        fun showMode(index:Int){VoiceSettings.setMode(this,modes[index]);local.visibility=if(index==0)View.VISIBLE else View.GONE;advanced.visibility=if(index==1)View.VISIBLE else View.GONE;computer.visibility=if(index==2)View.VISIBLE else View.GONE;offline.visibility=if(index==3)View.VISIBLE else View.GONE}
         backend.onItemSelectedListener=object:AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p:AdapterView<*>?,v:View?,n:Int,id:Long){showMode(n)}
             override fun onNothingSelected(p:AdapterView<*>?){}
         }
         showMode(backend.selectedItemPosition)
+        refreshModeFromPreferences={
+            val index=modes.indexOf(VoiceSettings.mode(this)).coerceAtLeast(0)
+            backend.setSelection(index)
+            showMode(index)
+        }
     }
     private fun openSettings(action:String){runCatching { startActivity(Intent(action)) }.onFailure { Toast.makeText(this,"当前手机没有此设置入口，请从系统设置中打开",Toast.LENGTH_LONG).show() }}
     private fun dp(n:Int)=(n*resources.displayMetrics.density).toInt()

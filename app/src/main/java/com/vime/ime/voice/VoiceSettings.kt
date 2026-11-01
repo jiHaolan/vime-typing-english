@@ -16,8 +16,10 @@ object VoiceSettings {
     const val SYSTEM = "system"
     const val CLOUD = "cloud"
     const val HAOLIVE = "haolive"
+    const val OFFLINE = "offline"
     fun mode(c: Context): String {
         val p = prefs(c)
+        if (p.getString("mode", SYSTEM) == OFFLINE) return OFFLINE
         if (p.getString("mode", SYSTEM) == HAOLIVE) return HAOLIVE
         if (p.getString("mode", SYSTEM) != CLOUD) return SYSTEM
         if (read(c).key.isNotBlank()) return CLOUD
@@ -26,7 +28,7 @@ object VoiceSettings {
         p.edit().putString("mode", SYSTEM).apply()
         return SYSTEM
     }
-    fun setMode(c: Context, value: String) { require(value in listOf(SYSTEM,CLOUD,HAOLIVE));prefs(c).edit().putString("mode",value).apply() }
+    fun setMode(c: Context, value: String) { require(value in listOf(SYSTEM,CLOUD,HAOLIVE,OFFLINE));prefs(c).edit().putString("mode",value).apply() }
     fun haoLive(c: Context) = VoiceConfig(prefs(c).getString("haolive_endpoint", if (BuildConfig.DEBUG) "http://127.0.0.1:18781/v1/transcribe" else "").orEmpty(), "", "", rawWav = true)
     fun saveHaoLive(c: Context, endpoint: String) {
         VoiceProtocol.validateHaoLive(endpoint, BuildConfig.DEBUG)

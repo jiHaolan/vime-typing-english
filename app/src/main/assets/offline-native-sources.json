@@ -1,0 +1,49 @@
+{
+  "format": "vime-offline-jni-build-1",
+  "source_commit": "1dd0bf6fb9e7a8bf5849cb7a14605b2234e6ee93",
+  "ggml_commit": "e2ae679a563014f46c546ce6c6448e8601e4dea6",
+  "upstream_sources_changed": false,
+  "recipe": {
+    "CMakeLists.txt": "5633b17d658b8429a48609e94864eb08850e04c72cbc50093c77b0557c515749",
+    "jni.cpp": "80923a6f5a888acb28a7500ff1b69dc2e1857de35bb2e4f04748ad8a2212d542",
+    "xasr_adapter.cpp": "9dd85c4cbffa956b0de4406d47885dd35ffb5c374eccc664f3458a55a5879ef9",
+    "build_offline_voice.py": "6c6eba3ea96ddeb9a2730ae948fd95419f4e31bdd43b7be1d2ace73a8d372605"
+  },
+  "abis": {
+    "arm64-v8a": {
+      "file": "jniLibs/arm64-v8a/libvime_xasr.so",
+      "bytes": 887096,
+      "sha256": "8ad1022936f435ea25c82d1d956b8acefe4930ef6a3c08d8cf2cfa638ddd999c",
+      "load_alignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "needed": [
+        "libc.so",
+        "libdl.so",
+        "libm.so"
+      ],
+      "only_expected_jni_exports": true,
+      "compile_commands_sha256": "0a71131985bc77b07ba6e7919bb9347d3b5a060e3ec695f3cc19302601d4ca55"
+    },
+    "x86_64": {
+      "file": "jniLibs/x86_64/libvime_xasr.so",
+      "bytes": 862784,
+      "sha256": "18fca4eb7f47c91d0a15cd8fbabd59eea8cb33e32ff1f077d9ec215920825ff5",
+      "load_alignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "needed": [
+        "libc.so",
+        "libdl.so",
+        "libm.so"
+      ],
+      "only_expected_jni_exports": true,
+      "compile_commands_sha256": "fc6c3e415df4a71beb51da413595cd10f3b1a0f08e1ecf06c67d33080f098cac"
+    }
+  },
+  "not_runtime_or_commercial_acceptance": true
+}

@@ -12,6 +12,8 @@
 | marisa-trie | BSD 许可证，保留完整原文 |
 | OpenCC | Apache-2.0 |
 | Android C++ runtime | Apache-2.0 with LLVM exceptions |
+| CrispASR X-ASR与GGML CPU运行时（0.26.0） | MIT；固定提交与构建记录见app/src/main/assets/offline-native-sources.json，原文随APK保留 |
+| 可选X-ASR中英文模型（0.26.0） | Apache-2.0；cstr/x-asr-zh-en-GGUF固定版本，单独下载并校验，不含在主APK内 |
 | AndroidX / Kotlin 等 Gradle 依赖 | 各自上游许可证；未将依赖重授予其他许可 |
 | 内置 CC-CEDICT 派生释义 | 历史源文件标明 CC-BY-SA-3.0、2018-10-31；不同于下方可选扩展包 |
 | MakeMeAHanzi 字义兜底 | dictionary.txt 的上游 COPYING 声明 LGPL-3.0-or-later；不使用其笔画 graphics.txt |

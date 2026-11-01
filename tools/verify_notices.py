@@ -57,6 +57,35 @@ def inspect(read, inventory=None, commercial=False, native_libraries=None):
         native = json.loads(read("native-sources.json"))
         expected_native = {abi + "/" + name for abi in ("arm64-v8a", "armeabi-v7a", "x86_64")
                            for name in ("libvime_rime.so", "libc++_shared.so")}
+        offline_native = set()
+        if "offline_voice" in native:
+            declaration = native["offline_voice"]
+            receipt_bytes = read("offline-native-sources.json")
+            check("offline-receipt-identity", declaration.get("receipt") == "offline-native-sources.json"
+                  and declaration.get("sha256") == sha(receipt_bytes))
+            receipt = json.loads(receipt_bytes)
+            check("offline-native-pinned-source", receipt.get("format") == "vime-offline-jni-build-1"
+                  and receipt.get("source_commit") == "1dd0bf6fb9e7a8bf5849cb7a14605b2234e6ee93"
+                  and receipt.get("ggml_commit") == "e2ae679a563014f46c546ce6c6448e8601e4dea6"
+                  and receipt.get("upstream_sources_changed") is False
+                  and set(receipt.get("recipe", {})) == {"CMakeLists.txt", "jni.cpp", "xasr_adapter.cpp", "build_offline_voice.py"}
+                  and all(re.fullmatch("[a-f0-9]{64}", value) for value in receipt["recipe"].values()))
+            check("offline-native-abi-policy", set(receipt["abis"]) == {"arm64-v8a", "x86_64"})
+            for abi in ("arm64-v8a", "x86_64"):
+                row = receipt["abis"][abi]
+                name = abi + "/libvime_xasr.so"
+                offline_native.add(name)
+                check("offline-native-receipt:" + abi, row.get("file") == "jniLibs/" + name
+                      and row.get("sha256") == native["libraries"].get(name)
+                      and isinstance(row.get("bytes"), int) and 0 < row["bytes"] < 4 * 1024 * 1024
+                      and row.get("load_alignments") and min(row["load_alignments"]) >= 16384
+                      and set(row.get("needed", [])) <= {"libc.so", "libm.so", "libdl.so", "liblog.so"}
+                      and row.get("only_expected_jni_exports") is True)
+            check("offline-license-documents", {"licenses/crispasr-MIT.txt", "licenses/ggml-MIT.txt",
+                  "licenses/offline-voice-NOTICE.txt"} <= files.keys())
+            check("offline-component-disclosures", {"offline-xasr", "offline-ggml", "offline-model", "offline-static-cxx"}
+                  <= {row["id"] for row in data["components"]})
+            expected_native |= offline_native
         check("native-source-and-plugin-policy", native["format"] == "vime-native-runtime-1"
               and native["core_from_source"] and not native["octagram_included"]
               and native["engine_plugins"] == ["lua", "predict"]
@@ -67,7 +96,7 @@ def inspect(read, inventory=None, commercial=False, native_libraries=None):
             present = set(native_libraries)
             abis = {name.split("/")[0] for name in present}
             check("actual-native-library-set", bool(abis) and abis <= {"arm64-v8a", "armeabi-v7a", "x86_64"}
-                  and present == {abi + "/" + name for abi in abis for name in ("libvime_rime.so", "libc++_shared.so")})
+                  and present == {name for name in expected_native if name.split("/")[0] in abis})
             for name, content in native_libraries.items():
                 check("native-binary-bytes:" + name, name in native["libraries"] and sha(content) == native["libraries"][name])
         components = data["components"]

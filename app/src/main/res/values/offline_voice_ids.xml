@@ -1,0 +1,8 @@
+<resources>
+    <item name="offlineModelStatus" type="id" />
+    <item name="offlineModelDownload" type="id" />
+    <item name="offlineModelImport" type="id" />
+    <item name="offlineModelUse" type="id" />
+    <item name="offlineModelRemove" type="id" />
+    <item name="voiceOfflineSettings" type="id" />
+</resources>

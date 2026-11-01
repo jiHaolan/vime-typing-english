@@ -256,6 +256,57 @@
       "documents": [
         "licenses/jieba-MIT.txt"
       ]
+    },
+    {
+      "id": "offline-xasr",
+      "title": "离线中英文识别",
+      "category": "语音与模型",
+      "license": "MIT",
+      "version": "1dd0bf6fb9e7a8bf5849cb7a14605b2234e6ee93",
+      "source": "https://github.com/CrispStrobe/CrispASR",
+      "summary": "固定源码的X-ASR CPU识别与JNI适配；手机本机处理。构建记录不等于商用或识别质量验收。",
+      "documents": [
+        "licenses/crispasr-MIT.txt",
+        "licenses/offline-voice-NOTICE.txt"
+      ]
+    },
+    {
+      "id": "offline-ggml",
+      "title": "GGML CPU运行时",
+      "category": "语音与模型",
+      "license": "MIT",
+      "version": "e2ae679a563014f46c546ce6c6448e8601e4dea6",
+      "source": "https://github.com/CrispStrobe/ggml",
+      "summary": "仅编译CPU后端，保留原始源码与许可。",
+      "documents": [
+        "licenses/ggml-MIT.txt"
+      ]
+    },
+    {
+      "id": "offline-model",
+      "title": "可选X-ASR中英文模型",
+      "category": "语音与模型",
+      "license": "Apache-2.0",
+      "version": "acb1a95eac809719a2c86d1048471f96fc6444ad / Q4_K",
+      "source": "https://huggingface.co/cstr/x-asr-zh-en-GGUF",
+      "summary": "用户单独下载并导入，主APK不含模型；应用校验固定文件摘要。",
+      "documents": [
+        "licenses/offline-voice-NOTICE.txt",
+        "licenses/Apache-2.0.txt"
+      ]
+    },
+    {
+      "id": "offline-static-cxx",
+      "title": "离线识别C++运行时",
+      "category": "语音与模型",
+      "license": "Apache-2.0 with LLVM exceptions",
+      "version": "Android NDK28.0.13004108",
+      "source": "https://github.com/android/ndk",
+      "summary": "JNI库内静态链接并隐藏符号，保留LLVM与C++运行时完整许可；不替换原输入引擎的共享运行时。",
+      "documents": [
+        "licenses/libcxx-LICENSE.txt",
+        "licenses/ndk-llvm-full-NOTICE.txt"
+      ]
     }
   ],
   "release_blockers": [

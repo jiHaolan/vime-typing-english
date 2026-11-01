@@ -21,8 +21,8 @@ class PrivacyActivity : AppCompatActivity() {
         }
         setContentView(ScrollView(this).apply { isFillViewport=true;addView(body) }); Ui.window(this)
         body.addView(Ui.back(this,"‹ 返回") { finish() }); Ui.space(body,20)
-        Ui.heading(this,body,"隐私与数据说明","预览版 ${BuildConfig.VERSION_NAME} · 更新于 2026-10-31")
         val notice=JSONObject(assets.open("privacy-notice.json").bufferedReader().use { it.readText() })
+        Ui.heading(this,body,"隐私与数据说明","预览版 ${BuildConfig.VERSION_NAME} · 更新于 ${notice.getString("updated")}")
         val sections=notice.getJSONArray("sections")
         repeat(sections.length()) { index ->
             val section=sections.getJSONObject(index); val card=Ui.card(body)

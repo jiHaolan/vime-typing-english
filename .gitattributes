@@ -43,3 +43,9 @@ tools/verify_native_dependencies.py text eol=lf
 tools/test_native_dependency_guards.py text eol=lf
 tools/run_native_dependency_probe.py text eol=lf
 tools/native-dependency-probe/** text eol=lf
+
+# Offline JNI recipe digests must survive Windows source checkouts.
+tools/build_offline_voice.py text eol=lf
+tools/package_offline_voice_sources.py text eol=lf
+tools/offline-asr-android/** text eol=lf
+app/src/main/assets/offline-native-sources.json -text -whitespace

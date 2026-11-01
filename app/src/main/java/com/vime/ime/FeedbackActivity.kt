@@ -44,7 +44,12 @@ class FeedbackActivity : AppCompatActivity() {
         }.apply { id = R.id.feedbackCopyLink })
         Ui.space(feedback, 8)
         feedback.addView(Ui.label(this,
-            "复制信息仅含应用版本、手机型号和 Android 版本，不读取输入正文。截图前请遮住私人聊天和账号。", 13f, secondary = true))
+            "复制信息仅含应用与设备的基本信息，不读取输入正文。截图前请遮住私人聊天和账号。", 13f, secondary = true))
+
+        val device = Ui.card(body)
+        device.addView(Ui.label(this, "设备与版本", 18f, true))
+        Ui.space(device, 8)
+        device.addView(Ui.label(this, systemInfo(), 14f, secondary = true).apply { id = R.id.feedbackDeviceInfo })
 
         val usage = Ui.card(body)
         usage.addView(Ui.label(this, "使用说明", 18f, true))
@@ -61,15 +66,23 @@ class FeedbackActivity : AppCompatActivity() {
     }
 
     private fun deviceInfo() = """
-        键忆 ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})
-        手机：${Build.MANUFACTURER} ${Build.MODEL}
-        Android：${Build.VERSION.RELEASE} / API ${Build.VERSION.SDK_INT}
+        ${systemInfo()}
 
         出现问题的位置：
         操作步骤：
         预期结果：
         实际表现：
     """.trimIndent()
+
+    private fun systemInfo(): String {
+        val page = runCatching { android.system.Os.sysconf(android.system.OsConstants._SC_PAGESIZE) }.getOrDefault(0)
+        val pageText = if (page > 0) "${page / 1024}KB" else "未知"
+        return "键忆 ${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})\n" +
+            "手机：${Build.MANUFACTURER} ${Build.MODEL}\n" +
+            "Android：${Build.VERSION.RELEASE} / API ${Build.VERSION.SDK_INT}\n" +
+            "设备架构：${Build.SUPPORTED_ABIS.joinToString()}\n" +
+            "当前应用：${if (android.os.Process.is64Bit()) "64位" else "32位"} · 内存页：$pageText"
+    }
 
     private fun copy(label: String, value: String) {
         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

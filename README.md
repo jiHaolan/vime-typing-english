@@ -2,17 +2,17 @@
 
 Android 中文输入法 + 英语提示 + 生词复习。先把打字做好，再利用日常输入认识和记住英文。
 
-**当前版本：v0.25.1 预览版。** 首页新增「帮助与反馈」，集中提供问题入口、使用说明和语音故障设置。沿用0.25.0的常用英文补充与八类专业离线词包，支持手机直接导入与多包共存。[词库核验与词包导入](docs/LEXICON_COVERAGE.md) · [名称与图标](design-system/jianyi/BRAND.md) · [操作说明](docs/KEYBOARD_USABILITY.md)。当前仍为预览签名；手机独立语音、正式商用验收、备案与应用商店上架尚未完成。
+**当前版本：v0.26.0 预览版。** 64位安装包新增手机端离线中英文语音，单独导入约93MB模型后，无需连接电脑或填写API密钥。保留常用英文补充、八类专业离线词包、生词复习与帮助反馈。[离线语音说明](docs/OFFLINE_VOICE.md) · [词库与词包导入](docs/LEXICON_COVERAGE.md) · [操作说明](docs/KEYBOARD_USABILITY.md)。本版仍使用预览签名；云真机语音、实际麦克风效果、正式商用验收、备案和商店上架尚未完成。
 
 ## 下载安装
 
 | 安装包 | 适用设备 |
 | --- | --- |
-| [arm64-v8a · 大多数安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.1/Jianyi-0.25.1-arm64-v8a.apk) | 推荐 |
-| [armeabi-v7a · 32位安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.1/Jianyi-0.25.1-armeabi-v7a.apk) | 较老的32位设备 |
-| [x86_64 · 模拟器](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.1/Jianyi-0.25.1-x86_64.apk) | Android x86_64模拟器 |
+| [arm64-v8a · 大多数安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.26.0/Jianyi-0.26.0-arm64-v8a.apk) | 支持导入离线语音模型 |
+| [armeabi-v7a · 32位安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.26.0/Jianyi-0.26.0-armeabi-v7a.apk) | 保留输入、学习和手机语音；不提供离线识别 |
+| [x86_64 · 模拟器](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.26.0/Jianyi-0.26.0-x86_64.apk) | Android x86_64模拟器 |
 
-[本版下载页](https://github.com/jiHaolan/vime-typing-english/releases/tag/v0.25.1) · [专业词包下载](https://github.com/jiHaolan/vime-typing-english/releases/tag/v0.25.0) · [词包说明](offline-packs/) · [更新记录](CHANGELOG.md)
+[本版下载页](https://github.com/jiHaolan/vime-typing-english/releases/tag/v0.26.0) · [离线中英文模型](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.26.0/x-asr-zh-en-q4_k.gguf) · [专业词包下载](https://github.com/jiHaolan/vime-typing-english/releases/tag/v0.25.0) · [更新记录](CHANGELOG.md)
 
 Android 7.0 及以上。安装后在系统设置中启用并选择本输入法。首次切换请在普通记事本中测试；现有项目签名的旧版可覆盖升级。
 
@@ -24,14 +24,14 @@ Android 7.0 及以上。安装后在系统设置中启用并选择本输入法�
 - 生词本、间隔复习、学习数据和估算遗忘曲线。
 - 学习数据本机备份与恢复；合并保留本机同名词，替换需确认；可删除单个收藏及对应复习记录。
 - 主题配色、按键触感、横竖屏独立键盘尺寸与自定义短语。
-- 长按空格约半秒调用手机语音服务，松手结束；默认无需填写 API 密钥。
+- 长按空格约半秒启动所选语音方式，松手结束；可选手机语音或导入模型后的离线识别。
 - 八类专业离线词包、多个扩展包共存、词典查询、剪贴板、表情和符号工具。
 
 默认手机语音和英文发音使用已安装的服务；厂商服务可被检测到却拒绝实际识别。可选择[电脑X-ASR语音](docs/haolive-voice.md)，当前已在X100完成中文识别、由用户确认英文完整出字；该方案需要正在运行的电脑服务和有效连接，USB测试不等于已部署公共后台。APK不捆绑大型语音模型。
 
 [免密钥语音设置与故障排查](docs/VOICE.md)：0.17.1 会将未配置的旧联网模式恢复为手机语音。
 
-[手机离线语音进展](docs/OFFLINE_VOICE.md)：93MB中英文模型在Android16/16KB模拟器完成原生断网实验，ARM64仅完成编译；尚未接入0.25.1，不作为真实麦克风或商店语音验收。
+[手机离线语音](docs/OFFLINE_VOICE.md)：下载本版模型后，打开首页「语音输入」→「离线语音 · 导入与管理模型」→「导入已下载模型」，完成后点「在键盘中启用」。随后回到普通输入框，长按空格说话；首次授予麦克风权限后需重新按住。模型单独保存和移除，主APK不捆绑模型。当前模拟器的固定样本通过不代表云真机麦克风识别已验收。
 
 [学习备份与数据管理](docs/LEARNING_DATA.md) · [商用能力与验收进度](docs/COMMERCIAL_READINESS.md)
 
@@ -46,6 +46,8 @@ Android 7.0 及以上。安装后在系统设置中启用并选择本输入法�
 请在 [新建 Issue](https://github.com/jiHaolan/vime-typing-english/issues/new/choose) 中说明手机型号、Android 版本、应用版本、键盘布局、复现步骤和预期结果。截图请先遮住聊天、账号和其他私人信息，不要提交密码、API 密钥或个人词库。
 
 ## 验证范围
+
+0.26.0最终x86_64包在Android16/16KB专用模拟器关闭WiFi、移动数据且无网络路由时，通过11项固定合成样本检查：模型完整性及事务、真实JNI中英文识别、取消与资源释放、识别后Rime候选及测试缓存清理。最终包另完成真实系统文件选择器导入、完整模型摘要回读、启用后返回离线模式和麦克风权限流程。中文样本中的品牌名“键忆”被识别为“建议”，该错误保留；最新系统任务记录中文29.148秒、英文3.551秒，不据模拟器单次耗时承诺手机速度。146项JVM通过、1项可选检查跳过，lint0错误175警告。云手机已安装候选，但远程操作未能进入检查界面，尚无ARM64语音报告；早期私有原型的一次导入ANR也仍需追踪。[本版逐项证据](docs/verification/offline-voice-0.26.0.json)。
 
 0.25.1在Android16/16KB专用模拟器完成反馈入口和浏览器地址、语音设置、隐私说明的真实跳转；1.5倍字号下五个入口均可达。原数据库、偏好和系统输入法设置保持一致；复制按钮仅源码审阅，未覆盖用户剪贴板。三个ABI全部65个词库/原生文件与0.25.0相同；145项JVM通过、1项原有可选数据集跳过，lint0错误173警告。本版没有加入新的语音引擎，0.25.0云测记录不代表本版真机验收。[专项记录](docs/verification/feedback-0.25.1.json)。
 

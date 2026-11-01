@@ -23,7 +23,9 @@ val keyboardChecks = providers.gradleProperty("vimeKeyboardChecks").orNull
 require(keyboardChecks == null || keyboardChecks in listOf("true", "false")) { "vimeKeyboardChecks must be true or false" }
 val lexiconChecks = providers.gradleProperty("vimeLexiconChecks").orNull
 require(lexiconChecks == null || lexiconChecks in listOf("true", "false")) { "vimeLexiconChecks must be true or false" }
-require(listOf(windowChecks, nativeChecks, inputDataChecks, noticeChecks, keyboardChecks, lexiconChecks).count { it == "true" } <= 1) { "Select one instrumentation suite at a time" }
+val offlineChecks = providers.gradleProperty("vimeOfflineChecks").orNull
+require(offlineChecks == null || offlineChecks in listOf("true", "false")) { "vimeOfflineChecks must be true or false" }
+require(listOf(windowChecks, nativeChecks, inputDataChecks, noticeChecks, keyboardChecks, lexiconChecks, offlineChecks).count { it == "true" } <= 1) { "Select one instrumentation suite at a time" }
 
 android {
     namespace = "com.vime.ime"
@@ -34,9 +36,10 @@ android {
         applicationId = "com.vime.ime"
         minSdk = 24
         targetSdk = 36
-        versionCode = 41
-        versionName = "0.25.1"
+        versionCode = 42
+        versionName = "0.26.0"
         testInstrumentationRunner = when {
+            offlineChecks == "true" -> "com.vime.ime.OfflineVoiceInstrumentation"
             lexiconChecks == "true" -> "com.vime.ime.LexiconCoverageInstrumentation"
             keyboardChecks == "true" -> "com.vime.ime.KeyboardUsabilityInstrumentation"
             windowChecks == "true" -> "com.vime.ime.WindowInteractionInstrumentation"

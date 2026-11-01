@@ -15,8 +15,14 @@
     "armeabi-v7a/libc++_shared.so": "4c8188135d5927f49a2eb5fff96714c5c5ea12e1f09ebbabe3d04aab25b0bd6a",
     "armeabi-v7a/libvime_rime.so": "6918ce8d0ac046c014707f34d197f6d513b86fdeafe65b43d149a2e4996672b3",
     "x86_64/libc++_shared.so": "d6bceb7915ddb75ec4f96f97837efd80cf6084b00ad38e2666728f6cc24a9f68",
-    "x86_64/libvime_rime.so": "a7ea47fc73641438935001bcdb8df48f434ae91a9b7785cf9a3fc8dd88c06b03"
+    "x86_64/libvime_rime.so": "a7ea47fc73641438935001bcdb8df48f434ae91a9b7785cf9a3fc8dd88c06b03",
+    "arm64-v8a/libvime_xasr.so": "8ad1022936f435ea25c82d1d956b8acefe4930ef6a3c08d8cf2cfa638ddd999c",
+    "x86_64/libvime_xasr.so": "18fca4eb7f47c91d0a15cd8fbabd59eea8cb33e32ff1f077d9ec215920825ff5"
   },
   "notice_source_receipt_sha256": "03608a7913920c2391a3cfa29eb6d8fa853c5912380dda50bef0832c6ad2617b",
-  "current_native_source_audit_complete": false
+  "current_native_source_audit_complete": false,
+  "offline_voice": {
+    "receipt": "offline-native-sources.json",
+    "sha256": "9fbb9586ad2a98c434bc02610356bfe5c2e1a67280412aa36d1d33f79c2ea5af"
+  }
 }
