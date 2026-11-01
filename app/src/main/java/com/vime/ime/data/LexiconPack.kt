@@ -9,7 +9,7 @@ import java.util.zip.ZipInputStream
 
 data class LexiconEntry(val pinyin: String, val word: String, val gloss: String, val reading: String)
 data class LexiconPack(val name: String, val version: String, val source: String, val license: String,
-    val notice: String, val licenseText: String, val entries: List<LexiconEntry>, val hash: String)
+    val notice: String, val licenseText: String, val entries: List<LexiconEntry>, val hash: String, val id: String = "legacy-$hash")
 
 /** Data only, no code or extracted filenames. Untrusted packs must pass every bound and checksum. */
 object LexiconPackCodec {
@@ -61,7 +61,8 @@ object LexiconPackCodec {
             entries.add(LexiconEntry(py, word, gloss, reading))
         }
         require(entries.size == count) { "词条数量与清单不一致" }
+        val id=props.getProperty("id")?.also { require(it.matches(Regex("[a-z0-9][a-z0-9._-]{0,79}"))) { "词包标识无效" } } ?: "legacy-$hash"
         return LexiconPack(field("name"), field("version"), field("source", 1024), field("license"),
-            utf8("NOTICE.txt"), utf8("LICENSE.txt"), entries, hash)
+            utf8("NOTICE.txt"), utf8("LICENSE.txt"), entries, hash, id)
     }
 }

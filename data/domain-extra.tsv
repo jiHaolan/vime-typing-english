@@ -1,0 +1,68 @@
+# Newly authored terminology not present as a labelled source headword; CC-BY-SA-4.0.
+it	主键	primary key
+it	关系型数据库	relational database
+it	单元测试	unit test
+it	外键	foreign key
+it	布尔值	Boolean value
+it	数据包	data packet
+it	版本控制	version control
+it	计算机视觉	computer vision
+it	返回值	return value
+finance	净资产	net assets
+finance	利润表	income statement
+finance	回报率	rate of return
+finance	增发	additional share issuance
+finance	所有者权益	owners' equity
+finance	营业利润	operating profit
+finance	衍生品	derivative
+finance	财政政策	fiscal policy
+finance	财政赤字	fiscal deficit
+finance	货币政策	monetary policy
+medicine	不良反应	adverse reaction
+medicine	尿常规	routine urinalysis
+medicine	心肺复苏	cardiopulmonary resuscitation
+medicine	禁忌症	contraindication
+medicine	胸痛	chest pain
+medicine	计算机断层扫描	computed tomography
+medicine	适应症	indication for treatment
+medicine	鉴别诊断	differential diagnosis
+law	个人信息	personal information
+law	人民检察院	people's procuratorate
+law	劳动法	labor law
+law	听证	hearing
+law	商业秘密	trade secret
+law	商法	commercial law
+law	法律法规	laws and regulations
+law	紧急避险	necessity defense
+law	经营主体	business entity
+law	行政处罚	administrative penalty
+law	行政复议	administrative reconsideration
+law	行政许可	administrative licensing
+engineering	三维打印	3D printing
+engineering	执行器	actuator
+engineering	控制系统	control system
+engineering	材料工程	materials engineering
+engineering	粗糙度	roughness
+engineering	连杆	connecting rod
+bio-chem	反应速率	reaction rate
+bio-chem	呼吸作用	cellular respiration
+bio-chem	脂质	lipid
+bio-chem	色谱	chromatography
+bio-chem	表型	phenotype
+bio-chem	酸碱度	pH
+education	信度	reliability
+education	合作学习	cooperative learning
+education	因果关系	causal relationship
+education	学术不端	academic misconduct
+education	批判性思维	critical thinking
+education	效度	validity
+education	显著性	statistical significance
+education	终身学习	lifelong learning
+education	遗忘曲线	forgetting curve
+business	交付物	deliverable
+business	商业道德	business ethics
+business	托收	documentary collection
+business	竞争优势	competitive advantage
+business	装箱单	packing list
+business	跨境电商	cross-border e-commerce
+business	预付款	advance payment

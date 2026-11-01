@@ -1,0 +1,296 @@
+{
+  "format": "jianyi-lexicon-domain-verification-1",
+  "date": "2026-11-01T10:28:03.269952+08:00",
+  "version": "0.25.0",
+  "version_code": 40,
+  "base_commit": "e098055",
+  "branch": "codex/lexicon-coverage-domain-packs",
+  "artifacts": {
+    "armeabi-v7a": {
+      "file": "E:\\Vime-build-work\\releases\\v0.25.0-validated\\Jianyi-0.25.0-armeabi-v7a.apk",
+      "bytes": 30831259,
+      "sha256": "25749e8571f62ebda9c0d8c099c91a2d6821870e59f9a893f597119f3f7a8f2a"
+    },
+    "x86_64": {
+      "file": "E:\\Vime-build-work\\releases\\v0.25.0-validated\\Jianyi-0.25.0-x86_64.apk",
+      "bytes": 32584337,
+      "sha256": "e8f7b5a8e60d2597cd0d6610364b07255e22ae17d8eca77f19aeee73b8e98740"
+    },
+    "arm64-v8a": {
+      "file": "E:\\Vime-build-work\\releases\\v0.25.0-validated\\Jianyi-0.25.0-arm64-v8a.apk",
+      "bytes": 32617111,
+      "sha256": "3ab4d556f4a93694e8192e2599a616c35518d21ed6b1180ac5bc68c3b00fe428"
+    }
+  },
+  "input_integrity": {
+    "all_source_rows_retained": true,
+    "dataset_id": "8cfd6269dc6b3a8c976bea0e3e3cb30c613043dc30324b84078aec742d265135",
+    "entries_authenticated": 569466,
+    "index_offsets_authenticated": 1708398,
+    "mapped_sha256": "b146529667456b16e16429fcdd5a6b854b1100256a6cf258f87aef2ad0208c21",
+    "passed": true,
+    "prefix_keys_authenticated": 4457,
+    "prefix_offsets_authenticated": 378551
+  },
+  "english_integrity": {
+    "passed": true,
+    "groups": 121814,
+    "headwords": 121093,
+    "tonal_forms": 122472,
+    "senses": 198019,
+    "pooled_strings": 278428,
+    "all_source_records_and_ordinals_equal": true,
+    "all_reverse_tokens_equal": true,
+    "dataset_id": "0939bdd7c0092a91cffe7677328d2d4bb38510ee8eaaedf5a3e50d167427a91d"
+  },
+  "original_cedict_rebuild": {
+    "actual": "5e7c2f9a5543a52c67dd929f9b134db00f976d19cc4b7e75935cd27ff03e5206",
+    "expected": "5e7c2f9a5543a52c67dd929f9b134db00f976d19cc4b7e75935cd27ff03e5206",
+    "passed": true,
+    "raw_source_records": 125303,
+    "groups": 121814
+  },
+  "common_supplement": {
+    "format": "jianyi-common-english-1",
+    "baseline": 10000,
+    "common_characters": 500,
+    "character_baseline_sha256": "5b8d360d1d3569d82c1bd623cd6332e7859cba9f2fdc16f78ef811e5ce57a854",
+    "supplement": 1253,
+    "kinds": {
+      "measure": 172,
+      "authored": 973,
+      "proper-name": 108
+    },
+    "sha256": "2db25d04b4b93418bb8f676a962235fdfe83d2c71d8f4fd12bc6b232a8431d65",
+    "baseline_sha256": "29230b48cb9826657e77edd25fa8e29e2c6934530d3fdbc500b4766780a5d3cb",
+    "gloss_source": "data/common-glosses.tsv (authored, CC-BY-SA-4.0); explicit numeric measure rules; proper names are transliterations, not English senses",
+    "pinyin_source": "pypinyin 0.55.0 (MIT); explicit common reading corrections",
+    "source_english_sha256": "5e7c2f9a5543a52c67dd929f9b134db00f976d19cc4b7e75935cd27ff03e5206",
+    "policy": "Use only when the matched built-in label contains no Latin letters. Match reading hints; keep unknowns empty. Existing CC-CEDICT files remain unchanged."
+  },
+  "domain_packs": {
+    "format": "jianyi-domain-packs-1",
+    "version": "2026.11.01",
+    "source": {
+      "license": "CC-BY-SA-4.0",
+      "license_sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5",
+      "sha256": "3681b52f0f733e0caada3fa2fbe2236bfa1234333397f35f10f285ac292abec9",
+      "source_records": 125303,
+      "url": "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz",
+      "version": "2026-10-19T20:24:47Z"
+    },
+    "source_english_sha256": "5e7c2f9a5543a52c67dd929f9b134db00f976d19cc4b7e75935cd27ff03e5206",
+    "domains": {
+      "it": {
+        "file": "Jianyi-it-2026.11.01.vimelex",
+        "entries": 786,
+        "headwords": 786,
+        "bytes": 27083,
+        "sha256": "b56895407d668357897dc4b627fc9a85945f13c0c23242dfb57304fbf10f05bb",
+        "entries_sha256": "154e8e79af4b172f27e5a62216a02740d4422a7bdfabe3dbb75d4cbb51596c9a",
+        "name": "计算机与软件",
+        "missing_seeds": []
+      },
+      "finance": {
+        "file": "Jianyi-finance-2026.11.01.vimelex",
+        "entries": 325,
+        "headwords": 325,
+        "bytes": 15888,
+        "sha256": "bd625f3c197ad66c2fbc83ad43ddfa1eabc19ef7a2633b4f9721eea291cdc408",
+        "entries_sha256": "f89c3a8f5c1240cc9daa7b4b149d46082b2bec38a7158eb8b5730db898ebb1f6",
+        "name": "金融与经济",
+        "missing_seeds": []
+      },
+      "medicine": {
+        "file": "Jianyi-medicine-2026.11.01.vimelex",
+        "entries": 891,
+        "headwords": 891,
+        "bytes": 29305,
+        "sha256": "e85a7509af6d360d325adc2673a8f2f120fcd7a3e6d40c70ce71264f15977464",
+        "entries_sha256": "9bcccb78abd1f17fd1b29a9b56795ff14f5d570f2e7099c36721e00b8591021e",
+        "name": "医学与健康",
+        "missing_seeds": []
+      },
+      "law": {
+        "file": "Jianyi-law-2026.11.01.vimelex",
+        "entries": 271,
+        "headwords": 271,
+        "bytes": 15150,
+        "sha256": "b5318597844c46e44690114be4fa8d034b6da2e5a55652f4bbebf94b6b829770",
+        "entries_sha256": "70c398f5c86e8ae09ecedf297d4df396ccff2ab31ac3fe96cbb7d22c22faf6e6",
+        "name": "法律与政务",
+        "missing_seeds": []
+      },
+      "engineering": {
+        "file": "Jianyi-engineering-2026.11.01.vimelex",
+        "entries": 264,
+        "headwords": 263,
+        "bytes": 14342,
+        "sha256": "107879d6368aabcb75d28ed58b178ded74becbfa9e14c9c882c370b121b33e7d",
+        "entries_sha256": "77be661f3edf3af171173d9bf926c59ee72c55b0f7ab39d16990af897af23d9b",
+        "name": "机械与工程",
+        "missing_seeds": []
+      },
+      "bio-chem": {
+        "file": "Jianyi-bio-chem-2026.11.01.vimelex",
+        "entries": 671,
+        "headwords": 671,
+        "bytes": 22995,
+        "sha256": "08390dbaf888726cb63c15046cc69443145d981a06f85ab119274670e689b654",
+        "entries_sha256": "9e6455d6ef16bfd5310d03256d16c7d2e0589f24e4bc88bbbb46d7db6000cd8b",
+        "name": "生物与化学",
+        "missing_seeds": []
+      },
+      "education": {
+        "file": "Jianyi-education-2026.11.01.vimelex",
+        "entries": 342,
+        "headwords": 342,
+        "bytes": 15752,
+        "sha256": "ede1919d9ceda0fba94f2b79cb25ab42bdbf4a3c8a2769b543117279e5a6dcf3",
+        "entries_sha256": "b41738319036c766e620eb530db30a0aaa55c251ac4f5a4158722f198f4e73ca",
+        "name": "教育与学术",
+        "missing_seeds": []
+      },
+      "business": {
+        "file": "Jianyi-business-2026.11.01.vimelex",
+        "entries": 203,
+        "headwords": 203,
+        "bytes": 13200,
+        "sha256": "98c1881afddf8a273a76d32a5e91eaa23f0c6a60d91a0d09a28701c4a1e9013f",
+        "entries_sha256": "a6cff6c54ff5c418b55e7b93b2f4331e14eca806a3f0ea8d43ff3d3ad4502dde",
+        "name": "商务与贸易",
+        "missing_seeds": []
+      }
+    },
+    "combined": {
+      "file": "Jianyi-all-domains-2026.11.01.vimelex",
+      "entries": 3694,
+      "headwords": 3693,
+      "bytes": 91156,
+      "sha256": "833d9f805dad388572cde34eeaea6172346de5ae404f9121f10d801702ead85f",
+      "entries_sha256": "9045da0880258f92eae1e2c25d4be8f00d3db71dd61db524edcf35c6f385e8da"
+    }
+  },
+  "source_zip_roundtrip": {
+    "passed": true,
+    "common_rows": 1253,
+    "common_data_sha256": "2db25d04b4b93418bb8f676a962235fdfe83d2c71d8f4fd12bc6b232a8431d65",
+    "packs_byte_identical": 9,
+    "rebuild_used_extracted_source_zip": true,
+    "network_used": false
+  },
+  "unit_tests": {
+    "tests": 146,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "lint": {
+    "Warning": 170
+  },
+  "static_checks_passed": 44,
+  "android_final_apk_main": {
+    "passed": true,
+    "phase": "main",
+    "cases": [
+      {
+        "name": "packaged-loader-and-10000-common-words-offline",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "real-jni-and-merged-common-candidates-full-pinyin-and-nine-key",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "legacy-active-file-migrates-without-losing-old-pack",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "eight-real-domain-packs-coexist-and-every-entry-has-english",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "bad-checksum-and-rejected-snapshot-preserve-committed-catalog",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "same-id-update-and-single-removal-retain-other-domains",
+        "pass": true,
+        "error": null
+      }
+    ],
+    "observations": {
+      "common_checked": 10000,
+      "missing_common": [],
+      "common_characters_checked": 500,
+      "native_common_queries": 10,
+      "domain_entries_checked": 3753
+    }
+  },
+  "android_final_apk_restart": {
+    "passed": true,
+    "phase": "readback",
+    "cases": [
+      {
+        "name": "all-eight-packs-reload-after-real-process-restart",
+        "pass": true,
+        "error": null
+      },
+      {
+        "name": "isolated-packs-can-all-be-removed-with-builtins-retained",
+        "pass": true,
+        "error": null
+      }
+    ],
+    "observations": {}
+  },
+  "android_runtime_final_apk_sha256": "e8f7b5a8e60d2597cd0d6610364b07255e22ae17d8eca77f19aeee73b8e98740",
+  "ui_import_and_removal": {
+    "passed": true,
+    "cases": [
+      "SAF-it-confirmed-and-installed",
+      "SAF-second-pack-coexists-with-first",
+      "single-pack-removal-retains-other-pack",
+      "remove-all-retains-builtin"
+    ],
+    "initial_harness_attempt": "File-picker transition did not reach the confirmation; preserved ui-import.log. Retried only the missing second import using fresh hierarchies and stable target bounds."
+  },
+  "ui_import_apk_sha256": "1d74220493ac48ba001e4cd1a58559c9d01a4cfe599e0ce59e2fc8ddc6f83e33",
+  "ui_final_label": "Final package separately displayed corrected builtin-word-count label; backend unchanged from import UI build.",
+  "visual_review": [
+    "homepage brand and existing 2-word learning state",
+    "system-picker import preview",
+    "two installed domain packs",
+    "final builtin-count label",
+    "native Android adaptive icon/name"
+  ],
+  "restoration": {
+    "settings_restored": true,
+    "learning_database_bytes_preserved": true,
+    "existing_preferences_bytes_preserved": true,
+    "physical_phone_accessed": false
+  },
+  "publication_profile": "preview; existing certificate; not a commercial-readiness approval",
+  "production_failed_checks": [
+    "not_debuggable",
+    "https_only_network_config",
+    "not_preview_certificate"
+  ],
+  "native_commercial_source_review_complete": false,
+  "cloud_real_device_test_complete": false,
+  "filing_complete": false,
+  "app_store_live": false,
+  "limits": [
+    "Coverage is against the pinned 10000-word/500-character lists, not all Chinese text.",
+    "Proper names may be transliterations; functional coverage does not certify all contextual meanings.",
+    "8 domain selections are not exhaustive industry standards.",
+    "Voice recognition, formal signing, filing and app-store acceptance require separate evidence.",
+    "No personal physical phone was operated.",
+    "Initial UI file-picker timing/freshness failure and null-root observations are retained outside the public source report; no import-logic bypass was used."
+  ]
+}

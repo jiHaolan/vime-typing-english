@@ -1,0 +1,103 @@
+{
+  "format": "jianyi-domain-packs-1",
+  "version": "2026.11.01",
+  "source": {
+    "license": "CC-BY-SA-4.0",
+    "license_sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5",
+    "sha256": "3681b52f0f733e0caada3fa2fbe2236bfa1234333397f35f10f285ac292abec9",
+    "source_records": 125303,
+    "url": "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz",
+    "version": "2026-10-19T20:24:47Z"
+  },
+  "source_english_sha256": "5e7c2f9a5543a52c67dd929f9b134db00f976d19cc4b7e75935cd27ff03e5206",
+  "domains": {
+    "it": {
+      "file": "Jianyi-it-2026.11.01.vimelex",
+      "entries": 786,
+      "headwords": 786,
+      "bytes": 27083,
+      "sha256": "b56895407d668357897dc4b627fc9a85945f13c0c23242dfb57304fbf10f05bb",
+      "entries_sha256": "154e8e79af4b172f27e5a62216a02740d4422a7bdfabe3dbb75d4cbb51596c9a",
+      "name": "计算机与软件",
+      "missing_seeds": []
+    },
+    "finance": {
+      "file": "Jianyi-finance-2026.11.01.vimelex",
+      "entries": 325,
+      "headwords": 325,
+      "bytes": 15888,
+      "sha256": "bd625f3c197ad66c2fbc83ad43ddfa1eabc19ef7a2633b4f9721eea291cdc408",
+      "entries_sha256": "f89c3a8f5c1240cc9daa7b4b149d46082b2bec38a7158eb8b5730db898ebb1f6",
+      "name": "金融与经济",
+      "missing_seeds": []
+    },
+    "medicine": {
+      "file": "Jianyi-medicine-2026.11.01.vimelex",
+      "entries": 891,
+      "headwords": 891,
+      "bytes": 29305,
+      "sha256": "e85a7509af6d360d325adc2673a8f2f120fcd7a3e6d40c70ce71264f15977464",
+      "entries_sha256": "9bcccb78abd1f17fd1b29a9b56795ff14f5d570f2e7099c36721e00b8591021e",
+      "name": "医学与健康",
+      "missing_seeds": []
+    },
+    "law": {
+      "file": "Jianyi-law-2026.11.01.vimelex",
+      "entries": 271,
+      "headwords": 271,
+      "bytes": 15150,
+      "sha256": "b5318597844c46e44690114be4fa8d034b6da2e5a55652f4bbebf94b6b829770",
+      "entries_sha256": "70c398f5c86e8ae09ecedf297d4df396ccff2ab31ac3fe96cbb7d22c22faf6e6",
+      "name": "法律与政务",
+      "missing_seeds": []
+    },
+    "engineering": {
+      "file": "Jianyi-engineering-2026.11.01.vimelex",
+      "entries": 264,
+      "headwords": 263,
+      "bytes": 14342,
+      "sha256": "107879d6368aabcb75d28ed58b178ded74becbfa9e14c9c882c370b121b33e7d",
+      "entries_sha256": "77be661f3edf3af171173d9bf926c59ee72c55b0f7ab39d16990af897af23d9b",
+      "name": "机械与工程",
+      "missing_seeds": []
+    },
+    "bio-chem": {
+      "file": "Jianyi-bio-chem-2026.11.01.vimelex",
+      "entries": 671,
+      "headwords": 671,
+      "bytes": 22995,
+      "sha256": "08390dbaf888726cb63c15046cc69443145d981a06f85ab119274670e689b654",
+      "entries_sha256": "9e6455d6ef16bfd5310d03256d16c7d2e0589f24e4bc88bbbb46d7db6000cd8b",
+      "name": "生物与化学",
+      "missing_seeds": []
+    },
+    "education": {
+      "file": "Jianyi-education-2026.11.01.vimelex",
+      "entries": 342,
+      "headwords": 342,
+      "bytes": 15752,
+      "sha256": "ede1919d9ceda0fba94f2b79cb25ab42bdbf4a3c8a2769b543117279e5a6dcf3",
+      "entries_sha256": "b41738319036c766e620eb530db30a0aaa55c251ac4f5a4158722f198f4e73ca",
+      "name": "教育与学术",
+      "missing_seeds": []
+    },
+    "business": {
+      "file": "Jianyi-business-2026.11.01.vimelex",
+      "entries": 203,
+      "headwords": 203,
+      "bytes": 13200,
+      "sha256": "98c1881afddf8a273a76d32a5e91eaa23f0c6a60d91a0d09a28701c4a1e9013f",
+      "entries_sha256": "a6cff6c54ff5c418b55e7b93b2f4331e14eca806a3f0ea8d43ff3d3ad4502dde",
+      "name": "商务与贸易",
+      "missing_seeds": []
+    }
+  },
+  "combined": {
+    "file": "Jianyi-all-domains-2026.11.01.vimelex",
+    "entries": 3694,
+    "headwords": 3693,
+    "bytes": 91156,
+    "sha256": "833d9f805dad388572cde34eeaea6172346de5ae404f9121f10d801702ead85f",
+    "entries_sha256": "9045da0880258f92eae1e2c25d4be8f00d3db71dd61db524edcf35c6f385e8da"
+  }
+}

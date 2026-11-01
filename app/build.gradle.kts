@@ -21,7 +21,9 @@ val noticeChecks = providers.gradleProperty("vimeNoticeChecks").orNull
 require(noticeChecks == null || noticeChecks in listOf("true", "false")) { "vimeNoticeChecks must be true or false" }
 val keyboardChecks = providers.gradleProperty("vimeKeyboardChecks").orNull
 require(keyboardChecks == null || keyboardChecks in listOf("true", "false")) { "vimeKeyboardChecks must be true or false" }
-require(listOf(windowChecks, nativeChecks, inputDataChecks, noticeChecks, keyboardChecks).count { it == "true" } <= 1) { "Select one instrumentation suite at a time" }
+val lexiconChecks = providers.gradleProperty("vimeLexiconChecks").orNull
+require(lexiconChecks == null || lexiconChecks in listOf("true", "false")) { "vimeLexiconChecks must be true or false" }
+require(listOf(windowChecks, nativeChecks, inputDataChecks, noticeChecks, keyboardChecks, lexiconChecks).count { it == "true" } <= 1) { "Select one instrumentation suite at a time" }
 
 android {
     namespace = "com.vime.ime"
@@ -32,9 +34,10 @@ android {
         applicationId = "com.vime.ime"
         minSdk = 24
         targetSdk = 36
-        versionCode = 39
-        versionName = "0.24.2"
+        versionCode = 40
+        versionName = "0.25.0"
         testInstrumentationRunner = when {
+            lexiconChecks == "true" -> "com.vime.ime.LexiconCoverageInstrumentation"
             keyboardChecks == "true" -> "com.vime.ime.KeyboardUsabilityInstrumentation"
             windowChecks == "true" -> "com.vime.ime.WindowInteractionInstrumentation"
             nativeChecks == "true" -> "com.vime.ime.NativeRuntimeInstrumentation"
@@ -43,6 +46,7 @@ android {
             else -> "com.vime.ime.data.LearningStorageInstrumentation"
         }
     }
+    sourceSets.getByName("androidTest").assets.srcDir("build/domain-test-assets")
 
     signingConfigs {
         if (releaseSigningReady) create("operatorRelease") {
@@ -84,6 +88,14 @@ kotlin {
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
+
+val prepareDomainTestAssets by tasks.registering(Sync::class) {
+    from(rootProject.file("offline-packs")) { include("*.vimelex", "domain-packs.json") }
+    from(rootProject.file("data/common-baseline.tsv"))
+    from(rootProject.file("data/common-characters.tsv"))
+    into(layout.buildDirectory.dir("domain-test-assets"))
+}
+tasks.matching { it.name.contains("AndroidTest") }.configureEach { dependsOn(prepareDomainTestAssets) }
 
 // 注：compileDebugJavaWithJavac 每次会打印两行「注: XXX 使用了过时的 API」，
 // 指向的是 ViewBinding 为 KeyboardView（API 29 起 deprecated）生成的 ImeInputBinding.java，

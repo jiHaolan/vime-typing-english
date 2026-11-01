@@ -230,6 +230,32 @@
       "documents": [
         "licenses/legacy-octagram-GPL-3.0.txt"
       ]
+    },
+    {
+      "id": "common-english",
+      "title": "键忆常用英文补充",
+      "category": "词库与学习数据",
+      "license": "CC-BY-SA-4.0 / MIT",
+      "source": "https://github.com/jiHaolan/vime-typing-english",
+      "version": "2026.11.01",
+      "summary": "独立常用短语、明确数词量词规则和专名转写；现有CC-CEDICT原始义项保留。拼音由pypinyin0.55.0生成。",
+      "documents": [
+        "licenses/common-english-NOTICE.txt",
+        "licenses/pypinyin-MIT.txt",
+        "licenses/CC-BY-SA-4.0.txt"
+      ]
+    },
+    {
+      "id": "jieba-frequency",
+      "title": "结巴中文词频",
+      "category": "中文候选排序",
+      "license": "MIT",
+      "version": "67fa2e36e72f69d9134b8a1037b83fbb070b9775",
+      "source": "https://github.com/fxsjy/jieba",
+      "summary": "仅提取固定dict.txt中的词与频次，辅助同读音候选排序；不接入分词代码，不生成释义。",
+      "documents": [
+        "licenses/jieba-MIT.txt"
+      ]
     }
   ],
   "release_blockers": [

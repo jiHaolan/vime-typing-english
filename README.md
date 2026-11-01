@@ -2,17 +2,17 @@
 
 Android 中文输入法 + 英语提示 + 生词复习。先把打字做好，再利用日常输入认识和记住英文。
 
-**当前代码：v0.24.2 本地预览版。** 软件名称改为「键忆」，系统输入法列表显示「键忆输入法」。新图标以键帽、书页和金色书签表达“边打字，边记词”，包含安卓自适应、单色主题和旧版图标。[名称与图标规范](design-system/jianyi/BRAND.md)。保留0.24.1的半秒语音、删除键上划清空、底部留白和中文词频排序；[操作与验证](docs/KEYBOARD_USABILITY.md) · [界面说明](docs/GLASS_UI.md)。包名与工程内部Vime标识保留，支持同签名覆盖升级。原生引擎、完整词库和语音方案沿用0.23.1；下方GitHub下载仍是0.16.0历史包，本次未公开发布。后续依赖尚未接入本安装包，历史原生许可与商用验收记录继续保留。[引擎来源与验证](docs/NATIVE_SOURCE_REBUILD.md) · [后续依赖构建](docs/NATIVE_DEPENDENCY_BUILD.md)。
+**当前版本：v0.25.0 预览版。** 键忆将中文输入、英文词卡与间隔复习结合。新版本核对完整输入/英文数据，补足固定高频词和常用字的英文标签，并提供八个专业领域离线词包，支持手机直接导入与多包共存。[词库核验与词包导入](docs/LEXICON_COVERAGE.md) · [名称与图标](design-system/jianyi/BRAND.md) · [操作说明](docs/KEYBOARD_USABILITY.md)。当前仍为预览签名；手机独立语音、正式商用验收、备案与应用商店上架尚未完成。
 
 ## 下载安装
 
 | 安装包 | 适用设备 |
 | --- | --- |
-| [arm64-v8a · 大多数安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.16.0/vime-v0.16.0-arm64-v8a.apk) | 约 24.7 MB，推荐先选这个 |
-| [armeabi-v7a · 32 位安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.16.0/vime-v0.16.0-armeabi-v7a.apk) | 较老的 32 位设备 |
-| [x86_64 · 模拟器](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.16.0/vime-v0.16.0-x86_64.apk) | Android x86_64 模拟器 |
+| [arm64-v8a · 大多数安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.0/Jianyi-0.25.0-arm64-v8a.apk) | 推荐 |
+| [armeabi-v7a · 32位安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.0/Jianyi-0.25.0-armeabi-v7a.apk) | 较老的32位设备 |
+| [x86_64 · 模拟器](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.0/Jianyi-0.25.0-x86_64.apk) | Android x86_64模拟器 |
 
-[完整发布页](https://github.com/jiHaolan/vime-typing-english/releases/tag/v0.16.0) · [可选 CC-CEDICT 词包](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.16.0/CC-CEDICT-2026-10-19.vimelex) · [更新记录](CHANGELOG.md)
+[完整下载页与专业词包](https://github.com/jiHaolan/vime-typing-english/releases/tag/v0.25.0) · [词包说明](offline-packs/) · [更新记录](CHANGELOG.md)
 
 Android 7.0 及以上。安装后在系统设置中启用并选择本输入法。首次切换请在普通记事本中测试；现有项目签名的旧版可覆盖升级。
 
@@ -25,7 +25,7 @@ Android 7.0 及以上。安装后在系统设置中启用并选择本输入法�
 - 学习数据本机备份与恢复；合并保留本机同名词，替换需确认；可删除单个收藏及对应复习记录。
 - 主题配色、按键触感、横竖屏独立键盘尺寸与自定义短语。
 - 长按空格约半秒调用手机语音服务，松手结束；默认无需填写 API 密钥。
-- 可选离线词包、词典查询、剪贴板、表情和符号工具。
+- 八类专业离线词包、多个扩展包共存、词典查询、剪贴板、表情和符号工具。
 
 默认手机语音和英文发音使用已安装的服务；厂商服务可被检测到却拒绝实际识别。可选择[电脑X-ASR语音](docs/haolive-voice.md)，当前已在X100完成中文识别、由用户确认英文完整出字；该方案需要正在运行的电脑服务和有效连接，USB测试不等于已部署公共后台。APK不捆绑大型语音模型。
 
@@ -42,6 +42,8 @@ Android 7.0 及以上。安装后在系统设置中启用并选择本输入法�
 请在 [新建 Issue](https://github.com/jiHaolan/vime-typing-english/issues/new/choose) 中说明手机型号、Android 版本、应用版本、键盘布局、复现步骤和预期结果。截图请先遮住聊天、账号和其他私人信息，不要提交密码、API 密钥或个人词库。
 
 ## 验证范围
+
+0.25.0核对569466条输入记录及全部198019个英文义项；固定10000个多字词、500个单字的默认英文标签在断网Android16/16KB模拟器全部可用。145项JVM通过、1项可选数据集跳过；8项Android实际加载/多包事务/进程重启检查与10组全拼/九键查询通过；系统文件选择器另完成两包共存与逐包/全部移除。新增补充与9个词包从源码包断网重建字节一致。最终ARM64约32.6MB，原生库和原始词库不变；沿用预览签名，尚未完成独立语音、备案、云真机与应用商店验收。[逐项证据](docs/verification/lexicon-domain-0.25.0.json)。
 
 0.24.1通过140项JVM测试、14项Android专项检查（候选、真实View手势、窗口底部和排版面板），另1项原有可选数据集跳过；静态44项，lint0错误171警告。最终包触发语音手势实测约515ms，未重新验收麦克风或ASR效果。ARM64约32.6MB，新增词频表压缩后使安装包增加约0.95MB。首次运行遇到模拟器连接超时，后续修正检查工具的前台/输入法切换顺序后通过；失败记录保留，个人手机未操作。[完整证据](docs/verification/keyboard-usability-0.24.1.json)。
 

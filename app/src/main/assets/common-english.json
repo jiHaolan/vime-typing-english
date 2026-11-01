@@ -1,0 +1,18 @@
+{
+  "format": "jianyi-common-english-1",
+  "baseline": 10000,
+  "common_characters": 500,
+  "character_baseline_sha256": "5b8d360d1d3569d82c1bd623cd6332e7859cba9f2fdc16f78ef811e5ce57a854",
+  "supplement": 1253,
+  "kinds": {
+    "measure": 172,
+    "authored": 973,
+    "proper-name": 108
+  },
+  "sha256": "2db25d04b4b93418bb8f676a962235fdfe83d2c71d8f4fd12bc6b232a8431d65",
+  "baseline_sha256": "29230b48cb9826657e77edd25fa8e29e2c6934530d3fdbc500b4766780a5d3cb",
+  "gloss_source": "data/common-glosses.tsv (authored, CC-BY-SA-4.0); explicit numeric measure rules; proper names are transliterations, not English senses",
+  "pinyin_source": "pypinyin 0.55.0 (MIT); explicit common reading corrections",
+  "source_english_sha256": "5e7c2f9a5543a52c67dd929f9b134db00f976d19cc4b7e75935cd27ff03e5206",
+  "policy": "Use only when the matched built-in label contains no Latin letters. Match reading hints; keep unknowns empty. Existing CC-CEDICT files remain unchanged."
+}

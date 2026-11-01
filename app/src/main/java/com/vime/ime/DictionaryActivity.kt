@@ -37,7 +37,7 @@ class DictionaryActivity : AppCompatActivity() {
                 if (!alive()) return@runOnUiThread
                 staged = bytes
                 AlertDialog.Builder(this).setTitle("安装离线词典？")
-                    .setMessage("${pack.name}\n${pack.version}\n${pack.entries.size} 条拼音/释义记录\n授权：${pack.license}\n来源：${pack.source}\n\n将替换扩展包，内置词库保留。只安装可信来源的数据。")
+                    .setMessage("${pack.name}\n${pack.version}\n${pack.entries.size} 条拼音/释义记录\n授权：${pack.license}\n来源：${pack.source}\n\n导入后可与其他领域词包一起使用；同一词包的新版本会更新旧版。内置词库保留。")
                     .setNegativeButton("取消") { _, _ -> staged = null }
                     .setOnCancelListener { staged = null }
                     .setPositiveButton("安装") { _, _ ->
@@ -69,17 +69,35 @@ class DictionaryActivity : AppCompatActivity() {
         status.setPadding(dp(20), dp(20), dp(20), dp(20))
         action("导入离线词包", true) { picker.launch(arrayOf("*/*")) }
         label("支持 .vimelex 格式 · 安装前会展示来源与授权", 12f)
+        action("下载专业领域词包") {
+            runCatching { startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("https://github.com/jiHaolan/vime-typing-english/releases/tag/v0.25.0"))) }
+                .onFailure { status.text="未找到可打开网页的浏览器" }
+        }
         action("查看来源与授权") {
-            val pack = DictRepository.installedPack
-            AlertDialog.Builder(this).setTitle("词典来源与授权")
-                .setMessage(pack?.let { "${it.notice}\n\n${it.licenseText}" } ?: "尚未安装扩展包。内置词库继续可用。")
-                .setPositiveButton("关闭", null).show()
+            val packs=DictRepository.installedPacks
+            if(packs.isEmpty()) AlertDialog.Builder(this).setMessage("尚未安装扩展包。内置词库继续可用。").setPositiveButton("关闭",null).show()
+            else AlertDialog.Builder(this).setTitle("选择词包")
+                .setItems(packs.map { it.name }.toTypedArray()) { _,which ->
+                    val pack=packs[which]
+                    AlertDialog.Builder(this).setTitle(pack.name).setMessage("${pack.notice}\n\n${pack.licenseText}").setPositiveButton("关闭",null).show()
+                }.show()
         }
         action("内置组件与词库来源") { startActivity(Intent(this,NoticesActivity::class.java)) }.id=R.id.dictionaryNotices
         action("移除扩展包 · 保留内置词库") {
-            AlertDialog.Builder(this).setTitle("移除扩展词典？").setMessage("不会删除生词本或内置词库。可重新导入恢复。")
-                .setNegativeButton("取消", null).setPositiveButton("移除") { _, _ ->
-                    background("正在恢复内置词库…") { DictRepository.uninstall(this) }
+            val packs=DictRepository.installedPacks
+            if(packs.isEmpty()) {
+                if(DictRepository.packError!=null) AlertDialog.Builder(this).setTitle("清理损坏的扩展词包？")
+                    .setMessage("只清理扩展词包，内置词库和生词本保留。")
+                    .setNegativeButton("取消",null).setPositiveButton("清理") { _,_ -> background("正在清理扩展词包…") { DictRepository.uninstall(this) } }.show()
+                return@action
+            }
+            AlertDialog.Builder(this).setTitle("选择要移除的词包")
+                .setItems((packs.map { it.name }+"移除全部扩展包").toTypedArray()) { _,which ->
+                    val selected=packs.getOrNull(which)
+                    AlertDialog.Builder(this).setTitle("移除${selected?.name?:"全部扩展包"}？").setMessage("不会删除生词本或内置词库。可重新导入恢复。")
+                        .setNegativeButton("取消",null).setPositiveButton("移除") { _,_ ->
+                            background("正在更新扩展词库…") { DictRepository.uninstall(this,selected?.id) }
+                        }.show()
                 }.show()
         }
         query = EditText(this).apply {
@@ -137,9 +155,9 @@ class DictionaryActivity : AppCompatActivity() {
         }
     }
     private fun refresh() {
-        val pack = DictRepository.installedPack
-        status.text = "${if (DictRepository.ready) "词典就绪" else "词典未就绪"} · ${DictRepository.wordCount} 条拼音词条 · ${DictRepository.enCount} 条释义\n" +
-            (pack?.let { "扩展包：${it.name} / ${it.version}\n${it.entries.size} 条记录 · ${it.license}" } ?: "未安装扩展包，正在使用内置词库") +
+        val packs = DictRepository.installedPacks
+        status.text = "${if (DictRepository.ready) "词典就绪" else "词典未就绪"} · ${DictRepository.wordCount} 条输入记录\n内置英文释义：${DictRepository.enCount} 个词头\n" +
+            (if(packs.isEmpty()) "未安装扩展包，正在使用内置词库" else "已安装 ${packs.size} 个词包（最多16个）\n"+packs.joinToString("\n") { "${it.name} · ${it.entries.size} 条记录" }) +
             (DictRepository.packError?.let { "\n$it" } ?: "") + (DictRepository.loadError?.let { "\n$it" } ?: "")
     }
     private fun background(message: String, work: () -> Unit) {

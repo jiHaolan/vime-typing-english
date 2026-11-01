@@ -1,0 +1,8 @@
+Jianyi common English supplement, 2026-11-01.
+Newly authored short lexical labels and number/measure rules: CC-BY-SA-4.0.
+https://creativecommons.org/licenses/by-sa/4.0/
+Source tables: data/common-glosses.tsv; data/common-proper-names.txt; tools/build_common_english.py.
+Pinyin spellings generated with pypinyin0.55.0, by mozillazg and contributors (MIT); explicit common-reading corrections are in the builder.
+Proper names are identified transliterations, not context-specific translations.
+Frequency baseline: pinned jieba MIT words/frequencies; original CC-CEDICT corpus remains unchanged.
+Professional pack authored additions: data/domain-extra.tsv, CC-BY-SA-4.0, separate from source CC-CEDICT records.

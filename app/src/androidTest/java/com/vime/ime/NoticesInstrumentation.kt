@@ -29,7 +29,7 @@ class NoticesInstrumentation:Instrumentation() {
             check(Build.PRODUCT.contains("sdk")) { "Dedicated emulator required" }
             test("packaged-catalog-and-all-document-references-parse") {
                 catalog=NoticeCatalog.parse(targetContext.assets.open("notices.json").bufferedReader().use { it.readText() })
-                check(catalog.components.size==19 && catalog.files.size==34)
+                check(catalog.components.size==21 && catalog.files.size==37)
                 observations.put("components",catalog.components.size).put("documents",catalog.files.size)
             }
             test("all-packaged-license-bytes-match-including-complete-gpl") {
@@ -169,8 +169,8 @@ class NoticesInstrumentation:Instrumentation() {
                 observations.put("english_labelled_headwords",DictRepository.enCount)
             }
             test("optional-pack-import-native-front-rollback-and-removal") {
-                val active=java.io.File(targetContext.filesDir,"dictionary/active.vimelex")
-                val original=active.takeIf { it.isFile }?.readBytes()
+                val directory=java.io.File(targetContext.cacheDir,"notices-pack-isolated").apply { check(isDirectory || mkdirs()) }
+                val sandbox=object:android.content.ContextWrapper(targetContext) { override fun getFilesDir()=directory }
                 val row="ceshixingyun\t测试星云\tfixture nebula\tce4 shi4 xing1 yun2\n".toByteArray()
                 fun pack(valid:Boolean):ByteArray {
                     val hash=if(valid) MessageDigest.getInstance("SHA-256").digest(row).joinToString("") { "%02x".format(it) } else "0".repeat(64)
@@ -182,13 +182,14 @@ class NoticesInstrumentation:Instrumentation() {
                     return out.toByteArray()
                 }
                 try {
-                    DictRepository.install(targetContext,pack(true));val hash=DictRepository.installedPack!!.hash
+                    DictRepository.uninstall(sandbox)
+                    DictRepository.install(sandbox,pack(true));val hash=DictRepository.installedPack!!.hash
                     check(com.vime.ime.engine.InputEngine.query("ceshixingyun",false,personalized=false).first().let { it.word=="测试星云" && it.en=="fixture nebula" })
                     check(DictRepository.definition("测试星云")!!.source.contains("Isolated Vime test"))
                     check(DictRepository.enCandidates("fixt",100).any { it.word=="fixture" })
-                    check(runCatching { DictRepository.install(targetContext,pack(false)) }.isFailure)
+                    check(runCatching { DictRepository.install(sandbox,pack(false)) }.isFailure)
                     check(DictRepository.installedPack!!.hash==hash)
-                } finally { if(original!=null) DictRepository.install(targetContext,original) else DictRepository.uninstall(targetContext) }
+                } finally { DictRepository.uninstall(sandbox);DictRepository.reload(targetContext) }
                 check(DictRepository.getEn("学习").isNotBlank())
             }
         } catch(error:Throwable) {
