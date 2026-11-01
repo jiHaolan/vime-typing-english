@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         b.btnVoiceConfig.setOnClickListener { startActivity(Intent(this, VoiceSettingsActivity::class.java)) }
         b.btnInputSettings.setOnClickListener { startActivity(Intent(this, InputSettingsActivity::class.java)) }
         b.btnInputData.setOnClickListener { startActivity(Intent(this, InputDataActivity::class.java)) }
+        b.btnFeedback.setOnClickListener { startActivity(Intent(this, FeedbackActivity::class.java)) }
         b.btnStudy.setOnClickListener {
             startActivity(Intent(this, LearningActivity::class.java).putExtra("start_review", dueCount > 0))
         }
@@ -95,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                 }.setNegativeButton("取消", null).show()
         }
         listOf(b.btnEnable, b.btnDictionary, b.btnStudy, b.btnTheme, b.btnHaptics, b.btnVoiceConfig,
-            b.btnInputData, b.lvCet4, b.lvCet6, b.lvToefl, b.lvAll).forEach { view ->
+            b.btnInputData, b.btnFeedback, b.lvCet4, b.lvCet6, b.lvToefl, b.lvAll).forEach { view ->
             ViewCompat.setAccessibilityDelegate(view, object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(host: android.view.View, info: AccessibilityNodeInfoCompat) {
                     super.onInitializeAccessibilityNodeInfo(host, info); info.className = "android.widget.Button"

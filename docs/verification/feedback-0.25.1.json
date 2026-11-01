@@ -1,0 +1,87 @@
+{
+  "version": "0.25.1",
+  "version_code": 41,
+  "scope": "Help and feedback entry only; no offline ASR added to this APK",
+  "unit_tests": {
+    "tests": 146,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "lint": {
+    "Error": 0,
+    "Fatal": 0,
+    "Warning": 173
+  },
+  "artifacts": {
+    "armeabi-v7a": {
+      "name": "Jianyi-0.25.1-armeabi-v7a.apk",
+      "bytes": 30831333,
+      "sha256": "db3e41caabee65153f365f6ed4dfc3d2973fe8801ca53ef873f23d7151a57f87",
+      "asset_native_files_byte_identical_to_0_25_0": 65
+    },
+    "x86_64": {
+      "name": "Jianyi-0.25.1-x86_64.apk",
+      "bytes": 32580315,
+      "sha256": "d9b04a7500fab6b454c343b7631699a070069bfb893be8f93557f6a885a3b52f",
+      "asset_native_files_byte_identical_to_0_25_0": 65
+    },
+    "arm64-v8a": {
+      "name": "Jianyi-0.25.1-arm64-v8a.apk",
+      "bytes": 32613089,
+      "sha256": "c5739fa15251e85caa81456be6be20db9ef52de1189d21e7a52aa597411fca1f",
+      "asset_native_files_byte_identical_to_0_25_0": 65
+    }
+  },
+  "emulator": {
+    "android_api": 36,
+    "abi": "x86_64",
+    "page_size": 16384,
+    "final_apk_tested": "d9b04a7500fab6b454c343b7631699a070069bfb893be8f93557f6a885a3b52f",
+    "home_entry": {
+      "apk_sha256": "d9b04a7500fab6b454c343b7631699a070069bfb893be8f93557f6a885a3b52f",
+      "home_native_entry_tapped": true,
+      "feedback_page_opened": true,
+      "clipboard_not_read_or_changed_in_this_phase": true
+    },
+    "flows": {
+      "github_browser_intent_dispatched": true,
+      "github_target": "https://github.com/jiHaolan/vime-typing-english/issues/new/choose",
+      "voice_help_route": true,
+      "privacy_route": true,
+      "all_five_controls_reachable_at_font_1_5": true,
+      "clipboard_controls": "source reviewed; clipboard deliberately not read or overwritten",
+      "original_database_preferences_settings_unchanged": true
+    }
+  },
+  "visual_review": [
+    "home entry",
+    "default feedback",
+    "1.5x font feedback"
+  ],
+  "screenshots": {
+    "feedback-default.png": "bb4630de6aa5648f1da417b044a7d15ef7f461683ba37e505947542e21b29b31",
+    "feedback-large-font-bottom.png": "5abcdcb0b50e47c22221717617f6c4c9ef47ad8eb6389df062ad3a9227cfe942",
+    "feedback-large-font.png": "64c6838da39140b2e1921d30218ba84a69edb96a1c854eee017941ea2cb63955",
+    "feedback-privacy.png": "fa0c22314192087df4322e8ccdf3bac831358892e0626e866bd425f635520f52",
+    "feedback-voice-help.png": "2cd97859c3a642cf868fdb0decebad1ee250ac791661779befb8dd369dc47806",
+    "home-feedback-entry.png": "db9d3a8d73a88651683f257cdff72b2d5effbc2fe94c9467e55700c9bc4799ec"
+  },
+  "test_harness_failures_retained": [
+    "External am start correctly refused private FeedbackActivity; subsequent checks used actual home touch.",
+    "First scroll helper used fixed coordinates; replaced with actual device dimensions.",
+    "Font-scale activity rebuild returned null UI root once; bounded retry waited for a valid current dump."
+  ],
+  "production_gate_failures": [
+    "not_debuggable",
+    "https_only_network_config",
+    "not_preview_certificate"
+  ],
+  "not_verified": [
+    "copy buttons not executed to preserve user clipboard",
+    "successful GitHub issue submission, account login or feedback triage",
+    "0.25.1 physical or cloud phone execution",
+    "independent offline microphone ASR; separate engine investigation ongoing",
+    "commercial signing, native transitive review, filing, store release and payments"
+  ]
+}

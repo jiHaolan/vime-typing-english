@@ -2,17 +2,17 @@
 
 Android 中文输入法 + 英语提示 + 生词复习。先把打字做好，再利用日常输入认识和记住英文。
 
-**当前版本：v0.25.0 预览版。** 键忆将中文输入、英文词卡与间隔复习结合。新版本核对完整输入/英文数据，补足固定高频词和常用字的英文标签，并提供八个专业领域离线词包，支持手机直接导入与多包共存。[词库核验与词包导入](docs/LEXICON_COVERAGE.md) · [名称与图标](design-system/jianyi/BRAND.md) · [操作说明](docs/KEYBOARD_USABILITY.md)。当前仍为预览签名；手机独立语音、正式商用验收、备案与应用商店上架尚未完成。
+**当前版本：v0.25.1 预览版。** 首页新增「帮助与反馈」，集中提供问题入口、使用说明和语音故障设置。沿用0.25.0的常用英文补充与八类专业离线词包，支持手机直接导入与多包共存。[词库核验与词包导入](docs/LEXICON_COVERAGE.md) · [名称与图标](design-system/jianyi/BRAND.md) · [操作说明](docs/KEYBOARD_USABILITY.md)。当前仍为预览签名；手机独立语音、正式商用验收、备案与应用商店上架尚未完成。
 
 ## 下载安装
 
 | 安装包 | 适用设备 |
 | --- | --- |
-| [arm64-v8a · 大多数安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.0/Jianyi-0.25.0-arm64-v8a.apk) | 推荐 |
-| [armeabi-v7a · 32位安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.0/Jianyi-0.25.0-armeabi-v7a.apk) | 较老的32位设备 |
-| [x86_64 · 模拟器](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.0/Jianyi-0.25.0-x86_64.apk) | Android x86_64模拟器 |
+| [arm64-v8a · 大多数安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.1/Jianyi-0.25.1-arm64-v8a.apk) | 推荐 |
+| [armeabi-v7a · 32位安卓手机](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.1/Jianyi-0.25.1-armeabi-v7a.apk) | 较老的32位设备 |
+| [x86_64 · 模拟器](https://github.com/jiHaolan/vime-typing-english/releases/download/v0.25.1/Jianyi-0.25.1-x86_64.apk) | Android x86_64模拟器 |
 
-[完整下载页与专业词包](https://github.com/jiHaolan/vime-typing-english/releases/tag/v0.25.0) · [词包说明](offline-packs/) · [更新记录](CHANGELOG.md)
+[本版下载页](https://github.com/jiHaolan/vime-typing-english/releases/tag/v0.25.1) · [专业词包下载](https://github.com/jiHaolan/vime-typing-english/releases/tag/v0.25.0) · [词包说明](offline-packs/) · [更新记录](CHANGELOG.md)
 
 Android 7.0 及以上。安装后在系统设置中启用并选择本输入法。首次切换请在普通记事本中测试；现有项目签名的旧版可覆盖升级。
 
@@ -39,9 +39,13 @@ Android 7.0 及以上。安装后在系统设置中启用并选择本输入法�
 
 ## 反馈问题
 
+首页 →「帮助与反馈」可直接打开问题模板、主动复制设备与版本信息或反馈链接，并查看本地使用说明。仅在点击时打开浏览器；不会自动发送输入正文、录音或诊断报告。
+
 请在 [新建 Issue](https://github.com/jiHaolan/vime-typing-english/issues/new/choose) 中说明手机型号、Android 版本、应用版本、键盘布局、复现步骤和预期结果。截图请先遮住聊天、账号和其他私人信息，不要提交密码、API 密钥或个人词库。
 
 ## 验证范围
+
+0.25.1在Android16/16KB专用模拟器完成反馈入口和浏览器地址、语音设置、隐私说明的真实跳转；1.5倍字号下五个入口均可达。原数据库、偏好和系统输入法设置保持一致；复制按钮仅源码审阅，未覆盖用户剪贴板。三个ABI全部65个词库/原生文件与0.25.0相同；145项JVM通过、1项原有可选数据集跳过，lint0错误173警告。本版没有加入新的语音引擎，0.25.0云测记录不代表本版真机验收。[专项记录](docs/verification/feedback-0.25.1.json)。
 
 0.25.0核对569466条输入记录及全部198019个英文义项；固定10000个多字词、500个单字的默认英文标签在断网Android16/16KB模拟器全部可用。145项JVM通过、1项可选数据集跳过；8项Android实际加载/多包事务/进程重启检查与10组全拼/九键查询通过；系统文件选择器另完成两包共存与逐包/全部移除。新增补充与9个词包从源码包断网重建字节一致。最终ARM64约32.6MB，原生库和原始词库不变；沿用预览签名，尚未完成独立语音、备案、云真机与应用商店验收。[逐项证据](docs/verification/lexicon-domain-0.25.0.json)。
 

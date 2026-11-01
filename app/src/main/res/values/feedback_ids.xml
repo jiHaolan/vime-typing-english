@@ -1,0 +1,7 @@
+<resources>
+    <item name="feedbackIssue" type="id" />
+    <item name="feedbackCopyDeviceInfo" type="id" />
+    <item name="feedbackCopyLink" type="id" />
+    <item name="feedbackVoiceHelp" type="id" />
+    <item name="feedbackPrivacy" type="id" />
+</resources>

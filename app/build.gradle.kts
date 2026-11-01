@@ -34,8 +34,8 @@ android {
         applicationId = "com.vime.ime"
         minSdk = 24
         targetSdk = 36
-        versionCode = 40
-        versionName = "0.25.0"
+        versionCode = 41
+        versionName = "0.25.1"
         testInstrumentationRunner = when {
             lexiconChecks == "true" -> "com.vime.ime.LexiconCoverageInstrumentation"
             keyboardChecks == "true" -> "com.vime.ime.KeyboardUsabilityInstrumentation"

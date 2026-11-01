@@ -36,6 +36,7 @@
       <TextView android:id="@+id/btnVoiceConfig" style="@style/SettingRow" android:text="语音输入    长按空格说话  ›" android:drawableStart="@drawable/ic_voice" android:drawablePadding="12dp" />
       <TextView android:id="@+id/btnInputSettings" style="@style/SettingRow" android:text="输入设置    尺寸、短语与配色  ›" android:drawableStart="@drawable/ic_keyboard" android:drawablePadding="12dp" />
       <TextView android:id="@+id/btnInputData" style="@style/SettingRow" android:text="输入数据    管理本机记录  ›" android:drawableStart="@drawable/ic_wordbook" android:drawablePadding="12dp" />
+      <TextView android:id="@+id/btnFeedback" style="@style/SettingRow" android:text="帮助与反馈    使用说明、提交问题  ›" android:drawableStart="@drawable/ic_feedback" android:drawablePadding="12dp" />
     </LinearLayout>
     <TextView style="@style/SectionTitle" android:layout_marginTop="24dp" android:text="离线词典" />
     <TextView android:id="@+id/btnDictionary" style="@style/SettingRow" android:layout_marginTop="8dp" android:text="词包与查词    管理本机词库  ›" />

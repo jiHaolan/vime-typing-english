@@ -49,6 +49,7 @@
         <activity android:name=".InputSettingsActivity" android:exported="false" android:windowSoftInputMode="adjustResize" android:theme="@style/ImeTheme" />
         <activity android:name=".InputDataActivity" android:exported="false" android:windowSoftInputMode="adjustResize" android:theme="@style/ImeTheme" />
         <activity android:name=".PrivacyActivity" android:exported="false" android:windowSoftInputMode="adjustResize" android:theme="@style/ImeTheme" />
+        <activity android:name=".FeedbackActivity" android:exported="false" android:theme="@style/ImeTheme" />
         <activity android:name=".NoticesActivity" android:exported="false" android:windowSoftInputMode="adjustResize" android:theme="@style/ImeTheme" />
 
         <activity android:name=".DictionaryActivity" android:exported="false"
